@@ -25,9 +25,9 @@ class Drum
           proc = eval "\nProc.new do\n#{@__preprocessor__.call File.open("#{@__filename__}").read}\nend"
           @exception = nil
           @__engine__ = Drum.build &proc
-#        rescue Exception => e
-#          @exception = e
-#          nil
+        rescue Exception => e
+          @exception = e
+          nil
         end
       end
     end
