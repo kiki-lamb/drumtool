@@ -42,6 +42,10 @@ class Drum
       @__muted_by__.include? (Instrument === instr ? instr.name : instr)
     end
 
+    def siblings
+      @collection.values
+    end
+
     def sibling name 
       @collection[name]
     end
@@ -58,7 +62,7 @@ class Drum
     end
 
     def fires_at? time
-      return false if @mute || (@collection.values.find do |i|
+      return false if @mute || (siblings.find do |i|
         muted_by?(i) && i.fires_at?(time)
       end)
 
