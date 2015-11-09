@@ -1,5 +1,3 @@
-require "./lib/drum/formatters"
-require "./lib/drum/instrument"
 require "./lib/drum/engine"
 require "./lib/drum/live_coder"
 

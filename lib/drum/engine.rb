@@ -2,6 +2,7 @@ require "midi"
 require_relative "../dsl_attrs"
 require_relative "instruments"
 require_relative "instrument"
+require_relative "formatters"
 
 class Drum
   class Engine
