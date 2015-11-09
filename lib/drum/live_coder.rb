@@ -32,7 +32,7 @@ class Drum
       end
     end
 
-    def run
+    def play
         tick = 0
 
         while true do 
