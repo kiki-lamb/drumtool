@@ -33,6 +33,7 @@ class Drum
 
     def muted_by *names
       names.each do |name|
+			  raise ArgumentError, "Circular reference while muting" if sibling(name).muted_by?(self)
         @__muted_by__ << name
       end
     end
@@ -41,9 +42,13 @@ class Drum
       @__muted_by__.include? (Instrument === instr ? instr.name : instr)
     end
 
+		def sibling name 
+		  @collection[name]
+		end
+
     def mutes *names
       names.each do |name|
-        @collection[name].muted_by name
+        sibling(name).muted_by name
       end
     end
 
