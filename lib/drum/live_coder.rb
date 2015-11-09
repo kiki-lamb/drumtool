@@ -35,6 +35,8 @@ class Drum
           tick += 1
         end
       end
+    rescue Interrupt
+		  $stdout << "\n#{self.class.name}: Stopped by user.\n"
     end
 
 		private
