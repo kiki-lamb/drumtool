@@ -6,29 +6,29 @@ module DslAttrs
   def dsl_attr name, after: [], failover: nil
       define_method(name) do |v = nil, &b|
         if v  
-	   			tmp = instance_variable_get("@#{name}")
+          tmp = instance_variable_get("@#{name}")
 
           instance_variable_set "@#{name}", v
           [*after].each do |after|
             send after
           end
-				end
-
-				tmp = instance_variable_get("@#{name}")
-
-				if tmp
-				elsif failover
-        	tmp = send(failover).send(name, v) 
         end
 
-				tmp
+        tmp = instance_variable_get("@#{name}")
+
+        if tmp
+        elsif failover
+          tmp = send(failover).send(name, v) 
+        end
+
+        tmp
       end
   end
 
   def dsl_toggle name
       define_method(name) do
           instance_variable_set "@#{name}", true
-			end
+      end
   end
 end
 
@@ -192,43 +192,43 @@ class Drum
   class Instrument
     extend DslAttrs
 
-		dsl_toggle :mute
-		dsl_toggle :flip
+    dsl_toggle :mute
+    dsl_toggle :flip
 
     dsl_attr :note
-		dsl_attr :shift, failover: :collection
-		dsl_attr :loop, failover: :collection
+    dsl_attr :shift, failover: :collection
+    dsl_attr :loop, failover: :collection
 
     attr_reader :name
     attr_reader :short_name
-		attr_reader :collection
+    attr_reader :collection
 
     def initialize collection, name
       @name, @note, @loop, @shift, @short_name, @mute, @flip = name, note, nil, nil, name[0..1].upcase, false, false
       @collection, @__triggers__, @__muted_by__ = collection, [], []
-			clear_cache
+      clear_cache
     end
 
-		def build &b
+    def build &b
       instance_eval &b
       self
     end
 
-		def clear_cache
-		  @__cache__ = {}
+    def clear_cache
+      @__cache__ = {}
     end
 
     def muted_by *names
-		  names.each do |name|
+      names.each do |name|
         @__muted_by__ << name
       end
     end
 
-		def mutes *names
+    def mutes *names
       names.each do |name|
-  		  @collection[name].muted_by name
+        @collection[name].muted_by name
       end
-		end
+    end
 
     def on &condition
      clear_cache
@@ -236,24 +236,24 @@ class Drum
     end
 
     def fires_at? time
-		  return false if @mute || (@collection.values.find do |i|
-			  @__muted_by__.include?(i.name) && i.fires_at?(time)
-			end)
+      return false if @mute || (@collection.values.find do |i|
+        @__muted_by__.include?(i.name) && i.fires_at?(time)
+      end)
 
-			e_time = time - ( shift || 0 )
-   		e_time %= loop if loop
-			
+      e_time = time - ( shift || 0 )
+      e_time %= loop if loop
+      
       r = @__cache__[e_time] ||= @__triggers__.find do |t|
         tmp = t.call e_time
 
-				if Fixnum === tmp
-				  0 == tmp
-				else
+        if Fixnum === tmp
+          0 == tmp
+        else
           tmp
         end
-		  end
+      end
 
-			@flip ? (! r) : r
+      @flip ? (! r) : r
       
     end
 
@@ -269,14 +269,14 @@ class Drum
   class Instruments < Hash
     extend DslAttrs
 
-	  attr_reader :engine
+    attr_reader :engine
 
-		# We never actually enter a DSL on this class an are really just using these as 'delegate_to'.
-		dsl_attr :shift, failover: :engine
-		dsl_attr:loop , failover: :engine
+    # We never actually enter a DSL on this class an are really just using these as 'delegate_to'.
+    dsl_attr :shift, failover: :engine
+    dsl_attr:loop , failover: :engine
 
     def initialize engine, *a
-		  @engine = engine
+      @engine = engine
 
       super(*a) do |h,k| 
         h[k] = Instrument.new self, k
@@ -305,8 +305,8 @@ class Drum
   class Engine
     extend DslAttrs
 
-		dsl_attr :shift
-		dsl_attr :loop
+    dsl_attr :shift
+    dsl_attr :loop
     dsl_attr :bpm, after: :tick_length 
 
     attr_reader :instruments, :output
@@ -316,13 +316,13 @@ class Drum
       @output = output
     end
 
-    def play tick, log: $stdout				
+    def play tick, log: $stdout       
         log << "\n" if 0 == (tick % (loop ? [16, loop].min : 16))
         log << "\n"
-				log << bpm
+        log << bpm
 
-				tick = tick % loop if loop
-				
+        tick = tick % loop if loop
+        
         log << Drum::Formatters::TableRowFormatter.call([ 
           tick.to_s(16).rjust(16, "0"), 
           *instruments.values.map do |i| 
@@ -367,113 +367,113 @@ class Drum
     end                   
   end
 
-	class LiveCoder
-	  def initialize filename, refresh_interval = 16
-		  @__filename__ = filename
-			@__refresh_interval__ = refresh_interval
-			@__hash__, @__engine__ = nil, nil
-			@exception = false
-	  end
+  class LiveCoder
+    def initialize filename, refresh_interval = 16
+      @__filename__ = filename
+      @__refresh_interval__ = refresh_interval
+      @__hash__, @__engine__ = nil, nil
+      @exception = false
+    end
 
-		attr_reader :exception
+    attr_reader :exception
 
-		def self.preprocess text
-		  last_indent = ""
-			out = StringIO.new
+    def self.preprocess text
+      last_indent = ""
+      out = StringIO.new
 
-			text.lines.map(&:chomp).each do |line|
-     	  this_indent = /\s*/.match(line)[0]				
-     	  out << "end\n" if this_indent.length < last_indent.length					  
- 		  	last_indent = this_indent
-		  	out << "#{(line  
-					  .gsub /(\s*on\s+)((?:(?:%?\d+)+)(?:\s+(?:%?\d+)+)*)/ do
-					  r1, r2 = Regexp.last_match[1], Regexp.last_match[2]  
-					  Regexp.last_match[2].split(/\s+/).map do |n|
-						  if n[0] == "%"
-    					  "#{r1}{ |t| t#{n} }"
-							else
-    					  "#{r1}{ |t| t == #{n} }"
-        	    end
-        	  end.join "\n"
-					end
-					.gsub /(\s*on\s*$)/ do 
-					  ""
-					end
-					.gsub /(\s*on\s+)(?!do)(?!{)(.*)/ do 
-					  "#{Regexp.last_match[1]}{ |t| #{Regexp.last_match[2]} }"
-					end
-					.gsub /(\s*instrument\s+)(?!\:)([\w_]*)(?:\s+(\d+))?/ do
-					  "#{Regexp.last_match[1]}:#{Regexp.last_match[2]} do#{"\n#{last_indent}  note #{Regexp.last_match[3]}" if "" != Regexp.last_match[3].to_s}"	
-        	end
-					.gsub /(\s*muted_by\s+)(?![\:])(.*)/ do
-					  "#{Regexp.last_match[1]}:#{Regexp.last_match[2]}"
-        	end
-					.gsub /(\s*mutes\s+)(?![\:])(.*)/ do
-					  "#{Regexp.last_match[1]}:#{Regexp.last_match[2]}"
-        	end
+      text.lines.map(&:chomp).each do |line|
+        this_indent = /\s*/.match(line)[0]        
+        out << "end\n" if this_indent.length < last_indent.length           
+        last_indent = this_indent
+        out << "#{(line  
+            .gsub /(\s*on\s+)((?:(?:%?\d+)+)(?:\s+(?:%?\d+)+)*)/ do
+            r1, r2 = Regexp.last_match[1], Regexp.last_match[2]  
+            Regexp.last_match[2].split(/\s+/).map do |n|
+              if n[0] == "%"
+                "#{r1}{ |t| t#{n} }"
+              else
+                "#{r1}{ |t| t == #{n} }"
+              end
+            end.join "\n"
+          end
+          .gsub /(\s*on\s*$)/ do 
+            ""
+          end
+          .gsub /(\s*on\s+)(?!do)(?!{)(.*)/ do 
+            "#{Regexp.last_match[1]}{ |t| #{Regexp.last_match[2]} }"
+          end
+          .gsub /(\s*instrument\s+)(?!\:)([\w_]*)(?:\s+(\d+))?/ do
+            "#{Regexp.last_match[1]}:#{Regexp.last_match[2]} do#{"\n#{last_indent}  note #{Regexp.last_match[3]}" if "" != Regexp.last_match[3].to_s}"  
+          end
+          .gsub /(\s*muted_by\s+)(?![\:])(.*)/ do
+            "#{Regexp.last_match[1]}:#{Regexp.last_match[2]}"
+          end
+          .gsub /(\s*mutes\s+)(?![\:])(.*)/ do
+            "#{Regexp.last_match[1]}:#{Regexp.last_match[2]}"
+          end
 )}\n" 
       
-			end
-			
-			out << "end\n\n" if last_indent.length > 0
-			out.string
-		end
+      end
+      
+      out << "end\n\n" if last_indent.length > 0
+      out.string
+    end
 
-		def refresh
-		  text = File.open(@__filename__).read
-		 	hash = Digest::MD5.new.tap do |d|
-			  d << text
-	    end.hexdigest
+    def refresh
+      text = File.open(@__filename__).read
+      hash = Digest::MD5.new.tap do |d|
+        d << text
+      end.hexdigest
 
-			if hash != @__hash__
-				@__hash__ = hash
+      if hash != @__hash__
+        @__hash__ = hash
 
-				begin
-	    		proc = eval "\nProc.new do\n#{self.class.preprocess File.open("input.rb").read}\nend"
-					@exception = nil
-		  	 	@__engine__ = Drum.build &proc
-	      rescue Exception => e
-	        @exception = e
-					nil
-	      end
-			end
-		end
+        begin
+          proc = eval "\nProc.new do\n#{self.class.preprocess File.open("input.rb").read}\nend"
+          @exception = nil
+          @__engine__ = Drum.build &proc
+        rescue Exception => e
+          @exception = e
+          nil
+        end
+      end
+    end
 
-		def run
-				tick = 0
+    def run
+        tick = 0
 
-				while true do 
-				  begin
-#  	  		  puts "\n\n#{@__engine__.to_s(0..63)}" if (tick%@__refresh_interval__) == 0 && refresh
+        while true do 
+          begin
+#           puts "\n\n#{@__engine__.to_s(0..63)}" if (tick%@__refresh_interval__) == 0 && refresh
 
-						refresh if tick%@__refresh_interval__ == 0
+            refresh if tick%@__refresh_interval__ == 0
 
-	  			  io = StringIO.new
-	    		  @__engine__.play tick, log: io
-			  		io << "WARNING: #{@exception.to_s}" if @exception
-				  	$stdout << io.string
+            io = StringIO.new
+            @__engine__.play tick, log: io
+            io << "WARNING: #{@exception.to_s}" if @exception
+            $stdout << io.string
           ensure
             tick += 1
           end
-	      end
-	    end
-	end 
+        end
+      end
+  end 
 end
 
 puts Drum::LiveCoder.preprocess(File.open("input.rb").read)
 lc = Drum::LiveCoder.new("input.rb").run
 
 # Drum.build do
-# 	shift 7
+#   shift 7
 # 
 #   instrument :bd do
-# 	  shift 11
-# 	  puts "=> #{shift}"
+#     shift 11
+#     puts "=> #{shift}"
 #     note 60
 #   end
 # 
 #   instrument :sd do
-# 	  puts "=> #{shift}"
+#     puts "=> #{shift}"
 #     note 60
 #   end
 # end
