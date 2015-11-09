@@ -36,10 +36,10 @@ class Drum
         end
       end
     rescue Interrupt
-		  $stdout << "\n#{self.class.name}: Stopped by user.\n"
+      $stdout << "\n#{self.class.name}: Stopped by user.\n"
     end
 
-		private
+    private
     def refresh
       text = File.open(@__filename__).read
       hash = Digest::MD5.new.tap do |d|
