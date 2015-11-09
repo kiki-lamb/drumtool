@@ -1,5 +1,5 @@
-require "./lib/drum/engine"
-require "./lib/drum/live_coder"
+require_relative "./drum/engine"
+require_relative "./drum/live_coder"
 
 class Drum
   class << self
