@@ -37,6 +37,10 @@ class Drum
       end
     end
 
+    def muted_by? instr
+      @__muted_by__.include? (Instrument === instr ? instr.name : instr)
+    end
+
     def mutes *names
       names.each do |name|
         @collection[name].muted_by name
@@ -50,7 +54,7 @@ class Drum
 
     def fires_at? time
       return false if @mute || (@collection.values.find do |i|
-        @__muted_by__.include?(i.name) && i.fires_at?(time)
+        muted_by?(i) && i.fires_at?(time)
       end)
 
       e_time = time - ( shift || 0 )
