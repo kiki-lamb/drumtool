@@ -33,7 +33,7 @@ class Drum
 
     def muted_by *names
       names.each do |name|
-        raise ArgumentError, "Circular reference while muting" if sibling(name).muted_by?(self)
+        raise ArgumentError, "Circular reference while muting '#{name}' by #{sibling(name).name}" if sibling(name).muted_by?(self)
         @__muted_by__ << name
       end
     end
