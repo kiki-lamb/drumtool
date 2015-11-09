@@ -4,6 +4,12 @@ require_relative "./live_coder/preprocessor"
 
 class Drum
   class LiveCoder
+	  class << self
+		  def play *a
+			  new(*a).play
+			end
+		end
+
     def initialize filename, refresh_interval = 16, preprocessor = Preprocessor
       @__filename__, @__refresh_interval__, @__preprocessor__ = filename, refresh_interval, preprocessor
       @__hash__, @__engine__ = nil, nil

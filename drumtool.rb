@@ -1,5 +1,7 @@
 require "./lib/drum"
 
-puts Drum::LiveCoder::Preprocessor.call(File.open("input.dt").read)
-lc = Drum::LiveCoder.new("input.dt").play
+file = "input.dt"
+
+puts Drum::LiveCoder::Preprocessor.call File.open(file).read
+lc = Drum::LiveCoder.play file
 
