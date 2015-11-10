@@ -25,7 +25,6 @@ class Drum
 
       while true do 
         begin
-
           refresh if tick%@__refresh_interval__ == 0
 
           io = StringIO.new
