@@ -1,17 +1,20 @@
 bpm 112
 
 instrument bd 36
-  on %10
-  loop 16
+  on %4
+
 instrument oh 39
   on %4
   shift 2
+
 instrument sd 37
   on %8
   shift 4
+
 instrument b2 40
   on %8
   shift 3
+
 instrument rs 38
   shift 3
   loop 8
