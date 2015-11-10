@@ -21,8 +21,18 @@ class Drum
         
         private 
 
-				PatName = /[a-z][a-z0-9_]*/
-				PatBlockArgs = /\|.+\|\s*\n$/
+				PatName = /(?:[a-z][a-z0-9_]*)/
+				PatBlockArgs = /(?:\|.+\|\s*\n$)/
+				PatInt = /(?:\d+)/
+				PatModProc = /(?:%#{PatInt})/
+				PatArg = /#{PatName}|#{PatInt}|#{PatModProc}/
+			
+				def tokenize line 
+				  line << "\n" unless line[-1] == "\n"
+					/(\s*)((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match line
+
+					[ Regexp.last_match[1], Regexp.last_match[2] || "", (Regexp.last_match[3] || "").strip ]
+				end
 
         def rubify_pythonesque_blocks
 				  log ""
@@ -31,29 +41,22 @@ class Drum
 					prev_indents = [ 0 ]
 
 					lines.each_with_index do |line, index|
-					  /^(\s*)/.match line
-						indent = Regexp.last_match[0].length
+						indent, body, block_args = *tokenize(line)
+						log "#{prev_indents.last}->#{indent.length} #{line}"
 
-						log "#{prev_indents.last}->#{indent} #{line}"
-
-						if prev_indents.last < indent
+						if prev_indents.last < indent.length
 						  prior = lines[index-1]
 
 						  log "Enter"
-							/((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match prior
-							head, args = Regexp.last_match[1], Regexp.last_match[2] || ""
+							pindent, pbody, pblock_args = *tokenize(prior)
 
-							log "PRIOR: `#{prior}'"
-							log "HEAD:  `#{head}'"
-							log "ARGS:  `#{args}'"
+						  lines[index-1] = "#{pindent}#{pbody} do #{pblock_args.strip}\n" 
 
-						  lines[index-1] = "#{head} do #{args.strip}\n" 
-
-							prev_indents.push indent
-						elsif prev_indents.last > indent
+							prev_indents.push indent.length
+						elsif prev_indents.last > indent.length
 						  log "Leave"
 
-							while prev_indents.last != indent
+							while prev_indents.last != indent.length
     						lines[index-1] << "#{" " * (prev_indents.last-2)}end\n"
 								prev_indents.pop
               end
