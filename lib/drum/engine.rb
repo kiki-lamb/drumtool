@@ -12,12 +12,6 @@ class Drum
 
 		include TimingScope
 
-#    additive_dsl_attr :rotate
-#    additive_dsl_attr :shift
-#    additive_dsl_attr(:loop) do |v|
-#			0 == v ? nil : v
-#		end		
-#
 		dsl_attr :refresh_interval
     dsl_attr :bpm, after: :tick_length 
 
@@ -31,27 +25,18 @@ class Drum
     end
 
     def play tick, log: $stdout       
-#		    puts "#{self.class.name} plays #{tick}"
-
-#		    puts "#{self.class.name} before questionable line"
         log << "\n" if 0 == (tick % (loop ? [16, loop].min : 16))
-#		    puts "#{self.class.name} after questionable line"
         log << "\n"
         log << bpm
 
-#		    puts "#{self.class.name} before questionable line 2"
         tick = tick % loop if loop
-#		    puts "#{self.class.name} after questionable line 2"
-        
 
-#		    puts "#{self.class.name} before draw"
         log << Drum::Formatters::TableRowFormatter.call([ 
           tick.to_s(8).rjust(16, "0"), 
           *instruments.values.map do |i| 
             i.fires_at?(tick) ? "#{i.short_name}" : "--" 
           end 
         ], [], separator: " | ")
-#		    puts "#{self.class.name} after draw"
 
         notes, length = triggers_at(tick).map(&:note), tick_length
 
@@ -60,7 +45,7 @@ class Drum
         end
 
     ensure
-				sleep tick_length 
+		    sleep ( block_given?? yield : tick_length )
 				close_notes
     end
 
