@@ -6,9 +6,6 @@ class Drum
     extend DslAttrs
 		include TimingScope
 
-    dsl_toggle :mute
-    dsl_toggle :flip
-
     dsl_attr :note
 
     attr_reader :name
@@ -16,12 +13,11 @@ class Drum
     attr_reader :collection
 
     def initialize collection, name
-      @name, @note, @short_name, @mute, @flip = name, note, name[0..1].upcase, false, false
+      @name, @note, @short_name = name, note, name[0..1].upcase
       @collection, @__triggers__, @__muted_by__ = collection, [], []
   		super @collection
       clear_cache
     end
-
 
     def clear_cache
       @__cache__ = {}
@@ -95,6 +91,8 @@ class Drum
     def fires_at? time
 		  throw ArgumentError, "String" if String === time
 
+			return false if mute?
+
  #     return false if @mute || (siblings.find do |i|
  #       muted_by?(i) && i.fires_at?(time)
  #     end)
@@ -122,7 +120,7 @@ class Drum
         end
       end
 
-      tmp = @flip ? (! rval) : rval
+      tmp = flip? ? (! rval) : rval
 			tmp
     end
   end  

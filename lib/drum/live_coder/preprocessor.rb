@@ -18,14 +18,15 @@ class Drum
           "i" => "instrument",
 
           "rot" => "rotate",
-          "r" => "rotate",
 
           "sh" => "shift",
-          "s" => "shift",
 
           "lp" => "loop",
+					"sc" => "loop",
+					"scp" => "loop",
+					"scope" => "loop",
 
-          "m" => "mute",
+          "mu" => "mute",
 
           "fl" => "flip",
           "f" => "flip"

@@ -57,6 +57,9 @@ class Drum
 		  @__hash__.include? k.to_sym
     end
 
+		dsl_toggle :mute, up: :parent
+		dsl_toggle :flip, up: :parent
+
 		additive_dsl_attr :rotate, up: :parent
     additive_dsl_attr :shift,  up: :parent
     dsl_attr(         :loop,   up: :parent) do |v|

@@ -11,8 +11,8 @@ class Drum
 
     include TimingScope
 
-    dsl_attr :refresh_interval
-    dsl_attr :bpm, after: :tick_length 
+    dsl_attr :refresh_interval, scopable: false
+    dsl_attr :bpm, after: :tick_length, scopable: false
 
 		attr_reader :output
 
