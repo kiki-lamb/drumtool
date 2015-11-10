@@ -1,24 +1,29 @@
 lp   16
 ref  1
 
-lp 4
- i bd 36
-	when %4
+bpm 112
 
-i oh 39
-  sh 2
+
+i bd 36
   when %4
 
+i oh 39
+    sh 2
+    when %4
+
 i sd 37
-  sh 4
-  when %8
+    sh 4
+    when %8
 
 i b2 40
-  sh 3
-  when %8
-
-i rs 38
+  when %4
   sh 2
-  lp 8
-  when %3
+
+rot 2
+  loop 8
+ 
+  i rs 38
+    sh 2
+    lp 8
+    when %3
 

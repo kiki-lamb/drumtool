@@ -47,7 +47,7 @@ class Drum
     end
 
 		def inherit other_engine
-		  bpm other_engine.bpm
+		  bpm other_engine.bpm unless bpm
 			other_engine.open_notes.each do |note|
 			  open_note note
 			end

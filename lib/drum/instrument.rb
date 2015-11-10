@@ -52,6 +52,10 @@ class Drum
      clear_cache
 
 		 if args.any?
+		 	 ranges, args = args.partition do |arg|
+		 	   Range === arg
+		 	 end
+
 		 	 fixnums, args = args.partition do |arg|
 		 	   Fixnum === arg
 		 	 end
@@ -70,6 +74,12 @@ class Drum
 				 trigger do |t|
 					 [fixnums].include? t
 				 end
+			 end
+
+			 ranges.each do |range|
+			   trigger do |t|
+				   range.include? t
+         end
 			 end
 
 		 	 procs.each do |proc|

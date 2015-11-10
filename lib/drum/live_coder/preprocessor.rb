@@ -61,9 +61,12 @@ class Drum
         PatNameExact = /^#{PatName}$/
         PatNumber = /(?:\d+(?:[\.]\d+)?)/
         PatNumberExact = /^#{PatNumber}$/
+        PatInt = /(?:\d+)/
+        PatRange = /#{PatInt}\.\.#{PatInt}/
+        PatRangeExact = /^#{PatRange}$/
         PatModProc = /(?:%#{PatNumber})/
         PatModProcExact = /^#{PatModProc}$/
-        PatArg = /#{PatName}|#{PatNumber}|#{PatModProc}/
+        PatArg = /#{PatName}|#{PatRange}||#{PatNumber}|#{PatModProc}/
         PatSimpleExpr = /^\s*(#{PatName})\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/
       
         def rubify_arg arg      
@@ -76,6 +79,9 @@ class Drum
           elsif PatModProcExact.match arg
             log "ARG `#{arg}' is a ModProc"
             "(Proc.new { |t| t#{arg} })"
+          elsif PatRangeExact.match arg
+            log "ARG `#{arg}' is a Range"
+            "(#{arg})"
           else
             raise ArgumentError, "Unrecognized argument"
           end
@@ -216,7 +222,7 @@ class Drum
 
             if is_comment && ! waiting_for_indent             
               log "Enter comment."
-              waiting_for_indent = indent 
+              waiting_for_indent = "#{indent} "
             end
             
             is_comment = "# " if waiting_for_indent
