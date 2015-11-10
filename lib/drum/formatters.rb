@@ -76,6 +76,12 @@ class Drum
       end.join "#{separator}" }#{separator}"
     end
 
+		BasicInstrumentFormatter = Proc.new do |range|
+      range.map do |t| 
+        fires_at? t ? name[0].upcase : "." 
+      end.join
+    end
+
     SpacedInstrumentFormatter = Proc.new do |range|
       TableRowFormatter.call(to_s(range, BasicInstrumentFormatter).chunks(4), separator: ' ')
     end

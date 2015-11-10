@@ -10,18 +10,21 @@ class Drum
   class Engine
     extend DslAttrs
 
-    additive_dsl_attr :rotate
-    additive_dsl_attr :shift
-    additive_dsl_attr(:loop) do |v|
-			0 == v ? nil : v
-		end		
+		include TimingScope
 
+#    additive_dsl_attr :rotate
+#    additive_dsl_attr :shift
+#    additive_dsl_attr(:loop) do |v|
+#			0 == v ? nil : v
+#		end		
+#
 		dsl_attr :refresh_interval
     dsl_attr :bpm, after: :tick_length 
 
     attr_reader :instruments, :output
 
     def initialize bpm = 128, output = UniMIDI::Output[0]
+		  super nil
       @bpm, @instruments, @loop, @shift, @rotate = bpm, Instruments.new(self), nil, 0, 0
       @output = output
 			@open_notes = Set.new

@@ -4,18 +4,13 @@ class Drum
   class Instruments
     extend DslAttrs
 
+		include TimingScope
+
     attr_reader :engine
-
-    # We never actually enter a DSL on this class an are really just using these as 'delegate_to'.
-
-    additive_dsl_attr :rotate, up: :engine
-    additive_dsl_attr :shift,  up: :engine
-    additive_dsl_attr(:loop ,  up: :engine) do |v|
-			0 == v ? nil : v
-		end		
 
     def initialize engine
       @engine = engine
+			super @engine
 
       @__hash__= Hash.new do |h,k| 
         h[k] = Instrument.new self, k
@@ -39,6 +34,10 @@ class Drum
     def include? k
 		  @__hash__.include? k.to_sym
     end
+
+		def map &b
+		  @__hash__.map &b
+		end
 
 		def values
 		  @__hash__.values

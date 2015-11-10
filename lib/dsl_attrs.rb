@@ -34,7 +34,17 @@ module DslAttrs
           end
         end
 
-        t = (instance_variable_get("@#{name}") || 0) + (up ? (send(up).send(name) || 0) : 0)
+				l = (instance_variable_get("@#{name}") || 0)
+				up_obj = send(up)
+				fetched = up_obj ? up_obj.send(name) : 0
+				r = (up ? (fetched || 0) : 0)
+
+				puts "l = #{l.class.name} `#{l}'"
+				puts "up_obj = #{up_obj.class.name} `#{up_obj}'"
+				puts "`#{name}' fetched = #{fetched.class.name} `#{fetched}'"
+				puts "r = #{r.class.name} `#{r}'"
+
+        t = l + r 
 				t = transformer.call t if transformer
 				# puts "#{self.class.name}.#{name} returns #{t.class.name} `#{t}'."
 				t

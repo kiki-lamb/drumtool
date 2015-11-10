@@ -16,9 +16,9 @@ class Drum
     attr_reader :collection
 
     def initialize collection, name
-  		super collection
       @name, @note, @short_name, @mute, @flip = name, note, name[0..1].upcase, false, false
       @collection, @__triggers__, @__muted_by__ = collection, [], []
+  		super @collection
       clear_cache
     end
 
@@ -86,6 +86,14 @@ class Drum
 		 end
 
      @__triggers__ << condition if block_given?
+    end
+
+		def to_s range = 0..15, formatter = Formatters::SpacedInstrumentFormatter, *a
+      if formatter
+        instance_exec range, *a, &formatter
+      else
+        super
+      end
     end
 
     def fires_at? time
