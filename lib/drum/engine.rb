@@ -1,6 +1,7 @@
 require "set"
 require "unimidi"
 require_relative "../dsl_attrs"
+require_relative "time_scope"
 require_relative "instruments"
 require_relative "instrument"
 require_relative "formatters"
