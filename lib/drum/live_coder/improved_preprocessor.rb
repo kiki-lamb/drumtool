@@ -49,7 +49,7 @@ class Drum
 				end
 
 				def join_args args
-				  "(#{args.join ' '})"
+				  args.empty?? "" : "(#{args.join ', '})"
 				end
 
 				def reassemble_line indent, name, args, block_args
@@ -58,7 +58,9 @@ class Drum
 				  log "reassemble args = #{args.inspect}"
 				  log "reassemble block_args = `#{block_args}'"
 
-				  "#{indent}#{name}#{join_args args}#{" do #{block_args.strip}" unless block_args.empty?}\n"
+				  tmp = "#{indent}#{name}#{join_args args}#{" do #{block_args.strip}" unless block_args.empty?}\n"
+					log "Reasssembled: `#{tmp}'"
+					tmp
 				end
 
         def rubify_pythonesque_blocks
@@ -77,10 +79,10 @@ class Drum
 						if prev_indents.last < indent.length
 						  prior = lines[index-1]
 
-						  log "Enter"
+						  log "Enter on `#{prior.chomp}'."
 							pindent, pname, pargs, pblock_args = *tokenize(prior)
-
-#						  lines[index-1] = reassemble_line pindent, pname, pargs, pblock_args
+							pblock_args = " "
+						  lines[index-1] = reassemble_line pindent, pname, pargs, pblock_args
 
 							prev_indents.push indent.length
 						elsif prev_indents.last > indent.length
