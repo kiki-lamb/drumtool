@@ -1,10 +1,10 @@
 bpm 112
 
 
-instrument bd 36
+instrument bd 36 |x|
   on %10
   loop 16 # 24
-  #instrument ch 43
+  instrument ch 43
     on %4
     #shift 2
     flip

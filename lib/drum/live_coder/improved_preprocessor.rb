@@ -4,7 +4,7 @@ class Drum
   class LiveCoder
     class ImprovedPreprocessor
       class << self
-        def call text, logger = nil
+        def call text, logger: nil
           set_text text
           @logger = logger
           
@@ -12,7 +12,7 @@ class Drum
           strip_blank_lines_and_trailing_whitespace 
           extend_block_comments
           strip_blank_lines_and_trailing_whitespace_and_comments
-          rubify_pyshonesque_blocks
+          rubify_pythonesque_blocks
 
           @text
         ensure
@@ -20,12 +20,43 @@ class Drum
         end
         
         private 
+
+				PatName = /[a-z][a-z0-9_]*/
+
         def rubify_pythonesque_blocks
           lines = @text.lines
+					prev_indents = [ 0 ]
+
+					lines.each_with_index do |line, index|
+					  /^(\s*)/.match line
+						indent = Regexp.last_match[0].length
+
+						log "#{prev_indents.last}->#{indent} #{line}"
+
+						if prev_indents.last < indent
+						  log "Enter"
+
+							/(|#{PatName}(?:\s*,\s*#{PatName})*\s*|)\s*$/.match lines[index-1]
+							log "MATCH: `#{Regexp.last_match[0]}'"
+
+						  lines[index-1] = "#{lines[index-1].chomp} do \n" 
+
+							prev_indents.push indent
+						elsif prev_indents.last > indent
+						  puts "Leave"
+
+							while prev_indents.last != indent
+    						lines[index-1] << "#{" " * (prev_indents.last-2)}end\n"
+								prev_indents.pop
+              end
+					  end
+					end
+
+					@text = lines.join
         end
 
         def log s
-          @logger << s if @logger
+          @logger << s.chomp << "\n" if @logger
         end
 
         def set_text text
