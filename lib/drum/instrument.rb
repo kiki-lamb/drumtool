@@ -22,10 +22,6 @@ class Drum
       clear_cache
     end
 
-    def build &b
-      instance_eval &b
-      self
-    end
 
     def clear_cache
       @__cache__ = {}

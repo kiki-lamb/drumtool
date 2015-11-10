@@ -41,7 +41,6 @@ class Drum
         notes.each do |note|
           open_note note, length
         end
-
     ensure
         sleep ( block_given?? yield : tick_length )
         close_notes

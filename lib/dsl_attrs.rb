@@ -4,7 +4,7 @@ module DslAttrs
 	    transformer = block
 
       define_method(name) do |v = nil, &block_|
-			  puts "#{self.class.name}.#{name}(#{v})"
+#			  puts "#{self.class.name}.#{name}(#{v})"
 
 			  if block_				  
 				  @@scope_klass ||= Class.new { include Drum::TimingScope }
