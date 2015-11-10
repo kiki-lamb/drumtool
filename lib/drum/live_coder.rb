@@ -12,9 +12,10 @@ class Drum
 
     attr_reader :exception, :engine
 
-    def initialize filename, refresh_interval: 16, preprocessor: Preprocessor, logger: nil
-      @__filename__, @__refresh_interval__, @__preprocessor__, @__logger__  = filename, refresh_interval, preprocessor, logger
-      @__hash__, @engine = nil, nil
+    def initialize filename, refresh_interval: 16, preprocessor: Preprocessor, logger: nil, rescue_eval: true
+      @__filename__, @__refresh_interval__, @__preprocessor__, @__logger__, @__rescue_eval__ = filename, refresh_interval, preprocessor, logger, rescue_eval
+
+			@__hash__, @engine = nil, nil
       @exception = false
     end
 
@@ -23,8 +24,6 @@ class Drum
 
       while true do 
         begin
-#          puts "\n\n#{engine.to_s(0..63)}" if (tick%@__refresh_interval__) == 0 && refresh
-
           refresh if tick%@__refresh_interval__ == 0
 
           io = StringIO.new
@@ -54,10 +53,11 @@ class Drum
           proc = eval "\nProc.new do\n#{@__preprocessor__.call File.open("#{@__filename__}").read, logger: @__logger__}\nend"
           @exception = nil
           @engine = Drum.build &proc
-#        rescue Exception => e
-#          engine.close_notes if engine
-#          @exception = e
-#          nil
+        rescue Exception => e
+				  raise e unless @__rescue_eval__
+          engine.close_notes if engine
+          @exception = e
+          nil
         end
       end
     end

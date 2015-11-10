@@ -71,13 +71,25 @@ class Drum
           [ Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip ]
         end 
 
+
+				Abbreviations = {
+				  sh: "shift",
+					lp: "loop",
+					m: "mute",
+					f: "flip"
+				}
+
+				def expand name	
+				  Abbreviations.include?(name.to_sym) ? Abbreviations[name.to_sym] : name
+				end
+
         def disassemble_line line
           indent, body, block_args = *partially_disassemble_line(line)
 
           if PatSimpleExpr.match body
            log "PARSE SIMPLE EXPR: #{Regexp.last_match.inspect}"
 
-            name, args = Regexp.last_match[1], (Regexp.last_match[2] || "").split(/\s+/).map do |arg|
+            name, args = expand(Regexp.last_match[1]), (Regexp.last_match[2] || "").split(/\s+/).map do |arg|
               rubify_arg arg
             end
           else
