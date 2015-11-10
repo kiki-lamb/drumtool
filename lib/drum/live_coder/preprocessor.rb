@@ -95,7 +95,7 @@ class Drum
           indent, body, block_args = *partially_disassemble_line(line)
 
           if PatSimpleExpr.match body
-           log "PARSE SIMPLE EXPR: #{Regexp.last_match.inspect}"
+            log "PARSE SIMPLE EXPR: #{Regexp.last_match.inspect}"
 
             name, args = expand(Regexp.last_match[1]), (Regexp.last_match[2] || "").split(/\s+/).map do |arg|
               rubify_arg arg
