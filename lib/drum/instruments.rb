@@ -1,7 +1,7 @@
 require_relative "../dsl_attrs"
 
 class Drum
-  class Instruments < Hash
+  class Instruments
     extend DslAttrs
 
     attr_reader :engine
@@ -14,10 +14,10 @@ class Drum
 			0 == v ? nil : v
 		end		
 
-    def initialize engine, *a
+    def initialize engine
       @engine = engine
 
-      super(*a) do |h,k| 
+      @__hash__= Hash.new do |h,k| 
         h[k] = Instrument.new self, k
       end   
     end
@@ -29,15 +29,19 @@ class Drum
     end   
 
     def [] k
-      super k.to_sym
+      @__hash__[k.to_sym]
     end
 
     def []= k, v
-      super k.to_sym, v
+      @__hash__[k.to_sym] = v
     end
 
     def include? k
-      super k.to_sym
+		  @__hash__.include? k.to_sym
     end
+
+		def values
+		  @__hash__.values
+		end
   end
 end
