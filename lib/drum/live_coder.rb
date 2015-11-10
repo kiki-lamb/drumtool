@@ -12,7 +12,7 @@ class Drum
 
     attr_reader :exception, :engine
 
-    def initialize filename, refresh_interval = 16, preprocessor = Preprocessor
+    def initialize filename, refresh_interval: 16, preprocessor: Preprocessor
       @__filename__, @__refresh_interval__, @__preprocessor__ = filename, refresh_interval, preprocessor
       @__hash__, @engine = nil, nil
       @exception = false

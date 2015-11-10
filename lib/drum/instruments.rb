@@ -7,8 +7,10 @@ class Drum
     attr_reader :engine
 
     # We never actually enter a DSL on this class an are really just using these as 'delegate_to'.
-    dsl_attr :shift, failover: :engine
-    dsl_attr :loop , failover: :engine
+
+    dsl_attr :rot, failover: :engine
+    dsl_attr :shift,  failover: :engine
+    dsl_attr :loop ,  failover: :engine
 
     def initialize engine, *a
       @engine = engine

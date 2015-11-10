@@ -9,15 +9,17 @@ class Drum
     dsl_toggle :flip
 
     dsl_attr :note
-    dsl_attr :shift, failover: :collection
-    dsl_attr :loop, failover: :collection
+
+		dsl_attr :rot, failover: :collection
+    dsl_attr :shift,  failover: :collection
+    dsl_attr :loop,   failover: :collection
 
     attr_reader :name
     attr_reader :short_name
     attr_reader :collection
 
     def initialize collection, name
-      @name, @note, @loop, @shift, @short_name, @mute, @flip = name, note, nil, nil, name[0..1].upcase, false, false
+      @name, @note, @short_name, @mute, @flip = name, note, name[0..1].upcase, false, false
       @collection, @__triggers__, @__muted_by__ = collection, [], []
       clear_cache
     end
@@ -66,8 +68,18 @@ class Drum
         muted_by?(i) && i.fires_at?(time)
       end)
 
-      e_time = time - ( shift || 0 )
+			e_time = time
+			e_rot = rot || 0
+			e_shift = shift || 0
+
+			if loop
+			  e_rot %= loop
+				e_shift %= loop
+			end
+
+			e_time -= e_rot
       e_time %= loop if loop
+			e_time -= e_shift
       
       r = @__cache__[e_time] ||= @__triggers__.find do |t|
         tmp = t.call e_time

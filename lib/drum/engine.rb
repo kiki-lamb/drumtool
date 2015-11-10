@@ -9,6 +9,7 @@ class Drum
   class Engine
     extend DslAttrs
 
+    dsl_attr :rot
     dsl_attr :shift
     dsl_attr :loop
     dsl_attr :bpm, after: :tick_length 
@@ -16,7 +17,7 @@ class Drum
     attr_reader :instruments, :output
 
     def initialize bpm = 128, output = UniMIDI::Output[0]
-      @bpm, @instruments, @loop, @shift = bpm, Instruments.new(self), nil, 0
+      @bpm, @instruments, @loop, @shift, @rotate = bpm, Instruments.new(self), nil, 0, 0
       @output = output
 			@open_notes = Set.new
     end
