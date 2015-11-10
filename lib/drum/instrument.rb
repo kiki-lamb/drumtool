@@ -10,7 +10,7 @@ class Drum
 
     dsl_attr :note
 
-		dsl_attr :rot, failover: :collection
+		dsl_attr :rotate, failover: :collection
     dsl_attr :shift,  failover: :collection
     dsl_attr :loop,   failover: :collection
 
@@ -58,7 +58,7 @@ class Drum
       end
     end
 
-    def on *args, &condition
+    def trigger *args, &condition
      clear_cache
 
 		 if args.any?
@@ -73,17 +73,17 @@ class Drum
 		 	 raise ArgumentError, "Invalid argument: #{others.first.class.name} `#{others.first.inspect}'." if others.any?
 
 			 if fixnums.count == 1
-				 on do |t|
+				 trigger do |t|
 				   fixnums.first == t
 				 end
 			 elsif fixnums.count > 1
-				 on do |t|
+				 trigger do |t|
 					 [fixnums].include? t
 				 end
 			 end
 
 		 	 procs.each do |proc|
-			   on &proc
+			   trigger &proc
 			 end
 		 end
 
@@ -96,15 +96,15 @@ class Drum
       end)
 
 			e_time = time
-			e_rot = rot || 0
+			e_rotate = rotate || 0
 			e_shift = shift || 0
 
 			if loop
-			  e_rot %= loop
+			  e_rotate %= loop
 				e_shift %= loop
 			end
 
-			e_time -= e_rot
+			e_time -= e_rotate
       e_time %= loop if loop
 			e_time -= e_shift
       

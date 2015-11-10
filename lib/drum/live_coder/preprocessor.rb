@@ -4,8 +4,21 @@ class Drum
   class LiveCoder
     class Preprocessor
       class << self
-        def call text, logger: nil
+				Abbreviations = {
+				  "on" => "trigger",
+				  "tr" => "trigger",
+				  "trig" => "trigger",
+				  "inst" => "instrument",
+				  "ins" => "instrument",
+				  "i" => "instrument",
+				  "rot" => "rotate",
+				  "sh" => "shift",
+					"lp" => "loop",
+					"m" => "mute",
+					"f" => "flip"
+				}
 
+        def call text, logger: nil
           @@text = text
           @@logger = logger
           
@@ -23,7 +36,6 @@ class Drum
         end
         
         private 
-
         PatBlockArgs = /(?:\|.+\|\s*\n$)/
         PatName = /(?:[a-z][a-z0-9_]*)/
         PatNameExact = /^#{PatName}$/
@@ -71,16 +83,8 @@ class Drum
           [ Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip ]
         end 
 
-
-				Abbreviations = {
-				  sh: "shift",
-					lp: "loop",
-					m: "mute",
-					f: "flip"
-				}
-
 				def expand name	
-				  Abbreviations.include?(name.to_sym) ? Abbreviations[name.to_sym] : name
+				  Abbreviations.include?(name) ? Abbreviations[name] : name
 				end
 
         def disassemble_line line

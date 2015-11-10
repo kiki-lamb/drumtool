@@ -8,7 +8,7 @@ class Drum
 
     # We never actually enter a DSL on this class an are really just using these as 'delegate_to'.
 
-    dsl_attr :rot, failover: :engine
+    dsl_attr :rotate, failover: :engine
     dsl_attr :shift,  failover: :engine
     dsl_attr :loop ,  failover: :engine
 
