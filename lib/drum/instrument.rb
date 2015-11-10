@@ -2,7 +2,7 @@ require_relative "../dsl_attrs"
 require_relative "formatters"
 
 class Drum
-  class Instrument
+  class Instrument < TimeScope
     extend DslAttrs
 
     dsl_toggle :mute
@@ -10,17 +10,18 @@ class Drum
 
     dsl_attr :note
 
-		additive_dsl_attr :rotate, up: :collection
-    additive_dsl_attr :shift,  up: :collection
-    additive_dsl_attr(:loop,   up: :collection) do |v|
-			0 == v ? nil : v
-		end		
+#		additive_dsl_attr :rotate, up: :collection
+#    additive_dsl_attr :shift,  up: :collection
+#    additive_dsl_attr(:loop,   up: :collection) do |v|
+#			0 == v ? nil : v
+#		end		
 
     attr_reader :name
     attr_reader :short_name
     attr_reader :collection
 
     def initialize collection, name
+		  super collection
       @name, @note, @short_name, @mute, @flip = name, note, name[0..1].upcase, false, false
       @collection, @__triggers__, @__muted_by__ = collection, [], []
       clear_cache
@@ -93,6 +94,8 @@ class Drum
     end
 
     def fires_at? time
+		  puts "#{self.class.name}(#{name}).fires_at? #{time.class.name} `#{time}'"
+
       return false if @mute || (siblings.find do |i|
         muted_by?(i) && i.fires_at?(time)
       end)
@@ -101,6 +104,11 @@ class Drum
 			e_rotate = rotate || 0
 			e_shift = shift || 0
 
+			puts "e_time = #{e_time.class.name} `#{e_time}'"
+			puts "e_rotate = #{e_rotate.class.name} `#{e_rotate}'"
+			puts "e_shift = #{e_shift.class.name} `#{e_shift}'"
+
+			
 			if loop
 			  e_rotate %= loop
 				e_shift %= loop
@@ -120,16 +128,7 @@ class Drum
         end
       end
 
-      @flip ? (! r) : r
-      
-    end
-
-    def to_s range = 0..15, formatter = Formatters::BasicInstrumentFormatter, *a
-      if formatter
-        instance_exec range, *a, &formatter
-      else
-        super
-      end
+      @flip ? (! r) : r     
     end
   end  
 end

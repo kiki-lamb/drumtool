@@ -4,17 +4,19 @@ class Drum
   class TimeScope
     extend DslAttrs
 
-	  attr_accessor :up
+		attr_accessor :parent
 
-		additive_dsl_attr :rotate, up: :up
-    additive_dsl_attr :shift,  up: :up
-    additive_dsl_attr(:loop,   up: :up) do |v|
-			0 == v ? nil : v
-		end		
-
-	  def __initialize__ up = nil
-		  @up = up
+		def initialize p
+		  puts "#{self.class.name}: up is #{p.class.name} #{p}"
+		  @parent = p
+			@rotate, @shift, @loop = 0, 0, nil
 		end
 
+
+		additive_dsl_attr :rotate, up: :parent
+    additive_dsl_attr :shift,  up: :parent
+    additive_dsl_attr(:loop,   up: :parent) do |v|
+			0 == v ? nil : v
+		end		
   end
 end

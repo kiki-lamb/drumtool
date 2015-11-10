@@ -36,6 +36,7 @@ module DslAttrs
 
         t = (instance_variable_get("@#{name}") || 0) + (up ? (send(up).send(name) || 0) : 0)
 				t = transformer.call t if transformer
+				puts "#{self.class.name}.#{name} returns #{t.class.name} `#{t}'."
 				t
       end
   end
