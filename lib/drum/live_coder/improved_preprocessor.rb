@@ -26,12 +26,39 @@ class Drum
 				PatInt = /(?:\d+)/
 				PatModProc = /(?:%#{PatInt})/
 				PatArg = /#{PatName}|#{PatInt}|#{PatModProc}/
+				PatSimpleExpr = /\s*(#{PatName})\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/
 			
 				def tokenize line 
 				  line << "\n" unless line[-1] == "\n"
 					/(\s*)((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match line
+					
+					head, body, block_args = Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip
 
-					[ Regexp.last_match[1], Regexp.last_match[2] || "", (Regexp.last_match[3] || "").strip ]
+					if  PatSimpleExpr.match body
+			     log "PARSE SIMPLE EXPR: #{Regexp.last_match.inspect}"
+					 body = [ Regexp.last_match[1], * (Regexp.last_match[2] || "").split(/\s+/) ]
+					else
+			     log "PARSE COMPLEX EXPR: `#{body}'"
+					  body = [ body ]
+					end	 
+					
+					toks = [ head, body[0], body[1..-1], block_args ]
+					log "TOKS: #{toks.inspect}"
+
+					toks
+				end
+
+				def join_args args
+				  "(#{args.join ' '})"
+				end
+
+				def reassemble_line indent, name, args, block_args
+				  log "reassemble indent = `#{indent}'"
+				  log "reassemble name = `#{name}'"
+				  log "reassemble args = #{args.inspect}"
+				  log "reassemble block_args = `#{block_args}'"
+
+				  "#{indent}#{name}#{join_args args}#{" do #{block_args.strip}" unless block_args.empty?}\n"
 				end
 
         def rubify_pythonesque_blocks
@@ -41,16 +68,19 @@ class Drum
 					prev_indents = [ 0 ]
 
 					lines.each_with_index do |line, index|
-						indent, body, block_args = *tokenize(line)
-						log "#{prev_indents.last}->#{indent.length} #{line}"
+					  log "\nTOKENIZE `#{line.chomp}'"
+						indent, name, args, block_args = *tokenize(line)
+#						log "#{prev_indents.last}->#{indent.length} `#{indent}' `#{name}' `#{args.inspect}' `#{block_args}'"
+
+						lines[index] = reassemble_line indent, name, args, block_args
 
 						if prev_indents.last < indent.length
 						  prior = lines[index-1]
 
 						  log "Enter"
-							pindent, pbody, pblock_args = *tokenize(prior)
+							pindent, pname, pargs, pblock_args = *tokenize(prior)
 
-						  lines[index-1] = "#{pindent}#{pbody} do #{pblock_args.strip}\n" 
+#						  lines[index-1] = reassemble_line pindent, pname, pargs, pblock_args
 
 							prev_indents.push indent.length
 						elsif prev_indents.last > indent.length
