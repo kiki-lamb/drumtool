@@ -70,12 +70,8 @@ class Drum
 					[ Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip ]
 				end 
 
-				def disassemble_line line, partial: false
-					/(\s*)((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match line
-
-					indent, body, block_args = Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip
-
-					return [indent, body, block_args] if partial
+				def disassemble_line line
+					indent, body, block_args = *partially_disassemble_line(line)
 
 					if PatSimpleExpr.match body
 			     log "PARSE SIMPLE EXPR: #{Regexp.last_match.inspect}"
@@ -129,14 +125,14 @@ class Drum
 
 					lines.each_with_index do |line, index|
 					  log "\nTOKENIZE `#{line.chomp}'"
-						indent, body, block_args = *disassemble_line(line, partial: true)
-						log "#{prev_indents.last}->#{indent.length} `#{indent}' `#{body}' `#{block_args}'"
+						indent = partially_disassemble_line(line).first
+						log "#{prev_indents.last}->#{indent.length} `#{line}'"
 
 						if prev_indents.last < indent.length
 						  prior = lines[index-1]
 
 						  log "Enter on `#{prior.chomp}'."
-							pindent, pbody, pblock_args = *disassemble_line(prior, partial: true)
+							pindent, pbody, pblock_args = *partially_disassemble_line(prior)
 
 							log "pindent = `#{pindent}'"
 							log "pbody = `#{pbody}'"
