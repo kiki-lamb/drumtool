@@ -153,7 +153,7 @@ class Drum
 
               while prev_indents.last != indent.length
                 begin 
-								  lines[index-1] << "#{" " * (prev_indents.last-2)}end\n"
+								  lines[index-1] << "#{" " * prev_indents[-2]}end\n"
 								rescue ArgumentError
 								  raise RuntimeError, "Bad unindent."
 								end

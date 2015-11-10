@@ -1,24 +1,23 @@
-bpm 112
-l 16
-ref 16
+bpm  112
+l    16
+ref  16
 
 i bd 36
   on %4
 
 i oh 39
-   on %4
-   sh 2
+  on %4
+  sh 2
 
 i sd 37
-  r -1
   on %8
   sh 4
 
-# i b2 40
+i b2 40
   on %8
   sh 3
 
-#i rs 38
+i rs 38
   sh 3
   on { |t| t == 7 }
   on %6 10 10
