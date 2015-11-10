@@ -1,5 +1,5 @@
 module DslAttrs
-  def dsl_attr name, after: [], failover: nil
+  def dsl_attr name, after: [], failover: nil, default: nil
       define_method(name) do |v = nil, &b|
         if v  
           tmp = instance_variable_get("@#{name}")
@@ -14,14 +14,16 @@ module DslAttrs
 
         if tmp
         elsif failover
-          tmp = send(failover).send(name, v) 
+          tmp = send(failover).send(name, v)
         end
 
-        tmp
+        tmp || default
       end
   end
 
-	def additive_dsl_attr name, up: nil, after: []
+	def additive_dsl_attr name, up: nil, after: [], &block
+			transformer = block
+
       define_method(name) do |v = nil, &b|
         if v  
           tmp = instance_variable_get("@#{name}")
@@ -32,7 +34,9 @@ module DslAttrs
           end
         end
 
-        (instance_variable_get("@#{name}") || 0) + (up ? (send(up).send(name, v) || 0) : 0)
+        t = (instance_variable_get("@#{name}") || 0) + (up ? (send(up).send(name) || 0) : 0)
+				t = transformer.call t if transformer
+				t
       end
   end
 

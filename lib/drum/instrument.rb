@@ -12,7 +12,9 @@ class Drum
 
 		additive_dsl_attr :rotate, up: :collection
     additive_dsl_attr :shift,  up: :collection
-    additive_dsl_attr :loop,   up: :collection
+    additive_dsl_attr(:loop,   up: :collection) do |v|
+			0 == v ? nil : v
+		end		
 
     attr_reader :name
     attr_reader :short_name

@@ -1,4 +1,8 @@
 bpm 112
+rot 1
+l 16
+
+refr 16
 
 i bd 36
   on %4
@@ -11,12 +15,11 @@ i sd 37
   on %8
   sh 4
 
-i b2 40
+#i b2 40
   on %8
   sh 3
 
-i rs 38
+#i rs 38
   sh 3
-  lp 8
   on { |t| t == 7 }
   on %6 10 10

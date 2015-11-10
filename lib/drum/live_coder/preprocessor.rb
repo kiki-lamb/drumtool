@@ -4,23 +4,32 @@ class Drum
   class LiveCoder
     class Preprocessor
       class << self
-				Abbreviations = {
-				  "on" => "trigger",
-				  "tr" => "trigger",
-				  "trig" => "trigger",
-				  "inst" => "instrument",
-				  "ins" => "instrument",
-				  "i" => "instrument",
-				  "rot" => "rotate",
-				  "r" => "rotate",
-				  "sh" => "shift",
-				  "s" => "shift",
-					"lp" => "loop",
-					"l" => "loop",
-					"m" => "mute",
-					"fl" => "flip",
-					"f" => "flip"
-				}
+        Abbreviations = {
+          "refr" => "refresh_interval",
+          "ref" => "refresh_interval",
+
+          "on" => "trigger",
+          "tr" => "trigger",
+          "trig" => "trigger",
+
+          "inst" => "instrument",
+          "ins" => "instrument",
+          "i" => "instrument",
+
+          "rot" => "rotate",
+          "r" => "rotate",
+
+          "sh" => "shift",
+          "s" => "shift",
+
+          "lp" => "loop",
+          "l" => "loop",
+
+          "m" => "mute",
+
+          "fl" => "flip",
+          "f" => "flip"
+        }
 
         def call text, logger: nil
           @@text = text
@@ -35,7 +44,7 @@ class Drum
 
           @@text
         ensure
-				  log @@text
+          log @@text
           clear_text
         end
         
@@ -87,9 +96,9 @@ class Drum
           [ Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip ]
         end 
 
-				def expand name	
-				  Abbreviations.include?(name) ? Abbreviations[name] : name
-				end
+        def expand name 
+          Abbreviations.include?(name) ? Abbreviations[name] : name
+        end
 
         def disassemble_line line
           indent, body, block_args = *partially_disassemble_line(line)
@@ -101,8 +110,8 @@ class Drum
               rubify_arg arg
             end
           else
-            log "PARSE COMPLEX EXPR: `#{body}'"					
-						body = "#{Regexp.last_match[1]}#{expand Regexp.last_match[2]}#{Regexp.last_match[3]}" if /^(\s*)(#{PatName})(.*)$/.match body						  
+            log "PARSE COMPLEX EXPR: `#{body}'"         
+            body = "#{Regexp.last_match[1]}#{expand Regexp.last_match[2]}#{Regexp.last_match[3]}" if /^(\s*)(#{PatName})(.*)$/.match body             
             name, args = body, []
           end  
           

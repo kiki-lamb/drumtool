@@ -11,8 +11,11 @@ class Drum
 
     additive_dsl_attr :rotate
     additive_dsl_attr :shift
-    additive_dsl_attr :loop
+    additive_dsl_attr(:loop) do |v|
+			0 == v ? nil : v
+		end		
 
+		dsl_attr :refresh_interval
     dsl_attr :bpm, after: :tick_length 
 
     attr_reader :instruments, :output

@@ -14,8 +14,7 @@ class Drum
 
     def initialize filename, refresh_interval: 16, preprocessor: Preprocessor, logger: nil, rescue_eval: true
       @__filename__, @__refresh_interval__, @__preprocessor__, @__logger__, @__rescue_eval__ = filename, refresh_interval, preprocessor, logger, rescue_eval
-
-			@__hash__, @engine = nil, nil
+			@__hash__, @engine, @__exception_lines__ = nil, nil, nil
       @exception = false
     end
 
@@ -28,7 +27,7 @@ class Drum
 
           io = StringIO.new
           engine.play tick, log: io if engine
-          io << "WARNING: #{@exception.to_s}#{"\n" unless engine}" if @exception
+          io << "#{@__exception_lines__[tick%@engine.loop%@__exception_lines__.length]}#{"\n" unless engine}" if @exception
           $stdout << io.string
         ensure
           tick += 1
@@ -53,10 +52,12 @@ class Drum
           proc = eval "\nProc.new do\n#{@__preprocessor__.call File.open("#{@__filename__}").read, logger: @__logger__}\nend"
           @exception = nil
           @engine = Drum.build &proc
+					@__refresh_interval__ = @engine.refresh_interval || @__refresh_interval__
         rescue Exception => e
 				  raise e unless @__rescue_eval__
           engine.close_notes if engine
           @exception = e
+					@__exception_lines__ = [ "WARNING: #{@exception.to_s}", *@exception.backtrace, "" ]
           nil
         end
       end

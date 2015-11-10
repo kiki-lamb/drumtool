@@ -10,7 +10,9 @@ class Drum
 
     additive_dsl_attr :rotate, up: :engine
     additive_dsl_attr :shift,  up: :engine
-    additive_dsl_attr :loop ,  up: :engine
+    additive_dsl_attr(:loop ,  up: :engine) do |v|
+			0 == v ? nil : v
+		end		
 
     def initialize engine, *a
       @engine = engine
