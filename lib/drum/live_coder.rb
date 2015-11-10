@@ -12,8 +12,8 @@ class Drum
 
     attr_reader :exception, :engine
 
-    def initialize filename, refresh_interval: 16, preprocessor: Preprocessor
-      @__filename__, @__refresh_interval__, @__preprocessor__ = filename, refresh_interval, preprocessor
+    def initialize filename, refresh_interval: 16, preprocessor: Preprocessor, logger: nil
+      @__filename__, @__refresh_interval__, @__preprocessor__, @__logger__  = filename, refresh_interval, preprocessor, logger
       @__hash__, @engine = nil, nil
       @exception = false
     end
@@ -28,15 +28,15 @@ class Drum
           refresh if tick%@__refresh_interval__ == 0
 
           io = StringIO.new
-          engine.play tick, log: io
-          io << "WARNING: #{@exception.to_s}" if @exception
+          engine.play tick, log: io if engine
+          io << "WARNING: #{@exception.to_s}#{"\n" unless engine}" if @exception
           $stdout << io.string
         ensure
           tick += 1
         end
       end
     rescue Interrupt
-      engine.close_notes
+      engine.close_notes if engine
       $stdout << "\n#{self.class.name}: Stopped by user.\n"
     end
 
@@ -51,13 +51,13 @@ class Drum
         @__hash__ = hash
 
         begin
-          proc = eval "\nProc.new do\n#{@__preprocessor__.call File.open("#{@__filename__}").read}\nend"
+          proc = eval "\nProc.new do\n#{@__preprocessor__.call File.open("#{@__filename__}").read, logger: @__logger__}\nend"
           @exception = nil
           @engine = Drum.build &proc
-        rescue Exception => e
-          engine.close_notes
-          @exception = e
-          nil
+#        rescue Exception => e
+#          engine.close_notes if engine
+#          @exception = e
+#          nil
         end
       end
     end
