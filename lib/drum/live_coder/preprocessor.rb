@@ -12,9 +12,13 @@ class Drum
 				  "ins" => "instrument",
 				  "i" => "instrument",
 				  "rot" => "rotate",
+				  "r" => "rotate",
 				  "sh" => "shift",
+				  "s" => "shift",
 					"lp" => "loop",
+					"l" => "loop",
 					"m" => "mute",
+					"fl" => "flip",
 					"f" => "flip"
 				}
 
@@ -97,8 +101,8 @@ class Drum
               rubify_arg arg
             end
           else
-            log "PARSE COMPLEX EXPR: `#{body}'"
-
+            log "PARSE COMPLEX EXPR: `#{body}'"					
+						body = "#{Regexp.last_match[1]}#{expand Regexp.last_match[2]}#{Regexp.last_match[3]}" if /^(\s*)(#{PatName})(.*)$/.match body						  
             name, args = body, []
           end  
           
