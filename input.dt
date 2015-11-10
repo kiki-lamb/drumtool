@@ -3,12 +3,12 @@ bpm 112
 
 instrument bd 36
   on %10
-  loop 16
-instrument ch 43
-  on %4
-  shift 2
-  flip
-instrument oh 39
+  loop 16 # 24
+  #instrument ch 43
+    on %4
+    #shift 2
+    flip
+#instrument oh 39
   on %4
   shift 2
 instrument sd 37
@@ -20,5 +20,5 @@ instrument b2 40
   shift 3
 instrument rs 38
   shift 3
-  loop 8
+	loop 8
   on %6
