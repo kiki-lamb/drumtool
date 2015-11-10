@@ -1,3 +1,4 @@
+require "set"
 require "midi"
 require_relative "../dsl_attrs"
 require_relative "instruments"
@@ -17,6 +18,7 @@ class Drum
     def initialize bpm = 128, output = UniMIDI::Output[0]
       @bpm, @instruments, @loop, @shift = bpm, Instruments.new(self), nil, 0
       @output = output
+			@open_notes = Set.new
     end
 
     def play tick, log: $stdout       
@@ -27,7 +29,7 @@ class Drum
         tick = tick % loop if loop
         
         log << Drum::Formatters::TableRowFormatter.call([ 
-          tick.to_s(16).rjust(16, "0"), 
+          tick.to_s(8).rjust(16, "0"), 
           *instruments.values.map do |i| 
             i.fires_at?(tick) ? "#{i.short_name}" : "--" 
           end 
@@ -35,10 +37,30 @@ class Drum
 
         notes, length = triggers_at(tick).map(&:note), tick_length
 
-        MIDI.using(output) do 
-            play *notes, length
+				notes.each do |note|
+				  open_note note, length
         end
+
+    ensure
+				sleep tick_length 
+				close_notes
     end
+
+		def close_notes
+		  @open_notes.each do |note|
+		    close_note note
+			end				
+		end
+
+		def open_note note, length = tick_length, velocity = 100 # length is currently ignored.
+		  close_note note, velocity
+		  @open_notes.add? note
+		  @output.puts 0x90, note, velocity
+		end
+
+		def close_note note, velocity = 100
+		  @output.puts 0x80, note, velocity if @open_notes.delete? note		  
+		end
 
     def build &b
       instance_eval &b

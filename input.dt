@@ -1,28 +1,26 @@
 bpm 112
-loop 32
+loop 16
 
 instrument bd 36
-  loop 32
-  on %4
-  on 15
-  on 18
-instrument sd 37
-  shift 4
-  on %8
-instrument ch 38
-  on %3
-instrument oh 39
+  on %10
   loop 16
-  muted_by ch
-  on %4
+instrument b2 40
+  on %8
+  shift 3
+instrument cp 37
+  on %8
+  shift 4
+  #mute
+instrument rs 38
+#  on %6
+  loop 8
+  shift 7
+instrument oh 39
+  on %6
   shift 2
-  mute
-instrument mt 46  
-  on %5
-  shift 1
-  mute
-instrument ut 46
-  loop 32
-  on %4
+instrument s1 42
+#  on %2
+  shift 0
+instrument s2 41
+#  on %4
   shift 2
-
