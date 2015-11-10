@@ -64,15 +64,9 @@ class Drum
       @output.puts 0x80, note, velocity if @open_notes.delete? note     
     end
 
-    def build &b
-      instance_eval &b
-      self
-    end
-
     def tick_length
       @tick_length ||= 60.0/bpm/4
     end
-
 
     def to_s range = 0..15, formatter = nil # Formatters::MultiTableEngineFormatter, *a
       if formatter

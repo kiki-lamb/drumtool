@@ -4,12 +4,14 @@ module DslAttrs
 	    transformer = block
 
       define_method(name) do |v = nil, &block_|
+#			  puts "#{self.class.name}.#{name}(#{v})"
+
 			  if block_
 				  @@klass ||= Class.new { include Drum::TimingScope }
 					obj = @@klass.new(self)
 					self.subscopes << obj
 					obj.send(name, v)
-					obj.instance_eval &block_
+					obj.build &block_
 				else 
         	if v  
         	  instance_variable_set "@#{name}", v

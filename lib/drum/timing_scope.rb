@@ -11,6 +11,11 @@ class Drum
 		  @instruments ||= Instruments.new(self)
     end
 
+    def build &b
+      instance_eval &b
+      self
+    end
+
 		def triggers_at time
       ( (instruments.values.select do |i|
            i.fires_at? time
