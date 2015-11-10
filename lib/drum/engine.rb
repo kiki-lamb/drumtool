@@ -86,10 +86,12 @@ class Drum
       end
     end
 
-    def instrument name, &b 
+    def instrument name, note = nil, &b 
       raise ArgumentError, "Need block" unless block_given?
 
-      instruments[name].build &b 
+      i = instruments[name]
+			i.note note if note
+			i.build &b 
     end                   
   end
 end

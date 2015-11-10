@@ -1,13 +1,8 @@
 bpm 112
 
 instrument bd 36 |x, y|
-  on 10.5 4.5
   on %10
   loop 16 # 24
-  instrument ch 43
-    on %4
-    #shift 2
-    flip
 #instrument oh 39
   on %4
   shift 2

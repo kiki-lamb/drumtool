@@ -17,6 +17,7 @@ class Drum
 
           @text
         ensure
+				  log @text
           clear_text
         end
         
