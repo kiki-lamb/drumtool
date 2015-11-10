@@ -2,19 +2,13 @@ require_relative "../dsl_attrs"
 require_relative "formatters"
 
 class Drum
-  class Instrument < TimeScope
+  class Instrument < TimingScope
     extend DslAttrs
 
     dsl_toggle :mute
     dsl_toggle :flip
 
     dsl_attr :note
-
-#		additive_dsl_attr :rotate, up: :collection
-#    additive_dsl_attr :shift,  up: :collection
-#    additive_dsl_attr(:loop,   up: :collection) do |v|
-#			0 == v ? nil : v
-#		end		
 
     attr_reader :name
     attr_reader :short_name
@@ -94,7 +88,7 @@ class Drum
     end
 
     def fires_at? time
-		  puts "#{self.class.name}(#{name}).fires_at? #{time.class.name} `#{time}'"
+#		  puts "#{self.class.name}(#{name}).fires_at? #{time.class.name} `#{time}'"
 
       return false if @mute || (siblings.find do |i|
         muted_by?(i) && i.fires_at?(time)
@@ -104,9 +98,9 @@ class Drum
 			e_rotate = rotate || 0
 			e_shift = shift || 0
 
-			puts "e_time = #{e_time.class.name} `#{e_time}'"
-			puts "e_rotate = #{e_rotate.class.name} `#{e_rotate}'"
-			puts "e_shift = #{e_shift.class.name} `#{e_shift}'"
+#			puts "e_time = #{e_time.class.name} `#{e_time}'"
+#			puts "e_rotate = #{e_rotate.class.name} `#{e_rotate}'"
+#			puts "e_shift = #{e_shift.class.name} `#{e_shift}'"
 
 			
 			if loop
