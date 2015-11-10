@@ -21,22 +21,30 @@ class Drum
     def play
       tick = 0
 
+			refresh_t = nil
+
       started_tick = Time.now
 
       while true do 
         begin
-          refresh if tick%@__refresh_interval__ == 0
+				  @__exception_lines__ = [] unless exception
 
           io = StringIO.new
+          io << "\n" if 0 == (tick % (engine.loop ? [16, engine.loop].min : 16))
+
+					refresh_time = Time.now
+					refresh if (tick%@__refresh_interval__ == 0)
+					
+					io << ((Time.now - refresh_time) * 1000).to_s[0..4].ljust(5,"0") << " | "
 
           engine.play(tick, log: io) do
              tmp = [ (engine.tick_length - (Time.now - started_tick)), 0 ].max
-						 puts "DROPPING A TICK!" if 0 == tmp
+						 @__exception_lines__.unshift "DROPPED A TICK!" if 0 == tmp
 						 tmp
           end if engine
 					started_tick = Time.now
 
-          io << "#{@__exception_lines__[tick%(@engine.loop || 16)]}#{"\n" unless engine}" if @exception
+          io << "#{@__exception_lines__[tick%(@engine.loop || 16)]}#{"\n" unless engine}" if @__exception_lines__.any?
           $stdout << io.string
         ensure
           tick += 1
@@ -60,9 +68,7 @@ class Drum
         begin
           proc = eval "\nProc.new do\n#{@__preprocessor__.call File.open("#{@__filename__}").read, logger: @__logger__}\nend"
           @exception = nil
-#         puts "#{self.class.name} before build"
           @engine = Drum.build &proc
-#         puts "#{self.class.name} after build"
           @__refresh_interval__ = @engine.refresh_interval || @__refresh_interval__
         rescue Exception => e
           unless @__rescue_eval__
