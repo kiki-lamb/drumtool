@@ -22,35 +22,69 @@ class Drum
         
         private 
 
-				PatName = /(?:[a-z][a-z0-9_]*)/
 				PatBlockArgs = /(?:\|.+\|\s*\n$)/
+				PatName = /(?:[a-z][a-z0-9_]*)/
+				PatNameExact = /^#{PatName}$/
 				PatNumber = /(?:\d+(?:[\.]\d+)?)/
+				PatNumberExact = /^#{PatNumber}$/
 				PatModProc = /(?:%#{PatNumber})/
+				PatModProcExact = /^#{PatModProc}$/
 				PatArg = /#{PatName}|#{PatNumber}|#{PatModProc}/
 				PatSimpleExpr = /^\s*(#{PatName})\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/
 			
+			  def rubify_arg arg			
+				  if PatNumberExact.match arg
+					  log "ARG `#{arg}' is a Number"
+					  arg.to_s
+					elsif PatNameExact.match arg
+					  log "ARG `#{arg}' is a Name"
+					  ":#{arg}"
+					elsif PatModProcExact.match arg
+					  log "ARG `#{arg}' is a ModProc"
+					  "{ |t| t#{arg} }"
+					else
+					  raise ArgumentError, "Unrecognized argument"
+					end
+				end
+
+        def rubify_arguments
+				  log ""
+
+          lines = @text.lines
+
+					lines.each_with_index do |line, index|
+					  log "\nTOKENIZE `#{line.chomp}'"
+
+						indent, name, args, block_args = *tokenize(line)
+						lines[index] = reassemble_line indent, name, args, block_args
+					end
+
+					@text = lines.join
+        end
+
 				def tokenize line 
 				  line << "\n" unless line[-1] == "\n"
 					/(\s*)((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match line
 
 					indent, body, block_args = Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip
 
-					if  PatSimpleExpr.match body
+					if PatSimpleExpr.match body
 			     log "PARSE SIMPLE EXPR: #{Regexp.last_match.inspect}"
 
-					  name, args = Regexp.last_match[1], (Regexp.last_match[2] || "").split(/\s+/)
+					  name, args = Regexp.last_match[1], (Regexp.last_match[2] || "").split(/\s+/).map do |arg|
+						  rubify_arg arg
+						end
 					else
-			     log "PARSE COMPLEX EXPR: `#{body}'"
+			      log "PARSE COMPLEX EXPR: `#{body}'"
+
 					  name, args = body, []
 					end	 
 					
-					toks = [ indent, body[0], body[1..-1], block_args ]
-
 					toks = [ indent, name, args, block_args ]
 					log "TOKS: #{toks.inspect}"
-
 					toks
 				end
+
 
 				def reassemble_line indent, name, args, block_args
 #				  log "reassemble indent = `#{indent}'"
