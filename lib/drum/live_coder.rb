@@ -36,7 +36,7 @@ class Drum
         end
       end
     rescue Interrupt
-			engine.close_notes
+      engine.close_notes
       $stdout << "\n#{self.class.name}: Stopped by user.\n"
     end
 
@@ -55,7 +55,7 @@ class Drum
           @exception = nil
           @engine = Drum.build &proc
         rescue Exception => e
-				  engine.close_notes
+          engine.close_notes
           @exception = e
           nil
         end
