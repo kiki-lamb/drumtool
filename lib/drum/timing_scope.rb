@@ -30,7 +30,7 @@ class Drum
 
 		def triggers_at time
       instruments.map do |i|
-        i.fires_at? time
+        i.fires_at?(time) || nil
       end.compact
     end
 

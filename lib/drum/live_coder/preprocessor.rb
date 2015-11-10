@@ -47,7 +47,11 @@ class Drum
 
           @@text
         ensure
+          log "\nPREPROCESSED:"
+          log "=" * 80
           log @@text
+          log "=" * 80
+					log "\n"
           clear_text
         end
         

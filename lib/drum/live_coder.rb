@@ -68,7 +68,8 @@ class Drum
         begin
           proc = eval "\nProc.new do\n#{@__preprocessor__.call File.open("#{@__filename__}").read, logger: @__logger__}\nend"
           @exception = nil
-          @engine = Drum.build &proc
+					old_bpm = @engine.bpm
+          @engine = Drum.build(&proc).inherit @engine
           @__refresh_interval__ = @engine.refresh_interval || @__refresh_interval__
         rescue Exception => e
           unless @__rescue_eval__

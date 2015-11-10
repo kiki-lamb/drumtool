@@ -1,11 +1,9 @@
-bpm  112
 lp   16
-ref  16
+ref  1
 
 lp 4
  i bd 36
-  when %4
-	raise RuntimeError, bpm
+	when %4
 
 i oh 39
   sh 2
