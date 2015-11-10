@@ -30,7 +30,7 @@ class Drum
 
         log << Drum::Formatters::TableRowFormatter.call([ 
           tick.to_s(16).rjust(16, "0"), 
-          *values.map do |i| 
+          *children.map do |i| 
             i.fires_at?(tick) ? "#{i.short_name}" : "--" 
           end 
         ], [], separator: " | ") << "\n"

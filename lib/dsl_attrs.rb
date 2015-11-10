@@ -60,10 +60,10 @@ module DslAttrs
       end
   end
 
-  def dsl_toggle name, up: nil
+  def dsl_toggle name, up: nil, scopable: true
       define_method(name) do |v = true, &b_|
 			    if b_
-						 self.class.__dsl_attr_scopified__ self, name, v, true, &b_					  
+						 self.class.__dsl_attr_scopified__ self, name, v, scopable, &b_					  
           else
 					  instance_variable_set "@#{name}", v
           end

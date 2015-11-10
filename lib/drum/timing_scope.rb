@@ -12,12 +12,12 @@ class Drum
       self
     end
 
-		def values
-		  subscopes.map(&:values).flatten + @__hash__.values
+		def children
+		  subscopes.map(&:children).flatten + @__hash__.values
 		end
 
 		def triggers_at time
-      values.select do |i|
+      children.select do |i|
         i.fires_at? time
       end
     end

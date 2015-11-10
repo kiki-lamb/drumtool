@@ -6,16 +6,16 @@ class Drum
     extend DslAttrs
 		include TimingScope
 
-    dsl_attr :note
+    dsl_attr :note, scopable: false
 
     attr_reader :name
     attr_reader :short_name
-    attr_reader :collection
 
     def initialize collection, name
       @name, @note, @short_name = name, note, name[0..1].upcase
-      @collection, @__triggers__, @__muted_by__ = collection, [], []
-  		super @collection
+      @__triggers__ = []
+			# @__muted_by__ = []
+  		super collection
       clear_cache
     end
 
@@ -23,30 +23,30 @@ class Drum
       @__cache__ = {}
     end
 
-    def muted_by *names
-      names.each do |name|
-        raise ArgumentError, "Circular reference while muting '#{name}' by #{sibling(name).name}" if sibling(name).muted_by?(self)
-        @__muted_by__ << name
-      end
-    end
-
-    def muted_by? instr
-      @__muted_by__.include? (Instrument === instr ? instr.name : instr)
-    end
-
-    def siblings
-      @collection.values
-    end
-
-    def sibling name 
-      @collection[name]
-    end
-
-    def mutes *names
-      names.each do |name|
-        sibling(name).muted_by name
-      end
-    end
+#    def muted_by *names
+#      names.each do |name|
+#        raise ArgumentError, "Circular reference while muting '#{name}' by #{sibling(name).name}" if sibling(name).muted_by?(self)
+#        @__muted_by__ << name
+#      end
+#    end
+#
+#    def muted_by? instr
+#      @__muted_by__.include? (Instrument === instr ? instr.name : instr)
+#    end
+#
+#    def siblings
+#      @collection.values
+#    end
+#
+#    def sibling name 
+#      @collection[name]
+#    end
+#
+#    def mutes *names
+#      names.each do |name|
+#        sibling(name).muted_by name
+#      end
+#    end
 
     def trigger *args, &condition
      clear_cache
