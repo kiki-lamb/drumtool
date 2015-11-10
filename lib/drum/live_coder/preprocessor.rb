@@ -13,7 +13,7 @@ class Drum
           strip_blank_lines_and_trailing_whitespace 
           extend_block_comments
           strip_blank_lines_and_trailing_whitespace_and_comments
-          rubify_arguments
+          rubify_arguments_and_expand_abbreviations
           rubify_pythonesque_blocks
 
           @@text
@@ -49,7 +49,7 @@ class Drum
           end
         end
 
-        def rubify_arguments
+        def rubify_arguments_and_expand_abbreviations
           log ""
 
           lines = @@text.lines
@@ -57,13 +57,12 @@ class Drum
           lines.each_with_index do |line, index|
             log "\nTOKENIZE `#{line.chomp}'"
 
-            indent, name, args, block_args = *tokenize(line)
+            indent, name, args, block_args = *disassemble_line(line)
             lines[index] = reassemble_line indent, name, args, block_args
           end
 
           @@text = lines.join
         end
-
 
         def partially_disassemble_line line
           line << "\n" unless line[-1] == "\n"
@@ -94,22 +93,6 @@ class Drum
 
         def reassemble_line indent, name, args, block_args
           "#{indent}#{name}#{args.empty?? "" : "(#{args.join ', '})"}#{" #{block_args.strip}" unless block_args.empty?}\n"
-        end
-
-
-        def rubify_arguments
-          log ""
-
-          lines = @@text.lines
-
-          lines.each_with_index do |line, index|
-            log "\nTOKENIZE `#{line.chomp}'"
-
-            indent, name, args, block_args = *disassemble_line(line)
-            lines[index] = reassemble_line indent, name, args, block_args
-          end
-
-          @@text = lines.join
         end
 
         def rubify_pythonesque_blocks
