@@ -152,7 +152,11 @@ class Drum
               log "Leave"
 
               while prev_indents.last != indent.length
-                lines[index-1] << "#{" " * (prev_indents.last-2)}end\n"
+                begin 
+								  lines[index-1] << "#{" " * (prev_indents.last-2)}end\n"
+								rescue ArgumentError
+								  raise RuntimeError, "Bad unindent."
+								end
                 prev_indents.pop
               end
             end

@@ -1,21 +1,19 @@
 bpm 112
-rot 1
 l 16
-
-refr 16
+ref 16
 
 i bd 36
   on %4
-
 i oh 39
-  on %4
-  sh 2
+   on %4
+   sh 2
 
 i sd 37
+  r -1
   on %8
   sh 4
 
-#i b2 40
+# i b2 40
   on %8
   sh 3
 
