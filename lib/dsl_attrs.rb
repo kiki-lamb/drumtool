@@ -1,25 +1,34 @@
+
 module DslAttrs
   def dsl_attr name, after: [], up: nil, default: nil, &block
 	    transformer = block
 
-      define_method(name) do |v = nil|
-        if v  
-          instance_variable_set "@#{name}", v
-          [*after].each do |after|
-            send after
-          end
-        end
+      define_method(name) do |v = nil, &block_|
+			  if block_
+				  @@klass ||= Class.new { include Drum::TimingScope }
+					obj = @@klass.new(self)
+					self.subscopes << obj
+					obj.send(name, v)
+					obj.instance_eval &block_
+				else 
+        	if v  
+        	  instance_variable_set "@#{name}", v
+        	  [*after].each do |after|
+        	    send after
+        	  end
+        	end
 
-        tmp = instance_variable_get "@#{name}"
+        	tmp = instance_variable_get "@#{name}"
 
-        if (! tmp) && up
-				  up_obj = send up
-          tmp = up_obj.send(name, v) if up_obj
-        end
+        	if (! tmp) && up
+					  up_obj = send up
+        	  tmp = up_obj.send(name, v) if up_obj
+        	end
 
-        tmp ||= default
-				tmp = transformer.call tmp if transformer
-				tmp
+        	tmp ||= default
+					tmp = transformer.call tmp if transformer
+					tmp
+				end
       end
   end
 

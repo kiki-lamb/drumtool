@@ -73,11 +73,6 @@ class Drum
       @tick_length ||= 60.0/bpm/4
     end
 
-    def triggers_at time
-      instruments.values.select do |i|
-        i.fires_at? time
-      end
-    end
 
     def to_s range = 0..15, formatter = nil # Formatters::MultiTableEngineFormatter, *a
       if formatter

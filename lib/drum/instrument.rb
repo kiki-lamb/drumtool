@@ -99,9 +99,6 @@ class Drum
     def fires_at? time
 		  throw ArgumentError, "String" if String === time
 
-#		  puts "#{self.class.name}(#{name}).fires_at? #{time.class.name} `#{time}'"
-#		  return true
-
  #     return false if @mute || (siblings.find do |i|
  #       muted_by?(i) && i.fires_at?(time)
  #     end)
@@ -110,10 +107,6 @@ class Drum
 			e_rotate = rotate || 0
 			e_shift = shift || 0
 
-#			puts "e_time = #{e_time.class.name} `#{e_time}'"
-#			puts "e_rotate = #{e_rotate.class.name} `#{e_rotate}'"
-#			puts "e_shift = #{e_shift.class.name} `#{e_shift}'"
-			
 			if loop
 			  e_rotate %= loop
 				e_shift %= loop
@@ -134,7 +127,6 @@ class Drum
       end
 
       tmp = @flip ? (! rval) : rval
-#		  puts "#{self.class.name}(#{name}).fires_at? returns = #{tmp.class.name} `#{tmp}'"
 			tmp
     end
   end  
