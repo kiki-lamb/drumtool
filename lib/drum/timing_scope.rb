@@ -7,39 +7,28 @@ class Drum
 		attr_reader :parent
 		attr_accessor :subscopes
 
-		def instruments
-		  @__hash__
-    end
-
     def build &b
       instance_eval &b
       self
     end
 
+		def values
+		  subscopes.map(&:values).flatten + @__hash__.values
+		end
+
 		def triggers_at time
-      ( (instruments.values.select do |i|
-           i.fires_at? time
-         end) +
-			  (subscopes.map do |scope|
-			     scope.triggers_at time
-			   end)).flatten
+      values.select do |i|
+        i.fires_at? time
+      end
     end
 
     def instrument name, note = nil, &b 
       if block_given?
-        i = instruments[name]
+        i = @__hash__[name]
         i.note note if note
         i.build &b 
       end
     end                   
-
-#		def method_missing? name, *a, &b
-#		  if parent.respond_to? name
-#				 parent.send(name, *a, &b)
-#			else
-#				 super
-#			end
-#		end		
 
 		def initialize p
 		  @parent = p
@@ -67,10 +56,6 @@ class Drum
     def include? k
 		  @__hash__.include? k.to_sym
     end
-
-		def values
-		  @__hash__.values
-		end
 
 		additive_dsl_attr :rotate, up: :parent
     additive_dsl_attr :shift,  up: :parent

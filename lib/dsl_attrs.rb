@@ -12,7 +12,6 @@ module DslAttrs
 					self.subscopes << obj
 					v = obj.send(name, v)
 					obj.build &block_
-					puts "#{obj.inspect} =>: #{v}"
 				else 
         	if v  
         	  instance_variable_set "@#{name}", v

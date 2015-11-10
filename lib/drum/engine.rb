@@ -2,7 +2,6 @@ require "set"
 require "unimidi"
 require_relative "../dsl_attrs"
 require_relative "timing_scope"
-require_relative "instruments"
 require_relative "instrument"
 require_relative "formatters"
 
@@ -31,7 +30,7 @@ class Drum
 
         log << Drum::Formatters::TableRowFormatter.call([ 
           tick.to_s(16).rjust(16, "0"), 
-          *instruments.values.map do |i| 
+          *values.map do |i| 
             i.fires_at?(tick) ? "#{i.short_name}" : "--" 
           end 
         ], [], separator: " | ") << "\n"

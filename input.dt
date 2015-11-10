@@ -2,7 +2,7 @@ bpm  112
 lp   8
 ref  16
 
-lp 1
+lp 2
 	i bd 36
 	  when %4
 		when 15
