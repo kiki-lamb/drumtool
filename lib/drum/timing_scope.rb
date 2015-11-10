@@ -7,6 +7,18 @@ class Drum
 		attr_reader :parent
 		attr_accessor :subscopes
 
+		def top
+		  obj = self
+			while (next_obj = obj.parent) != nil do
+					obj = next_obj 
+      end
+			obj
+		end
+
+		def method_missing name, *a, &b
+		  parent.send name, *a, &b
+    end
+
     def build &b
       instance_eval &b
       self

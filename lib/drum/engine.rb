@@ -18,7 +18,7 @@ class Drum
 
     def initialize bpm = 128, output = UniMIDI::Output[0]
       super nil
-      @bpm, @loop, @shift, @rotate = bpm, nil, 0, 0
+      @bpm = bpm
       @output = output
       @open_notes = Set.new
     end
