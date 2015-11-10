@@ -30,13 +30,13 @@ class Drum
 
         log << Drum::Formatters::TableRowFormatter.call([ 
           tick.to_s(16).rjust(16, "0"), 
-          *children.map do |i| 
+          *instruments.map do |i| 
             i.fires_at?(tick) ? "#{i.short_name}" : "--" 
           end 
         ], [], separator: " | ") << "\n"
 
 
-        notes, length = triggers_at(tick).map(&:note), tick_length
+        notes, length = triggers_at(tick), tick_length
 
         notes.each do |note|
           open_note note, length

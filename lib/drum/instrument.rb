@@ -121,6 +121,7 @@ class Drum
       end
 
       tmp = flip? ? (! rval) : rval
+			tmp &&= note
 			tmp
     end
   end  

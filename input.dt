@@ -2,10 +2,9 @@ bpm  112
 lp   16
 ref  16
 
-sc
-  i bd 36
-    when %4
-    when 15
+i bd 36
+  when %4
+
 
 i oh 39
   sh 2
