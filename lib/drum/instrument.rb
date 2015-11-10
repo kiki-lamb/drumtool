@@ -58,9 +58,36 @@ class Drum
       end
     end
 
-    def on &condition
+    def on *args, &condition
      clear_cache
-     @__triggers__ << condition
+
+		 if args.any?
+		 	 fixnums, others = args.partition do |arg|
+		 	   Fixnum === arg
+		 	 end
+		 
+		 	 procs, others = args.partition do |arg|
+		 	   Proc === arg
+		 	 end
+
+		 	 raise ArgumentError, "Invalid argument: #{others.first.class.name} `#{others.first.inspect}'." if others.any?
+
+			 if fixnums.count == 1
+				 on do |t|
+				   fixnums.first == t
+				 end
+			 elsif fixnums.count > 1
+				 on do |t|
+					 [fixnums].include? t
+				 end
+			 end
+
+		 	 procs.each do |proc|
+			   on &proc
+			 end
+		 end
+
+     @__triggers__ << condition if block_given?
     end
 
     def fires_at? time
