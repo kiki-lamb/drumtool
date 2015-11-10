@@ -1,5 +1,5 @@
 require "set"
-require "midi"
+require "unimidi"
 require_relative "../dsl_attrs"
 require_relative "instruments"
 require_relative "instrument"
