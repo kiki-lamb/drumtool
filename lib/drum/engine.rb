@@ -15,11 +15,11 @@ class Drum
     dsl_attr :refresh_interval
     dsl_attr :bpm, after: :tick_length 
 
-    attr_reader :instruments, :output
+		attr_reader :output
 
     def initialize bpm = 128, output = UniMIDI::Output[0]
       super nil
-      @bpm, @instruments, @loop, @shift, @rotate = bpm, Instruments.new(self), nil, 0, 0
+      @bpm, @loop, @shift, @rotate = bpm, nil, 0, 0
       @output = output
       @open_notes = Set.new
     end
@@ -84,16 +84,7 @@ class Drum
         instance_exec range, &formatter
       else
         super()
-#        "<#{self.class.name} #{instruments}>"
       end
     end
-
-    def instrument name, note = nil, &b 
-      if block_given?
-        i = instruments[name]
-        i.note note if note
-        i.build &b 
-      end
-    end                   
   end
 end
