@@ -41,7 +41,7 @@ class Drum
 					  ":#{arg}"
 					elsif PatModProcExact.match arg
 					  log "ARG `#{arg}' is a ModProc"
-					  "{ |t| t#{arg} }"
+					  "(Proc.new { |t| t#{arg} })"
 					else
 					  raise ArgumentError, "Unrecognized argument"
 					end
@@ -127,7 +127,7 @@ class Drum
 #
 #						if prev_indents.last < indent.length
 #						  prior = lines[index-1]
-#
+#o
 #						  log "Enter on `#{prior.chomp}'."
 #							pindent, pname, pargs, pblock_args = *disassemble_line(prior)
 #							pname << " do"
