@@ -62,7 +62,7 @@ class Drum
 					@text = lines.join
         end
 
-				def tokenize line 
+				def disassemble_line line 
 				  line << "\n" unless line[-1] == "\n"
 					/(\s*)((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match line
 
@@ -85,7 +85,6 @@ class Drum
 					toks
 				end
 
-
 				def reassemble_line indent, name, args, block_args
 #				  log "reassemble indent = `#{indent}'"
 #				  log "reassemble name = `#{name}'"
@@ -106,7 +105,7 @@ class Drum
 					lines.each_with_index do |line, index|
 					  log "\nTOKENIZE `#{line.chomp}'"
 
-						indent, name, args, block_args = *tokenize(line)
+						indent, name, args, block_args = *disassemble_line(line)
 						lines[index] = reassemble_line indent, name, args, block_args
 					end
 
@@ -121,7 +120,7 @@ class Drum
 #
 #					lines.each_with_index do |line, index|
 #					  log "\nTOKENIZE `#{line.chomp}'"
-#						indent, name, args, block_args = *tokenize(line)
+#						indent, name, args, block_args = *disassemble_line(line)
 ##						log "#{prev_indents.last}->#{indent.length} `#{indent}' `#{name}' `#{args.inspect}' `#{block_args}'"
 #
 #						lines[index] = reassemble_line indent, name, args, block_args
@@ -130,7 +129,7 @@ class Drum
 #						  prior = lines[index-1]
 #
 #						  log "Enter on `#{prior.chomp}'."
-#							pindent, pname, pargs, pblock_args = *tokenize(prior)
+#							pindent, pname, pargs, pblock_args = *disassemble_line(prior)
 #							pname << " do"
 #						  lines[index-1] = reassemble_line pindent, pname, pargs, pblock_args
 #
