@@ -6,14 +6,14 @@ class Drum
       class << self
         def call text, logger: nil
           set_text text
-          @logger = logger
+          @@logger = logger
           
           untabify
           strip_blank_lines_and_trailing_whitespace 
           extend_block_comments
           strip_blank_lines_and_trailing_whitespace_and_comments
 					rubify_arguments
-          # rubify_pythonesque_blocks
+          rubify_pythonesque_blocks
 
           @text
         ensure
@@ -62,11 +62,20 @@ class Drum
 					@text = lines.join
         end
 
-				def disassemble_line line 
+
+				def partially_disassemble_line line
 				  line << "\n" unless line[-1] == "\n"
 					/(\s*)((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match line
 
+					[ Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip ]
+				end 
+
+				def disassemble_line line, partial: false
+					/(\s*)((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match line
+
 					indent, body, block_args = Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip
+
+					return [indent, body, block_args] if partial
 
 					if PatSimpleExpr.match body
 			     log "PARSE SIMPLE EXPR: #{Regexp.last_match.inspect}"
@@ -112,48 +121,50 @@ class Drum
 					@text = lines.join
         end
 
-#        def rubify_pythonesque_blocks
-#				  log ""
-#
-#          lines = @text.lines
-#					prev_indents = [ 0 ]
-#
-#					lines.each_with_index do |line, index|
-#					  log "\nTOKENIZE `#{line.chomp}'"
-#						indent, name, args, block_args = *disassemble_line(line)
-##						log "#{prev_indents.last}->#{indent.length} `#{indent}' `#{name}' `#{args.inspect}' `#{block_args}'"
-#
-#						lines[index] = reassemble_line indent, name, args, block_args
-#
-#						if prev_indents.last < indent.length
-#						  prior = lines[index-1]
-#o
-#						  log "Enter on `#{prior.chomp}'."
-#							pindent, pname, pargs, pblock_args = *disassemble_line(prior)
-#							pname << " do"
-#						  lines[index-1] = reassemble_line pindent, pname, pargs, pblock_args
-#
-#							prev_indents.push indent.length
-#						elsif prev_indents.last > indent.length
-#						  log "Leave"
-#
-#							while prev_indents.last != indent.length
-#    						lines[index-1] << "#{" " * (prev_indents.last-2)}end\n"
-#								prev_indents.pop
-#              end
-#					  end
-#					end
-#
-#					while prev_indents.last != 0
-#    				lines << "#{" " * (prev_indents.last-2)}end\n"
-#						prev_indents.pop
-#          end
-#
-#					@text = lines.join
-#        end
+        def rubify_pythonesque_blocks
+				  log "\n\n DOING BLOCKS!"
+
+          lines = @text.lines
+					prev_indents = [ 0 ]
+
+					lines.each_with_index do |line, index|
+					  log "\nTOKENIZE `#{line.chomp}'"
+						indent, body, block_args = *disassemble_line(line, partial: true)
+						log "#{prev_indents.last}->#{indent.length} `#{indent}' `#{body}' `#{block_args}'"
+
+						if prev_indents.last < indent.length
+						  prior = lines[index-1]
+
+						  log "Enter on `#{prior.chomp}'."
+							pindent, pbody, pblock_args = *disassemble_line(prior, partial: true)
+
+							log "pindent = `#{pindent}'"
+							log "pbody = `#{pbody}'"
+							log "pblock_args = `#{pblock_args}'"
+
+							lines[index-1] = "#{pindent}#{pbody} do #{pblock_args}\n"
+
+							prev_indents.push indent.length
+						elsif prev_indents.last > indent.length
+						  log "Leave"
+
+							while prev_indents.last != indent.length
+    						lines[index-1] << "#{" " * (prev_indents.last-2)}end\n"
+								prev_indents.pop
+              end
+					  end
+					end
+
+					while prev_indents.last != 0
+    				lines << "#{" " * (prev_indents.last-2)}end\n"
+						prev_indents.pop
+          end
+
+					@text = lines.join
+        end
 
         def log s
-          @logger << s.chomp << "\n" if @logger
+          @@logger << s.chomp << "\n" if @@logger
         end
 
         def set_text text
@@ -186,7 +197,7 @@ class Drum
             is_comment = ! Regexp.last_match[2].empty?
             rest       = Regexp.last_match[4]
 
-#            log "#{is_comment}: `#{indent}' #{"awaiting `#{waiting_for_indent}'" if waiting_for_indent}: `#{rest.chomp}'" if @logger
+#            log "#{is_comment}: `#{indent}' #{"awaiting `#{waiting_for_indent}'" if waiting_for_indent}: `#{rest.chomp}'" if @@logger
 
             if waiting_for_indent && indent.length <= waiting_for_indent.length
 #              log "Leaving comment."
