@@ -4,13 +4,13 @@ module DslAttrs
 	    transformer = block
 
       define_method(name) do |v = nil, &block_|
-#			  puts "#{self.class.name}.#{name}(#{v})"
+			  puts "#{self.class.name}.#{name}(#{v})"
 
-			  if block_
-				  @@klass ||= Class.new { include Drum::TimingScope }
-					obj = @@klass.new(self)
+			  if block_				  
+				  @@scope_klass ||= Class.new { include Drum::TimingScope }
+					obj = @@scope_klass.new self
 					self.subscopes << obj
-					v = obj.send(name, v)
+					v = obj.send name, v
 					obj.build &block_
 				else 
         	if v  
@@ -37,19 +37,27 @@ module DslAttrs
 	def additive_dsl_attr name, up: nil, after: [], &block
 			transformer = block
 
-      define_method(name) do |v = nil, &b|
-        if v  
-          instance_variable_set "@#{name}", v
-          [*after].each do |after|
-            send after
-          end
+      define_method(name) do |v = nil, &block_|
+			  if block_
+				  @@scope_klass ||= Class.new { include Drum::TimingScope }
+					obj = @@scope_klass.new self
+					self.subscopes << obj
+					v = obj.send name, v
+					obj.build &block_
+        else 
+        	if v  
+        	  instance_variable_set "@#{name}", v
+        	  [*after].each do |after|
+        	    send after
+        	  end
+        	end
+
+					up_obj = send(up)
+
+        	tmp = (instance_variable_get("@#{name}") || 0) + ((up_obj ? up_obj.send(name) : 0) || 0)
+					tmp = transformer.call tmp if transformer
+					tmp
         end
-
-				up_obj = send(up)
-
-        tmp = (instance_variable_get("@#{name}") || 0) + ((up_obj ? up_obj.send(name) : 0) || 0)
-				tmp = transformer.call tmp if transformer
-				tmp
       end
   end
 
