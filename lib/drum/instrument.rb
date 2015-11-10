@@ -10,9 +10,9 @@ class Drum
 
     dsl_attr :note
 
-		dsl_attr :rotate, failover: :collection
-    dsl_attr :shift,  failover: :collection
-    dsl_attr :loop,   failover: :collection
+		additive_dsl_attr :rotate, up: :collection
+    additive_dsl_attr :shift,  up: :collection
+    additive_dsl_attr :loop,   up: :collection
 
     attr_reader :name
     attr_reader :short_name

@@ -9,9 +9,10 @@ class Drum
   class Engine
     extend DslAttrs
 
-    dsl_attr :rotate
-    dsl_attr :shift
-    dsl_attr :loop
+    additive_dsl_attr :rotate
+    additive_dsl_attr :shift
+    additive_dsl_attr :loop
+
     dsl_attr :bpm, after: :tick_length 
 
     attr_reader :instruments, :output
