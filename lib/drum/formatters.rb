@@ -78,7 +78,10 @@ class Drum
 
 		BasicInstrumentFormatter = Proc.new do |range|
       range.map do |t| 
-        fires_at? t ? name[0].upcase : "." 
+			  puts "#{self.class.name}(#{name}) before fires_at? #{t.class.name} `#{t}'"
+        t = fires_at?(t) ? name[0].upcase : "." 
+			  puts "#{self.class.name}(#{name}) after fires_at?"
+				t
       end.join
     end
 
@@ -113,9 +116,12 @@ class Drum
     end
 
     MultiTableEngineFormatter = Proc.new do |range|
-        body = instruments.map do |k, v|
-          [ v.short_name, *v.to_s(range, SpacedInstrumentFormatter).strip.chunks(20) ]    
+		    puts "#{self.class.name} before make body"
+        body = instruments.values.map do |v|
+          [ v.short_name, *v.to_s(range, SpacedInstrumentFormatter).strip.chunks(20) ]
+#          [ v.short_name ]
         end    
+		    puts "#{self.class.name} after make body"
 
         fill = TableRowFormatter.call((0..15).map do |x| 
           x.to_s 16 

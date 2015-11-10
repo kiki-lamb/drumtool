@@ -17,11 +17,15 @@ class Drum
       end   
     end
 
-    def to_s
-      "{#{keys.map do |k| 
-        "#{k}=>#{self[k]}"
-      end.join ", "}}"
-    end   
+#    def to_s
+#      "{#{keys.map do |k| 
+#        "#{k}=>#{self[k]}"
+#      end.join ", "}}"
+#    end   
+
+		def keys
+		  @__hash__.keys
+		end
 
     def [] k
       @__hash__[k.to_sym]
@@ -35,9 +39,9 @@ class Drum
 		  @__hash__.include? k.to_sym
     end
 
-		def map &b
-		  @__hash__.map &b
-		end
+		#def map &b
+		#  @__hash__.map &b
+		#end
 
 		def values
 		  @__hash__.values

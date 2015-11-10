@@ -88,20 +88,23 @@ class Drum
      @__triggers__ << condition if block_given?
     end
 
-		def to_s range = 0..15, formatter = Formatters::SpacedInstrumentFormatter, *a
+		def to_s range = 0..15, formatter = nil #Formatters::SpacedInstrumentFormatter
       if formatter
-        instance_exec range, *a, &formatter
+        instance_exec range,  &formatter
       else
-        super
+        super()
       end
     end
 
     def fires_at? time
-#		  puts "#{self.class.name}(#{name}).fires_at? #{time.class.name} `#{time}'"
+		  throw ArgumentError, "String" if String === time
 
-      return false if @mute || (siblings.find do |i|
-        muted_by?(i) && i.fires_at?(time)
-      end)
+#		  puts "#{self.class.name}(#{name}).fires_at? #{time.class.name} `#{time}'"
+#		  return true
+
+ #     return false if @mute || (siblings.find do |i|
+ #       muted_by?(i) && i.fires_at?(time)
+ #     end)
 
 			e_time = time
 			e_rotate = rotate || 0
@@ -110,7 +113,6 @@ class Drum
 #			puts "e_time = #{e_time.class.name} `#{e_time}'"
 #			puts "e_rotate = #{e_rotate.class.name} `#{e_rotate}'"
 #			puts "e_shift = #{e_shift.class.name} `#{e_shift}'"
-
 			
 			if loop
 			  e_rotate %= loop
@@ -121,7 +123,7 @@ class Drum
       e_time %= loop if loop
 			e_time -= e_shift
       
-      r = @__cache__[e_time] ||= @__triggers__.find do |t|
+      rval = @__cache__[e_time] ||= @__triggers__.find do |t|
         tmp = t.call e_time
 
         if Fixnum === tmp
@@ -131,7 +133,9 @@ class Drum
         end
       end
 
-      @flip ? (! r) : r     
+      tmp = @flip ? (! rval) : rval
+#		  puts "#{self.class.name}(#{name}).fires_at? returns = #{tmp.class.name} `#{tmp}'"
+			tmp
     end
   end  
 end

@@ -23,7 +23,6 @@ class Drum
           "s" => "shift",
 
           "lp" => "loop",
-          "l" => "loop",
 
           "m" => "mute",
 

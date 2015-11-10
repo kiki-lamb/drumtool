@@ -31,18 +31,27 @@ class Drum
     end
 
     def play tick, log: $stdout       
+#		    puts "#{self.class.name} plays #{tick}"
+
+#		    puts "#{self.class.name} before questionable line"
         log << "\n" if 0 == (tick % (loop ? [16, loop].min : 16))
+#		    puts "#{self.class.name} after questionable line"
         log << "\n"
         log << bpm
 
+#		    puts "#{self.class.name} before questionable line 2"
         tick = tick % loop if loop
+#		    puts "#{self.class.name} after questionable line 2"
         
+
+#		    puts "#{self.class.name} before draw"
         log << Drum::Formatters::TableRowFormatter.call([ 
           tick.to_s(8).rjust(16, "0"), 
           *instruments.values.map do |i| 
             i.fires_at?(tick) ? "#{i.short_name}" : "--" 
           end 
         ], [], separator: " | ")
+#		    puts "#{self.class.name} after draw"
 
         notes, length = triggers_at(tick).map(&:note), tick_length
 
@@ -86,11 +95,12 @@ class Drum
       end
     end
 
-    def to_s range = 0..15, formatter = Formatters::MultiTableEngineFormatter, *a
+    def to_s range = 0..15, formatter = nil # Formatters::MultiTableEngineFormatter, *a
       if formatter
-        instance_exec range, *a, &formatter
+        instance_exec range, &formatter
       else
-        "<#{self.class.name} #{instruments}>"
+			  super()
+#        "<#{self.class.name} #{instruments}>"
       end
     end
 
