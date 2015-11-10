@@ -9,6 +9,7 @@ class Drum
           "ref" => "refresh_interval",
 
           "on" => "trigger",
+          "when" => "trigger",
           "tr" => "trigger",
           "trig" => "trigger",
 

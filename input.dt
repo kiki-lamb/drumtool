@@ -1,23 +1,26 @@
 bpm  112
-lp   16
-ref  8
+lp   8
+ref  16
 
 i bd 36
-  on %4
+  when %4
+	when 15
+	lp 32
 
 i oh 39
-  on %4
   sh 2
+  when %4
 
 i sd 37
-  on %8
   sh 4
+  when %8
 
 i b2 40
-  on %8
   sh 3
+  when %8
 
 i rs 38
   sh 2
-  on %3
-  loop 8
+  lp 8
+  when %3
+
