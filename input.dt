@@ -14,6 +14,6 @@ instrument b2 40
   shift 3
 instrument rs 38
   shift 3
-	loop 8
+  loop 8
   on { |t| t == 7 }
   on %6 10 10
