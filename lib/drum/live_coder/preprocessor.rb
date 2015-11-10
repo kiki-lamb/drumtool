@@ -2,7 +2,7 @@ class Drum
   class LiveCoder
     class Preprocessor
       class << self
-        def call text
+        def call text, logger: nil # This doesn't actually use it's logger.
           last_indent = ""
           out = StringIO.new
 

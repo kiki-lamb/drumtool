@@ -62,7 +62,7 @@ class Drum
      clear_cache
 
 		 if args.any?
-		 	 fixnums, others = args.partition do |arg|
+		 	 fixnums, args = args.partition do |arg|
 		 	   Fixnum === arg
 		 	 end
 		 
