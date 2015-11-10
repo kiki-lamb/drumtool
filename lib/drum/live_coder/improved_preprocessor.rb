@@ -26,7 +26,7 @@ class Drum
 				PatInt = /(?:\d+)/
 				PatModProc = /(?:%#{PatInt})/
 				PatArg = /#{PatName}|#{PatInt}|#{PatModProc}/
-				PatSimpleExpr = /\s*(#{PatName})\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/
+				PatSimpleExpr = /^\s*(#{PatName})\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/
 			
 				def tokenize line 
 				  line << "\n" unless line[-1] == "\n"
@@ -39,7 +39,8 @@ class Drum
 					 body = [ Regexp.last_match[1], * (Regexp.last_match[2] || "").split(/\s+/) ]
 					else
 			     log "PARSE COMPLEX EXPR: `#{body}'"
-					  body = [ body ]
+					  body = [ body ] # "#{body} #{block_args}" ]
+						# block_args = ""
 					end	 
 					
 					toks = [ head, body[0], body[1..-1], block_args ]
@@ -58,7 +59,7 @@ class Drum
 				  log "reassemble args = #{args.inspect}"
 				  log "reassemble block_args = `#{block_args}'"
 
-				  tmp = "#{indent}#{name}#{join_args args}#{" do #{block_args.strip}" unless block_args.empty?}\n"
+				  tmp = "#{indent}#{name}#{join_args args}#{" #{block_args.strip}" unless block_args.empty?}\n"
 					log "Reasssembled: `#{tmp}'"
 					tmp
 				end
@@ -81,7 +82,7 @@ class Drum
 
 						  log "Enter on `#{prior.chomp}'."
 							pindent, pname, pargs, pblock_args = *tokenize(prior)
-							pblock_args = " "
+							pname << " do"
 						  lines[index-1] = reassemble_line pindent, pname, pargs, pblock_args
 
 							prev_indents.push indent.length
@@ -137,15 +138,15 @@ class Drum
             is_comment = ! Regexp.last_match[2].empty?
             rest       = Regexp.last_match[4]
 
-            log "#{is_comment}: `#{indent}' #{"awaiting `#{waiting_for_indent}'" if waiting_for_indent}: `#{rest.chomp}'" if @logger
+#            log "#{is_comment}: `#{indent}' #{"awaiting `#{waiting_for_indent}'" if waiting_for_indent}: `#{rest.chomp}'" if @logger
 
             if waiting_for_indent && indent.length <= waiting_for_indent.length
-              log "Leaving comment."
+#              log "Leaving comment."
               waiting_for_indent = nil 
             end
 
             if is_comment && ! waiting_for_indent             
-              log "Enter comment."
+ #             log "Enter comment."
               waiting_for_indent = indent 
             end
             
