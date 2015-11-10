@@ -8,7 +8,7 @@ class Drum
 		attr_accessor :subscopes
 
 		def instruments
-		  @instruments ||= Instruments.new(self)
+		  @__hash__
     end
 
     def build &b
@@ -46,6 +46,30 @@ class Drum
 			@rotate, @shift, @loop = 0, 0, nil
 			@instruments = nil 
 			@subscopes = []
+
+      @__hash__= Hash.new do |h,k| 
+        h[k] = Instrument.new self, k
+      end   
+    end
+
+		def keys
+		  @__hash__.keys
+		end
+
+    def [] k
+      @__hash__[k.to_sym]
+    end
+
+    def []= k, v
+      @__hash__[k.to_sym] = v
+    end
+
+    def include? k
+		  @__hash__.include? k.to_sym
+    end
+
+		def values
+		  @__hash__.values
 		end
 
 		additive_dsl_attr :rotate, up: :parent

@@ -10,8 +10,9 @@ module DslAttrs
 				  @@klass ||= Class.new { include Drum::TimingScope }
 					obj = @@klass.new(self)
 					self.subscopes << obj
-					obj.send(name, v)
+					v = obj.send(name, v)
 					obj.build &block_
+					puts "#{obj.inspect} =>: #{v}"
 				else 
         	if v  
         	  instance_variable_set "@#{name}", v
