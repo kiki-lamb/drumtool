@@ -24,6 +24,8 @@ class Drum
 				PatName = /[a-z][a-z0-9_]*/
 
         def rubify_pythonesque_blocks
+				  log ""
+
           lines = @text.lines
 					prev_indents = [ 0 ]
 
@@ -34,16 +36,23 @@ class Drum
 						log "#{prev_indents.last}->#{indent} #{line}"
 
 						if prev_indents.last < indent
+						  prior = lines[index-1]
+
 						  log "Enter"
+							/((?:.(?!\|.+\|\s*\n$))*)(.*)/.match prior
+							head, args = Regexp.last_match[1], Regexp.last_match[2]
 
-							/(|#{PatName}(?:\s*,\s*#{PatName})*\s*|)\s*$/.match lines[index-1]
-							log "MATCH: `#{Regexp.last_match[0]}'"
+							log "PRIOR: `#{prior}'"
+							log "HEAD:  `#{head}'"
+							log "ARGS:  `#{args}'"
 
-						  lines[index-1] = "#{lines[index-1].chomp} do \n" 
+						  lines[index-1] = "#{head} do #{args.strip}\n" 
+
+#						  lines[index-1] = "#{prior.chomp} do \n" 
 
 							prev_indents.push indent
 						elsif prev_indents.last > indent
-						  puts "Leave"
+						  log "Leave"
 
 							while prev_indents.last != indent
     						lines[index-1] << "#{" " * (prev_indents.last-2)}end\n"

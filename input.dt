@@ -1,7 +1,7 @@
 bpm 112
 
 
-instrument bd 36 |x|
+instrument bd 36 |x, y|
   on %10
   loop 16 # 24
   instrument ch 43
