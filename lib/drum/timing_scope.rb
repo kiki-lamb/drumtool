@@ -1,7 +1,7 @@
 require_relative "../dsl_attrs"
 
 class Drum
-  class TimingScope
+  module TimingScope
     extend DslAttrs
 
 		attr_accessor :parent

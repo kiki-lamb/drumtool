@@ -2,8 +2,9 @@ require_relative "../dsl_attrs"
 require_relative "formatters"
 
 class Drum
-  class Instrument < TimingScope
+  class Instrument
     extend DslAttrs
+		include TimingScope
 
     dsl_toggle :mute
     dsl_toggle :flip
@@ -15,7 +16,7 @@ class Drum
     attr_reader :collection
 
     def initialize collection, name
-		  super collection
+  		super collection
       @name, @note, @short_name, @mute, @flip = name, note, name[0..1].upcase, false, false
       @collection, @__triggers__, @__muted_by__ = collection, [], []
       clear_cache
