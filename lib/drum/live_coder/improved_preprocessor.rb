@@ -12,7 +12,8 @@ class Drum
           strip_blank_lines_and_trailing_whitespace 
           extend_block_comments
           strip_blank_lines_and_trailing_whitespace_and_comments
-          rubify_pythonesque_blocks
+					rubify_arguments
+          # rubify_pythonesque_blocks
 
           @text
         ensure
@@ -23,86 +24,100 @@ class Drum
 
 				PatName = /(?:[a-z][a-z0-9_]*)/
 				PatBlockArgs = /(?:\|.+\|\s*\n$)/
-				PatInt = /(?:\d+)/
-				PatModProc = /(?:%#{PatInt})/
-				PatArg = /#{PatName}|#{PatInt}|#{PatModProc}/
+				PatNumber = /(?:\d+(?:[\.]\d+)?)/
+				PatModProc = /(?:%#{PatNumber})/
+				PatArg = /#{PatName}|#{PatNumber}|#{PatModProc}/
 				PatSimpleExpr = /^\s*(#{PatName})\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/
 			
 				def tokenize line 
 				  line << "\n" unless line[-1] == "\n"
 					/(\s*)((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match line
-					
-					head, body, block_args = Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip
+
+					indent, body, block_args = Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip
 
 					if  PatSimpleExpr.match body
 			     log "PARSE SIMPLE EXPR: #{Regexp.last_match.inspect}"
-					 body = [ Regexp.last_match[1], * (Regexp.last_match[2] || "").split(/\s+/) ]
+
+					  name, args = Regexp.last_match[1], (Regexp.last_match[2] || "").split(/\s+/)
 					else
 			     log "PARSE COMPLEX EXPR: `#{body}'"
-					  body = [ body ] # "#{body} #{block_args}" ]
-						# block_args = ""
+					  name, args = body, []
 					end	 
 					
-					toks = [ head, body[0], body[1..-1], block_args ]
+					toks = [ indent, body[0], body[1..-1], block_args ]
+
+					toks = [ indent, name, args, block_args ]
 					log "TOKS: #{toks.inspect}"
 
 					toks
 				end
 
-				def join_args args
-				  args.empty?? "" : "(#{args.join ', '})"
-				end
-
 				def reassemble_line indent, name, args, block_args
-				  log "reassemble indent = `#{indent}'"
-				  log "reassemble name = `#{name}'"
-				  log "reassemble args = #{args.inspect}"
-				  log "reassemble block_args = `#{block_args}'"
+#				  log "reassemble indent = `#{indent}'"
+#				  log "reassemble name = `#{name}'"
+#				  log "reassemble args = #{args.inspect}"
+#				  log "reassemble block_args = `#{block_args}'"
 
-				  tmp = "#{indent}#{name}#{join_args args}#{" #{block_args.strip}" unless block_args.empty?}\n"
+				  tmp = "#{indent}#{name}#{args.empty?? "" : "(#{args.join ', '})"}#{" #{block_args.strip}" unless block_args.empty?}\n"
 					log "Reasssembled: `#{tmp}'"
 					tmp
 				end
 
-        def rubify_pythonesque_blocks
+
+        def rubify_arguments
 				  log ""
 
           lines = @text.lines
-					prev_indents = [ 0 ]
 
 					lines.each_with_index do |line, index|
 					  log "\nTOKENIZE `#{line.chomp}'"
+
 						indent, name, args, block_args = *tokenize(line)
-#						log "#{prev_indents.last}->#{indent.length} `#{indent}' `#{name}' `#{args.inspect}' `#{block_args}'"
-
 						lines[index] = reassemble_line indent, name, args, block_args
-
-						if prev_indents.last < indent.length
-						  prior = lines[index-1]
-
-						  log "Enter on `#{prior.chomp}'."
-							pindent, pname, pargs, pblock_args = *tokenize(prior)
-							pname << " do"
-						  lines[index-1] = reassemble_line pindent, pname, pargs, pblock_args
-
-							prev_indents.push indent.length
-						elsif prev_indents.last > indent.length
-						  log "Leave"
-
-							while prev_indents.last != indent.length
-    						lines[index-1] << "#{" " * (prev_indents.last-2)}end\n"
-								prev_indents.pop
-              end
-					  end
 					end
-
-					while prev_indents.last != 0
-    				lines << "#{" " * (prev_indents.last-2)}end\n"
-						prev_indents.pop
-          end
 
 					@text = lines.join
         end
+
+#        def rubify_pythonesque_blocks
+#				  log ""
+#
+#          lines = @text.lines
+#					prev_indents = [ 0 ]
+#
+#					lines.each_with_index do |line, index|
+#					  log "\nTOKENIZE `#{line.chomp}'"
+#						indent, name, args, block_args = *tokenize(line)
+##						log "#{prev_indents.last}->#{indent.length} `#{indent}' `#{name}' `#{args.inspect}' `#{block_args}'"
+#
+#						lines[index] = reassemble_line indent, name, args, block_args
+#
+#						if prev_indents.last < indent.length
+#						  prior = lines[index-1]
+#
+#						  log "Enter on `#{prior.chomp}'."
+#							pindent, pname, pargs, pblock_args = *tokenize(prior)
+#							pname << " do"
+#						  lines[index-1] = reassemble_line pindent, pname, pargs, pblock_args
+#
+#							prev_indents.push indent.length
+#						elsif prev_indents.last > indent.length
+#						  log "Leave"
+#
+#							while prev_indents.last != indent.length
+#    						lines[index-1] << "#{" " * (prev_indents.last-2)}end\n"
+#								prev_indents.pop
+#              end
+#					  end
+#					end
+#
+#					while prev_indents.last != 0
+#    				lines << "#{" " * (prev_indents.last-2)}end\n"
+#						prev_indents.pop
+#          end
+#
+#					@text = lines.join
+#        end
 
         def log s
           @logger << s.chomp << "\n" if @logger
