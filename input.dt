@@ -1,6 +1,6 @@
 bpm  112
 lp   16
-ref  2
+ref  8
 
 i bd 36
   on %4
@@ -18,6 +18,6 @@ i b2 40
   sh 3
 
 i rs 38
-  sh 3
-  on { |t| t == 7 }
-  on %6 10 10
+  sh 2
+  on %3
+  loop 8

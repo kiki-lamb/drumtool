@@ -31,7 +31,9 @@ class Drum
         }
 
         def call text, logger: nil
-          @@text = text
+          @@text = text 
+					@@text << "\n"
+
           @@logger = logger
           
           untabify

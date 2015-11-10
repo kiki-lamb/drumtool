@@ -44,7 +44,7 @@ class Drum
           end if engine
 					started_tick = Time.now
 
-          io << "#{@__exception_lines__[tick%(@engine.loop || 16)]}#{"\n" unless engine}" if @__exception_lines__.any?
+          io << "\b#{@__exception_lines__[tick%(@engine.loop || 16)]}\n" if @__exception_lines__.any?
           $stdout << io.string
         ensure
           tick += 1

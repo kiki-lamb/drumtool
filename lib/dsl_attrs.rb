@@ -1,6 +1,8 @@
 module DslAttrs
-  def dsl_attr name, after: [], failover: nil, default: nil
-      define_method(name) do |v = nil, &b|
+  def dsl_attr name, after: [], up: nil, default: nil, &block
+	    transformer = block
+
+      define_method(name) do |v = nil|
         if v  
           instance_variable_set "@#{name}", v
           [*after].each do |after|
@@ -10,11 +12,14 @@ module DslAttrs
 
         tmp = instance_variable_get "@#{name}"
 
-        if (! tmp) && failover
-          tmp = send(failover).send(name, v)
+        if (! tmp) && up
+				  up_obj = send up
+          tmp = up_obj.send(name, v) if up_obj
         end
 
-        tmp || default
+        tmp ||= default
+				tmp = transformer.call tmp if transformer
+				tmp
       end
   end
 
