@@ -22,6 +22,7 @@ class Drum
         private 
 
 				PatName = /[a-z][a-z0-9_]*/
+				PatBlockArgs = /\|.+\|\s*\n$/
 
         def rubify_pythonesque_blocks
 				  log ""
@@ -39,16 +40,14 @@ class Drum
 						  prior = lines[index-1]
 
 						  log "Enter"
-							/((?:.(?!\|.+\|\s*\n$))*)(.*)/.match prior
-							head, args = Regexp.last_match[1], Regexp.last_match[2]
+							/((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match prior
+							head, args = Regexp.last_match[1], Regexp.last_match[2] || ""
 
 							log "PRIOR: `#{prior}'"
 							log "HEAD:  `#{head}'"
 							log "ARGS:  `#{args}'"
 
 						  lines[index-1] = "#{head} do #{args.strip}\n" 
-
-#						  lines[index-1] = "#{prior.chomp} do \n" 
 
 							prev_indents.push indent
 						elsif prev_indents.last > indent
@@ -60,6 +59,11 @@ class Drum
               end
 					  end
 					end
+
+					while prev_indents.last != 0
+    				lines << "#{" " * (prev_indents.last-2)}end\n"
+						prev_indents.pop
+          end
 
 					@text = lines.join
         end
