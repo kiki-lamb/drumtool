@@ -10,8 +10,6 @@ class Drum
 
 		%i{ trigger untrigger }.each do |method_name|
     	define_method method_name do |*args, &condition|
-    	 clear_cache
-
     	 if args.any?
     	   ranges, args = args.partition do |arg|
     	     Range === arg
@@ -48,7 +46,7 @@ class Drum
     	   end
     	 end
 
-			 send("add_#{method_name}") << condition if condition
+			 send("add_#{method_name}", condition) if condition
     	end
     end
   end
