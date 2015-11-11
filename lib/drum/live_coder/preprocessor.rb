@@ -84,26 +84,31 @@ class Drum
         PatNumber = /(?:\d+(?:[\.]\d+)?)/
         PatNumberExact = /^#{PatNumber}$/
         PatInt = /(?:\d+)/
+				PatHex = /(?:0x[\da-f]+)/
+        PatHexExact = /^#{PatHex}$/
         PatRange = /#{PatInt}\.\.#{PatInt}/
         PatRangeExact = /^#{PatRange}$/
         PatModulo = /(?:%#{PatNumber})/
         PatModuloExact = /^#{PatModulo}$/
-        PatArg = /#{PatName}|#{PatRange}||#{PatNumber}|#{PatModulo}/
+        PatArg = /#{PatName}|#{PatRange}||#{PatNumber}|#{PatModulo}|#{PatHex}/
         PatSimpleExpr = /^\s*(#{PatName})\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/
       
         def rubify_arg arg      
           if PatNumberExact.match arg
             tmp = arg.to_s
-            log "  Arg `#{arg}' is a Number: `#{tmp}"
+            log "  Arg `#{arg}' is a Number: `#{tmp}'"
           elsif PatNameExact.match arg
             tmp = ":#{arg}"
-            log "  Arg `#{arg}' is a Name: `#{tmp}"           
+            log "  Arg `#{arg}' is a Name: `#{tmp}'"
           elsif PatModuloExact.match arg
             tmp = "(Proc.new { |t| t#{arg} })"
-            log "  Arg `#{arg}' is a Modulo: `#{tmp}"      
+            log "  Arg `#{arg}' is a Modulo: `#{tmp}'"      
           elsif PatRangeExact.match arg
             tmp = "(#{arg})"
-            log "  Arg `#{arg}' is a Range: `#{tmp}"
+            log "  Arg `#{arg}' is a Range: `#{tmp}'"
+          elsif PatHexExact.match arg
+            tmp = "#{arg[2..-1].to_i(16)}"
+            log "  Arg `#{arg}' is a Hex: `#{tmp}"
           else
             raise ArgumentError, "Unrecognized argument"
           end
