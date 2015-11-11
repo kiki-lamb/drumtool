@@ -1,7 +1,7 @@
 lp   64
 ref 1
 
-bpm 112
+bpm 108
 
 i bd 36
   when %4
@@ -23,10 +23,7 @@ i r1 38
 
 i r2 48
 	lp 32
-  on 23 
-	on 26
-	on 30
-	on 3
+  on 23 26 30  3
 
 i ch 42
 	lp 8

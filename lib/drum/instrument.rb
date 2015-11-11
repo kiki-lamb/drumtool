@@ -4,7 +4,7 @@ require_relative "formatters"
 class Drum
   class Instrument
     extend DslAttrs
-		include TimingScope
+    include TimingScope
 
     dsl_attr :note, scopable: false
 
@@ -14,8 +14,8 @@ class Drum
     def initialize collection, name
       @name, @note, @short_name = name, note, name[0..1].upcase
       @__triggers__ = []
-			# @__muted_by__ = []
-  		super collection
+      # @__muted_by__ = []
+      super collection
       clear_cache
     end
 
@@ -51,46 +51,46 @@ class Drum
     def trigger *args, &condition
      clear_cache
 
-		 if args.any?
-		 	 ranges, args = args.partition do |arg|
-		 	   Range === arg
-		 	 end
+     if args.any?
+       ranges, args = args.partition do |arg|
+         Range === arg
+       end
 
-		 	 fixnums, args = args.partition do |arg|
-		 	   Fixnum === arg
-		 	 end
-		 
-		 	 procs, others = args.partition do |arg|
-		 	   Proc === arg
-		 	 end
+       fixnums, args = args.partition do |arg|
+         Fixnum === arg
+       end
+     
+       procs, others = args.partition do |arg|
+         Proc === arg
+       end
 
-		 	 raise ArgumentError, "Invalid argument: #{others.first.class.name} `#{others.first.inspect}'." if others.any?
+       raise ArgumentError, "Invalid argument: #{others.first.class.name} `#{others.first.inspect}'." if others.any?
 
-			 if fixnums.count == 1
-				 trigger do |t|
-				   fixnums.first == t
-				 end
-			 elsif fixnums.count > 1
-				 trigger do |t|
-					 [fixnums].include? t
-				 end
-			 end
-
-			 ranges.each do |range|
-			   trigger do |t|
-				   range.include? t
+       if fixnums.count == 1
+         trigger do |t|
+           fixnums.first == t
          end
-			 end
+       elsif fixnums.count > 1
+         trigger do |t|
+           fixnums.include? t
+         end
+       end
 
-		 	 procs.each do |proc|
-			   trigger &proc
-			 end
-		 end
+       ranges.each do |range|
+         trigger do |t|
+           range.include? t
+         end
+       end
+
+       procs.each do |proc|
+         trigger &proc
+       end
+     end
 
      @__triggers__ << condition if block_given?
     end
 
-		def to_s range = 0..15, formatter = nil #Formatters::SpacedInstrumentFormatter
+    def to_s range = 0..15, formatter = nil #Formatters::SpacedInstrumentFormatter
       if formatter
         instance_exec range,  &formatter
       else
@@ -99,26 +99,26 @@ class Drum
     end
 
     def fires_at? time
-		  throw ArgumentError, "String" if String === time
+      throw ArgumentError, "String" if String === time
 
-			return false if mute?
+      return false if mute?
 
  #     return false if @mute || (siblings.find do |i|
  #       muted_by?(i) && i.fires_at?(time)
  #     end)
 
-			e_time = time
-			e_rotate = rotate || 0
-			e_shift = shift || 0
+      e_time = time
+      e_rotate = rotate || 0
+      e_shift = shift || 0
 
-			if loop
-			  e_rotate %= loop
-				e_shift %= loop
-			end
+      if loop
+        e_rotate %= loop
+        e_shift %= loop
+      end
 
-			e_time -= e_rotate
+      e_time -= e_rotate
       e_time %= loop if loop
-			e_time -= e_shift
+      e_time -= e_shift
       
       rval = @__cache__[e_time] ||= @__triggers__.find do |t|
         tmp = t.call e_time
@@ -131,8 +131,8 @@ class Drum
       end
 
       tmp = flip? ? (! rval) : rval
-			tmp &&= note
-			tmp
+      tmp &&= note
+      tmp
     end
   end  
 end

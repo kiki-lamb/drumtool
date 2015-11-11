@@ -24,7 +24,7 @@ class Drum
     end
 
     def play tick, log: $stdout       
-        log << bpm
+        log << bpm << " | " << refresh_interval
 
         tick = tick % loop if loop
 
