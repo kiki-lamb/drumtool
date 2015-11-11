@@ -17,12 +17,12 @@ class Drum
           "excl" => "untrigger",
           "exclude" => "untrigger",
 
-					"sc" => "scale",
-					"sca" => "scale",
-					"scl" => "scale",
+          "sc" => "scale",
+          "sca" => "scale",
+          "scl" => "scale",
 
-					"rep" => "repeat",
-					"rp" => "repeat", 
+          "rep" => "repeat",
+          "rp" => "repeat", 
 
           "when" => "trigger",
           "on" => "trigger",
