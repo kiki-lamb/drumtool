@@ -67,10 +67,12 @@ class Drum
     end
 
 		def events_at time
-		  fires_at?(time) ? (notes.to_a + super) : []
+		  fires_at?(loop ? time%loop : time) ? (notes.to_a + super) : []
 		end
 		
     def fires_at? time
+		  puts "  #{self}.fires_at? #{time}"
+
 		  return false unless super
 
       e_time   =  time
@@ -78,7 +80,7 @@ class Drum
       e_rotate =  rotate || 0
       e_shift  =  shift || 0
       e_time   -= e_rotate
-      e_time   %= length if length
+#      e_time   %= loop if loop
       e_time   -= e_shift
 
       fires_now = cache[e_time] ||= begin
