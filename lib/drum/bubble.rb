@@ -13,6 +13,20 @@ class Drum
 				end
 			end
 
+			def local_array_bubble_attr name, singular: name.to_s.sub(/s$/, ""), uniq: false, &after
+			  local_bubble_attr "#{name}_array", default: nil
+
+				define_method name do 
+				  send("#{name}_array") || send("#{name}_array", [])
+				end
+
+				define_method singular do |v|
+				  send(name).tap do |a|
+					  a << v unless a.include? v
+					end
+				end
+			end
+
 		  def cumulative_bubble_attr name, default: 0, &after
 			  local_bubble_attr name, default: default, accessor: "local_#{name}", &after
 
@@ -26,6 +40,7 @@ class Drum
 
 			  define_method "#{setter_name}!" do |v = nil|
 				  send("local_#{name}", true)
+					nil
 				end
 
 			  define_method "#{getter_name}?" do |v = nil|
@@ -33,7 +48,7 @@ class Drum
 				end
 			end
 
-			def bubble_toggle name, &after
+			def proximal_bubble_toggle name, &after
 			  local_bubble_toggle name, getter_name: "local_#{name}", &after
 
 			  define_method "#{name}?" do |v = nil|
@@ -49,8 +64,10 @@ class Drum
 
 		local_bubble_attr :loop, default: nil
 
-		bubble_toggle :mute
-		bubble_toggle :flip
+		local_array_bubble_attr :notes
+
+		proximal_bubble_toggle :mute
+		proximal_bubble_toggle :flip
 		
 		cumulative_bubble_attr :rotate
 		cumulative_bubble_attr :shift
