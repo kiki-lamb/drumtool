@@ -1,20 +1,6 @@
 class Drum
   class Bubble
     class << self
-		  def proximal_bubble_attr name, default: nil, accessor: name, &after
-			  define_method accessor do |v = nil|
-				  (
-					  (
-						  instance_variable_set("@#{name}", v).tap do
-					      after.() if after
-				   	  end if v
-            ) || 
-						instance_variable_get("@#{name}") || 
-						default
-					)
-				end
-			end
-
 			def local_bubble_attr name, default: 0, accessor: name, &after
 			  define_method accessor do |v = nil|
 						(
