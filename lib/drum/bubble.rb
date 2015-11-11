@@ -17,6 +17,16 @@ class Drum
 				end
 			end
 
+			def local_counter_bubble_attr name, default: 0, return_value: name, &after
+			  local_bubble_attr name, default: default, &after
+				
+				define_method "#{name}!" do
+				  self.send(return_value).tap do
+				    self.send(name, self.send(name) + 1)
+					end
+				end
+			end
+
 			def local_array_bubble_attr name, singular: name.to_s.sub(/s$/, ""), uniq: false, &after
 			  local_bubble_attr "#{name}_array", default: nil
 

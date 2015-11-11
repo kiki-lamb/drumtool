@@ -16,10 +16,9 @@ class Drum
 				end
     end
 	end
-
-  (0..15).each do |tick|
-			tb.tick tick
-  	  puts "#{tb}.events(#{tick}) => #{tb.events}"
+	
+  16.times do
+			puts "#{tb.tick} #{tb.tick!}"
   end
 end
 

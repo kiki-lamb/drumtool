@@ -7,7 +7,7 @@ class Drum
   class TopBubble < MusicalBubble
 	 	attr_reader :output
 	 
-    local_bubble_attr :tick, default: 0
+    local_counter_bubble_attr :tick, return_value: :events
 	  local_bubble_attr :refresh, default: 16
 		local_bubble_attr :bpm, default: 112 do
 		  @tick_length = nil
