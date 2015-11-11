@@ -1,6 +1,5 @@
-lp   16
-rot 4
-ref 16
+lp   32
+ref 1
 
 bpm 112
 
@@ -12,16 +11,17 @@ i oh 39
     when %4
 
 i sd 37
-    sh 4
-    when %8
+    rot 5
+		  raise(ArgumentError, rotate)
+      when %8
 
-i b2 38
+#i b2 38
   sh 2
 
-i sh 41
+#i sh 41
 	when %1
 
-rot 1
+#rot 1
   i rs 40
     when %3
     lp 8
