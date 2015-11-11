@@ -1,11 +1,22 @@
 class Drum
   class Bubble
     class << self
-		  def bubble_attr name, &after
+		  def bubble_attr name, default: nil, &after
 			  define_method name do |v = nil|
-				  tmp = (instance_variable_set "@#{name}", v if v) || instance_variable_get("@#{name}")
-					after.() if after
-					tmp
+				  ((instance_variable_set "@#{name}", v if v) || instance_variable_get("@#{name}") || default).tap do
+					  after.() if after
+					end
+				end
+			end
+
+		  def cumulative_bubble_attr name, default: 0, &after
+			  define_method name do |v = nil|
+				  (
+					  ((instance_variable_set "@#{name}", v if v) || instance_variable_get("@#{name}") || default) +
+						(parent ? parent.send(name) : 0)
+					).tap do
+					  after.() if after
+					end
 				end
 			end
 
@@ -23,6 +34,13 @@ class Drum
     end
 
 		bubble_toggle :mute
+		bubble_toggle :flip
+
+		bubble_attr :loop, default: nil
+		
+		cumulative_bubble_attr :rotate
+		cumulative_bubble_attr :shift
+		cumulative_bubble_attr :scale
 
 		attr_reader :parent
 		attr_reader :children
