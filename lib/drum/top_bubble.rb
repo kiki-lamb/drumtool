@@ -8,9 +8,22 @@ class Drum
 	 	attr_reader :output
 	 
     local_counter_bubble_attr :tick, return_value: :events
+
 	  local_bubble_attr :refresh, default: 16
+
 		local_bubble_attr :bpm, default: 112 do
 		  @tick_length = nil
+		end
+
+		local_array_bubble_attr :open_notes do |note, is_new|
+		  output.puts 0x80, note[1], 100 unless is_new
+		  output.puts 0x90, note[1], 100
+		end
+
+		def play 
+		  events.each do |event|
+			  open_note event
+			end		
 		end
 
 	 	def tick_length

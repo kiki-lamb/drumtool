@@ -6,7 +6,7 @@ class Drum
 						(
 						  (
 							  instance_variable_set("@#{name}", v).tap do
-					  	    after.() if after
+					  	    instance_exec(v, &after) if after
 				   		  end if v
 							) ||
 							instance_variable_get("@#{name}") || 
@@ -36,7 +36,9 @@ class Drum
 
 				define_method singular do |v|
 				  send(name).tap do |a|
-					  a << v unless a.include? v
+					  exists = a.include? v
+					  a << v unless exists
+					  instance_exec(v, ! exists, &after) if after
 					end
 				end 
 			end
@@ -61,6 +63,7 @@ class Drum
 
 				  send(name).tap do |h|
 						  h[k] = v
+							instance_exec(v, &after) if after
 					end
 				end
 			end
