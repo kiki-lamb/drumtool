@@ -157,7 +157,7 @@ class Drum
 
         def reassemble_line indent, name, args, block_args
           tmp = "#{indent}#{name}#{args.empty?? "" : "(#{args.join ', '})"}#{" #{block_args.strip}" unless block_args.empty?}\n"
-          puts "  Reassembled: `#{tmp.chomp}'"
+          log "  Reassembled: `#{tmp.chomp}'"
           tmp
         end
 

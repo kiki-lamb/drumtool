@@ -21,7 +21,7 @@ n b2 40
 rot 2
   loop 8
  
-  i rs 38
+#  i rs 38
     sh 2
     lp 8
     when %3

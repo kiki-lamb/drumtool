@@ -12,8 +12,8 @@ class Drum
 
     attr_reader :exception, :engine
 
-    def initialize filename, refresh_interval: 16, preprocessor: Preprocessor, logger: nil, rescue_eval: true
-      @__filename__, @__refresh_interval__, @__preprocessor__, @__logger__, @__rescue_eval__ = filename, refresh_interval, preprocessor, logger, rescue_eval
+    def initialize filename, refresh_interval: 16, preprocessor: Preprocessor, logger: nil, pp_logger: nil, rescue_eval: true
+      @__filename__, @__refresh_interval__, @__preprocessor__, @__logger__, @__pp_logger__, @__rescue_eval__ = filename, refresh_interval, preprocessor, logger, pp_logger, rescue_eval
       @__hash__, @engine, @__exception_lines__ = nil, Engine.new, nil
       @exception = false
     end
@@ -28,6 +28,8 @@ class Drum
       while true do 
         begin
 				  @__exception_lines__ = [] unless exception
+					@__logger__.flush if @__logger__
+					@__pp_logger__.flush if @__pp_logger__
 
           io = StringIO.new
           io << "\n" if 0 == (tick % (engine.loop ? [16, engine.loop].min : 16))
@@ -66,7 +68,7 @@ class Drum
         @__hash__ = hash
 
         begin
-          proc = eval "\nProc.new do\n#{@__preprocessor__.call File.open("#{@__filename__}").read, logger: @__logger__}\nend"
+          proc = eval "\nProc.new do\n#{@__preprocessor__.call File.open("#{@__filename__}").read, logger: @__pp_logger__}\nend"
           @exception = nil
 					old_bpm = @engine.bpm
           @engine = Drum.build(&proc).inherit @engine
