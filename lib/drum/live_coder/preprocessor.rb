@@ -9,6 +9,7 @@ class Drum
           "ref" => "refresh_interval",
 
           "when" => "trigger",
+          "on" => "trigger",
           "tr" => "trigger",
           "trig" => "trigger",
 
@@ -93,16 +94,16 @@ class Drum
         def rubify_arg arg      
           if PatNumberExact.match arg
             tmp = arg.to_s
-            log "  Arg `#{arg}' is a Number: `#{tmp}'"
+            log "  Arg `#{arg}' is a Number: `#{tmp}"
           elsif PatNameExact.match arg
             tmp = ":#{arg}"
-            log "  Arg `#{arg}' is a Name: `#{tmp}'"           
+            log "  Arg `#{arg}' is a Name: `#{tmp}"           
           elsif PatModuloExact.match arg
             tmp = "(Proc.new { |t| t#{arg} })"
-            log "  Arg `#{arg}' is a Modulo: `#{tmp}'"      
+            log "  Arg `#{arg}' is a Modulo: `#{tmp}"      
           elsif PatRangeExact.match arg
             tmp = "(#{arg})"
-            log "  Arg `#{arg}' is a Range: `#{tmp}'"
+            log "  Arg `#{arg}' is a Range: `#{tmp}"
           else
             raise ArgumentError, "Unrecognized argument"
           end

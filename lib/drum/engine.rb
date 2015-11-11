@@ -30,9 +30,12 @@ class Drum
 
         log << Drum::Formatters::TableRowFormatter.call([ 
           tick.to_s(16).rjust(16, "0"), 
-          *instruments.map do |i| 
-            i.fires_at?(tick) ? "#{i.short_name}" : "--" 
-          end 
+					
+          *instruments.group_by(&:short_name).map do |name, instrs| 
+            (instrs.any? do |i|
+						  i.fires_at?(tick) 
+						end) ? "#{name}" : "--" 
+          end
         ], [], separator: " | ") << "\n"
 
 
