@@ -2,7 +2,7 @@
 module DslAttrs
 	def __dsl_attr_scopified__ self_, name, v, scopable, &block_
 	  raise "#{self_.class.name}.#{name} is not scopable" unless scopable
-		@@__dsl_attr_scope_klass__ ||= Class.new { include Drum::TimingScope }
+		@@__dsl_attr_scope_klass__ ||= Class.new { extend DslAttrs; include Drum::TimingScope }
 		obj = @@__dsl_attr_scope_klass__.new self_
 		self_.subscopes << obj
 		obj.send name, v

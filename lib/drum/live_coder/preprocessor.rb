@@ -193,7 +193,7 @@ class Drum
           end
 
           while prev_indents.last != 0
-            lines << "#{" " * (prev_indents.last-2)}end\n"
+            lines << "#{" " * (prev_indents[-2])}end\n"
             prev_indents.pop
           end
 
