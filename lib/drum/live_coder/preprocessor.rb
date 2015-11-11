@@ -81,7 +81,7 @@ class Drum
         PatBlockArgs = /(?:\|.+\|\s*\n$)/
         PatName = /(?:[a-z][a-z0-9_]*)/
         PatNameExact = /^#{PatName}$/
-				PatHex = /(?:0?x[\da-f]+)/
+				PatHex = /(?:0?x[\da-fA_F]+)/
         PatHexExact = /^#{PatHex}$/
         PatFloat = /(?:\d+(?:[\.]\d+)?)/
         PatFloatExact = /^#{PatFloat}$/
