@@ -92,6 +92,7 @@ class Drum
     end
 
 		def initialize parent = nil
+		  parent.children << self if Bubble === parent	
 		  @parent, @children = parent, []
 		end
 
@@ -109,7 +110,7 @@ class Drum
 		end
 
 		def child &b
-		  children << self.klass.new.build(&b)
+		  self.class.new(self).build(&b)
 		end
 
 		def build &b
