@@ -74,7 +74,7 @@ class Drum
 
     additive_dsl_attr :rotate, up: :parent
     additive_dsl_attr :shift,  up: :parent
-		additive_dsl_attr :scale,  up: :parent
+    additive_dsl_attr :scale,  up: :parent
     dsl_attr(         :loop,   up: :parent) do |v|
       0 == v ? nil : v
     end   
