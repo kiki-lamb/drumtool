@@ -67,7 +67,7 @@ class Drum
     end
 
 		def events_at time
-		  (notes.to_a + super) if fires_at? time
+		  fires_at?(time) ? (notes.to_a + super) : []
 		end
 		
     def fires_at? time
@@ -90,6 +90,7 @@ class Drum
           end
 			  end
 			end
+
     end
   end
 end
