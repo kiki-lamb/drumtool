@@ -67,37 +67,32 @@ class Drum
     end
 
 		def events_at time
-#		  puts "Call #{self}.events_at?"
-		  super.tap do |ary|
-#			  puts "#{self}: #{children.length} children"
-			  ary.push *local_events_at_time(time) # unless mute?
-			end
+		  local_events_at_time(time).tap do |evts|			  
+#			  puts "#{self}'s evts = #{evts.class.name} `#{evts}'"
+			  evts.push *super unless evts.nil?
+			end || []
 		end
 		
     def local_events_at_time time
-		  [].tap do |ary|
-      	e_time   =  time
-	    	e_time   =  (e_time * (2**(-scale))).to_f
-      	e_rotate =  rotate || 0
-      	e_shift  =  shift || 0
-      	e_time   -= e_rotate
-      	e_time   %= length if length
-      	e_time   -= e_shift
+      e_time   =  time
+	    e_time   =  (e_time * (2**(-scale))).to_f
+      e_rotate =  rotate || 0
+      e_shift  =  shift || 0
+      e_time   -= e_rotate
+      e_time   %= length if length
+      e_time   -= e_shift
 
-      	fires_now = cache[e_time] ||= begin
-					if triggers.any? do |t|
-      	    trigger_fires_at? t, e_time
-      	  end
-					  ! untriggers.any? do |t|
-      	      trigger_fires_at? t, e_time
-      	    end
-				  end
-				end
-
-#      	tmp = flip? ? (! fires_now) : fires_now
-
-				ary.push *notes.to_a if fires_now
+      fires_now = cache[e_time] ||= begin
+				if triggers.any? do |t|
+          trigger_fires_at? t, e_time
+        end
+				  ! untriggers.any? do |t|
+            trigger_fires_at? t, e_time
+          end
+			  end
 			end
+
+			notes.to_a if fires_now
     end
   end
 end
