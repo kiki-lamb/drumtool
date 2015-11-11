@@ -169,6 +169,7 @@ class Drum
           else
             log "  Parse complex expr: `#{body}'"         
             body = "#{Regexp.last_match[1]}#{expand Regexp.last_match[2]}#{Regexp.last_match[3]}" if /^(\s*)(#{PatName})(.*)$/.match body             
+						body.sub! /trigger\s+{(?!\s*\|t\|)/,  "trigger { |t| "
             name, args = body, []
           end  
           

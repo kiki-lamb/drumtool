@@ -28,13 +28,15 @@ class Drum
 
         tick = tick % loop if loop
 
+				fill = tick % 4 == 0 ? "--" : ". "
+
         log << Drum::Formatters::TableRowFormatter.call([ 
           tick.to_s(16).rjust(16, "0"), 
           
           *instruments.group_by(&:short_name).map do |name, instrs| 
             (instrs.any? do |i|
               i.fires_at?(tick) 
-            end) ? "#{name.ljust(2)}" : "--" 
+            end) ? "#{name.ljust(2)}" : fill 
           end
         ], [], separator: " | ") << "\n"
 
