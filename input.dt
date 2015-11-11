@@ -4,34 +4,39 @@ ref 1
 bpm 108
 
 i bd 36
-	when 0x0..0x4
+#	when xc..xf
 	when %x4
 
 i oh 39
-    sh 0x9
+    sh 2
     when %4
 
-i sd 37
-	 when 15
-	 when 17
 rot 4
   i sd 37  
    when %8
+#i sd 37
+	 when 15
+	 when 17
 
-i r1 38
+#i r1 38
 	lp x20
 	on 20
 
-i r2 x30
-	lp 32
-  on 23 26 30  3
+i r1 38
+	lp x20
+	on 0 1 3 6 11 16 
 
-i ch 42
+i r2 x30
+	lp x20
+  on 3 6 11 16
+
+#i ch 42
 	lp 8
 	fl
 	when %3
 
-i b2 x28
-   when %3
-   lp 8
-	 rot 6
+#i b2 x28
+	 lp 8
+	 shift 2
+	 on %5
+
