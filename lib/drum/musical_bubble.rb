@@ -10,6 +10,10 @@ class Drum
 		cumulative_bubble_attr :shift
 		cumulative_bubble_attr :scale
 
+		def fires_at? time
+		  ! mute?
+		end
+
 		def events_at time
 		  [].tap do |ary|
 			  ary.push *(self.children.map do |ch|

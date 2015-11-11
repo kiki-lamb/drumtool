@@ -67,13 +67,12 @@ class Drum
     end
 
 		def events_at time
-		  local_events_at_time(time).tap do |evts|			  
-#			  puts "#{self}'s evts = #{evts.class.name} `#{evts}'"
-			  evts.push *super unless evts.nil?
-			end || []
+		  (notes.to_a + super) if fires_at? time
 		end
 		
-    def local_events_at_time time
+    def fires_at? time
+		  return false unless super
+
       e_time   =  time
 	    e_time   =  (e_time * (2**(-scale))).to_f
       e_rotate =  rotate || 0
@@ -91,8 +90,6 @@ class Drum
           end
 			  end
 			end
-
-			notes.to_a if fires_now
     end
   end
 end
