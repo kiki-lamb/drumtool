@@ -15,10 +15,11 @@ class Drum
 		end
 
 		def events_at time
-
-		  (self.children.map do |ch|
-			  ch.events_at time
-			end.flatten if fires_at?(time)) || []
+		  (
+			  self.children.map do |ch|
+			    ch.events_at time
+			  end.flatten if fires_at? time
+			) || []
 		end
 	end
 end
