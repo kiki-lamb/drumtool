@@ -1,30 +1,50 @@
 class Drum
   class Bubble
     class << self
-		  def bubble_attr name, default: nil, &after
-			  define_method name do |v = nil|
-				  ((instance_variable_set "@#{name}", v if v) || instance_variable_get("@#{name}") || default).tap do
-					  after.() if after
-					end
+		  def proximal_bubble_attr name, default: nil, accessor: name, &after
+			  define_method accessor do |v = nil|
+				  (
+					  (
+						  instance_variable_set("@#{name}", v).tap do
+					      after.() if after
+				   	  end if v
+            ) || 
+						instance_variable_get("@#{name}") || 
+						default
+					)
+				end
+			end
+
+			def local_bubble_attr name, default: 0, accessor: name, &after
+			  define_method accessor do |v = nil|
+						(
+						instance_variable_set("@#{name}", v).tap do
+					    after.() if after
+				   	end if v
+						) ||
+						instance_variable_get("@#{name}") || 
+						default
 				end
 			end
 
 		  def cumulative_bubble_attr name, default: 0, &after
+			  local_bubble_attr name, default: default, accessor: "local_#{name}", &after
+
 			  define_method name do |v = nil|
-				  (
-					  ((instance_variable_set "@#{name}", v if v) || instance_variable_get("@#{name}") || default) +
-						(parent ? parent.send(name) : 0)
-					).tap do
-					  after.() if after
-					end
+				  send("local_#{name}", v) + (parent ? parent.send(name) : 0)
 				end
 			end
 
 			def bubble_toggle name, &after
-			  define_method name do |v = nil|
-				  instance_variable_set "@#{name}", true
-					after.() if after
-					true
+			  local_bubble_attr name, default: false, accessor: "local_#{name}", &after			  
+
+			  define_method "#{name}!" do |v = nil|
+				  send("local_#{name}", true)
+				end
+
+			  define_method "#{name}?" do |v = nil|
+				  send("local_#{name}") || 
+					( parent && parent.respond_to?("#{name}?") && parent.send("#{name}?"))
 				end
 			end
 
@@ -36,7 +56,7 @@ class Drum
 		bubble_toggle :mute
 		bubble_toggle :flip
 
-		bubble_attr :loop, default: nil
+		local_bubble_attr :loop, default: nil
 		
 		cumulative_bubble_attr :rotate
 		cumulative_bubble_attr :shift
