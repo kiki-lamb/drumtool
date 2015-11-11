@@ -81,22 +81,27 @@ class Drum
         PatBlockArgs = /(?:\|.+\|\s*\n$)/
         PatName = /(?:[a-z][a-z0-9_]*)/
         PatNameExact = /^#{PatName}$/
-        PatNumber = /(?:\d+(?:[\.]\d+)?)/
-        PatNumberExact = /^#{PatNumber}$/
-        PatInt = /(?:\d+)/
 				PatHex = /(?:0x[\da-f]+)/
         PatHexExact = /^#{PatHex}$/
-        PatRange = /#{PatInt}\.\.#{PatInt}/
+        PatFloat = /(?:\d+(?:[\.]\d+)?)/
+        PatFloatExact = /^#{PatFloat}$/
+        PatInt = /(?:\d+)/
+        PatIntExact = /^#{PatInt}$/
+				PatIntOrHex = /#{PatHex}|#{PatInt}/
+				PatIntOrHexExact = /^#{PatIntOrHex}$/
+        PatRange = /#{PatIntOrHex}\.\.#{PatIntOrHex}/
         PatRangeExact = /^#{PatRange}$/
-        PatModulo = /(?:%#{PatNumber})/
+        PatModulo = /(?:%#{PatIntOrHex})/
         PatModuloExact = /^#{PatModulo}$/
-        PatArg = /#{PatName}|#{PatRange}||#{PatNumber}|#{PatModulo}|#{PatHex}/
+#        PatHexModulo = /(?:%#{PatHex})/
+#        PatHexModuloExact = /^#{PatHexModulo}$/
+        PatArg = /#{PatName}|#{PatRange}|#{PatIntOrHex}|#{PatFloat}|#{PatModulo}/ #|#{PatHexModulo}/
         PatSimpleExpr = /^\s*(#{PatName})\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/
       
         def rubify_arg arg      
-          if PatNumberExact.match arg
+          if PatIntOrHexExact.match arg
             tmp = arg.to_s
-            log "  Arg `#{arg}' is a Number: `#{tmp}'"
+            log "  Arg `#{arg}' is a IntOrHex: `#{tmp}'"
           elsif PatNameExact.match arg
             tmp = ":#{arg}"
             log "  Arg `#{arg}' is a Name: `#{tmp}'"
@@ -106,9 +111,6 @@ class Drum
           elsif PatRangeExact.match arg
             tmp = "(#{arg})"
             log "  Arg `#{arg}' is a Range: `#{tmp}'"
-          elsif PatHexExact.match arg
-            tmp = "#{arg[2..-1].to_i(16)}"
-            log "  Arg `#{arg}' is a Hex: `#{tmp}"
           else
             raise ArgumentError, "Unrecognized argument"
           end

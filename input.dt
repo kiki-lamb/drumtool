@@ -1,13 +1,14 @@
-lp   64
+lp   0x40
 ref 1
 
 bpm 108
 
 i bd 36
-	on 0xf
+	when 0x0..0x3
+	when %0x4
 
 i oh 39
-    sh 2
+    sh 0x2
     when %4
 
 i sd 37
