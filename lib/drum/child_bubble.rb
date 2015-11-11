@@ -66,7 +66,7 @@ class Drum
     	end
     end
 
- 	  def trigger_fires? trigger, time
+ 	  def trigger_active? trigger, time
      	tmp = instance_exec(time, &trigger)
 
      	if Fixnum === tmp || Float === tmp
@@ -82,11 +82,11 @@ class Drum
 
 		def events force: false
 		  # puts "#{" "*depth}(CB) #{self}.events #{time}, #{force ? "true" : "false"}"
-		  (force || fires?) ? (notes.to_a.map(&:reverse!) + super(force: true)) : []
+		  (force || active?) ? (notes.to_a.map(&:reverse!) + super(force: true)) : []
 		end
 		
-    def fires? 
-		  # puts "#{" "*depth}(CB) #{self}.fires? #{time}"
+    def active? 
+		  # puts "#{" "*depth}(CB) #{self}.active? #{time}"
 
 		  return false unless super
 
@@ -100,10 +100,10 @@ class Drum
 
       fires_now = cache[e_time] ||= begin
 				if triggers.any? do |t|
-          trigger_fires? t, e_time
+          trigger_active? t, e_time
         end
 				  ! untriggers.any? do |t|
-            trigger_fires? t, e_time
+            trigger_active? t, e_time
           end
 			  end
 			end

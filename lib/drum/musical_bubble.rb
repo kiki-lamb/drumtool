@@ -14,8 +14,8 @@ class Drum
 		  loop ? tick%loop : tick
 		end
 
-		def fires? 
-		  # puts "#{" "*depth}(MB) #{self}.fires? #{time}"
+		def active? 
+		  # puts "#{" "*depth}(MB) #{self}.active? #{time}"
 		  ! mute?
 		end
 
@@ -25,7 +25,7 @@ class Drum
 		  (
 			  self.children.map do |ch|
 			    ch.events
-			  end.flatten(1) if (force || fires?)
+			  end.flatten(1) if (force || active?)
 			) || []
 		end
 	end
