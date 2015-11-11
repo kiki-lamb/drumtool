@@ -16,9 +16,10 @@ i sd 37
     when %8
 
 i b2 38
-  when %5
   sh 2
 
+i sh 41
+	when %1
 
 rot 1
   i rs 40
