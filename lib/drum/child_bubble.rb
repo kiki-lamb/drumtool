@@ -2,7 +2,7 @@ require_relative "./musical_bubble"
 
 class Drum
   class ChildBubble < MusicalBubble
-	  local_hash_bubble_attr :notes
+	  local_hash_bubble_attr :notes, flip: true, permissive: true
 
 		def clear_cache
 		  cache_hash {}
@@ -76,7 +76,7 @@ class Drum
 
 		def events force: false
 		  # puts "#{" "*depth}(CB) #{self}.events #{time}, #{force ? "true" : "false"}"
-		  (force || fires?) ? (notes.to_a + super(force: true)) : []
+		  (force || fires?) ? (notes.to_a.map(&:reverse!) + super(force: true)) : []
 		end
 		
     def fires? 

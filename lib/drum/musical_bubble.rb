@@ -25,7 +25,7 @@ class Drum
 		  (
 			  self.children.map do |ch|
 			    ch.events
-			  end.flatten if (force || fires?)
+			  end.flatten(1) if (force || fires?)
 			) || []
 		end
 	end

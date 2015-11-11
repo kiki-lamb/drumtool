@@ -7,11 +7,11 @@ class Drum
 				loop 8
 			  trigger { |t| 0 == t % 4 }
 
-				note 46, :bd
+				note 46
 
 				child do
 				  loop 8
-				  note 50, :sd
+				  note :sd, 50
 				  trigger { |t| 0 == (t+4) % 8 }
 				end
     end
