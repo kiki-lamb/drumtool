@@ -8,6 +8,16 @@ class Drum
           "refr" => "refresh_interval",
           "ref" => "refresh_interval",
 
+
+          "no" => "untrigger",
+          "not" => "untrigger",
+          "ex" => "untrigger",
+          "exc" => "untrigger",
+          "except" => "untrigger",
+          "excl" => "untrigger",
+          "exclude" => "untrigger",
+
+
           "when" => "trigger",
           "on" => "trigger",
           "tr" => "trigger",

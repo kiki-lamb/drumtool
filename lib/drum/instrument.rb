@@ -13,7 +13,8 @@ class Drum
 
     def initialize collection, name
       @name, @note, @short_name = name, note, name[0..1].upcase
-      @__triggers__ = []
+      @triggers = []
+      @untriggers = []
       # @__muted_by__ = []
       super collection
       clear_cache
@@ -48,46 +49,49 @@ class Drum
 #      end
 #    end
 
-    def trigger *args, &condition
-     clear_cache
+		%i{ trigger untrigger }.each do |method_name|
+    	define_method method_name do |*args, &condition|
+    	 clear_cache
 
-     if args.any?
-       ranges, args = args.partition do |arg|
-         Range === arg
-       end
+    	 if args.any?
+    	   ranges, args = args.partition do |arg|
+    	     Range === arg
+    	   end
 
-       fixnums, args = args.partition do |arg|
-         Fixnum === arg
-       end
-     
-       procs, others = args.partition do |arg|
-         Proc === arg
-       end
+    	   fixnums, args = args.partition do |arg|
+    	     Fixnum === arg
+    	   end
+    	 
+    	   procs, others = args.partition do |arg|
+    	     Proc === arg
+    	   end
 
-       raise ArgumentError, "Invalid argument: #{others.first.class.name} `#{others.first.inspect}'." if others.any?
+    	   raise ArgumentError, "Invalid argument: #{others.first.class.name} `#{others.first.inspect}'." if others.any?
 
-       if fixnums.count == 1
-         trigger do |t|
-           fixnums.first == t
-         end
-       elsif fixnums.count > 1
-         trigger do |t|
-           fixnums.include? t
-         end
-       end
+    	   if fixnums.count == 1
+    	     send method_name  do |t|
+    	       fixnums.first == t
+    	     end
+    	   elsif fixnums.count > 1
+    	     send method_name do |t|
+    	       fixnums.include? t
+    	     end
+    	   end
 
-       ranges.each do |range|
-         trigger do |t|
-           range.include? t
-         end
-       end
+    	   ranges.each do |range|
+    	     send method_name do |t|
+    	       range.include? t
+    	     end
+    	   end
 
-       procs.each do |proc|
-         trigger &proc
-       end
-     end
+    	   procs.each do |proc|
+    	     send method_name, &proc
+    	   end
+    	 end
+			 puts condition
 
-     @__triggers__ << condition if block_given?
+			 instance_variable_get("@#{method_name}s") << condition if condition
+    	end
     end
 
     def to_s range = 0..15, formatter = nil #Formatters::SpacedInstrumentFormatter
@@ -98,11 +102,21 @@ class Drum
       end
     end
 
+ 	  def trigger_fires_at? trigger, time
+     	tmp = trigger.call time
+
+     	if Fixnum === tmp
+     	  0 == tmp
+     	else
+     	  tmp
+     	end
+    end
+
     def fires_at? time
       throw ArgumentError, "String" if String === time
 
       return false if mute?
-
+		
  #     return false if @mute || (siblings.find do |i|
  #       muted_by?(i) && i.fires_at?(time)
  #     end)
@@ -120,15 +134,15 @@ class Drum
       e_time %= loop if loop
       e_time -= e_shift
       
-      rval = @__cache__[e_time] ||= @__triggers__.find do |t|
-        tmp = t.call e_time
-
-        if Fixnum === tmp
-          0 == tmp
-        else
-          tmp
+      rval = @__cache__[e_time] ||= begin
+				if @triggers.any? do |t|
+          trigger_fires_at? t, e_time
         end
-      end
+				  ! @untriggers.any? do |t|
+            trigger_fires_at? t, e_time
+          end
+			  end
+			end
 
       tmp = flip? ? (! rval) : rval
       tmp &&= note
