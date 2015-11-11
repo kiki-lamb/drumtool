@@ -5,20 +5,16 @@ class Bubbles
 	  rotate 0
 
 		bubble do
-		    rotate 0
-
-			  trigger { |t| 0 == t % 4 }
-
-				note :bd, 36
-
+			note :bd, 36
+		  trigger { |t| 0 == t % 4 }
+		  rotate 0
     end
 
 		bubble do
-		  rotate 1
 		  note :sd, 37
 		  trigger { |t| 0 == (t+4) % 8 }
+		  rotate 1
 		end
-
 	end
 	
   16.times do
