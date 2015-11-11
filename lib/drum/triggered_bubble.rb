@@ -1,7 +1,7 @@
 require_relative "./musical_bubble"
 
 class Drum
-  class TriggeredBubble < MusicalBubble
+  class TriggeredBubble 
 		array_bubble_attr :triggers, singular: :add_trigger do |v|
 		  clear_cache
 		end
@@ -83,17 +83,7 @@ class Drum
 		end
 		
     def active? 
-		  # puts "#{" "*depth}(CB) #{self}.active? #{time}"
-
 		  return false unless super
-
-      e_time   =  time
-	    e_time   =  (e_time * (2**(-scale))).to_f
-      e_rotate =  rotate || 0
-      e_shift  =  shift || 0
-      e_time   -= e_rotate
-#      e_time   %= loop if loop
-      e_time   -= e_shift
 
       fires_now = cache[e_time] ||= begin
 				if triggers.any? do |t|

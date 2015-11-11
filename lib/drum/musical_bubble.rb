@@ -6,11 +6,17 @@ class Drum
 
 		proximal_bubble_toggle :mute
 		
-		cumulative_bubble_attr :rotate
-		cumulative_bubble_attr :shift
+		bubble_attr :rotate
+		bubble_attr :shift
 		cumulative_bubble_attr :scale
 
-		def time 
+		def time	
+	    e_time = (tick * (2**(-scale))).to_f
+
+      e_time -= e_rotate
+      e_time %= loop if loop
+      e_time -= e_shift
+ 
 		  loop ? tick%loop : tick
 		end
 

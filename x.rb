@@ -1,16 +1,17 @@
-require "./lib/drum/top_bubble"
+require "./lib/bubbles"
 
-class Drum
+class Bubbles
 	tb = TopBubble.build do
+	  rotate 0
 
 		child do
-				loop 8
+		    rotate 1
+
 			  trigger { |t| 0 == t % 4 }
 
 				note :bd, 36
 
 				child do
-				  loop 8
 				  note :sd, 37
 				  trigger { |t| 0 == (t+4) % 8 }
 				end
