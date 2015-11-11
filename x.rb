@@ -18,9 +18,7 @@ class Drum
 	end
 	
   16.times do
-	    tb.play
 			puts "#{tb.tick} #{tb.tick!}"
-			sleep tb.tick_length
   end
 end
 

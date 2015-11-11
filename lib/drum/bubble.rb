@@ -17,12 +17,15 @@ class Drum
 				end
 			end
 
-			def local_counter_bubble_attr name, default: 0, return_value: name, &after
-			  local_bubble_attr name, default: default, &after
+			def local_counter_bubble_attr name, default: 0, return_value: name, before: nil, after: nil
+			  local_bubble_attr name, default: default
 				
 				define_method "#{name}!" do
+					self.send before if before
+
 				  self.send(return_value).tap do
-				    self.send(name, self.send(name) + 1)
+				    self.send name, self.send(name) + 1
+						self.send after if after
 					end
 				end
 			end
