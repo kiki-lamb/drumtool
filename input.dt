@@ -19,10 +19,10 @@ rot 4
    when %8
 
 i r1 38
-	lp 32
+	lp x20
 	on 20
 
-i r2 48
+i r2 x30
 	lp 32
   on 23 26 30  3
 
@@ -31,7 +31,7 @@ i ch 42
 	fl
 	when %3
 
-i b2 40
+i b2 x28
    when %3
    lp 8
 	 rot 6
