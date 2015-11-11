@@ -4,11 +4,11 @@ ref 1
 bpm 108
 
 i bd 36
-	when x0..x3
+	when 0x0..0x4
 	when %x4
 
 i oh 39
-    sh x2
+    sh 0x9
     when %4
 
 i sd 37
