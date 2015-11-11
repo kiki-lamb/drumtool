@@ -14,6 +14,10 @@ class Drum
 
 		proximal_bubble_toggle :flip
 
+		def tick
+		  top.tick
+		end
+
 		%i{ trigger untrigger }.each do |method_name|
     	define_method method_name do |*args, &condition|
     	 if args.any?

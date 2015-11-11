@@ -10,10 +10,6 @@ class Drum
 		cumulative_bubble_attr :shift
 		cumulative_bubble_attr :scale
 
-		def tick
-		  top.tick
-		end
-
 		def time 
 		  loop ? tick%loop : tick
 		end
