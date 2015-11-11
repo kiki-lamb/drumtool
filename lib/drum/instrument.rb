@@ -88,7 +88,6 @@ class Drum
     	     send method_name, &proc
     	   end
     	 end
-			 puts condition
 
 			 instance_variable_get("@#{method_name}s") << condition if condition
     	end
@@ -107,6 +106,8 @@ class Drum
 
      	if Fixnum === tmp
      	  0 == tmp
+     	elsif Float === tmp
+     	  0 == tmp
      	else
      	  tmp
      	end
@@ -122,6 +123,14 @@ class Drum
  #     end)
 
       e_time = time
+#			e_time+=1
+#			e_time /=  repeat
+
+ 
+	    e_time = (e_time * (2**(-scale))).to_f
+
+# 		puts "e_t = #{e_time}"
+
       e_rotate = rotate || 0
       e_shift = shift || 0
 
@@ -133,7 +142,9 @@ class Drum
       e_time -= e_rotate
       e_time %= loop if loop
       e_time -= e_shift
-      
+
+#			puts "e_t2 = #{e_time}"      
+			
       rval = @__cache__[e_time] ||= begin
 				if @triggers.any? do |t|
           trigger_fires_at? t, e_time

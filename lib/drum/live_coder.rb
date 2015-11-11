@@ -17,6 +17,7 @@ class Drum
       @__hash__, @engine, @__exception_lines__ = nil, Engine.new, nil
 			@old_engine = nil
       @exception = false
+			@last_line_length = 2
     end
 
     def play
@@ -34,7 +35,12 @@ class Drum
           	@__pp_logger__.flush if @__pp_logger__
 
           	io = StringIO.new
-          	io << "\n" if 0 == (tick % (engine.loop ? [16, engine.loop].min : 16))
+						
+						if engine.loop && 0 == tick % engine.loop && engine.loop != 1
+						  io << "=" * (@last_line_length-2) << "\n"
+						elsif 0 == tick % 16 
+						  io << "-" * (@last_line_length-2) << "\n"
+						end
 
           	refresh_time = Time.now
           	refresh if (tick%@__refresh_interval__ == 0)
@@ -49,6 +55,9 @@ class Drum
           	started_tick = Time.now
 
           	io << "\b#{@__exception_lines__[tick%(@engine.loop || 16)]}\n" if @__exception_lines__.any?
+
+						@last_line_length = io.string.length
+
           	$stdout << io.string
 					rescue Interrupt
 					  raise

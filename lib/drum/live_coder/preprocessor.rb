@@ -17,6 +17,12 @@ class Drum
           "excl" => "untrigger",
           "exclude" => "untrigger",
 
+					"sc" => "scale",
+					"sca" => "scale",
+					"scl" => "scale",
+
+					"rep" => "repeat",
+					"rp" => "repeat", 
 
           "when" => "trigger",
           "on" => "trigger",
@@ -33,7 +39,6 @@ class Drum
           "sh" => "shift",
 
           "lp" => "loop",
-          "sc" => "loop",
           "scp" => "loop",
           "scope" => "loop",
 
@@ -116,7 +121,8 @@ class Drum
 					  tmp = arg.sub /^[xX]/, "0x"
             log "  Arg `#{arg}' is a IntOrHex: `#{tmp}'"
           elsif PatModuloExact.match arg
-            tmp = "(Proc.new { |t| t#{arg.sub /%[xX]/, "%0x"} })"
+					  arg.sub! /%[xX]/, "%0x"
+            tmp = "(Proc.new { |t| t#{arg} })"
             log "  Arg `#{arg}' is a Modulo: `#{tmp}'"      
           elsif PatNameExact.match arg
             tmp = ":#{arg}"
