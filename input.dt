@@ -3,19 +3,18 @@ ref  1
 
 bpm 112
 
-
-i bd 36
+n bd 36
   when %4
 
-i oh 39
+#n oh 39
     sh 2
     when %4
 
-i sd 37
+n sd 37
     sh 4
     when %8
 
-i b2 40
+n b2 40
   when %4
   sh 2
 

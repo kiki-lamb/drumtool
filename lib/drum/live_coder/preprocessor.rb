@@ -16,15 +16,16 @@ class Drum
           "inst" => "instrument",
           "ins" => "instrument",
           "i" => "instrument",
+          "n" => "instrument",
 
           "rot" => "rotate",
 
           "sh" => "shift",
 
           "lp" => "loop",
-					"sc" => "loop",
-					"scp" => "loop",
-					"scope" => "loop",
+          "sc" => "loop",
+          "scp" => "loop",
+          "scope" => "loop",
 
           "mu" => "mute",
 
@@ -34,28 +35,49 @@ class Drum
 
         def call text, logger: nil
           @@text = text 
-					@@text << "\n"
+          @@text << "\n"
 
           @@logger = logger
-          
-          untabify
-          strip_blank_lines_and_trailing_whitespace 
-          extend_block_comments
-          strip_blank_lines_and_trailing_whitespace_and_comments
-          rubify_arguments_and_expand_abbreviations
-          rubify_pythonesque_blocks
+
+          %i{ untabify
+              strip_blank_lines_and_trailing_whitespace 
+              extend_block_comments
+              strip_blank_lines_and_trailing_whitespace_and_comments
+              rubify_arguments_and_expand_abbreviations
+              rubify_pythonesque_blocks 
+          }.each do |sym|
+
+              log_separator
+              log "#{name} performing step: #{sym}"
+              log_separator
+              send sym
+              log_separator
+              log "#{name}'s text after performing step: #{sym}"
+              log_separator
+              log_text
+          end           
 
           @@text
         ensure
-          log "\nPREPROCESSED:"
-          log "=" * 80
-          log @@text
-          log "=" * 80
-					log "\n"
+          log_separator
           clear_text
         end
         
         private 
+				def pad_number num, siz = 4
+				  num.to_s.rjust(siz, "0")
+				end
+
+				def log_separator
+				  log "=" * 80
+				end
+
+        def log_text
+          @@text.lines.each_with_index do |line, index|
+            log "#{pad_number index} #{line}"
+          end
+        end
+
         PatBlockArgs = /(?:\|.+\|\s*\n$)/
         PatName = /(?:[a-z][a-z0-9_]*)/
         PatNameExact = /^#{PatName}$/
@@ -64,39 +86,41 @@ class Drum
         PatInt = /(?:\d+)/
         PatRange = /#{PatInt}\.\.#{PatInt}/
         PatRangeExact = /^#{PatRange}$/
-        PatModProc = /(?:%#{PatNumber})/
-        PatModProcExact = /^#{PatModProc}$/
-        PatArg = /#{PatName}|#{PatRange}||#{PatNumber}|#{PatModProc}/
+        PatModulo = /(?:%#{PatNumber})/
+        PatModuloExact = /^#{PatModulo}$/
+        PatArg = /#{PatName}|#{PatRange}||#{PatNumber}|#{PatModulo}/
         PatSimpleExpr = /^\s*(#{PatName})\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/
       
         def rubify_arg arg      
           if PatNumberExact.match arg
-            log "ARG `#{arg}' is a Number"
-            arg.to_s
+            tmp = arg.to_s
+            log "Arg `#{arg}' is a Number: `#{tmp}"
           elsif PatNameExact.match arg
-            log "ARG `#{arg}' is a Name"
-            ":#{arg}"
-          elsif PatModProcExact.match arg
-            log "ARG `#{arg}' is a ModProc"
-            "(Proc.new { |t| t#{arg} })"
+            tmp = ":#{arg}"
+            log "Arg `#{arg}' is a Name: `#{tmp}"           
+          elsif PatModuloExact.match arg
+            tmp = "(Proc.new { |t| t#{arg} })"
+            log "Arg `#{arg}' is a Modulo: `#{tmp}"      
           elsif PatRangeExact.match arg
-            log "ARG `#{arg}' is a Range"
-            "(#{arg})"
+            tmp = "(#{arg})"
+            log "Arg `#{arg}' is a Range: `#{tmp}"
           else
             raise ArgumentError, "Unrecognized argument"
           end
+          
+          tmp
         end
 
         def rubify_arguments_and_expand_abbreviations
-          log ""
-
           lines = @@text.lines
 
           lines.each_with_index do |line, index|
-            log "\nTOKENIZE `#{line.chomp}'"
+            log "#{pad_number index} #{line.chomp}"
 
             indent, name, args, block_args = *disassemble_line(line)
             lines[index] = reassemble_line indent, name, args, block_args
+
+            log "\n"
           end
 
           @@text = lines.join
@@ -117,59 +141,54 @@ class Drum
           indent, body, block_args = *partially_disassemble_line(line)
 
           if PatSimpleExpr.match body
-            log "PARSE SIMPLE EXPR: #{Regexp.last_match.inspect}"
+            log "Parsed simple expr: #{Regexp.last_match.inspect}"
 
             name, args = expand(Regexp.last_match[1]), (Regexp.last_match[2] || "").split(/\s+/).map do |arg|
               rubify_arg arg
             end
           else
-            log "PARSE COMPLEX EXPR: `#{body}'"         
+            log "Parse complex expr: `#{body}'"         
             body = "#{Regexp.last_match[1]}#{expand Regexp.last_match[2]}#{Regexp.last_match[3]}" if /^(\s*)(#{PatName})(.*)$/.match body             
             name, args = body, []
           end  
           
           toks = [ indent, name, args, block_args ]
-          log "TOKS: #{toks.inspect}"
+          log "Tokens: #{toks.inspect}"
           toks
         end
 
         def reassemble_line indent, name, args, block_args
-          "#{indent}#{name}#{args.empty?? "" : "(#{args.join ', '})"}#{" #{block_args.strip}" unless block_args.empty?}\n"
+          tmp = "#{indent}#{name}#{args.empty?? "" : "(#{args.join ', '})"}#{" #{block_args.strip}" unless block_args.empty?}\n"
+          puts "Reassembled: `#{tmp.chomp}'"
+          tmp
         end
 
         def rubify_pythonesque_blocks
-          log "\n\n DOING BLOCKS!"
-
           lines = @@text.lines
           prev_indents = [ 0 ]
 
           lines.each_with_index do |line, index|
-            log "\nTOKENIZE `#{line.chomp}'"
             indent = partially_disassemble_line(line).first
-            log "#{prev_indents.last}->#{indent.length} `#{line}'"
+            log "#{pad_number index} #{pad_number prev_indents.last, 2}->#{pad_number indent.length, 2} #{line.chomp}"
 
             if prev_indents.last < indent.length
               prior = lines[index-1]
 
-              log "Enter on `#{prior.chomp}'."
+              log "#{pad_number index}        Blockify prior line `#{prior.chomp}'."
               pindent, pbody, pblock_args = *partially_disassemble_line(prior)
-
-              log "pindent = `#{pindent}'"
-              log "pbody = `#{pbody}'"
-              log "pblock_args = `#{pblock_args}'"
 
               lines[index-1] = "#{pindent}#{pbody} do #{pblock_args}\n"
 
               prev_indents.push indent.length
             elsif prev_indents.last > indent.length
-              log "Leave"
+              log "#{pad_number index}        Leave block"
 
               while prev_indents.last != indent.length
                 begin 
-								  lines[index-1] << "#{" " * prev_indents[-2]}end\n"
-								rescue ArgumentError
-								  raise RuntimeError, "Bad unindent."
-								end
+                  lines[index-1] << "#{" " * prev_indents[-2]}end\n"
+                rescue ArgumentError
+                  raise RuntimeError, "Bad unindent."
+                end
                 prev_indents.pop
               end
             end
@@ -207,26 +226,29 @@ class Drum
           o = StringIO.new
           waiting_for_indent = nil
           
-          @@text.lines.each do |line|
+          @@text.lines.each_with_index do |line, index|
             /(\s*)(#?)(\s*)(.*\n)/.match line
             indent     = "#{Regexp.last_match[1]}#{Regexp.last_match[3]}"
             is_comment = ! Regexp.last_match[2].empty?
             rest       = Regexp.last_match[4]
 
-            log "#{is_comment}: `#{indent}' #{"awaiting `#{waiting_for_indent}'" if waiting_for_indent}: `#{rest.chomp}'" if @@logger
-
             if waiting_for_indent && indent.length <= waiting_for_indent.length
-              log "Leaving comment."
+              log "#{pad_number index} Leaving comment."
               waiting_for_indent = nil 
             end
 
             if is_comment && ! waiting_for_indent             
-              log "Enter comment."
+              log "#{pad_number index} Enter comment."
               waiting_for_indent = "#{indent} "
             end
             
             is_comment = "# " if waiting_for_indent
-            o << "#{is_comment if is_comment}#{indent}#{rest}"
+
+            tmp = "#{is_comment if is_comment}#{indent}#{rest}"
+
+            log "#{pad_number index} #{tmp.chomp} #{"# (awaiting `#{waiting_for_indent.length}')" if waiting_for_indent}"
+
+            o << tmp
           end
 
           @@text = o.string
