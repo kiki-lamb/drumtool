@@ -56,7 +56,7 @@ class Drum
     	end
     end
 
- 	  def trigger_fires_at? trigger, time
+ 	  def trigger_fires? trigger, time
      	tmp = instance_exec(time, &trigger)
 
      	if Fixnum === tmp || Float === tmp
@@ -70,16 +70,13 @@ class Drum
 		  "#{super}(#{notes.values.join ", "})"
 		end
 
-		def events_at time, force = false
-		  time %= loop if loop
-		  # puts "#{" "*depth}(CB) #{self}.events_at #{time}, #{force ? "true" : "false"}"
-		  (force || fires_at?(time)) ? (notes.to_a + super(time, true)) : []
+		def events force: false
+		  # puts "#{" "*depth}(CB) #{self}.events #{time}, #{force ? "true" : "false"}"
+		  (force || fires?) ? (notes.to_a + super(force: true)) : []
 		end
 		
-    def fires_at? time
-		  time %= loop if loop
-
-		  # puts "#{" "*depth}(CB) #{self}.fires_at? #{time}"
+    def fires? 
+		  # puts "#{" "*depth}(CB) #{self}.fires? #{time}"
 
 		  return false unless super
 
@@ -93,10 +90,10 @@ class Drum
 
       fires_now = cache[e_time] ||= begin
 				if triggers.any? do |t|
-          trigger_fires_at? t, e_time
+          trigger_fires? t, e_time
         end
 				  ! untriggers.any? do |t|
-            trigger_fires_at? t, e_time
+            trigger_fires? t, e_time
           end
 			  end
 			end

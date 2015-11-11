@@ -18,7 +18,8 @@ class Drum
 	end
 
   (0..15).each do |tick|
-  	  puts "#{tb}.events_at(#{tick}) => #{tb.events_at tick}"
+			tb.tick tick
+  	  puts "#{tb}.events(#{tick}) => #{tb.events}"
   end
 end
 

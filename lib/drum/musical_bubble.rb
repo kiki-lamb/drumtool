@@ -10,23 +10,26 @@ class Drum
 		cumulative_bubble_attr :shift
 		cumulative_bubble_attr :scale
 
-		
+		def tick
+		  top.tick
+		end
 
-		def fires_at? time
-			time %= loop if loop
+		def time 
+		  loop ? tick%loop : tick
+		end
 
-		  # puts "#{" "*depth}(MB) #{self}.fires_at? #{time}"
+		def fires? 
+		  # puts "#{" "*depth}(MB) #{self}.fires? #{time}"
 		  ! mute?
 		end
 
-		def events_at time, force = false
-			time %= loop if loop
-		  # puts "#{" "*depth}(MB) #{self}.events_at #{time}, #{force ? "true" : "false"}"
+		def events force: false
+		  # puts "#{" "*depth}(MB) #{self}.events #{time}, #{force ? "true" : "false"}"
 
 		  (
 			  self.children.map do |ch|
-			    ch.events_at time
-			  end.flatten if (force || fires_at?(time))
+			    ch.events
+			  end.flatten if (force || fires?)
 			) || []
 		end
 	end
