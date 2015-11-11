@@ -1,7 +1,7 @@
 class Drum
   class Bubble
     class << self
-			def local_bubble_attr name, default: 0, accessor: name, &after
+			def bubble_attr name, default: 0, accessor: name, &after
 			  define_method accessor do |v = nil|
 						(
 						  (
@@ -17,8 +17,8 @@ class Drum
 				end
 			end
 
-			def local_counter_bubble_attr name, default: 0, return_value: name, before: nil, after: nil
-			  local_bubble_attr name, default: default
+			def counter_bubble_attr name, default: 0, return_value: name, before: nil, after: nil
+			  bubble_attr name, default: default
 				
 				define_method "#{name}!" do
 					self.send before if before
@@ -30,8 +30,8 @@ class Drum
 				end
 			end
 
-			def local_array_bubble_attr name, singular: name.to_s.sub(/s$/, ""), uniq: false, &after
-			  local_bubble_attr "#{name}_array", default: nil
+			def array_bubble_attr name, singular: name.to_s.sub(/s$/, ""), uniq: false, &after
+			  bubble_attr "#{name}_array", default: nil
 
 				define_method name do 
 				  send("#{name}_array") || send("#{name}_array", [])
@@ -43,11 +43,11 @@ class Drum
 					  a << v unless exists
 					  instance_exec(v, ! exists, &after) if after
 					end
-				end 
+				end if singular
 			end
 
-			def local_hash_bubble_attr name, singular: name.to_s.sub(/s$/, ""), flip: false, permissive: false, uniq: false, &after
-			  local_bubble_attr "#{name}_hash", default: nil
+			def hash_bubble_attr name, singular: name.to_s.sub(/s$/, ""), flip: false, permissive: false, uniq: false, &after
+			  bubble_attr "#{name}_hash", default: nil
 
 				raise ArgumentError, "permissive can only be used with flip" if permissive && ! flip
 
@@ -72,15 +72,15 @@ class Drum
 			end
 
 		  def cumulative_bubble_attr name, default: 0, &after
-			  local_bubble_attr name, default: default, accessor: "local_#{name}", &after
+			  bubble_attr name, default: default, accessor: "local_#{name}", &after
 
 			  define_method name do |v = nil|
 				  send("local_#{name}", v) + (parent ? parent.send(name) : 0)
 				end
 			end
 
-			def local_bubble_toggle name, getter_name: name, setter_name: name, &after
-			  local_bubble_attr name, default: false, accessor: "local_#{name}", &after			  
+			def bubble_toggle name, getter_name: name, setter_name: name, &after
+			  bubble_attr name, default: false, accessor: "local_#{name}", &after			  
 
 			  define_method "#{setter_name}!" do |v = nil|
 				  send("local_#{name}", true)
@@ -93,7 +93,7 @@ class Drum
 			end
 
 			def proximal_bubble_toggle name, &after
-			  local_bubble_toggle name, getter_name: "local_#{name}", &after
+			  bubble_toggle name, getter_name: "local_#{name}", &after
 
 			  define_method "#{name}?" do |v = nil|
 				  send("local_#{name}?") || 
@@ -106,8 +106,8 @@ class Drum
 			end
     end
 
-		attr_reader :parent
-		attr_reader :children
+    attr_reader :parent
+	  array_bubble_attr :children, singular: nil
 
     def top
       obj = self
@@ -131,7 +131,7 @@ class Drum
 
 		def initialize parent = nil
 		  parent.children << self if Bubble === parent	
-		  @parent, @children = parent, []
+		  @parent = parent
 		end
 
     def method_missing name, *a, &b

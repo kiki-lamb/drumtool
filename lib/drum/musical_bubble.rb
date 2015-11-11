@@ -2,7 +2,7 @@ require_relative "./bubble"
 
 class Drum
   class MusicalBubble < Bubble
-	  local_bubble_attr :loop, default: nil
+	  bubble_attr :loop, default: nil
 
 		proximal_bubble_toggle :mute
 		

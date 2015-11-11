@@ -2,17 +2,17 @@ require_relative "./musical_bubble"
 
 class Drum
   class ChildBubble < MusicalBubble
-	  local_hash_bubble_attr :notes, flip: true, permissive: true
+	  hash_bubble_attr :notes, flip: true, permissive: true
 
-		local_array_bubble_attr :triggers, singular: :add_trigger do |v|
+		array_bubble_attr :triggers, singular: :add_trigger do |v|
 		  clear_cache
 		end
 
-		local_array_bubble_attr :untriggers, singular: :add_untrigger do |v|
+		array_bubble_attr :untriggers, singular: :add_untrigger do |v|
 		  clear_cache
 		end
 
-		local_hash_bubble_attr :cache, singular: :add_cache
+		hash_bubble_attr :cache, singular: :add_cache
 
 		proximal_bubble_toggle :flip
 
