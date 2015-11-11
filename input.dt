@@ -22,7 +22,7 @@ i b2 38
 
 rot 1
   i rs 40
-	  when %3
-		lp 8
-		sh 1
+    when %3
+    lp 8
+    sh 1
 
