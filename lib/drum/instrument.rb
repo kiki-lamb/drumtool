@@ -134,10 +134,10 @@ class Drum
       e_rotate = rotate || 0
       e_shift = shift || 0
 
-      if loop
-        e_rotate %= loop
-        e_shift %= loop
-      end
+#      if loop
+#        e_rotate %= loop
+#        e_shift %= loop
+#      end
 
       e_time -= e_rotate
       e_time %= loop if loop
