@@ -94,16 +94,16 @@ class Drum
         def rubify_arg arg      
           if PatNumberExact.match arg
             tmp = arg.to_s
-            log "Arg `#{arg}' is a Number: `#{tmp}"
+            log "  Arg `#{arg}' is a Number: `#{tmp}"
           elsif PatNameExact.match arg
             tmp = ":#{arg}"
-            log "Arg `#{arg}' is a Name: `#{tmp}"           
+            log "  Arg `#{arg}' is a Name: `#{tmp}"           
           elsif PatModuloExact.match arg
             tmp = "(Proc.new { |t| t#{arg} })"
-            log "Arg `#{arg}' is a Modulo: `#{tmp}"      
+            log "  Arg `#{arg}' is a Modulo: `#{tmp}"      
           elsif PatRangeExact.match arg
             tmp = "(#{arg})"
-            log "Arg `#{arg}' is a Range: `#{tmp}"
+            log "  Arg `#{arg}' is a Range: `#{tmp}"
           else
             raise ArgumentError, "Unrecognized argument"
           end
@@ -119,8 +119,6 @@ class Drum
 
             indent, name, args, block_args = *disassemble_line(line)
             lines[index] = reassemble_line indent, name, args, block_args
-
-            log "\n"
           end
 
           @@text = lines.join
@@ -141,25 +139,25 @@ class Drum
           indent, body, block_args = *partially_disassemble_line(line)
 
           if PatSimpleExpr.match body
-            log "Parsed simple expr: #{Regexp.last_match.inspect}"
+            log "  Parsed simple expr: #{Regexp.last_match.inspect[12..-2]}"
 
             name, args = expand(Regexp.last_match[1]), (Regexp.last_match[2] || "").split(/\s+/).map do |arg|
               rubify_arg arg
             end
           else
-            log "Parse complex expr: `#{body}'"         
+            log "  Parse complex expr: `#{body}'"         
             body = "#{Regexp.last_match[1]}#{expand Regexp.last_match[2]}#{Regexp.last_match[3]}" if /^(\s*)(#{PatName})(.*)$/.match body             
             name, args = body, []
           end  
           
           toks = [ indent, name, args, block_args ]
-          log "Tokens: #{toks.inspect}"
+          log "  Tokens: #{toks.inspect}"
           toks
         end
 
         def reassemble_line indent, name, args, block_args
           tmp = "#{indent}#{name}#{args.empty?? "" : "(#{args.join ', '})"}#{" #{block_args.strip}" unless block_args.empty?}\n"
-          puts "Reassembled: `#{tmp.chomp}'"
+          puts "  Reassembled: `#{tmp.chomp}'"
           tmp
         end
 
