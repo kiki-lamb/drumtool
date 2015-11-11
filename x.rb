@@ -1,7 +1,7 @@
 require "./lib/bubbles"
 
 class Bubbles
-	tb = Bubbles.bubble do
+	tb = bubble do
 	  rotate 0
 
 		bubble do
