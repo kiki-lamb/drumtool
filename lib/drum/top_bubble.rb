@@ -1,9 +1,10 @@
-require_relative "./bubble"
+require_relative "./musical_bubble"
 require_relative "./child_bubble"
+
 require "unimidi"
 
 class Drum
-  class TopBubble < Bubble
+  class TopBubble < MusicalBubble
 	 	attr_reader :output
 	 
 	  local_bubble_attr :refresh, default: 16
@@ -19,5 +20,9 @@ class Drum
 		  @output = output
 	 	  super *a, &b
  	 	end
+
+		def child &b
+		  ChildBubble.new(self).build &b
+		end
   end
 end

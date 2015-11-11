@@ -24,7 +24,7 @@ class Drum
 				  send(name).tap do |a|
 					  a << v unless a.include? v
 					end
-				end
+				end 
 			end
 
 			def local_hash_bubble_attr name, singular: name.to_s.sub(/s$/, ""), uniq: false, &after
@@ -76,15 +76,6 @@ class Drum
 			end
     end
 
-		local_bubble_attr :loop, default: nil
-
-		proximal_bubble_toggle :mute
-		proximal_bubble_toggle :flip
-		
-		cumulative_bubble_attr :rotate
-		cumulative_bubble_attr :shift
-		cumulative_bubble_attr :scale
-
 		attr_reader :parent
 		attr_reader :children
 
@@ -113,7 +104,7 @@ class Drum
 		end
 
 		def child &b
-		  ChildBubble.new(self).build &b
+		  self.class.new(self).build &b
 		end
 
 		def build &b
