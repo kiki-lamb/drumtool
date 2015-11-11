@@ -78,10 +78,6 @@ class Drum
 
 		local_bubble_attr :loop, default: nil
 
-		local_hash_bubble_attr :notes
-		local_array_bubble_attr :triggers
-		local_array_bubble_attr :untriggers
-
 		proximal_bubble_toggle :mute
 		proximal_bubble_toggle :flip
 		
@@ -117,7 +113,7 @@ class Drum
 		end
 
 		def child &b
-		  Bubble.new(self).build &b
+		  ChildBubble.new(self).build &b
 		end
 
 		def build &b
