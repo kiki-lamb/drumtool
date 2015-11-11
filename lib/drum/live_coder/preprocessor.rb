@@ -81,7 +81,7 @@ class Drum
         PatBlockArgs = /(?:\|.+\|\s*\n$)/
         PatName = /(?:[a-z][a-z0-9_]*)/
         PatNameExact = /^#{PatName}$/
-				PatHex = /(?:0?x[\da-fA_F]+)/
+				PatHex = /(?:0?[xX][\da-fA_F]+)/
         PatHexExact = /^#{PatHex}$/
         PatFloat = /(?:\d+(?:[\.]\d+)?)/
         PatFloatExact = /^#{PatFloat}$/
@@ -100,13 +100,13 @@ class Drum
       
         def rubify_arg arg      
           if PatRangeExact.match arg
-            tmp = "(#{arg.gsub /(?<!0)x/, "0x"})"
+            tmp = "(#{arg.gsub /(?<!0)[xX]/, "0x"})"
             log "  Arg `#{arg}' is a Range: `#{tmp}'"
           elsif PatIntOrHexExact.match arg
-					  tmp = arg.sub /^x/, "0x"
+					  tmp = arg.sub /^[xX]/, "0x"
             log "  Arg `#{arg}' is a IntOrHex: `#{tmp}'"
           elsif PatModuloExact.match arg
-            tmp = "(Proc.new { |t| t#{arg.sub /%x/, "%0x"} })"
+            tmp = "(Proc.new { |t| t#{arg.sub /%[xX]/, "%0x"} })"
             log "  Arg `#{arg}' is a Modulo: `#{tmp}'"      
           elsif PatNameExact.match arg
             tmp = ":#{arg}"
