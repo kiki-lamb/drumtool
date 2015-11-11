@@ -66,12 +66,20 @@ class Drum
      	end
     end
 
-		def events_at time
-		  fires_at?(loop ? time%loop : time) ? (notes.to_a + super) : []
+		def to_s
+		  "#{super}(#{notes.values.join ", "})"
+		end
+
+		def events_at time, force = false
+		  time %= loop if loop
+		  # puts "#{" "*depth}(CB) #{self}.events_at #{time}, #{force ? "true" : "false"}"
+		  (force || fires_at?(time)) ? (notes.to_a + super(time, true)) : []
 		end
 		
     def fires_at? time
-		  puts "  #{self}.fires_at? #{time}"
+		  time %= loop if loop
+
+		  # puts "#{" "*depth}(CB) #{self}.fires_at? #{time}"
 
 		  return false unless super
 
@@ -92,7 +100,6 @@ class Drum
           end
 			  end
 			end
-
     end
   end
 end

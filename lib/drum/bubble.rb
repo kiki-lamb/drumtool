@@ -91,6 +91,18 @@ class Drum
       obj
     end
 
+    def depth
+		  ctr = 0
+
+      obj = self
+      while (next_obj = obj.parent) != nil do
+			    ctr += 1
+          obj = next_obj 
+      end
+
+			ctr
+    end
+
 		def initialize parent = nil
 		  parent.children << self if Bubble === parent	
 		  @parent, @children = parent, []
