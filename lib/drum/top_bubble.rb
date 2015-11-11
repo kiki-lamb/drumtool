@@ -22,7 +22,7 @@ class Drum
  	 	end
 
 		def child &b
-		  ChildBubble.new(self).build &b
+		  ChildBubble.new(self).build(&b)
 		end
   end
 end

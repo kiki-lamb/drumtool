@@ -4,12 +4,16 @@ class Drum
 			def local_bubble_attr name, default: 0, accessor: name, &after
 			  define_method accessor do |v = nil|
 						(
-						instance_variable_set("@#{name}", v).tap do
-					    after.() if after
-				   	end if v
-						) ||
-						instance_variable_get("@#{name}") || 
-						default
+						  (
+							  instance_variable_set("@#{name}", v).tap do
+					  	    after.() if after
+				   		  end if v
+							) ||
+							instance_variable_get("@#{name}") || 
+							default
+						) # .tap do |v|
+						  # puts "#{self.class.name}.#{name} returns #{v.class.name} `#{v}'."
+						# end
 				end
 			end
 
@@ -92,6 +96,7 @@ class Drum
 		end
 
     def method_missing name, *a, &b
+		  puts "#{self}.method_missing(#{name})"
 		  if parent.respond_to?(name)
 			  parent.send name, *a, &b
 			else
@@ -104,7 +109,7 @@ class Drum
 		end
 
 		def child &b
-		  self.class.new(self).build &b
+		  children << self.klass.new.build(&b)
 		end
 
 		def build &b

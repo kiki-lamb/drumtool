@@ -1,10 +1,16 @@
 require_relative "./musical_bubble"
 
 class Drum
-  class ChildBubble < Bubble
+  class ChildBubble < MusicalBubble
 	  local_hash_bubble_attr :notes
-		local_array_bubble_attr :triggers, singular: :add_trigger
-		local_array_bubble_attr :untriggers, singular: :add_untrigger
+
+		def clear_cache
+		  cache_hash {}
+		end
+
+		local_array_bubble_attr :triggers, singular: :add_trigger, &:clear_cache
+		local_array_bubble_attr :untriggers, singular: :add_untrigger, &:clear_cache
+		local_hash_bubble_attr :cache, singular: :add_cache
 
 		proximal_bubble_toggle :flip
 
@@ -48,6 +54,50 @@ class Drum
 
 			 send("add_#{method_name}", condition) if condition
     	end
+    end
+
+ 	  def trigger_fires_at? trigger, time
+     	tmp = instance_exec(time, &trigger)
+
+     	if Fixnum === tmp || Float === tmp
+     	  0 == tmp
+     	else
+     	  tmp
+     	end
+    end
+
+		def events_at time
+#		  puts "Call #{self}.events_at?"
+		  super.tap do |ary|
+#			  puts "#{self}: #{children.length} children"
+			  ary.push *local_events_at_time(time) # unless mute?
+			end
+		end
+		
+    def local_events_at_time time
+		  [].tap do |ary|
+      	e_time   =  time
+	    	e_time   =  (e_time * (2**(-scale))).to_f
+      	e_rotate =  rotate || 0
+      	e_shift  =  shift || 0
+      	e_time   -= e_rotate
+      	e_time   %= length if length
+      	e_time   -= e_shift
+
+      	fires_now = cache[e_time] ||= begin
+					if triggers.any? do |t|
+      	    trigger_fires_at? t, e_time
+      	  end
+					  ! untriggers.any? do |t|
+      	      trigger_fires_at? t, e_time
+      	    end
+				  end
+				end
+
+#      	tmp = flip? ? (! fires_now) : fires_now
+
+				ary.push *notes.to_a if fires_now
+			end
     end
   end
 end
