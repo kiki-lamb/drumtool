@@ -21,15 +21,23 @@ class Drum
 				end
 			end
 
-			def bubble_toggle name, &after
+			def local_bubble_toggle name, getter_name: name, setter_name: name, &after
 			  local_bubble_attr name, default: false, accessor: "local_#{name}", &after			  
 
-			  define_method "#{name}!" do |v = nil|
+			  define_method "#{setter_name}!" do |v = nil|
 				  send("local_#{name}", true)
 				end
 
+			  define_method "#{getter_name}?" do |v = nil|
+				  send("local_#{name}") 
+				end
+			end
+
+			def bubble_toggle name, &after
+			  local_bubble_toggle name, getter_name: "local_#{name}", &after
+
 			  define_method "#{name}?" do |v = nil|
-				  send("local_#{name}") || 
+				  send("local_#{name}?") || 
 					( parent && parent.respond_to?("#{name}?") && parent.send("#{name}?"))
 				end
 			end
@@ -39,10 +47,10 @@ class Drum
 			end
     end
 
+		local_bubble_attr :loop, default: nil
+
 		bubble_toggle :mute
 		bubble_toggle :flip
-
-		local_bubble_attr :loop, default: nil
 		
 		cumulative_bubble_attr :rotate
 		cumulative_bubble_attr :shift
