@@ -1,5 +1,5 @@
-lp   x10
-ref 16
+lp   x20
+ref 8
 bpm 108
 
 scale 0
@@ -19,15 +19,16 @@ scale 1
   on 0 1 3 6 11 16 22 29 37 45 55 66
   not 0x0..0x1  0x11..0x20
 
- i r2 x36
-  lp x20
-  on %6
+ i t 46
+  lp x10
+  on %1
+  not %3
 
-# i ch 42
+ i ch 42
   when %1
   not %3
 
- i b2 x28
+ i b2 40
   lp 8
   shift 2
   on %5
