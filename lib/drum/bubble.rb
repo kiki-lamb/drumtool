@@ -27,6 +27,20 @@ class Drum
 				end
 			end
 
+			def local_hash_bubble_attr name, singular: name.to_s.sub(/s$/, ""), uniq: false, &after
+			  local_bubble_attr "#{name}_hash", default: nil
+
+				define_method name do 
+				  send("#{name}_hash") || send("#{name}_hash", {})
+				end
+
+				define_method singular do |k, v = nil|
+				  send(name).tap do |h|
+						  h[k] = v
+					end
+				end
+			end
+
 		  def cumulative_bubble_attr name, default: 0, &after
 			  local_bubble_attr name, default: default, accessor: "local_#{name}", &after
 
@@ -64,7 +78,7 @@ class Drum
 
 		local_bubble_attr :loop, default: nil
 
-		local_array_bubble_attr :notes
+		local_hash_bubble_attr :notes
 		local_array_bubble_attr :triggers
 		local_array_bubble_attr :untriggers
 
