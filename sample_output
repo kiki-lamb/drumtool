@@ -1,0 +1,805 @@
+================================================================================
+Drum::LiveCoder::Preprocessor performing step: untabify
+================================================================================
+================================================================================
+Drum::LiveCoder::Preprocessor's text after performing step: untabify
+================================================================================
+0000 lp   16
+0001 rot 4
+0002 ref 16
+0003 
+0004 bpm 112
+0005 
+0006 i bd 36
+0007   when %4
+0008 
+0009 i oh 39
+0010     sh 2
+0011     when %4
+0012 
+0013 i sd 37
+0014     sh 4
+0015     when %8
+0016 
+0017 i b2 38
+0018   when %5
+0019   sh 2
+0020 
+0021 mu
+0022  rot 1
+0023   i rs 40
+0024     when %3
+0025     lp 8
+0026     sh 1
+0027 
+0028 
+================================================================================
+Drum::LiveCoder::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace
+================================================================================
+================================================================================
+Drum::LiveCoder::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace
+================================================================================
+0000 lp   16
+0001 rot 4
+0002 ref 16
+0003 bpm 112
+0004 i bd 36
+0005   when %4
+0006 i oh 39
+0007     sh 2
+0008     when %4
+0009 i sd 37
+0010     sh 4
+0011     when %8
+0012 i b2 38
+0013   when %5
+0014   sh 2
+0015 mu
+0016  rot 1
+0017   i rs 40
+0018     when %3
+0019     lp 8
+0020     sh 1
+================================================================================
+Drum::LiveCoder::Preprocessor performing step: extend_block_comments
+================================================================================
+0000 lp   16 
+0001 rot 4 
+0002 ref 16 
+0003 bpm 112 
+0004 i bd 36 
+0005   when %4 
+0006 i oh 39 
+0007     sh 2 
+0008     when %4 
+0009 i sd 37 
+0010     sh 4 
+0011     when %8 
+0012 i b2 38 
+0013   when %5 
+0014   sh 2 
+0015 mu 
+0016  rot 1 
+0017   i rs 40 
+0018     when %3 
+0019     lp 8 
+0020     sh 1 
+================================================================================
+Drum::LiveCoder::Preprocessor's text after performing step: extend_block_comments
+================================================================================
+0000 lp   16
+0001 rot 4
+0002 ref 16
+0003 bpm 112
+0004 i bd 36
+0005   when %4
+0006 i oh 39
+0007     sh 2
+0008     when %4
+0009 i sd 37
+0010     sh 4
+0011     when %8
+0012 i b2 38
+0013   when %5
+0014   sh 2
+0015 mu
+0016  rot 1
+0017   i rs 40
+0018     when %3
+0019     lp 8
+0020     sh 1
+================================================================================
+Drum::LiveCoder::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace_and_comments
+================================================================================
+================================================================================
+Drum::LiveCoder::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace_and_comments
+================================================================================
+0000 lp   16
+0001 rot 4
+0002 ref 16
+0003 bpm 112
+0004 i bd 36
+0005   when %4
+0006 i oh 39
+0007     sh 2
+0008     when %4
+0009 i sd 37
+0010     sh 4
+0011     when %8
+0012 i b2 38
+0013   when %5
+0014   sh 2
+0015 mu
+0016  rot 1
+0017   i rs 40
+0018     when %3
+0019     lp 8
+0020     sh 1
+================================================================================
+Drum::LiveCoder::Preprocessor performing step: rubify_arguments_and_expand_abbreviations
+================================================================================
+0000 lp   16
+  Parsed simple expr: "lp   16" 1:"lp" 2:"16"
+  Arg `16' is a Number: `16
+  Tokens: ["", "loop", ["16"], ""]
+  Reassembled: `loop(16)'
+0001 rot 4
+  Parsed simple expr: "rot 4" 1:"rot" 2:"4"
+  Arg `4' is a Number: `4
+  Tokens: ["", "rotate", ["4"], ""]
+  Reassembled: `rotate(4)'
+0002 ref 16
+  Parsed simple expr: "ref 16" 1:"ref" 2:"16"
+  Arg `16' is a Number: `16
+  Tokens: ["", "refresh_interval", ["16"], ""]
+  Reassembled: `refresh_interval(16)'
+0003 bpm 112
+  Parsed simple expr: "bpm 112" 1:"bpm" 2:"112"
+  Arg `112' is a Number: `112
+  Tokens: ["", "bpm", ["112"], ""]
+  Reassembled: `bpm(112)'
+0004 i bd 36
+  Parsed simple expr: "i bd 36" 1:"i" 2:"bd 36"
+  Arg `bd' is a Name: `:bd
+  Arg `36' is a Number: `36
+  Tokens: ["", "instrument", [":bd", "36"], ""]
+  Reassembled: `instrument(:bd, 36)'
+0005   when %4
+  Parsed simple expr: "when %4" 1:"when" 2:"%4"
+  Arg `%4' is a Modulo: `(Proc.new { |t| t%4 })
+  Tokens: ["  ", "trigger", ["(Proc.new { |t| t%4 })"], ""]
+  Reassembled: `  trigger((Proc.new { |t| t%4 }))'
+0006 i oh 39
+  Parsed simple expr: "i oh 39" 1:"i" 2:"oh 39"
+  Arg `oh' is a Name: `:oh
+  Arg `39' is a Number: `39
+  Tokens: ["", "instrument", [":oh", "39"], ""]
+  Reassembled: `instrument(:oh, 39)'
+0007     sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a Number: `2
+  Tokens: ["    ", "shift", ["2"], ""]
+  Reassembled: `    shift(2)'
+0008     when %4
+  Parsed simple expr: "when %4" 1:"when" 2:"%4"
+  Arg `%4' is a Modulo: `(Proc.new { |t| t%4 })
+  Tokens: ["    ", "trigger", ["(Proc.new { |t| t%4 })"], ""]
+  Reassembled: `    trigger((Proc.new { |t| t%4 }))'
+0009 i sd 37
+  Parsed simple expr: "i sd 37" 1:"i" 2:"sd 37"
+  Arg `sd' is a Name: `:sd
+  Arg `37' is a Number: `37
+  Tokens: ["", "instrument", [":sd", "37"], ""]
+  Reassembled: `instrument(:sd, 37)'
+0010     sh 4
+  Parsed simple expr: "sh 4" 1:"sh" 2:"4"
+  Arg `4' is a Number: `4
+  Tokens: ["    ", "shift", ["4"], ""]
+  Reassembled: `    shift(4)'
+0011     when %8
+  Parsed simple expr: "when %8" 1:"when" 2:"%8"
+  Arg `%8' is a Modulo: `(Proc.new { |t| t%8 })
+  Tokens: ["    ", "trigger", ["(Proc.new { |t| t%8 })"], ""]
+  Reassembled: `    trigger((Proc.new { |t| t%8 }))'
+0012 i b2 38
+  Parsed simple expr: "i b2 38" 1:"i" 2:"b2 38"
+  Arg `b2' is a Name: `:b2
+  Arg `38' is a Number: `38
+  Tokens: ["", "instrument", [":b2", "38"], ""]
+  Reassembled: `instrument(:b2, 38)'
+0013   when %5
+  Parsed simple expr: "when %5" 1:"when" 2:"%5"
+  Arg `%5' is a Modulo: `(Proc.new { |t| t%5 })
+  Tokens: ["  ", "trigger", ["(Proc.new { |t| t%5 })"], ""]
+  Reassembled: `  trigger((Proc.new { |t| t%5 }))'
+0014   sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a Number: `2
+  Tokens: ["  ", "shift", ["2"], ""]
+  Reassembled: `  shift(2)'
+0015 mu
+  Parsed simple expr: "mu" 1:"mu" 2:""
+  Tokens: ["", "mute", [], ""]
+  Reassembled: `mute'
+0016  rot 1
+  Parsed simple expr: "rot 1" 1:"rot" 2:"1"
+  Arg `1' is a Number: `1
+  Tokens: [" ", "rotate", ["1"], ""]
+  Reassembled: ` rotate(1)'
+0017   i rs 40
+  Parsed simple expr: "i rs 40" 1:"i" 2:"rs 40"
+  Arg `rs' is a Name: `:rs
+  Arg `40' is a Number: `40
+  Tokens: ["  ", "instrument", [":rs", "40"], ""]
+  Reassembled: `  instrument(:rs, 40)'
+0018     when %3
+  Parsed simple expr: "when %3" 1:"when" 2:"%3"
+  Arg `%3' is a Modulo: `(Proc.new { |t| t%3 })
+  Tokens: ["    ", "trigger", ["(Proc.new { |t| t%3 })"], ""]
+  Reassembled: `    trigger((Proc.new { |t| t%3 }))'
+0019     lp 8
+  Parsed simple expr: "lp 8" 1:"lp" 2:"8"
+  Arg `8' is a Number: `8
+  Tokens: ["    ", "loop", ["8"], ""]
+  Reassembled: `    loop(8)'
+0020     sh 1
+  Parsed simple expr: "sh 1" 1:"sh" 2:"1"
+  Arg `1' is a Number: `1
+  Tokens: ["    ", "shift", ["1"], ""]
+  Reassembled: `    shift(1)'
+================================================================================
+Drum::LiveCoder::Preprocessor's text after performing step: rubify_arguments_and_expand_abbreviations
+================================================================================
+0000 loop(16)
+0001 rotate(4)
+0002 refresh_interval(16)
+0003 bpm(112)
+0004 instrument(:bd, 36)
+0005   trigger((Proc.new { |t| t%4 }))
+0006 instrument(:oh, 39)
+0007     shift(2)
+0008     trigger((Proc.new { |t| t%4 }))
+0009 instrument(:sd, 37)
+0010     shift(4)
+0011     trigger((Proc.new { |t| t%8 }))
+0012 instrument(:b2, 38)
+0013   trigger((Proc.new { |t| t%5 }))
+0014   shift(2)
+0015 mute
+0016  rotate(1)
+0017   instrument(:rs, 40)
+0018     trigger((Proc.new { |t| t%3 }))
+0019     loop(8)
+0020     shift(1)
+================================================================================
+Drum::LiveCoder::Preprocessor performing step: rubify_pythonesque_blocks
+================================================================================
+0000 00->00 loop(16)
+0001 00->00 rotate(4)
+0002 00->00 refresh_interval(16)
+0003 00->00 bpm(112)
+0004 00->00 instrument(:bd, 36)
+0005 00->02   trigger((Proc.new { |t| t%4 }))
+0005        Blockify prior line `instrument(:bd, 36)'.
+0006 02->00 instrument(:oh, 39)
+0006        Leave block
+0007 00->04     shift(2)
+0007        Blockify prior line `instrument(:oh, 39)'.
+0008 04->04     trigger((Proc.new { |t| t%4 }))
+0009 04->00 instrument(:sd, 37)
+0009        Leave block
+0010 00->04     shift(4)
+0010        Blockify prior line `instrument(:sd, 37)'.
+0011 04->04     trigger((Proc.new { |t| t%8 }))
+0012 04->00 instrument(:b2, 38)
+0012        Leave block
+0013 00->02   trigger((Proc.new { |t| t%5 }))
+0013        Blockify prior line `instrument(:b2, 38)'.
+0014 02->02   shift(2)
+0015 02->00 mute
+0015        Leave block
+0016 00->01  rotate(1)
+0016        Blockify prior line `mute'.
+0017 01->02   instrument(:rs, 40)
+0017        Blockify prior line ` rotate(1)'.
+0018 02->04     trigger((Proc.new { |t| t%3 }))
+0018        Blockify prior line `  instrument(:rs, 40)'.
+0019 04->04     loop(8)
+0020 04->04     shift(1)
+================================================================================
+Drum::LiveCoder::Preprocessor's text after performing step: rubify_pythonesque_blocks
+================================================================================
+0000 loop(16)
+0001 rotate(4)
+0002 refresh_interval(16)
+0003 bpm(112)
+0004 instrument(:bd, 36) do 
+0005   trigger((Proc.new { |t| t%4 }))
+0006 end
+0007 instrument(:oh, 39) do 
+0008     shift(2)
+0009     trigger((Proc.new { |t| t%4 }))
+0010 end
+0011 instrument(:sd, 37) do 
+0012     shift(4)
+0013     trigger((Proc.new { |t| t%8 }))
+0014 end
+0015 instrument(:b2, 38) do 
+0016   trigger((Proc.new { |t| t%5 }))
+0017   shift(2)
+0018 end
+0019 mute do 
+0020  rotate(1) do 
+0021   instrument(:rs, 40) do 
+0022     trigger((Proc.new { |t| t%3 }))
+0023     loop(8)
+0024     shift(1)
+0025   end
+0026  end
+0027 end
+================================================================================
+
+253.5 | 112 | 0000000000000000 | -- | BD | -- | SD | B2 | DROPPED A TICK!
+0.001 | 112 | 0000000000000001 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000002 | -- | -- | OH | -- | -- | 
+0.001 | 112 | 0000000000000003 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000004 | -- | BD | -- | -- | -- | 
+0.001 | 112 | 0000000000000005 | -- | -- | -- | -- | -- | 
+0.007 | 112 | 0000000000000006 | -- | -- | OH | -- | B2 | 
+0.001 | 112 | 0000000000000007 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000008 | -- | BD | -- | SD | -- | 
+0.001 | 112 | 0000000000000009 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 000000000000000a | -- | -- | OH | -- | -- | 
+0.001 | 112 | 000000000000000b | -- | -- | -- | -- | B2 | 
+0.002 | 112 | 000000000000000c | -- | BD | -- | -- | -- | 
+0.001 | 112 | 000000000000000d | -- | -- | -- | -- | -- | 
+0.006 | 112 | 000000000000000e | -- | -- | OH | -- | -- | 
+0.036 | 112 | 000000000000000f | -- | -- | -- | -- | -- | 
+
+0.087 | 112 | 0000000000000000 | -- | BD | -- | SD | B2 | 
+0.002 | 112 | 0000000000000001 | -- | -- | -- | -- | -- | 
+0.002 | 112 | 0000000000000002 | -- | -- | OH | -- | -- | 
+0.001 | 112 | 0000000000000003 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000004 | -- | BD | -- | -- | -- | 
+0.001 | 112 | 0000000000000005 | -- | -- | -- | -- | -- | 
+0.007 | 112 | 0000000000000006 | -- | -- | OH | -- | B2 | 
+0.001 | 112 | 0000000000000007 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000008 | -- | BD | -- | SD | -- | 
+0.001 | 112 | 0000000000000009 | -- | -- | -- | -- | -- | 
+0.002 | 112 | 000000000000000a | -- | -- | OH | -- | -- | 
+0.001 | 112 | 000000000000000b | -- | -- | -- | -- | B2 | 
+0.001 | 112 | 000000000000000c | -- | BD | -- | -- | -- | 
+0.001 | 112 | 000000000000000d | -- | -- | -- | -- | -- | 
+0.001 | 112 | 000000000000000e | -- | -- | OH | -- | -- | 
+0.001 | 112 | 000000000000000f | -- | -- | -- | -- | -- | 
+
+0.082 | 112 | 0000000000000000 | -- | BD | -- | SD | B2 | 
+0.002 | 112 | 0000000000000001 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000002 | -- | -- | OH | -- | -- | 
+0.002 | 112 | 0000000000000003 | -- | -- | -- | -- | -- | 
+0.002 | 112 | 0000000000000004 | -- | BD | -- | -- | -- | 
+0.001 | 112 | 0000000000000005 | -- | -- | -- | -- | -- | 
+0.002 | 112 | 0000000000000006 | -- | -- | OH | -- | B2 | 
+0.001 | 112 | 0000000000000007 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000008 | -- | BD | -- | SD | -- | 
+0.001 | 112 | 0000000000000009 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 000000000000000a | -- | -- | OH | -- | -- | 
+0.001 | 112 | 000000000000000b | -- | -- | -- | -- | B2 | 
+0.001 | 112 | 000000000000000c | -- | BD | -- | -- | -- | 
+0.001 | 112 | 000000000000000d | -- | -- | -- | -- | -- | 
+0.001 | 112 | 000000000000000e | -- | -- | OH | -- | -- | 
+0.002 | 112 | 000000000000000f | -- | -- | -- | -- | -- | 
+
+0.126 | 112 | 0000000000000000 | -- | BD | -- | SD | B2 | 
+0.002 | 112 | 0000000000000001 | -- | -- | -- | -- | -- | 
+0.002 | 112 | 0000000000000002 | -- | -- | OH | -- | -- | 
+0.001 | 112 | 0000000000000003 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000004 | -- | BD | -- | -- | -- | 
+0.001 | 112 | 0000000000000005 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000006 | -- | -- | OH | -- | B2 | 
+0.001 | 112 | 0000000000000007 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000008 | -- | BD | -- | SD | -- | 
+0.001 | 112 | 0000000000000009 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 000000000000000a | -- | -- | OH | -- | -- | 
+0.001 | 112 | 000000000000000b | -- | -- | -- | -- | B2 | 
+0.001 | 112 | 000000000000000c | -- | BD | -- | -- | -- | 
+0.001 | 112 | 000000000000000d | -- | -- | -- | -- | -- | 
+0.001 | 112 | 000000000000000e | -- | -- | OH | -- | -- | 
+0.001 | 112 | 000000000000000f | -- | -- | -- | -- | -- | 
+
+0.112 | 112 | 0000000000000000 | -- | BD | -- | SD | B2 | 
+0.001 | 112 | 0000000000000001 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000002 | -- | -- | OH | -- | -- | 
+0.001 | 112 | 0000000000000003 | -- | -- | -- | -- | -- | 
+0.002 | 112 | 0000000000000004 | -- | BD | -- | -- | -- | 
+0.001 | 112 | 0000000000000005 | -- | -- | -- | -- | -- | 
+0.002 | 112 | 0000000000000006 | -- | -- | OH | -- | B2 | 
+0.001 | 112 | 0000000000000007 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000008 | -- | BD | -- | SD | -- | 
+0.001 | 112 | 0000000000000009 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 000000000000000a | -- | -- | OH | -- | -- | 
+0.000 | 112 | 000000000000000b | -- | -- | -- | -- | B2 | 
+0.001 | 112 | 000000000000000c | -- | BD | -- | -- | -- | 
+0.001 | 112 | 000000000000000d | -- | -- | -- | -- | -- | 
+0.002 | 112 | 000000000000000e | -- | -- | OH | -- | -- | 
+0.000 | 112 | 000000000000000f | -- | -- | -- | -- | -- | 
+
+================================================================================
+Drum::LiveCoder::Preprocessor performing step: untabify
+================================================================================
+================================================================================
+Drum::LiveCoder::Preprocessor's text after performing step: untabify
+================================================================================
+0000 lp   16
+0001 rot 4
+0002 ref 16
+0003 
+0004 bpm 112
+0005 
+0006 i bd 36
+0007   when %4
+0008 
+0009 i oh 39
+0010     sh 2
+0011     when %4
+0012 
+0013 i sd 37
+0014     sh 4
+0015     when %8
+0016 
+0017 i b2 38
+0018   when %5
+0019   sh 2
+0020 
+0021 
+0022 rot 1
+0023   i rs 40
+0024     when %3
+0025     lp 8
+0026     sh 1
+0027 
+0028 
+================================================================================
+Drum::LiveCoder::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace
+================================================================================
+================================================================================
+Drum::LiveCoder::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace
+================================================================================
+0000 lp   16
+0001 rot 4
+0002 ref 16
+0003 bpm 112
+0004 i bd 36
+0005   when %4
+0006 i oh 39
+0007     sh 2
+0008     when %4
+0009 i sd 37
+0010     sh 4
+0011     when %8
+0012 i b2 38
+0013   when %5
+0014   sh 2
+0015 rot 1
+0016   i rs 40
+0017     when %3
+0018     lp 8
+0019     sh 1
+================================================================================
+Drum::LiveCoder::Preprocessor performing step: extend_block_comments
+================================================================================
+0000 lp   16 
+0001 rot 4 
+0002 ref 16 
+0003 bpm 112 
+0004 i bd 36 
+0005   when %4 
+0006 i oh 39 
+0007     sh 2 
+0008     when %4 
+0009 i sd 37 
+0010     sh 4 
+0011     when %8 
+0012 i b2 38 
+0013   when %5 
+0014   sh 2 
+0015 rot 1 
+0016   i rs 40 
+0017     when %3 
+0018     lp 8 
+0019     sh 1 
+================================================================================
+Drum::LiveCoder::Preprocessor's text after performing step: extend_block_comments
+================================================================================
+0000 lp   16
+0001 rot 4
+0002 ref 16
+0003 bpm 112
+0004 i bd 36
+0005   when %4
+0006 i oh 39
+0007     sh 2
+0008     when %4
+0009 i sd 37
+0010     sh 4
+0011     when %8
+0012 i b2 38
+0013   when %5
+0014   sh 2
+0015 rot 1
+0016   i rs 40
+0017     when %3
+0018     lp 8
+0019     sh 1
+================================================================================
+Drum::LiveCoder::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace_and_comments
+================================================================================
+================================================================================
+Drum::LiveCoder::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace_and_comments
+================================================================================
+0000 lp   16
+0001 rot 4
+0002 ref 16
+0003 bpm 112
+0004 i bd 36
+0005   when %4
+0006 i oh 39
+0007     sh 2
+0008     when %4
+0009 i sd 37
+0010     sh 4
+0011     when %8
+0012 i b2 38
+0013   when %5
+0014   sh 2
+0015 rot 1
+0016   i rs 40
+0017     when %3
+0018     lp 8
+0019     sh 1
+================================================================================
+Drum::LiveCoder::Preprocessor performing step: rubify_arguments_and_expand_abbreviations
+================================================================================
+0000 lp   16
+  Parsed simple expr: "lp   16" 1:"lp" 2:"16"
+  Arg `16' is a Number: `16
+  Tokens: ["", "loop", ["16"], ""]
+  Reassembled: `loop(16)'
+0001 rot 4
+  Parsed simple expr: "rot 4" 1:"rot" 2:"4"
+  Arg `4' is a Number: `4
+  Tokens: ["", "rotate", ["4"], ""]
+  Reassembled: `rotate(4)'
+0002 ref 16
+  Parsed simple expr: "ref 16" 1:"ref" 2:"16"
+  Arg `16' is a Number: `16
+  Tokens: ["", "refresh_interval", ["16"], ""]
+  Reassembled: `refresh_interval(16)'
+0003 bpm 112
+  Parsed simple expr: "bpm 112" 1:"bpm" 2:"112"
+  Arg `112' is a Number: `112
+  Tokens: ["", "bpm", ["112"], ""]
+  Reassembled: `bpm(112)'
+0004 i bd 36
+  Parsed simple expr: "i bd 36" 1:"i" 2:"bd 36"
+  Arg `bd' is a Name: `:bd
+  Arg `36' is a Number: `36
+  Tokens: ["", "instrument", [":bd", "36"], ""]
+  Reassembled: `instrument(:bd, 36)'
+0005   when %4
+  Parsed simple expr: "when %4" 1:"when" 2:"%4"
+  Arg `%4' is a Modulo: `(Proc.new { |t| t%4 })
+  Tokens: ["  ", "trigger", ["(Proc.new { |t| t%4 })"], ""]
+  Reassembled: `  trigger((Proc.new { |t| t%4 }))'
+0006 i oh 39
+  Parsed simple expr: "i oh 39" 1:"i" 2:"oh 39"
+  Arg `oh' is a Name: `:oh
+  Arg `39' is a Number: `39
+  Tokens: ["", "instrument", [":oh", "39"], ""]
+  Reassembled: `instrument(:oh, 39)'
+0007     sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a Number: `2
+  Tokens: ["    ", "shift", ["2"], ""]
+  Reassembled: `    shift(2)'
+0008     when %4
+  Parsed simple expr: "when %4" 1:"when" 2:"%4"
+  Arg `%4' is a Modulo: `(Proc.new { |t| t%4 })
+  Tokens: ["    ", "trigger", ["(Proc.new { |t| t%4 })"], ""]
+  Reassembled: `    trigger((Proc.new { |t| t%4 }))'
+0009 i sd 37
+  Parsed simple expr: "i sd 37" 1:"i" 2:"sd 37"
+  Arg `sd' is a Name: `:sd
+  Arg `37' is a Number: `37
+  Tokens: ["", "instrument", [":sd", "37"], ""]
+  Reassembled: `instrument(:sd, 37)'
+0010     sh 4
+  Parsed simple expr: "sh 4" 1:"sh" 2:"4"
+  Arg `4' is a Number: `4
+  Tokens: ["    ", "shift", ["4"], ""]
+  Reassembled: `    shift(4)'
+0011     when %8
+  Parsed simple expr: "when %8" 1:"when" 2:"%8"
+  Arg `%8' is a Modulo: `(Proc.new { |t| t%8 })
+  Tokens: ["    ", "trigger", ["(Proc.new { |t| t%8 })"], ""]
+  Reassembled: `    trigger((Proc.new { |t| t%8 }))'
+0012 i b2 38
+  Parsed simple expr: "i b2 38" 1:"i" 2:"b2 38"
+  Arg `b2' is a Name: `:b2
+  Arg `38' is a Number: `38
+  Tokens: ["", "instrument", [":b2", "38"], ""]
+  Reassembled: `instrument(:b2, 38)'
+0013   when %5
+  Parsed simple expr: "when %5" 1:"when" 2:"%5"
+  Arg `%5' is a Modulo: `(Proc.new { |t| t%5 })
+  Tokens: ["  ", "trigger", ["(Proc.new { |t| t%5 })"], ""]
+  Reassembled: `  trigger((Proc.new { |t| t%5 }))'
+0014   sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a Number: `2
+  Tokens: ["  ", "shift", ["2"], ""]
+  Reassembled: `  shift(2)'
+0015 rot 1
+  Parsed simple expr: "rot 1" 1:"rot" 2:"1"
+  Arg `1' is a Number: `1
+  Tokens: ["", "rotate", ["1"], ""]
+  Reassembled: `rotate(1)'
+0016   i rs 40
+  Parsed simple expr: "i rs 40" 1:"i" 2:"rs 40"
+  Arg `rs' is a Name: `:rs
+  Arg `40' is a Number: `40
+  Tokens: ["  ", "instrument", [":rs", "40"], ""]
+  Reassembled: `  instrument(:rs, 40)'
+0017     when %3
+  Parsed simple expr: "when %3" 1:"when" 2:"%3"
+  Arg `%3' is a Modulo: `(Proc.new { |t| t%3 })
+  Tokens: ["    ", "trigger", ["(Proc.new { |t| t%3 })"], ""]
+  Reassembled: `    trigger((Proc.new { |t| t%3 }))'
+0018     lp 8
+  Parsed simple expr: "lp 8" 1:"lp" 2:"8"
+  Arg `8' is a Number: `8
+  Tokens: ["    ", "loop", ["8"], ""]
+  Reassembled: `    loop(8)'
+0019     sh 1
+  Parsed simple expr: "sh 1" 1:"sh" 2:"1"
+  Arg `1' is a Number: `1
+  Tokens: ["    ", "shift", ["1"], ""]
+  Reassembled: `    shift(1)'
+================================================================================
+Drum::LiveCoder::Preprocessor's text after performing step: rubify_arguments_and_expand_abbreviations
+================================================================================
+0000 loop(16)
+0001 rotate(4)
+0002 refresh_interval(16)
+0003 bpm(112)
+0004 instrument(:bd, 36)
+0005   trigger((Proc.new { |t| t%4 }))
+0006 instrument(:oh, 39)
+0007     shift(2)
+0008     trigger((Proc.new { |t| t%4 }))
+0009 instrument(:sd, 37)
+0010     shift(4)
+0011     trigger((Proc.new { |t| t%8 }))
+0012 instrument(:b2, 38)
+0013   trigger((Proc.new { |t| t%5 }))
+0014   shift(2)
+0015 rotate(1)
+0016   instrument(:rs, 40)
+0017     trigger((Proc.new { |t| t%3 }))
+0018     loop(8)
+0019     shift(1)
+================================================================================
+Drum::LiveCoder::Preprocessor performing step: rubify_pythonesque_blocks
+================================================================================
+0000 00->00 loop(16)
+0001 00->00 rotate(4)
+0002 00->00 refresh_interval(16)
+0003 00->00 bpm(112)
+0004 00->00 instrument(:bd, 36)
+0005 00->02   trigger((Proc.new { |t| t%4 }))
+0005        Blockify prior line `instrument(:bd, 36)'.
+0006 02->00 instrument(:oh, 39)
+0006        Leave block
+0007 00->04     shift(2)
+0007        Blockify prior line `instrument(:oh, 39)'.
+0008 04->04     trigger((Proc.new { |t| t%4 }))
+0009 04->00 instrument(:sd, 37)
+0009        Leave block
+0010 00->04     shift(4)
+0010        Blockify prior line `instrument(:sd, 37)'.
+0011 04->04     trigger((Proc.new { |t| t%8 }))
+0012 04->00 instrument(:b2, 38)
+0012        Leave block
+0013 00->02   trigger((Proc.new { |t| t%5 }))
+0013        Blockify prior line `instrument(:b2, 38)'.
+0014 02->02   shift(2)
+0015 02->00 rotate(1)
+0015        Leave block
+0016 00->02   instrument(:rs, 40)
+0016        Blockify prior line `rotate(1)'.
+0017 02->04     trigger((Proc.new { |t| t%3 }))
+0017        Blockify prior line `  instrument(:rs, 40)'.
+0018 04->04     loop(8)
+0019 04->04     shift(1)
+================================================================================
+Drum::LiveCoder::Preprocessor's text after performing step: rubify_pythonesque_blocks
+================================================================================
+0000 loop(16)
+0001 rotate(4)
+0002 refresh_interval(16)
+0003 bpm(112)
+0004 instrument(:bd, 36) do 
+0005   trigger((Proc.new { |t| t%4 }))
+0006 end
+0007 instrument(:oh, 39) do 
+0008     shift(2)
+0009     trigger((Proc.new { |t| t%4 }))
+0010 end
+0011 instrument(:sd, 37) do 
+0012     shift(4)
+0013     trigger((Proc.new { |t| t%8 }))
+0014 end
+0015 instrument(:b2, 38) do 
+0016   trigger((Proc.new { |t| t%5 }))
+0017   shift(2)
+0018 end
+0019 rotate(1) do 
+0020   instrument(:rs, 40) do 
+0021     trigger((Proc.new { |t| t%3 }))
+0022     loop(8)
+0023     shift(1)
+0024   end
+0025 end
+================================================================================
+
+528.5 | 112 | 0000000000000000 | -- | BD | -- | SD | B2 | DROPPED A TICK!
+0.001 | 112 | 0000000000000001 | RS | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000002 | -- | -- | OH | -- | -- | 
+0.001 | 112 | 0000000000000003 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000004 | RS | BD | -- | -- | -- | 
+0.001 | 112 | 0000000000000005 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000006 | RS | -- | OH | -- | B2 | 
+0.001 | 112 | 0000000000000007 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000008 | -- | BD | -- | SD | -- | 
+0.001 | 112 | 0000000000000009 | RS | -- | -- | -- | -- | 
+0.002 | 112 | 000000000000000a | -- | -- | OH | -- | -- | 
+0.001 | 112 | 000000000000000b | -- | -- | -- | -- | B2 | 
+0.001 | 112 | 000000000000000c | RS | BD | -- | -- | -- | 
+0.001 | 112 | 000000000000000d | -- | -- | -- | -- | -- | 
+0.000 | 112 | 000000000000000e | RS | -- | OH | -- | -- | 
+0.001 | 112 | 000000000000000f | -- | -- | -- | -- | -- | 
+
+0.081 | 112 | 0000000000000000 | -- | BD | -- | SD | B2 | 
+0.001 | 112 | 0000000000000001 | RS | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000002 | -- | -- | OH | -- | -- | 
+0.001 | 112 | 0000000000000003 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000004 | RS | BD | -- | -- | -- | 
+0.001 | 112 | 0000000000000005 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000006 | RS | -- | OH | -- | B2 | 
+0.001 | 112 | 0000000000000007 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000008 | -- | BD | -- | SD | -- | 
+0.002 | 112 | 0000000000000009 | RS | -- | -- | -- | -- | 
+0.001 | 112 | 000000000000000a | -- | -- | OH | -- | -- | 
+0.001 | 112 | 000000000000000b | -- | -- | -- | -- | B2 | 
+0.001 | 112 | 000000000000000c | RS | BD | -- | -- | -- | 
+0.001 | 112 | 000000000000000d | -- | -- | -- | -- | -- | 
+0.001 | 112 | 000000000000000e | RS | -- | OH | -- | -- | 
+0.001 | 112 | 000000000000000f | -- | -- | -- | -- | -- | 
+
+0.080 | 112 | 0000000000000000 | -- | BD | -- | SD | B2 | 
+0.001 | 112 | 0000000000000001 | RS | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000002 | -- | -- | OH | -- | -- | 
+0.001 | 112 | 0000000000000003 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000004 | RS | BD | -- | -- | -- | 
+0.001 | 112 | 0000000000000005 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000006 | RS | -- | OH | -- | B2 | 
+0.001 | 112 | 0000000000000007 | -- | -- | -- | -- | -- | 
+0.001 | 112 | 0000000000000008 | -- | BD | -- | SD | -- | 
+0.001 | 112 | 0000000000000009 | RS | -- | -- | -- | -- | 
+0.001 | 112 | 000000000000000a | -- | -- | OH | -- | -- | 
+0.001 | 112 | 000000000000000b | -- | -- | -- | -- | B2 | 
+0.002 | 112 | 000000000000000c | RS | BD | -- | -- | -- | 
+0.001 | 112 | 000000000000000d | -- | -- | -- | -- | -- | 
+0.001 | 112 | 000000000000000e | RS | -- | OH | -- | -- | 
+  C-c C-c
+Drum::LiveCoder: Stopped by user.

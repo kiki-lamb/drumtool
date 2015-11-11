@@ -19,8 +19,8 @@ i b2 38
   when %5
   sh 2
 
-mu
- rot 1
+
+rot 1
   i rs 40
 	  when %3
 		lp 8
