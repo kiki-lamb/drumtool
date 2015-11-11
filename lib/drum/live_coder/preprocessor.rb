@@ -61,7 +61,6 @@ class Drum
               rubify_arguments_and_expand_abbreviations
               rubify_pythonesque_blocks 
           }.each do |sym|
-
               log_separator
               log "#{name} performing step: #{sym}"
               log_separator
@@ -96,14 +95,14 @@ class Drum
         PatBlockArgs = /(?:\|.+\|\s*\n$)/
         PatName = /(?:[a-z][a-z0-9_]*)/
         PatNameExact = /^#{PatName}$/
-				PatHex = /(?:0?[xX][\da-fA_F]+)/
+        PatHex = /(?:0?[xX][\da-fA_F]+)/
         PatHexExact = /^#{PatHex}$/
         PatFloat = /(?:\d+(?:[\.]\d+)?)/
         PatFloatExact = /^#{PatFloat}$/
         PatInt = /(?:\d+)/
         PatIntExact = /^#{PatInt}$/
-				PatIntOrHex = /#{PatHex}|#{PatInt}/
-				PatIntOrHexExact = /^#{PatIntOrHex}$/
+        PatIntOrHex = /#{PatHex}|#{PatInt}/
+        PatIntOrHexExact = /^#{PatIntOrHex}$/
         PatRange = /#{PatIntOrHex}\.\.#{PatIntOrHex}/
         PatRangeExact = /^#{PatRange}$/
         PatModulo = /(?:%#{PatIntOrHex})/
@@ -118,10 +117,10 @@ class Drum
             tmp = "(#{arg.gsub /(?<!0)[xX]/, "0x"})"
             log "  Arg `#{arg}' is a Range: `#{tmp}'"
           elsif PatIntOrHexExact.match arg
-					  tmp = arg.sub /^[xX]/, "0x"
+            tmp = arg.sub /^[xX]/, "0x"
             log "  Arg `#{arg}' is a IntOrHex: `#{tmp}'"
           elsif PatModuloExact.match arg
-					  arg.sub! /%[xX]/, "%0x"
+            arg.sub! /%[xX]/, "%0x"
             tmp = "(Proc.new { |t| t#{arg} })"
             log "  Arg `#{arg}' is a Modulo: `#{tmp}'"      
           elsif PatNameExact.match arg
