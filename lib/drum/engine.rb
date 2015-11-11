@@ -14,7 +14,7 @@ class Drum
     dsl_attr :refresh_interval, scopable: false
     dsl_attr :bpm, after: :clear_tick_length, scopable: false
 
-		attr_reader :output, :open_notes
+    attr_reader :output, :open_notes
 
     def initialize bpm = 128, output = UniMIDI::Output[0]
       super nil
@@ -46,13 +46,13 @@ class Drum
         close_notes
     end
 
-		def inherit other_engine
-		  bpm other_engine.bpm unless bpm
-			other_engine.open_notes.each do |note|
-			  open_note note
-			end
-			self
-		end
+    def inherit other_engine
+      bpm other_engine.bpm unless bpm
+      other_engine.open_notes.each do |note|
+        open_note note
+      end
+      self
+    end
 
     def close_notes
       open_notes.each do |note|
