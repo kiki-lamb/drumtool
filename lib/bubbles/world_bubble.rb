@@ -2,23 +2,21 @@ require "unimidi"
 
 class Bubbles
   class WorldBubble < MusicalBubble
-    attr_reader :output
-   
-    counter_bubble_attr :tick, return_value: :events, before: :play, after: :rest
-
     bubble_attr :refresh, default: 16
-
     bubble_attr :last_woke, default: nil
-
     bubble_attr :bpm, default: 112 do
       @tick_length = nil
     end
+
+    counter_bubble_attr :tick, return_value: :events, before: :play, after: :rest
 
     array_bubble_attr :open_notes do |note, is_new|
       output.puts 0x80, note[1], 100 unless is_new
       output.puts 0x90, note[1], 100
     end
 
+    attr_reader :output
+   
     def play 
       last_woke Time.now unless last_woke
 

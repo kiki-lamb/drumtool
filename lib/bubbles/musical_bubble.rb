@@ -1,12 +1,11 @@
 class Bubbles
   class MusicalBubble < Bubble
     bubble_attr :loop, default: nil
-
-    proximal_bubble_toggle :mute
-    
     bubble_attr :rotate
     bubble_attr :shift
     bubble_attr :scale
+
+    proximal_bubble_toggle :mute    
 
     def time  
       base = (parent ? parent.time : tick) 

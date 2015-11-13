@@ -1,5 +1,9 @@
 class Bubbles
   class TriggeredBubble < MusicalBubble
+    hash_bubble_attr :cache, singular: :add_cache
+    proximal_bubble_toggle :flip
+    bubble_toggle :on
+
     array_bubble_attr :triggers, singular: :add_trigger do |v|
       clear_cache
     end
@@ -7,12 +11,6 @@ class Bubbles
     array_bubble_attr :untriggers, singular: :add_untrigger do |v|
       clear_cache
     end
-
-    hash_bubble_attr :cache, singular: :add_cache
-
-    proximal_bubble_toggle :flip
-
-    bubble_toggle :on
     
     def tick
       top.tick
@@ -86,7 +84,7 @@ class Bubbles
       # puts "#{" "*depth}(CB) #{self}.active? #{time}"
 
       return false unless super
-      return true if on?
+      return true if on? or (notes.empty? && triggers.empty?)
 
       fires_now = cache[time] ||= begin
         if triggers.any? do |t|

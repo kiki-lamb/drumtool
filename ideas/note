@@ -1,0 +1,11 @@
+
+	         X|X|X|X|X|X|X|X|X|X|X|X|
+zpad 2     X .|X .|X .|X .|X .|X .|
+read 4     X . X .|X . X .|X . X .| 
+zpad 6     X . X . . .|X . X . . .|
+
+	         X|
+zpad 2     X .|
+read 4     X . X .|
+zpad 6     X . X . . .|
+

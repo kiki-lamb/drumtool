@@ -1,6 +1,6 @@
 lp  0x40
 ref x10
-bpm 112
+bpm 100
 
 scale 0
  i bd 36
@@ -20,14 +20,14 @@ scale 0
    when %8
    
 
-scale 1
+scale 0
  i bs 40
   lp x10
 	sh 2
 	on %5
 
 
-scale 1
+scale 0
  i r1 38
   on 0 1 3 6 11 16 22 29 37 45 55 66
   lp 0x20
@@ -45,4 +45,3 @@ i t2 46
  scale 0 
  on %6
  lp 0x10
- mu
