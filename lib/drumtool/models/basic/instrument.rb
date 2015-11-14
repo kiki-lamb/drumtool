@@ -2,7 +2,6 @@ module DrumTool
 	module Models
 		module Basic
 		  class Instrument
-		    extend DslAttrs
 		    include TimingScope
 
 		    dsl_attr :note, scopable: false

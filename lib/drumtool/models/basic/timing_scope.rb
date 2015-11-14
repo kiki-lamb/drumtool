@@ -2,8 +2,15 @@ module DrumTool
 	module Models
 		module Basic
 		  module TimingScope
+			  def self.included(base)
+				  base.extend(ClassMethods)
+				end
 
-		    extend DslAttrs
+				module ClassMethods
+					include DslAttrs
+        end
+
+				extend DslAttrs
 
 		    attr_reader :parent
 		    attr_accessor :subscopes

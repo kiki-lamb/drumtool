@@ -5,8 +5,6 @@ module DrumTool
 	module Models
 		module Basic
 		  class Engine
-		    extend DslAttrs
-
 		    include TimingScope
 
 		    dsl_attr :refresh_interval, scopable: false
