@@ -6,5 +6,5 @@ DrumTool::LiveCoder.play \
   refresh_interval: 1, 
 	rescue_eval: true, 
 	logger: $stdout, 
-	pp_logger: File.open("output/preprocessor", "w"),
-	clock: UniMIDI::Input[1]
+	pp_logger: File.open("output/preprocessor", "w") #,
+#	clock: UniMIDI::Input[1]

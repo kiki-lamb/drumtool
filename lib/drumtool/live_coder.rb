@@ -13,7 +13,7 @@ module DrumTool
 	  attr_reader :exception, :engine
 
 	  def initialize filename, refresh_interval: 16, preprocessor: Preprocessors::Preprocessor, logger: nil, pp_logger: nil, rescue_eval: true, output: UniMIDI::Output[0], clock: nil, reset_on_clock_stop: true
-	    @__filename__, @__refresh_interval__, @__preprocessor__, @__logger__, @__pp_logger__, @__rescue_eval__ = filename, refresh_interval, preprocessor, logger, pp_logger, rescue_eval
+	    @filename, @refresh_interval, @__preprocessor__, @logger, @pp_logger, @rescue_eval = filename, refresh_interval, preprocessor, logger, pp_logger, rescue_eval
 	    @__hash__, @engine, @__exception_lines__ = nil, Models::Basic.build, nil
 	    @old_engine = nil
 	    @exception = false
@@ -35,8 +35,8 @@ module DrumTool
 	      begin
 	        begin
 	          @__exception_lines__ = [] unless exception
-	          @__logger__.flush if @__logger__
-	          @__pp_logger__.flush if @__pp_logger__
+	          @logger.flush if @logger
+	          @pp_logger.flush if @pp_logger
 
 	          io = StringIO.new
 	          
@@ -47,7 +47,7 @@ module DrumTool
 	          end
 
 	          refresh_time = Time.now
-	          refresh if (tick%@__refresh_interval__ == 0)
+	          refresh if (tick%@refresh_interval == 0)
 						refresh_time = (Time.now - refresh_time) * 1000
 
 						clock.tempo = engine.bpm unless @__clock__
@@ -69,7 +69,7 @@ module DrumTool
 	        rescue Interrupt
 	          raise
 	        rescue Exception => e
-	          unless @__rescue_eval__
+	          unless @rescue_eval
 	            puts "\n\n"
 	            raise e 
 	          end
@@ -77,7 +77,7 @@ module DrumTool
 	          @exception = e
 	          @__exception_lines__ = [ "WARNING: #{@exception.to_s}", *@exception.backtrace, "" ]
 	          @engine = @old_engine
-	          @__refresh_interval__ = @engine.refresh_interval || @__refresh_interval__
+	          @refresh_interval = @engine.refresh_interval || @refresh_interval
 	          nil
 	        end
 	      ensure
@@ -102,18 +102,18 @@ module DrumTool
 
 	  private
 	  def refresh
-	    text = File.open(@__filename__).read
+	    text = File.open(@filename).read
 	    hash = Digest::MD5.new.tap do |d|
 	      d << text
 	    end.hexdigest
 
 	    if hash != @__hash__
 	      @__hash__ = hash
-	      proc = eval "\nProc.new do\n#{@__preprocessor__.call File.open("#{@__filename__}").read, logger: @__pp_logger__}\nend"
+	      proc = eval "\nProc.new do\n#{@__preprocessor__.call File.open("#{@filename}").read, logger: @pp_logger}\nend"
 	      @exception = nil
 	      @old_engine = @engine
 	      @engine = Models::Basic.build(&proc).inherit @old_engine
-	      @__refresh_interval__ = @engine.refresh_interval || @__refresh_interval__
+	      @refresh_interval = @engine.refresh_interval || @refresh_interval
 	    end
 	  end
 	end 
