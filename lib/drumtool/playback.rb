@@ -15,15 +15,12 @@ module DrumTool
 		include MIDIOutput
 
     def initialize(
-      filename, 
-      preprocessor = Preprocessors::Preprocessor, 
+		  engine = nil,
       clock: nil, 
       output: UniMIDI::Output[0], 
       reset_loop_on_stop: true
     )
       @input_clock = clock
-			@filename = filename
-			@preprocessor = preprocessor
       @reset_loop_on_stop = reset_loop_on_stop
       @last_line_length = 2
 			@tick = 0
@@ -37,7 +34,7 @@ module DrumTool
     end    
 
 		def engine
-		  @engine ||= eval @preprocessor.call(File.open(@filename).read)
+		  @engine
 		end
 
 		private
