@@ -5,7 +5,7 @@ require "digest"
 # end
 
 module DrumTool
-  class Reloader
+  class Loader
 	  attr_reader :exception, :exception_lines, :payload
 
 	  def initialize filename, preprocessor: Preprocessors::Preprocessor, rescue_exceptions: true, &b
@@ -27,8 +27,9 @@ module DrumTool
 		end
 
 		def reload
-		  return unless reread
-			create eval("\nProc.new do\n#{@preprocessor.call @text}\nend")
+		  start = Time.now
+			create eval("\nProc.new do\n#{@preprocessor.call @text}\nend") if read
+			(Time.now - start) * 1000
     end
 
 		private
@@ -44,7 +45,7 @@ module DrumTool
 		  @exception, @exception_lines = nil, []
 		end
 
-		def reread		
+		def read		
 			text = File.open(@filename).read
 			md5 = Digest::MD5.new
 			md5 << text

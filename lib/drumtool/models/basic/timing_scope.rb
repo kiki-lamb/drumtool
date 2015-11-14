@@ -37,6 +37,7 @@ module DrumTool
 		    end
 
 		    def triggers_at time
+					time = time % loop if loop
 		      instruments.map do |i|
 		        i.fires_at?(time) || nil
 		      end.compact
@@ -50,7 +51,7 @@ module DrumTool
 		      end
 		    end                   
 
-		    def initialize p
+		    def initialize p, &b
 		      @parent = p
 					@parent.subscopes << self if @parent
 
@@ -59,6 +60,8 @@ module DrumTool
 		      @__hash__= Hash.new do |h,k| 
 		        h[k] = Instrument.new self, k
 		      end   
+
+					build &b if b
 		    end
 
 		    def keys

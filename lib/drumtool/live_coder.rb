@@ -1,6 +1,7 @@
-require "digest"
 require "stringio"
 require "topaz"
+require "unimidi"
+require "set"
 
 module DrumTool
   class LiveCoder
@@ -21,13 +22,12 @@ module DrumTool
       rescue_exceptions: true, 
       reset_loop_on_stop: true
     )
-      @filename = filename
       @output = output
       @input_clock = clock
 
-		  @reloader = Reloader.new(@filename, preprocessor: preprocessor, rescue_exceptions: rescue_exceptions) do |proc, old_object|
- 			  eng = Models::Basic.build(@output, &proc)
-				eng.inherit old_object if old_object
+		  @reloader = Loader.new(filename, preprocessor: preprocessor, rescue_exceptions: rescue_exceptions) do |proc, old_object|
+ 			  eng = Models::Basic.build &proc
+			  eng.bpm old_object.bpm unless eng.bpm if old_object
 				eng
 			end
       @reloader.reload
@@ -38,6 +38,7 @@ module DrumTool
       @last_line_length = 2
 			@tick = 0
 			@clock = nil
+			@open_notes = Set.new
     end
 
     def play      
@@ -45,7 +46,7 @@ module DrumTool
 
       @clock.event.stop do 
         $stdout << "\n#{self.class.name}: Stopped by user.\n"
-        engine.close_notes
+        close_notes
         @tick -= @tick % engine.loop if @reset_loop_on_stop and engine.loop
       end
 
@@ -55,23 +56,50 @@ module DrumTool
     end    
 
 		private
+		def reload
+		  if @tick%@refresh_interval == 0
+			  @reloader.reload.tap do
+				  @clock.tempo = engine.bpm unless @input_clock
+				end
+			else
+			  0
+			end
+		end
+		
 		def play_tick
-      refresh_time = Time.now
-      @reloader.reload if (@tick%@refresh_interval == 0)
-      refresh_time = (Time.now - refresh_time) * 1000
+			close_notes
 
-			engine.close_notes
-
- 	    @clock.tempo = engine.bpm unless @input_clock
-
-			a_bunch_of_logging_crap refresh_time
+			a_bunch_of_logging_crap reload
       
-      engine.play @tick  if engine
+			engine.triggers_at(@tick).tap do |notes|
+		    close_notes
+
+		    notes.each do |note|
+		      open_note note
+		    end
+      end if engine		
 
       started_tick = Time.now
     ensure
       @tick += 1
     end
+
+
+		    def close_notes
+		      @open_notes.each do |note|
+		        close_note note
+		      end       
+		    end
+
+		    def open_note note, velocity = 100
+		      close_note note, velocity
+		      @open_notes.add? note
+		      @output.puts 0x90, note, velocity
+		    end
+
+		    def close_note note, velocity = 100
+		      @output.puts 0x80, note, velocity if @open_notes.delete? note
+		    end
 
 		def engine
 		  @reloader.payload
@@ -102,7 +130,7 @@ module DrumTool
         end
       ], [], separator: " | ") << "\n"
 
-      io << "\b#{@reloader.exception_lines[@tick%(@engine.loop || 16)]}\n" if @reloader.exception_lines.any?
+      io << "\b#{@reloader.exception_lines[@tick%(engine.loop || 16)]}\n" if @reloader.exception_lines.any?
 
       @last_line_length = io.string.length
 
