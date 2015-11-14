@@ -1,5 +1,3 @@
-require_relative "formatters"
-
 module DrumTool
 	module Models
 		module Basic

@@ -1,5 +1,3 @@
-require_relative "./bubble/class_methods.rb"
-
 module DrumTool
   module Models
     module Bubbles

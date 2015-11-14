@@ -1,6 +1,5 @@
 require "digest"
 require "stringio"
-require_relative "./preprocessors"
 
 module DrumTool
 	class LiveCoder

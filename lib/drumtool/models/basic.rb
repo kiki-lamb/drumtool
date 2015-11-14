@@ -1,6 +1,3 @@
-require_relative "./basic/engine"
-require_relative "../live_coder"
-
 module DrumTool
 	module Models
 		module Basic

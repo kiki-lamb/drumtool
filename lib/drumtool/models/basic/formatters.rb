@@ -1,5 +1,3 @@
-require_relative "../../core_ext/string"
-
 module DrumTool
 	module Models
 	  module Basic
