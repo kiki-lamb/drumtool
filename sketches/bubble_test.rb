@@ -19,13 +19,8 @@ tb = bubble do
 end
 
 @clock = Topaz::Clock.new(120*4) do
-		puts "#{Time.now.strftime "%M%S"} Before #{@clock.tempo}"
 		puts "#{tb.tick} #{tb.tick!}"
-		puts "AFter"
-		@clock.tempo += 1
 end
-
-@clock.trigger.stop { @i == 32 }
 
 @clock.start
 

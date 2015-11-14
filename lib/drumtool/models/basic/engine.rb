@@ -38,15 +38,13 @@ module DrumTool
 		          end
 		        ], [], separator: " | ") << "\n"
 
-
 		        notes, length = triggers_at(tick), tick_length
+
+		        close_notes
 
 		        notes.each do |note|
 		          open_note note, length
 		        end
-		    ensure
-		        sleep ( block_given?? yield : tick_length )
-		        close_notes
 		    end
 
 		    def inherit other_engine

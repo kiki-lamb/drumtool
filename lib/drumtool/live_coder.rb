@@ -1,5 +1,6 @@
 require "digest"
 require "stringio"
+require "topaz"
 
 module DrumTool
 	class LiveCoder
@@ -26,7 +27,7 @@ module DrumTool
 
 	    started_tick = Time.now
 
-	    while true do 
+			clock = Topaz::Clock.new(engine.bpm * 4) do
 	      begin
 	        begin
 	          @__exception_lines__ = [] unless exception
@@ -43,6 +44,8 @@ module DrumTool
 
 	          refresh_time = Time.now
 	          refresh if (tick%@__refresh_interval__ == 0)
+
+						clock.tempo = engine.bpm * 4
 	        
 	          io << ((Time.now - refresh_time) * 1000).to_s[0..4].ljust(5,"0") << " | "
 
@@ -76,6 +79,9 @@ module DrumTool
 	        tick += 1
 	      end
 	    end
+
+  		clock.start
+
 	  rescue Interrupt
 	    engine.close_notes if engine
 	    $stdout << "\n#{self.class.name}: Stopped by user.\n"

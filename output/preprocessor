@@ -6,7 +6,7 @@ DrumTool::Preprocessors::Preprocessor's text after performing step: untabify
 ================================================================================
 0000 lp  0x40
 0001 ref x10
-0002 bpm 100
+0002 bpm 120
 0003 
 0004 scale 0
 0005  i bd 36
@@ -60,7 +60,7 @@ DrumTool::Preprocessors::Preprocessor's text after performing step: strip_blank_
 ================================================================================
 0000 lp  0x40
 0001 ref x10
-0002 bpm 100
+0002 bpm 120
 0003 scale 0
 0004  i bd 36
 0005    when %x4
@@ -98,7 +98,7 @@ DrumTool::Preprocessors::Preprocessor performing step: extend_block_comments
 ================================================================================
 0000 lp  0x40 
 0001 ref x10 
-0002 bpm 100 
+0002 bpm 120 
 0003 scale 0 
 0004  i bd 36 
 0005    when %x4 
@@ -136,7 +136,7 @@ DrumTool::Preprocessors::Preprocessor's text after performing step: extend_block
 ================================================================================
 0000 lp  0x40
 0001 ref x10
-0002 bpm 100
+0002 bpm 120
 0003 scale 0
 0004  i bd 36
 0005    when %x4
@@ -177,7 +177,7 @@ DrumTool::Preprocessors::Preprocessor's text after performing step: strip_blank_
 ================================================================================
 0000 lp  0x40
 0001 ref x10
-0002 bpm 100
+0002 bpm 120
 0003 scale 0
 0004  i bd 36
 0005    when %x4
@@ -223,11 +223,11 @@ DrumTool::Preprocessors::Preprocessor performing step: rubify_arguments_and_expa
   Arg `x10' is a IntOrHex: `0x10'
   Tokens: ["", "refresh_interval", ["0x10"], ""]
   Reassembled: `refresh_interval(0x10)'
-0002 bpm 100
-  Parsed simple expr: "bpm 100" 1:"bpm" 2:"100"
-  Arg `100' is a IntOrHex: `100'
-  Tokens: ["", "bpm", ["100"], ""]
-  Reassembled: `bpm(100)'
+0002 bpm 120
+  Parsed simple expr: "bpm 120" 1:"bpm" 2:"120"
+  Arg `120' is a IntOrHex: `120'
+  Tokens: ["", "bpm", ["120"], ""]
+  Reassembled: `bpm(120)'
 0003 scale 0
   Parsed simple expr: "scale 0" 1:"scale" 2:"0"
   Arg `0' is a IntOrHex: `0'
@@ -412,7 +412,7 @@ DrumTool::Preprocessors::Preprocessor's text after performing step: rubify_argum
 ================================================================================
 0000 loop(0x40)
 0001 refresh_interval(0x10)
-0002 bpm(100)
+0002 bpm(120)
 0003 scale(0)
 0004  instrument(:bd, 36)
 0005    trigger((Proc.new { |t| t%0x4 }))
@@ -450,7 +450,7 @@ DrumTool::Preprocessors::Preprocessor performing step: rubify_pythonesque_blocks
 ================================================================================
 0000 00->00 loop(0x40)
 0001 00->00 refresh_interval(0x10)
-0002 00->00 bpm(100)
+0002 00->00 bpm(120)
 0003 00->00 scale(0)
 0004 00->01  instrument(:bd, 36)
 0004        Blockify prior line `scale(0)'.
@@ -509,7 +509,7 @@ DrumTool::Preprocessors::Preprocessor's text after performing step: rubify_pytho
 ================================================================================
 0000 loop(0x40)
 0001 refresh_interval(0x10)
-0002 bpm(100)
+0002 bpm(120)
 0003 scale(0) do 
 0004  instrument(:bd, 36) do 
 0005    trigger((Proc.new { |t| t%0x4 }))
