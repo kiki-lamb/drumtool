@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require_relative "./lib/drumtool"
 
-DrumTool::Preprocessors::Preprocessor.set_log File.open("output/preprocessor", "w")
+DrumTool::Preprocessors::Preprocessor.log_to File.open("output/preprocessor", "w")
 
 DrumTool::LiveCoder.play \
   "input/sample.dt", 
