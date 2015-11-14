@@ -56,8 +56,6 @@ module DrumTool
 
 		        io << engine.bpm << " | " << @refresh_interval
 
-						###
-
 						fill = tick % 4 == 0 ? "--" : ". "
 
 		        io << Models::Basic::Formatters::TableRowFormatter.call([ 
@@ -70,14 +68,12 @@ module DrumTool
 		          end
 		        ], [], separator: " | ") << "\n"
 
-
-						###
-
 	          engine.play(tick, log: io) do
 	             tmp = [ (engine.tick_length - (Time.now - started_tick)), 0 ].max
 	             @exception_lines.unshift "DROPPED A TICK!" if 0 == tmp
 	             tmp
 	          end if engine
+
 	          started_tick = Time.now
 
 	          io << "\b#{@exception_lines[tick%(@engine.loop || 16)]}\n" if @exception_lines.any?
