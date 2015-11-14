@@ -1,6 +1,6 @@
 lp  0x40
 ref x10
-bpm 90
+bpm 112
 
 scale 0
  i bd 36
