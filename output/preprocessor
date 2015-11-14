@@ -1,8 +1,8 @@
 ================================================================================
-Drum::LiveCoder::Preprocessor performing step: untabify
+Preprocessors::Preprocessor performing step: untabify
 ================================================================================
 ================================================================================
-Drum::LiveCoder::Preprocessor's text after performing step: untabify
+Preprocessors::Preprocessor's text after performing step: untabify
 ================================================================================
 0000 lp  0x40
 0001 ref x10
@@ -53,10 +53,10 @@ Drum::LiveCoder::Preprocessor's text after performing step: untabify
 0046  lp 0x10
 0047 
 ================================================================================
-Drum::LiveCoder::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace
+Preprocessors::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace
 ================================================================================
 ================================================================================
-Drum::LiveCoder::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace
+Preprocessors::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace
 ================================================================================
 0000 lp  0x40
 0001 ref x10
@@ -94,7 +94,7 @@ Drum::LiveCoder::Preprocessor's text after performing step: strip_blank_lines_an
 0033  on %6
 0034  lp 0x10
 ================================================================================
-Drum::LiveCoder::Preprocessor performing step: extend_block_comments
+Preprocessors::Preprocessor performing step: extend_block_comments
 ================================================================================
 0000 lp  0x40 
 0001 ref x10 
@@ -132,7 +132,7 @@ Drum::LiveCoder::Preprocessor performing step: extend_block_comments
 0033  on %6 
 0034  lp 0x10 
 ================================================================================
-Drum::LiveCoder::Preprocessor's text after performing step: extend_block_comments
+Preprocessors::Preprocessor's text after performing step: extend_block_comments
 ================================================================================
 0000 lp  0x40
 0001 ref x10
@@ -170,10 +170,10 @@ Drum::LiveCoder::Preprocessor's text after performing step: extend_block_comment
 0033  on %6
 0034  lp 0x10
 ================================================================================
-Drum::LiveCoder::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace_and_comments
+Preprocessors::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace_and_comments
 ================================================================================
 ================================================================================
-Drum::LiveCoder::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace_and_comments
+Preprocessors::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace_and_comments
 ================================================================================
 0000 lp  0x40
 0001 ref x10
@@ -211,7 +211,7 @@ Drum::LiveCoder::Preprocessor's text after performing step: strip_blank_lines_an
 0033  on %6
 0034  lp 0x10
 ================================================================================
-Drum::LiveCoder::Preprocessor performing step: rubify_arguments_and_expand_abbreviations
+Preprocessors::Preprocessor performing step: rubify_arguments_and_expand_abbreviations
 ================================================================================
 0000 lp  0x40
   Parsed simple expr: "lp  0x40" 1:"lp" 2:"0x40"
@@ -408,7 +408,7 @@ Drum::LiveCoder::Preprocessor performing step: rubify_arguments_and_expand_abbre
   Tokens: [" ", "loop", ["0x10"], ""]
   Reassembled: ` loop(0x10)'
 ================================================================================
-Drum::LiveCoder::Preprocessor's text after performing step: rubify_arguments_and_expand_abbreviations
+Preprocessors::Preprocessor's text after performing step: rubify_arguments_and_expand_abbreviations
 ================================================================================
 0000 loop(0x40)
 0001 refresh_interval(0x10)
@@ -446,7 +446,7 @@ Drum::LiveCoder::Preprocessor's text after performing step: rubify_arguments_and
 0033  trigger((Proc.new { |t| t%6 }))
 0034  loop(0x10)
 ================================================================================
-Drum::LiveCoder::Preprocessor performing step: rubify_pythonesque_blocks
+Preprocessors::Preprocessor performing step: rubify_pythonesque_blocks
 ================================================================================
 0000 00->00 loop(0x40)
 0001 00->00 refresh_interval(0x10)
@@ -505,7 +505,7 @@ Drum::LiveCoder::Preprocessor performing step: rubify_pythonesque_blocks
 0033 01->01  trigger((Proc.new { |t| t%6 }))
 0034 01->01  loop(0x10)
 ================================================================================
-Drum::LiveCoder::Preprocessor's text after performing step: rubify_pythonesque_blocks
+Preprocessors::Preprocessor's text after performing step: rubify_pythonesque_blocks
 ================================================================================
 0000 loop(0x40)
 0001 refresh_interval(0x10)
