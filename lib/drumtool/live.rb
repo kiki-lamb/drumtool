@@ -19,8 +19,6 @@ module DrumTool
 			    to.bpm @clock.tempo unless to.bpm
 				  @reload_interval = to.refresh_interval
 			end
-
-			reload
     end
 
 		def engine
