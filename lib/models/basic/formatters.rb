@@ -1,7 +1,7 @@
 require_relative "../../core_ext/string"
 
 class Models
-  class Drum
+  class Basic
     class Formatters
       BasicTableFormatter = Proc.new do |rows|
         raise ArgumentError, "Uneven rows" unless rows.map(&:count).uniq.length == 1

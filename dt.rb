@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative "./lib/models/drum"
+require_relative "./lib/models/basic"
 
 file = "input/sample.dt"
 

@@ -6,7 +6,7 @@ require_relative "instrument"
 require_relative "formatters"
 
 class Models
-	class Drum
+	class Basic
 	  class Engine
 	    extend DslAttrs
 
@@ -31,7 +31,7 @@ class Models
 
 					fill = tick % 4 == 0 ? "--" : ". "
 
-	        log << Drum::Formatters::TableRowFormatter.call([ 
+	        log << Formatters::TableRowFormatter.call([ 
 	          tick.to_s(16).rjust(16, "0"), 
 	          
 	          *instruments.group_by(&:short_name).map do |name, instrs| 

@@ -1,7 +1,7 @@
 require_relative "formatters"
 
 class Models
-	class Drum
+	class Basic
 	  class Instrument
 	    extend DslAttrs
 	    include TimingScope

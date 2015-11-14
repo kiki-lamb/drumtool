@@ -1,5 +1,5 @@
 class Models
-	class Drum
+	class Basic
 	  module TimingScope
 
 	    extend DslAttrs
