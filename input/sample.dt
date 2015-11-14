@@ -1,7 +1,6 @@
 lp  0x40
-ref x10
-bpm 112
-ref 16
+bpm 128
+ref 32
 
 
 scale 0

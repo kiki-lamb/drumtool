@@ -39,7 +39,8 @@ module DrumTool
 			clear_exception
 
 		  begin			  		
-				payload = eval(@preprocessor.call @text) 
+				@payload = eval(@preprocessor.call @text) 
+				puts "PL: #{payload.class.name}"
 			rescue Exception => e
     	  raise e unless @rescue_exceptions
     	  @exception, @exception_lines = e, [ "WARNING: #{e.to_s}", *e.backtrace, "" ]

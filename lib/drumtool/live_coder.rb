@@ -29,7 +29,9 @@ module DrumTool
 			    @clock.tempo = to.bpm if to.bpm && @clock unless @input_clock
 			    to.bpm @clock.tempo unless to.bpm
 				  @refresh_interval = to.refresh_interval
+					puts "THIS: #{@refresh_interval}"
 			end
+			@reloader.reload
 
       @refresh_interval = refresh_interval
       @reset_loop_on_stop = reset_loop_on_stop
