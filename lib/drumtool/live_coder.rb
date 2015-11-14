@@ -29,8 +29,10 @@ module DrumTool
  			  eng = Models::Basic.build &proc
 			  eng.bpm old_object.bpm unless eng.bpm if old_object
 				eng
+			end.after do 
+			  @clock.tempo = engine.bpm unless @input_clock
 			end
-      
+
       @refresh_interval = refresh_interval
       @reset_loop_on_stop = reset_loop_on_stop
 
@@ -73,13 +75,7 @@ module DrumTool
     end
 
 		def reload
-		  if @tick%@refresh_interval == 0
-			  @reloader.reload.tap do
-				  @clock.tempo = engine.bpm unless @input_clock
-				end
-			else
-			  0
-			end
+		  @tick%@refresh_interval == 0 ? @reloader.reload : 0
 		end
 		
 		def a_bunch_of_logging_crap refresh_time

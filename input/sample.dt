@@ -10,6 +10,7 @@ scale 0
   on %1
   not 2
 	lp x4
+	mu 
 
  i oh 39
    sh 2

@@ -23,16 +23,29 @@ module DrumTool
 			@exception = nil
 			@exception_lines
 
+			@after = nil
+
 			reload
+		end
+
+		def after &b
+			raise ArgumentError, "Need block" unless block_given?
+			@after = b
+			self
 		end
 
 		def reload
 		  start = Time.now
-			create eval("\nProc.new do\n#{@preprocessor.call @text}\nend") if read
+		  begin			  
+				create eval("\nProc.new do\n#{@preprocessor.call @text}\nend") if read
+			rescue Exception => e
+    	  raise e unless @rescue_exceptions
+    	  @exception, @exception_lines = e, [ "WARNING: #{e.to_s}", *e.backtrace, "" ]
+			end
+
+		  @after.call if @after unless @exception
+
 			(Time.now - start) * 1000
-		rescue Exception => e
-      raise e unless @rescue_exceptions
-      @exception, @exception_lines = e, [ "WARNING: #{e.to_s}", *e.backtrace, "" ]
     end
 
 		private
