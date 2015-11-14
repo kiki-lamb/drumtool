@@ -22,15 +22,15 @@ module DrumTool
 		    end
 
 		    def play tick, log: $stdout       
-		        tick = tick % loop if loop
+		      tick = tick % loop if loop
 
-		        notes, length = triggers_at(tick), tick_length
-
+		      triggers_at(tick).tap do |notes|
 		        close_notes
 
 		        notes.each do |note|
-		          open_note note, length
+		          open_note note
 		        end
+          end
 		    end
 
 		    def inherit other_engine
@@ -47,7 +47,7 @@ module DrumTool
 		      end       
 		    end
 
-		    def open_note note, length = tick_length, velocity = 100 # length is currently ignored.
+		    def open_note note, velocity = 100
 		      close_note note, velocity
 		      open_notes.add? note
 		      @output.puts 0x90, note, velocity
