@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative "./lib/models/basic"
+require_relative "./lib/drumtool"
 
 LiveCoder.play \
   "input/sample.dt", 
