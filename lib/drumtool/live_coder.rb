@@ -25,8 +25,8 @@ module DrumTool
     )
       @input_clock = clock
 
-		  @reloader = Loader.new(filename, preprocessor: preprocessor, rescue_exceptions: rescue_exceptions).after do |to| 
-			    @clock.tempo = to.bpm if to.bpm unless @input_clock
+		  @reloader = Loader.new(filename, preprocessor, rescue_exceptions: rescue_exceptions).after do |to| 
+			    @clock.tempo = to.bpm if to.bpm && @clock unless @input_clock
 			    to.bpm @clock.tempo unless to.bpm
 				  @refresh_interval = to.refresh_interval
 			end
@@ -36,8 +36,9 @@ module DrumTool
 
       @last_line_length = 2
 			@tick = 0
-
       set_midi_output output
+			@reloader.reload
+
     end
 
  		def start     
@@ -51,7 +52,7 @@ module DrumTool
 		end
 
 		private
-    def clock      
+    def clock      	  
       @clock ||= begin
 			  Topaz::Clock.new((@input_clock ? @input_clock : engine.bpm), interval: 16) do
 			    begin

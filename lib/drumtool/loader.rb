@@ -8,10 +8,7 @@ module DrumTool
   class Loader
 	  attr_reader :exception, :exception_lines, :payload
 
-	  def initialize filename, preprocessor: nil, rescue_exceptions: true, &b
-		  raise ArgumentError, "Need block" unless block_given?
-			@create = b
-			
+	  def initialize filename, preprocessor = nil, rescue_exceptions: true
 		  @filename = filename
 			@digest = nil
 			@text = nil
@@ -35,25 +32,33 @@ module DrumTool
 		end
 
 		def reload
+		  return 0 unless read
+
 		  start = Time.now
-		  begin			  
-				create eval("\nProc.new do\n#{@preprocessor.call @text}\nend") if read
+			old_payload = payload
+			clear_exception
+
+		  begin			  		
+				payload = eval(@preprocessor.call @text) 
 			rescue Exception => e
     	  raise e unless @rescue_exceptions
     	  @exception, @exception_lines = e, [ "WARNING: #{e.to_s}", *e.backtrace, "" ]
 			end
 
-		  @after.call if @after unless @exception
+			if @after
+			  if @after.arity == 0 && @exception.nil?
+			    @after.()
+			  elsif @after.arity == 1 && @exception.nil?
+				  @after.(payload)
+				elsif @after.arity == 2
+				  @after.(old_payload, (payload unless @exception))
+        end
+      end
 
 			(Time.now - start) * 1000
     end
 
 		private
-		def create proc
-			clear_exception
-		  @payload = @create.call proc, @object
-		end
-
 		def clear_exception
 		  @exception, @exception_lines = nil, []
 		end
@@ -65,7 +70,7 @@ module DrumTool
 
 			if md5.hexdigest != @digest
 			  @digest = md5.hexdigest
-			  @text = text
+  		  @text = text
 			end
 		end
   end
