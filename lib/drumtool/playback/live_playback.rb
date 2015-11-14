@@ -16,7 +16,7 @@ module DrumTool
 			@reloader.after do |to| 
 			    @clock.tempo = to.bpm if to.bpm && @clock unless @input_clock
 			    to.bpm @clock.tempo unless to.bpm
-				  @reload_interval = to.refresh_interval
+				  @reload_interval = to.refresh_interval if to.respond_to?(:refresh_interval)
 			end
     end
 
