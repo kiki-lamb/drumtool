@@ -3,9 +3,10 @@ require "stringio"
 module DrumTool
 	module Preprocessors
 	    class Preprocessor
-	      class << self
-				  include Logging
+   			include Logging
 
+	      class << self
+				  
 	        Abbreviations = {
 	          "refr" => "refresh_interval",
 	          "ref" => "refresh_interval",

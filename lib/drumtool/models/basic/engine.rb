@@ -19,7 +19,7 @@ module DrumTool
 		      @open_notes = Set.new
 		    end
 
-		    def play tick, log: $stdout       
+		    def play tick
 		      tick = tick % loop if loop
 
 		      triggers_at(tick).tap do |notes|

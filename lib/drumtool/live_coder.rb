@@ -10,15 +10,15 @@ module DrumTool
       end
     end
 
+		include Logging
+
     attr_reader :exception, :engine
 
     def initialize(
       filename, 
       clock: nil, 
-      log: nil, 
       output: UniMIDI::Output[0], 
       preprocessor: Preprocessors::Preprocessor, 
-#      preprocessor_log: nil, 
       refresh_interval: 16, 
       rescue_exceptions: true, 
       reset_loop_on_stop: true
@@ -26,10 +26,8 @@ module DrumTool
       @filename = filename
       
       @clock = clock
-      @log = log
       @output = output
       @preprocessor = preprocessor
-#      @preprocessor_log = preprocessor_log
       @refresh_interva = refresh_interval
       @rescue_exceptions = rescue_exceptions
       @reset_loop_on_stop = reset_loop_on_stop
@@ -55,8 +53,6 @@ module DrumTool
         begin
           begin
             @exception_lines = [] unless exception
-            @log.flush if @log
-#            @preprocessor_log.flush if @preprocessor_log
 
             io = StringIO.new
             
@@ -88,7 +84,7 @@ module DrumTool
               end
             ], [], separator: " | ") << "\n"
 
-            engine.play(tick, log: io) do
+            engine.play(tick) do
                tmp = [ (engine.tick_length - (Time.now - started_tick)), 0 ].max
                @exception_lines.unshift "DROPPED A TICK!" if 0 == tmp
                tmp
@@ -100,12 +96,12 @@ module DrumTool
 
             @last_line_length = io.string.length
 
-            $stdout << io.string
+            log io.string
           rescue Interrupt
             raise
           rescue Exception => e
             unless @rescue_exceptions
-              puts "\n\n"
+              log "\n\n"
               raise e 
             end
             engine.close_notes if engine
@@ -121,12 +117,12 @@ module DrumTool
       end
 
       clock.event.stop do 
-        puts "STOP"
+        log "STOP"
         tick -= tick % engine.loop if @reset_loop_on_stop and engine.loop
         engine.close_notes
       end
 
-      puts "Waiting for MIDI clock...\nControl-C to exit\n" unless @clock.nil?
+      log "Waiting for MIDI clock...\nControl-C to exit\n" unless @clock.nil?
       
       clock.start
 

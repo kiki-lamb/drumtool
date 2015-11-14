@@ -1,12 +1,15 @@
 #!/usr/bin/env ruby
 require_relative "./lib/drumtool"
 
-DrumTool::Preprocessors::Preprocessor.log_to File.open("output/preprocessor", "w")
+include DrumTool
+include DrumTool::Preprocessors
 
-DrumTool::LiveCoder.play \
+Preprocessor.log_to "output/preprocessor"
+LiveCoder.log_to $stdout, "output/livecoder"
+
+LiveCoder.play \
   "input/sample.dt", 
   refresh_interval: 1, 
-	rescue_exceptions: false, 
-	log: $stdout #, 
-#	preprocessor_log:  #,
+	rescue_exceptions: false
+
 #	clock: UniMIDI::Input[1]
