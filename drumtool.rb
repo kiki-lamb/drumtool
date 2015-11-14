@@ -1,5 +1,5 @@
-require "./lib/drum"
+require "./lib/models/drum"
 
-file = "input.dt"
+file = "input/sample.dt"
 
-Drum::LiveCoder.play file, refresh_interval: 1, rescue_eval: true, logger: $stdout, pp_logger: File.open("pp_out", "w")
+Drum::LiveCoder.play file, refresh_interval: 1, rescue_eval: false, logger: $stdout, pp_logger: File.open("pp_out", "w")

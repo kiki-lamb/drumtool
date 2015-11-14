@@ -1,4 +1,4 @@
-require_relative "../string"
+require_relative "../../core_ext/string"
 
 class Drum
   class Formatters

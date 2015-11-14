@@ -1,5 +1,3 @@
-require_relative "../dsl_attrs"
-
 class Drum
   module TimingScope
     extend DslAttrs

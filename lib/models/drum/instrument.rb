@@ -1,4 +1,3 @@
-require_relative "../dsl_attrs"
 require_relative "formatters"
 
 class Drum

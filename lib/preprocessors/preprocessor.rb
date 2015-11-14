@@ -1,7 +1,6 @@
 require "stringio"
 
-class Drum
-  class LiveCoder
+class Preprocessors
     class Preprocessor
       class << self
         Abbreviations = {
@@ -276,5 +275,4 @@ class Drum
         end
       end 
     end
-  end
 end

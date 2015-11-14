@@ -1,6 +1,6 @@
 require "digest"
 require "stringio"
-require_relative "./live_coder/preprocessor"
+require_relative "./preprocessors"
 
 class Drum
   class LiveCoder
@@ -12,7 +12,7 @@ class Drum
 
     attr_reader :exception, :engine
 
-    def initialize filename, refresh_interval: 16, preprocessor: Preprocessor, logger: nil, pp_logger: nil, rescue_eval: true
+    def initialize filename, refresh_interval: 16, preprocessor: Preprocessors::Preprocessor, logger: nil, pp_logger: nil, rescue_eval: true
       @__filename__, @__refresh_interval__, @__preprocessor__, @__logger__, @__pp_logger__, @__rescue_eval__ = filename, refresh_interval, preprocessor, logger, pp_logger, rescue_eval
       @__hash__, @engine, @__exception_lines__ = nil, Engine.new, nil
       @old_engine = nil
