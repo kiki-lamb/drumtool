@@ -1,3 +1,8 @@
+ 		def start     
+      clock.start
+    end    
+
+		private
 require "stringio"
 require "topaz"
 require "unimidi"
@@ -6,8 +11,8 @@ require "set"
 module DrumTool
   class LiveCoder
     class << self
-      def play *a
-        new(*a).play
+      def start *a
+        new(*a).start
       end
     end
 
@@ -23,7 +28,6 @@ module DrumTool
       rescue_exceptions: true, 
       reset_loop_on_stop: true
     )
-      set_midi_output output
       @input_clock = clock
 
 		  @reloader = Loader.new(filename, preprocessor: preprocessor, rescue_exceptions: rescue_exceptions) do |proc, old_object|
@@ -31,31 +35,41 @@ module DrumTool
 			  eng.bpm old_object.bpm unless eng.bpm if old_object
 				eng
 			end
-      @reloader.reload
       
       @refresh_interval = refresh_interval
       @reset_loop_on_stop = reset_loop_on_stop
 
       @last_line_length = 2
 			@tick = 0
-			@clock = nil
+
+      set_midi_output output
     end
 
-    def play      
-      @clock = Topaz::Clock.new(@input_clock ? @input_clock : engine.bpm, interval: 16) { play_tick }
+    def clock      
+      @clock ||= begin
+			  Topaz::Clock.new(@input_clock ? @input_clock : engine.bpm, interval: 16) do
+			    begin
+					  a_bunch_of_logging_crap reload
+        	  close_notes! 
+			  	  open_note! *engine.triggers_at(@tick) if engine
+          ensure
+            @tick += 1
+          end
+        end.tap do |c|
+					c.event.stop do 
+            $stdout << "\n#{self.class.name}: Stopped by user.\n"
+            close_notes!
+            @tick -= @tick % engine.loop if @reset_loop_on_stop and engine.loop
+          end
 
-      @clock.event.stop do 
-        $stdout << "\n#{self.class.name}: Stopped by user.\n"
-        close_notes!
-        @tick -= @tick % engine.loop if @reset_loop_on_stop and engine.loop
+					c.event.start do
+            @reloader.reload
+					  log "Waiting for MIDI clock...\nControl-C to exit\n" unless @input_clock.nil?
+					end
+        end
       end
+    end
 
-      log "Waiting for MIDI clock...\nControl-C to exit\n" unless @input_clock.nil?
-      
-      @clock.start
-    end    
-
-		private
 		def reload
 		  if @tick%@refresh_interval == 0
 			  @reloader.reload.tap do
@@ -66,22 +80,6 @@ module DrumTool
 			end
 		end
 		
-		def play_tick
-			close_notes!
-
-			a_bunch_of_logging_crap reload
-      
-			engine.triggers_at(@tick).tap do |notes|
-		    close_notes!
-	      open_note! *notes
-      end if engine		
-
-      started_tick = Time.now
-    ensure
-      @tick += 1
-    end
-
-
 		def engine
 		  @reloader.payload
 		end

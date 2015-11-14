@@ -7,7 +7,7 @@ include DrumTool::Preprocessors
 Preprocessor.log_to "output/preprocessor"
 LiveCoder.log_to $stdout, "output/livecoder"
 
-LiveCoder.play \
+LiveCoder.start \
   "input/sample.dt", 
 	rescue_exceptions: true
 
