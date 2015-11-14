@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-
 require "topaz"
 require_relative "../lib/drumtool"
 
@@ -18,10 +17,18 @@ tb = bubble do
   end
 end
 
-@clock = Topaz::Clock.new(120*4) do
+################################################################################
+
+input = UniMIDI::Input[1]
+
+clock = Topaz::Clock.new(input, midi_transport: true) do 
 		puts "#{tb.tick} #{tb.tick!}"
 end
 
-@clock.start
+puts "Waiting for MIDI clock..."
+puts "Control-C to exit"
+puts
+
+clock.start
 
 
