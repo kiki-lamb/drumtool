@@ -1,8 +1,3 @@
- 		def start     
-      clock.start
-    end    
-
-		private
 require "stringio"
 require "topaz"
 require "unimidi"
@@ -44,6 +39,12 @@ module DrumTool
 
       set_midi_output output
     end
+
+ 		def start     
+      clock.start
+    end    
+
+		private
 
     def clock      
       @clock ||= begin
