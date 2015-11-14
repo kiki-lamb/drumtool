@@ -12,7 +12,7 @@ module DrumTool
 
 		    attr_reader :output, :open_notes
 
-		    def initialize output = nil, bpm = 128
+		    def initialize output, bpm = 128
 		      super nil
 		      @bpm = bpm
 		      @output = output

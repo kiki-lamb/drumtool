@@ -4,6 +4,12 @@ module DrumTool
 	module Preprocessors
 	    class Preprocessor
 	      class << self
+				  @@log = nil
+
+					def set_log log
+					  @@log = log
+					end
+
 	        Abbreviations = {
 	          "refr" => "refresh_interval",
 	          "ref" => "refresh_interval",
@@ -48,11 +54,9 @@ module DrumTool
 	          "f" => "flip"
 	        }
 
-	        def call text, log: nil
+	        def call text
 	          @@text = text 
 	          @@text << "\n"
-
-	          @@log = log
 
 	          %i{ untabify
 	              strip_blank_lines_and_trailing_whitespace 
