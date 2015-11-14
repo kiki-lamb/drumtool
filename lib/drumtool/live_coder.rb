@@ -12,14 +12,12 @@ module DrumTool
 
 		include Logging
 
-    attr_reader :exception, :engine
-
     def initialize(
       filename, 
       clock: nil, 
       output: UniMIDI::Output[0], 
       preprocessor: Preprocessors::Preprocessor, 
-      refresh_interval: 16, 
+      refresh_interval: 1, 
       rescue_exceptions: true, 
       reset_loop_on_stop: true
     )
@@ -49,14 +47,14 @@ module DrumTool
 
       refresh
 
-      clock = Topaz::Clock.new(@clock ? @clock : engine.bpm, interval: 16) do
+      clock = Topaz::Clock.new(@clock ? @clock : @engine.bpm, interval: 16) do
         begin
           begin
-            @exception_lines = [] unless exception
+            @exception_lines = [] unless @exception
 
             io = StringIO.new
             
-            if engine.loop && 0 == tick % engine.loop && engine.loop != 1
+            if @engine.loop && 0 == tick % @engine.loop && @engine.loop != 1
               io << "=" * (@last_line_length-2) << "\n"
             elsif 0 == tick % 16 
               io << "-" * (@last_line_length-2) << "\n"
@@ -66,33 +64,33 @@ module DrumTool
             refresh if (tick%@refresh_interval == 0)
             refresh_time = (Time.now - refresh_time) * 1000
 
-            clock.tempo = engine.bpm unless @clock
+            clock.tempo = @engine.bpm unless @clock
           
             io << refresh_time.to_s[0..4].ljust(5,"0") << " | "
 
-            io << engine.bpm << " | " << @refresh_interval
+            io << @engine.bpm << " | " << @refresh_interval
 
             fill = tick % 4 == 0 ? "--" : ". "
 
             io << Models::Basic::Formatters::TableRowFormatter.call([ 
               tick.to_s(16).rjust(16, "0"), 
               
-              *engine.instruments.group_by(&:short_name).map do |name, instrs| 
+              *@engine.instruments.group_by(&:short_name).map do |name, instrs| 
                 (instrs.any? do |i|
                   i.fires_at?(tick) 
                 end) ? "#{name.ljust(2)}" : fill 
               end
             ], [], separator: " | ") << "\n"
 
-            engine.play(tick) do
-               tmp = [ (engine.tick_length - (Time.now - started_tick)), 0 ].max
+            @engine.play(tick) do
+               tmp = [ (@engine.tick_length - (Time.now - started_tick)), 0 ].max
                @exception_lines.unshift "DROPPED A TICK!" if 0 == tmp
                tmp
-            end if engine
+            end if @engine
 
             started_tick = Time.now
 
-            io << "\b#{@exception_lines[tick%(@engine.loop || 16)]}\n" if @exception_lines.any?
+            io << "\b#{@exception_lines[tick%(@@engine.loop || 16)]}\n" if @exception_lines.any?
 
             @last_line_length = io.string.length
 
@@ -104,7 +102,7 @@ module DrumTool
               log "\n\n"
               raise e 
             end
-            engine.close_notes if engine
+            @engine.close_notes if @engine
             @exception = e
             @exception_lines = [ "WARNING: #{@exception.to_s}", *@exception.backtrace, "" ]
             @engine = @old_engine
@@ -118,8 +116,8 @@ module DrumTool
 
       clock.event.stop do 
         log "STOP"
-        tick -= tick % engine.loop if @reset_loop_on_stop and engine.loop
-        engine.close_notes
+        tick -= tick % @engine.loop if @reset_loop_on_stop and @engine.loop
+        @engine.close_notes
       end
 
       log "Waiting for MIDI clock...\nControl-C to exit\n" unless @clock.nil?
@@ -127,7 +125,7 @@ module DrumTool
       clock.start
 
     rescue Interrupt
-      engine.close_notes if engine
+      @engine.close_notes if @engine
       $stdout << "\n#{self.class.name}: Stopped by user.\n"
     end
 

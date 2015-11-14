@@ -9,7 +9,6 @@ LiveCoder.log_to $stdout, "output/livecoder"
 
 LiveCoder.play \
   "input/sample.dt", 
-  refresh_interval: 1, 
 	rescue_exceptions: false
 
 #	clock: UniMIDI::Input[1]
