@@ -2,7 +2,7 @@ lp  0x40
 ref x10
 bpm 112
 
-scale 0
+scale 0ji
  i bd 36
    when %x4
 
@@ -20,7 +20,7 @@ scale 0
    when %8
    
 
-scale 0
+scale 1
  i bs 40
   lp x10
 	sh 2

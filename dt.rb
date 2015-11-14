@@ -9,6 +9,6 @@ LiveCoder.log_to $stdout, "output/livecoder"
 
 LiveCoder.play \
   "input/sample.dt", 
-	rescue_exceptions: false
+	rescue_exceptions: true
 
 #	clock: UniMIDI::Input[1]

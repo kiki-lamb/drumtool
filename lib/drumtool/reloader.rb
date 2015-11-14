@@ -30,15 +30,15 @@ module DrumTool
 		  start = Time.now
 			create eval("\nProc.new do\n#{@preprocessor.call @text}\nend") if read
 			(Time.now - start) * 1000
+		rescue Exception => e
+      raise e unless @rescue_exceptions
+      @exception, @exception_lines = e, [ "WARNING: #{e.to_s}", *e.backtrace, "" ]
     end
 
 		private
 		def create proc
 			clear_exception
 		  @payload = @create.call proc, @object
-		rescue Exception => e
-      raise e unless @rescue_exceptions
-      @exception, @exception_lines = e, [ "WARNING: #{e.to_s}", *e.backtrace, "" ]
 		end
 
 		def clear_exception
