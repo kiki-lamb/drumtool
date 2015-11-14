@@ -12,7 +12,7 @@ module DrumTool
 
 	  attr_reader :exception, :engine
 
-	  def initialize filename, refresh_interval: 16, preprocessor: Preprocessors::Preprocessor, logger: nil, pp_logger: nil, rescue_eval: true
+	  def initialize filename, refresh_interval: 16, preprocessor: Preprocessors::Preprocessor, logger: nil, pp_logger: nil, rescue_eval: true, output: UniMIDI::Output[0]
 	    @__filename__, @__refresh_interval__, @__preprocessor__, @__logger__, @__pp_logger__, @__rescue_eval__ = filename, refresh_interval, preprocessor, logger, pp_logger, rescue_eval
 	    @__hash__, @engine, @__exception_lines__ = nil, Models::Basic.build, nil
 	    @old_engine = nil

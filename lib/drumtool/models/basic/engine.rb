@@ -14,7 +14,7 @@ module DrumTool
 
 		    attr_reader :output, :open_notes
 
-		    def initialize bpm = 128, output = UniMIDI::Output[0]
+		    def initialize output = nil, bpm = 128
 		      super nil
 		      @bpm = bpm
 		      @output = output

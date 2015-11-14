@@ -12,11 +12,10 @@ tb = bubble do
 	  note :bd, 36     
   end
 
-#  bubble do
-#	  rotate 1
-#		note :sd, 37
-#		trigger { |t| 0 == (t+4) % 8 }
-#  end
+  bubble do
+		note :sd, 37
+		trigger { |t| 0 == (t+4) % 8 }
+  end
 end
 
 ################################################################################
