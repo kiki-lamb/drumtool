@@ -13,7 +13,7 @@ class LiveCoder
 
   def initialize filename, refresh_interval: 16, preprocessor: Preprocessors::Preprocessor, logger: nil, pp_logger: nil, rescue_eval: true
     @__filename__, @__refresh_interval__, @__preprocessor__, @__logger__, @__pp_logger__, @__rescue_eval__ = filename, refresh_interval, preprocessor, logger, pp_logger, rescue_eval
-    @__hash__, @engine, @__exception_lines__ = nil, Drum::Engine.new, nil
+    @__hash__, @engine, @__exception_lines__ = nil, Models::Drum.build, nil
     @old_engine = nil
     @exception = false
     @last_line_length = 2
@@ -93,7 +93,7 @@ class LiveCoder
       proc = eval "\nProc.new do\n#{@__preprocessor__.call File.open("#{@__filename__}").read, logger: @__pp_logger__}\nend"
       @exception = nil
       @old_engine = @engine
-      @engine = Drum.build(&proc).inherit @old_engine
+      @engine = Models::Drum.build(&proc).inherit @old_engine
       @__refresh_interval__ = @engine.refresh_interval || @__refresh_interval__
     end
   end
