@@ -21,8 +21,6 @@ module DrumTool
 			@exception_lines
 
 			@after = nil
-
-			reload
 		end
 
 		def after &b

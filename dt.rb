@@ -2,14 +2,10 @@
 require_relative "./lib/drumtool"
 
 include DrumTool
-include DrumTool::Preprocessors
 
-Preprocessor.log_to "output/preprocessor"
-Playback.log_to $stdout, "output/livecoder"
+Preprocessors::Preprocessor.log_to "output/preprocessor"
+Live.log_to                        "output/livecoder",  $stdout
 
-Playback.start \
-  "input/sample.dt"
- #,
-#	clock: UniMIDI::Input[1]
+Live.start "input/sample.dt" #, clock: UniMIDI::Input[1]
 
 

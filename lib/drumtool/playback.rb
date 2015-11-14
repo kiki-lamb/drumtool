@@ -22,11 +22,9 @@ module DrumTool
       reset_loop_on_stop: true
     )
       @input_clock = clock
-
-			@engine = eval preprocessor.call(File.open(filename).read)
-
+			@filename = filename
+			@preprocessor = preprocessor
       @reset_loop_on_stop = reset_loop_on_stop
-
       @last_line_length = 2
 			@tick = 0
       set_midi_output output
@@ -39,22 +37,13 @@ module DrumTool
     end    
 
 		def engine
-		  @engine
+		  @engine ||= eval @preprocessor.call(File.open(@filename).read)
 		end
 
 		private
     def clock      	  
       @clock ||= begin
-			  Topaz::Clock.new((@input_clock ? @input_clock : engine.bpm), interval: 16) do
-			    begin
-					  a_bunch_of_logging_crap (0)
-        	  close_notes! 
-						trigs = engine.triggers_at(@tick)
-			  	  open_note! *trigs if engine
-          ensure
-            @tick += 1
-          end
-        end.tap do |c|
+			  Topaz::Clock.new((@input_clock ? @input_clock : engine.bpm), interval: 16, &Proc.new { tick }).tap do |c|
 					c.event.stop do 
             $stdout << "\n#{self.class.name}: Stopped by user.\n"
             close_notes!
@@ -64,18 +53,32 @@ module DrumTool
       end
     end
 		
-		def a_bunch_of_logging_crap refresh_time
+		def tick 
+		  log_sep
+		  tmp = a_bunch_of_logging_crap
+      @last_line_length = tmp.length
+
+		  log tmp
+      close_notes! 
+			trigs = engine.triggers_at(@tick)
+			open_note! *trigs if engine
+    ensure
+      @tick += 1
+    end
+
+		def log_sep
+		  io = StringIO.new
+		  if engine.loop && 0 == @tick % engine.loop && engine.loop != 1
+        io << "=" * (@last_line_length) << "\n"
+      elsif 0 == @tick % 16 
+        io << "-" * (@last_line_length) << "\n"
+      end
+			log io.string unless io.string.empty?
+		end
+
+		def a_bunch_of_logging_crap
       io = StringIO.new
       
-      if engine.loop && 0 == @tick % engine.loop && engine.loop != 1
-        io << "=" * (@last_line_length-2) << "\n"
-      elsif 0 == @tick % 16 
-        io << "-" * (@last_line_length-2) << "\n"
-      end
-
-      io << refresh_time.to_s[0..4].ljust(5,"0") << " | "
-
-      io << engine.loop << " | " 
       io << engine.bpm << " | " << @refresh_interval
 
       fill = @tick % 4 == 0 ? "--" : ". "
@@ -90,9 +93,7 @@ module DrumTool
         end
       ], [], separator: " | ") << "\n"
 
-      @last_line_length = io.string.length
-
-      log io.string
+      io.string			      
 		end
   end 
 end
