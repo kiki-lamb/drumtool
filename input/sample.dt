@@ -1,53 +1,54 @@
-lp  0x40
-bpm 128
-ref 32
-
-
-scale 0
- i bd 36
-   when %4
-	 lp 0x10
-
- i ch 41
-  rot 2
-  on %4
-	on %9
-
- i oh 39
-  on %2 %7
-	not %4
-
-
- i sd 37  
-   rot 4
-   when %8
+lp  0x20
+bpm 112
+ref 16
 
 scale 2
- i bs 40
-  lp x10
-	sh 2
-	on %5
+  i rs 38
+   on 0 1 3 6 11 16 22 29 37 45 55 66
+   lp 0x20
 
-scale 2
- i rs 38
-  on 0 1 3 6 11 16 22 29 37 45 55 66
-  lp 0x20
-	on %1
-	not %3
-  
-lp x20
-  scale 0
-  i sy 49       
-   on { 0 != t%6 && 0 == t%2 }
-   sh 2
-	 lp 0x10
-
-  i s2 47
-   on %9
-
-i t2 46
- sh 1
+mu 
  scale 1
- on %5
- lp 0x10
- 
+  i bd 36
+   when %x5
+ 	lp 0x08
+   
+  i ch 41
+   on %1
+   not 2
+ 	lp x4
+ 	mu 
+
+  i oh 39
+   sh 2
+   when %4
+
+  i sd 37  
+   rot 4
+ 	scale -1
+   when %8 
+
+ scale 3
+  i bs 40
+   lp x10
+ 	sh 2
+ 	on %5
+
+   
+
+ lp x20
+   scale 2
+   i sy 49       
+ #   on { 0 != t%6 && 0 == t%2 }
+    sh 2
+    when %5
+ 	 lp 8
+
+ i s2 47
+  lp x20
+  on %9
+
+ i t2 46
+  scale 0 
+  on %6
+  lp 0x10
