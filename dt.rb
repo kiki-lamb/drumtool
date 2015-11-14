@@ -5,11 +5,10 @@ include DrumTool
 include DrumTool::Preprocessors
 
 Preprocessor.log_to "output/preprocessor"
-LiveCoder.log_to $stdout, "output/livecoder"
+Playback.log_to $stdout, "output/livecoder"
 
-LiveCoder.start \
-  "input/sample.dt", 
-	rescue_exceptions: false
+Playback.start \
+  "input/sample.dt"
  #,
 #	clock: UniMIDI::Input[1]
 
