@@ -4,63 +4,59 @@ DrumTool::Preprocessors::Preprocessor performing step: untabify
 ================================================================================
 DrumTool::Preprocessors::Preprocessor's text after performing step: untabify
 ================================================================================
-0000 lp  0x40
+0000 lp  0x10
 0001 ref x10
 0002 bpm 112
 0003 
-0004 
-0005 
-0006 scale 0
-0007  i bd 36
-0008    when %x4
-0009 
-0010  i ch 41
-0011   on %1
-0012   not 2
-0013   lp x4
-0014 
-0015  i oh 39
-0016    sh 2
-0017    when %4
-0018 
-0019  i sd 37  
-0020    rot 4
-0021    when %8
-0022    
-0023 
-0024 scale 0
-0025  i bs 40
-0026   lp x10
-0027   sh 2
-0028   on %5
-0029 
-0030 
-0031 scale 0
-0032  i r1 38
-0033   on 0 1 3 6 11 16 22 29 37 45 55 66
-0034   lp 0x20
-0035 
-0036 
-0037 lp x20
-0038   i sy 49       
-0039    on { 0 != t%6 && 0 == t%2 }
-0040    not %9
-0041 
-0042   i s2 50
-0043    on %9
-0044 
-0045 i t2 46
-0046  scale 0 
-0047  on %6
-0048  lp 0x10
-0049 
+0004 scale 0
+0005  i bd 36
+0006    when %x4
+0007 
+0008  i ch 41
+0009   on %1
+0010   not 2
+0011   lp x4
+0012 
+0013  i oh 39
+0014    sh 2
+0015    when %4
+0016 
+0017  i sd 37  
+0018    rot 4
+0019    when %8
+0020    
+0021 
+0022 scale 0
+0023  i bs 40
+0024   lp x10
+0025   sh 2
+0026   on %5
+0027 
+0028 
+0029 scale 0
+0030  i r1 38
+0031   on 0 1 3 6 11 16 22 29 37 45 55 66
+0032   lp 0x20
+0033 
+0034 
+0035 lp x20
+0036   i sy 49
+0037    sh 2
+0038    when %4
+0039 
+0040 
+0041 i t2 46
+0042  scale 0 
+0043  on %6
+0044  lp 0x10
+0045 
 ================================================================================
 DrumTool::Preprocessors::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace
 ================================================================================
 ================================================================================
 DrumTool::Preprocessors::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace
 ================================================================================
-0000 lp  0x40
+0000 lp  0x10
 0001 ref x10
 0002 bpm 112
 0003 scale 0
@@ -87,18 +83,16 @@ DrumTool::Preprocessors::Preprocessor's text after performing step: strip_blank_
 0024   lp 0x20
 0025 lp x20
 0026   i sy 49
-0027    on { 0 != t%6 && 0 == t%2 }
-0028    not %9
-0029   i s2 50
-0030    on %9
-0031 i t2 46
-0032  scale 0
-0033  on %6
-0034  lp 0x10
+0027    sh 2
+0028    when %4
+0029 i t2 46
+0030  scale 0
+0031  on %6
+0032  lp 0x10
 ================================================================================
 DrumTool::Preprocessors::Preprocessor performing step: extend_block_comments
 ================================================================================
-0000 lp  0x40 
+0000 lp  0x10 
 0001 ref x10 
 0002 bpm 112 
 0003 scale 0 
@@ -125,18 +119,16 @@ DrumTool::Preprocessors::Preprocessor performing step: extend_block_comments
 0024   lp 0x20 
 0025 lp x20 
 0026   i sy 49 
-0027    on { 0 != t%6 && 0 == t%2 } 
-0028    not %9 
-0029   i s2 50 
-0030    on %9 
-0031 i t2 46 
-0032  scale 0 
-0033  on %6 
-0034  lp 0x10 
+0027    sh 2 
+0028    when %4 
+0029 i t2 46 
+0030  scale 0 
+0031  on %6 
+0032  lp 0x10 
 ================================================================================
 DrumTool::Preprocessors::Preprocessor's text after performing step: extend_block_comments
 ================================================================================
-0000 lp  0x40
+0000 lp  0x10
 0001 ref x10
 0002 bpm 112
 0003 scale 0
@@ -163,21 +155,19 @@ DrumTool::Preprocessors::Preprocessor's text after performing step: extend_block
 0024   lp 0x20
 0025 lp x20
 0026   i sy 49
-0027    on { 0 != t%6 && 0 == t%2 }
-0028    not %9
-0029   i s2 50
-0030    on %9
-0031 i t2 46
-0032  scale 0
-0033  on %6
-0034  lp 0x10
+0027    sh 2
+0028    when %4
+0029 i t2 46
+0030  scale 0
+0031  on %6
+0032  lp 0x10
 ================================================================================
 DrumTool::Preprocessors::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace_and_comments
 ================================================================================
 ================================================================================
 DrumTool::Preprocessors::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace_and_comments
 ================================================================================
-0000 lp  0x40
+0000 lp  0x10
 0001 ref x10
 0002 bpm 112
 0003 scale 0
@@ -204,22 +194,20 @@ DrumTool::Preprocessors::Preprocessor's text after performing step: strip_blank_
 0024   lp 0x20
 0025 lp x20
 0026   i sy 49
-0027    on { 0 != t%6 && 0 == t%2 }
-0028    not %9
-0029   i s2 50
-0030    on %9
-0031 i t2 46
-0032  scale 0
-0033  on %6
-0034  lp 0x10
+0027    sh 2
+0028    when %4
+0029 i t2 46
+0030  scale 0
+0031  on %6
+0032  lp 0x10
 ================================================================================
 DrumTool::Preprocessors::Preprocessor performing step: rubify_arguments_and_expand_abbreviations
 ================================================================================
-0000 lp  0x40
-  Parsed simple expr: "lp  0x40" 1:"lp" 2:"0x40"
-  Arg `0x40' is a IntOrHex: `0x40'
-  Tokens: ["", "loop", ["0x40"], ""]
-  Reassembled: `loop(0x40)'
+0000 lp  0x10
+  Parsed simple expr: "lp  0x10" 1:"lp" 2:"0x10"
+  Arg `0x10' is a IntOrHex: `0x10'
+  Tokens: ["", "loop", ["0x10"], ""]
+  Reassembled: `loop(0x10)'
 0001 ref x10
   Parsed simple expr: "ref x10" 1:"ref" 2:"x10"
   Arg `x10' is a IntOrHex: `0x10'
@@ -368,43 +356,33 @@ DrumTool::Preprocessors::Preprocessor performing step: rubify_arguments_and_expa
   Arg `49' is a IntOrHex: `49'
   Tokens: ["  ", "instrument", [":sy", "49"], ""]
   Reassembled: `  instrument(:sy, 49)'
-0027    on { 0 != t%6 && 0 == t%2 }
-  Parse complex expr: `on { 0 != t%6 && 0 == t%2 }'
-  Tokens: ["   ", "trigger { |t|  0 != t%6 && 0 == t%2 }", [], ""]
-  Reassembled: `   trigger { |t|  0 != t%6 && 0 == t%2 }'
-0028    not %9
-  Parsed simple expr: "not %9" 1:"not" 2:"%9"
-  Arg `%9' is a Modulo: `(Proc.new { |t| t%9 })'
-  Tokens: ["   ", "untrigger", ["(Proc.new { |t| t%9 })"], ""]
-  Reassembled: `   untrigger((Proc.new { |t| t%9 }))'
-0029   i s2 50
-  Parsed simple expr: "i s2 50" 1:"i" 2:"s2 50"
-  Arg `s2' is a Name: `:s2'
-  Arg `50' is a IntOrHex: `50'
-  Tokens: ["  ", "instrument", [":s2", "50"], ""]
-  Reassembled: `  instrument(:s2, 50)'
-0030    on %9
-  Parsed simple expr: "on %9" 1:"on" 2:"%9"
-  Arg `%9' is a Modulo: `(Proc.new { |t| t%9 })'
-  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%9 })"], ""]
-  Reassembled: `   trigger((Proc.new { |t| t%9 }))'
-0031 i t2 46
+0027    sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a IntOrHex: `2'
+  Tokens: ["   ", "shift", ["2"], ""]
+  Reassembled: `   shift(2)'
+0028    when %4
+  Parsed simple expr: "when %4" 1:"when" 2:"%4"
+  Arg `%4' is a Modulo: `(Proc.new { |t| t%4 })'
+  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%4 })"], ""]
+  Reassembled: `   trigger((Proc.new { |t| t%4 }))'
+0029 i t2 46
   Parsed simple expr: "i t2 46" 1:"i" 2:"t2 46"
   Arg `t2' is a Name: `:t2'
   Arg `46' is a IntOrHex: `46'
   Tokens: ["", "instrument", [":t2", "46"], ""]
   Reassembled: `instrument(:t2, 46)'
-0032  scale 0
+0030  scale 0
   Parsed simple expr: "scale 0" 1:"scale" 2:"0"
   Arg `0' is a IntOrHex: `0'
   Tokens: [" ", "scale", ["0"], ""]
   Reassembled: ` scale(0)'
-0033  on %6
+0031  on %6
   Parsed simple expr: "on %6" 1:"on" 2:"%6"
   Arg `%6' is a Modulo: `(Proc.new { |t| t%6 })'
   Tokens: [" ", "trigger", ["(Proc.new { |t| t%6 })"], ""]
   Reassembled: ` trigger((Proc.new { |t| t%6 }))'
-0034  lp 0x10
+0032  lp 0x10
   Parsed simple expr: "lp 0x10" 1:"lp" 2:"0x10"
   Arg `0x10' is a IntOrHex: `0x10'
   Tokens: [" ", "loop", ["0x10"], ""]
@@ -412,7 +390,7 @@ DrumTool::Preprocessors::Preprocessor performing step: rubify_arguments_and_expa
 ================================================================================
 DrumTool::Preprocessors::Preprocessor's text after performing step: rubify_arguments_and_expand_abbreviations
 ================================================================================
-0000 loop(0x40)
+0000 loop(0x10)
 0001 refresh_interval(0x10)
 0002 bpm(112)
 0003 scale(0)
@@ -439,18 +417,16 @@ DrumTool::Preprocessors::Preprocessor's text after performing step: rubify_argum
 0024   loop(0x20)
 0025 loop(0x20)
 0026   instrument(:sy, 49)
-0027    trigger { |t|  0 != t%6 && 0 == t%2 }
-0028    untrigger((Proc.new { |t| t%9 }))
-0029   instrument(:s2, 50)
-0030    trigger((Proc.new { |t| t%9 }))
-0031 instrument(:t2, 46)
-0032  scale(0)
-0033  trigger((Proc.new { |t| t%6 }))
-0034  loop(0x10)
+0027    shift(2)
+0028    trigger((Proc.new { |t| t%4 }))
+0029 instrument(:t2, 46)
+0030  scale(0)
+0031  trigger((Proc.new { |t| t%6 }))
+0032  loop(0x10)
 ================================================================================
 DrumTool::Preprocessors::Preprocessor performing step: rubify_pythonesque_blocks
 ================================================================================
-0000 00->00 loop(0x40)
+0000 00->00 loop(0x10)
 0001 00->00 refresh_interval(0x10)
 0002 00->00 bpm(112)
 0003 00->00 scale(0)
@@ -493,23 +469,19 @@ DrumTool::Preprocessors::Preprocessor performing step: rubify_pythonesque_blocks
 0025        Leave block
 0026 00->02   instrument(:sy, 49)
 0026        Blockify prior line `loop(0x20)'.
-0027 02->03    trigger { |t|  0 != t%6 && 0 == t%2 }
+0027 02->03    shift(2)
 0027        Blockify prior line `  instrument(:sy, 49)'.
-0028 03->03    untrigger((Proc.new { |t| t%9 }))
-0029 03->02   instrument(:s2, 50)
+0028 03->03    trigger((Proc.new { |t| t%4 }))
+0029 03->00 instrument(:t2, 46)
 0029        Leave block
-0030 02->03    trigger((Proc.new { |t| t%9 }))
-0030        Blockify prior line `  instrument(:s2, 50)'.
-0031 03->00 instrument(:t2, 46)
-0031        Leave block
-0032 00->01  scale(0)
-0032        Blockify prior line `instrument(:t2, 46)'.
-0033 01->01  trigger((Proc.new { |t| t%6 }))
-0034 01->01  loop(0x10)
+0030 00->01  scale(0)
+0030        Blockify prior line `instrument(:t2, 46)'.
+0031 01->01  trigger((Proc.new { |t| t%6 }))
+0032 01->01  loop(0x10)
 ================================================================================
 DrumTool::Preprocessors::Preprocessor's text after performing step: rubify_pythonesque_blocks
 ================================================================================
-0000 loop(0x40)
+0000 loop(0x10)
 0001 refresh_interval(0x10)
 0002 bpm(112)
 0003 scale(0) do 
@@ -545,11 +517,1662 @@ DrumTool::Preprocessors::Preprocessor's text after performing step: rubify_pytho
 0033 end
 0034 loop(0x20) do 
 0035   instrument(:sy, 49) do 
-0036    trigger { |t|  0 != t%6 && 0 == t%2 }
-0037    untrigger((Proc.new { |t| t%9 }))
+0036    shift(2)
+0037    trigger((Proc.new { |t| t%4 }))
 0038   end
-0039   instrument(:s2, 50) do 
-0040    trigger((Proc.new { |t| t%9 }))
+0039 end
+0040 instrument(:t2, 46) do 
+0041  scale(0)
+0042  trigger((Proc.new { |t| t%6 }))
+0043  loop(0x10)
+0044 end
+================================================================================
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: untabify
+================================================================================
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: untabify
+================================================================================
+0000 lp  0x10
+0001 ref x10
+0002 bpm 112
+0003 
+0004 scale 0
+0005  i bd 36
+0006    when %x4
+0007 
+0008  i ch 41
+0009   on %1
+0010   not 2
+0011   lp x4
+0012 
+0013  i oh 39
+0014    sh 2
+0015    when %4
+0016 
+0017  i sd 37  
+0018    rot 4
+0019    when %8
+0020    
+0021 
+0022 scale 0
+0023  i bs 40
+0024   lp x10
+0025   sh 2
+0026   on %5
+0027 
+0028 
+0029 scale 0
+0030  i r1 38
+0031   on 0 1 3 6 11 16 22 29 37 45 55 66
+0032   lp 0x20
+0033   mu
+0034 
+0035 lp x20
+0036   i sy 49
+0037    sh 2
+0038    when %4
+0039 
+0040 
+0041 i t2 46
+0042  scale 0 
+0043  on %6
+0044  lp 0x10
+0045 
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace
+================================================================================
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace
+================================================================================
+0000 lp  0x10
+0001 ref x10
+0002 bpm 112
+0003 scale 0
+0004  i bd 36
+0005    when %x4
+0006  i ch 41
+0007   on %1
+0008   not 2
+0009   lp x4
+0010  i oh 39
+0011    sh 2
+0012    when %4
+0013  i sd 37
+0014    rot 4
+0015    when %8
+0016 scale 0
+0017  i bs 40
+0018   lp x10
+0019   sh 2
+0020   on %5
+0021 scale 0
+0022  i r1 38
+0023   on 0 1 3 6 11 16 22 29 37 45 55 66
+0024   lp 0x20
+0025   mu
+0026 lp x20
+0027   i sy 49
+0028    sh 2
+0029    when %4
+0030 i t2 46
+0031  scale 0
+0032  on %6
+0033  lp 0x10
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: extend_block_comments
+================================================================================
+0000 lp  0x10 
+0001 ref x10 
+0002 bpm 112 
+0003 scale 0 
+0004  i bd 36 
+0005    when %x4 
+0006  i ch 41 
+0007   on %1 
+0008   not 2 
+0009   lp x4 
+0010  i oh 39 
+0011    sh 2 
+0012    when %4 
+0013  i sd 37 
+0014    rot 4 
+0015    when %8 
+0016 scale 0 
+0017  i bs 40 
+0018   lp x10 
+0019   sh 2 
+0020   on %5 
+0021 scale 0 
+0022  i r1 38 
+0023   on 0 1 3 6 11 16 22 29 37 45 55 66 
+0024   lp 0x20 
+0025   mu 
+0026 lp x20 
+0027   i sy 49 
+0028    sh 2 
+0029    when %4 
+0030 i t2 46 
+0031  scale 0 
+0032  on %6 
+0033  lp 0x10 
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: extend_block_comments
+================================================================================
+0000 lp  0x10
+0001 ref x10
+0002 bpm 112
+0003 scale 0
+0004  i bd 36
+0005    when %x4
+0006  i ch 41
+0007   on %1
+0008   not 2
+0009   lp x4
+0010  i oh 39
+0011    sh 2
+0012    when %4
+0013  i sd 37
+0014    rot 4
+0015    when %8
+0016 scale 0
+0017  i bs 40
+0018   lp x10
+0019   sh 2
+0020   on %5
+0021 scale 0
+0022  i r1 38
+0023   on 0 1 3 6 11 16 22 29 37 45 55 66
+0024   lp 0x20
+0025   mu
+0026 lp x20
+0027   i sy 49
+0028    sh 2
+0029    when %4
+0030 i t2 46
+0031  scale 0
+0032  on %6
+0033  lp 0x10
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace_and_comments
+================================================================================
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace_and_comments
+================================================================================
+0000 lp  0x10
+0001 ref x10
+0002 bpm 112
+0003 scale 0
+0004  i bd 36
+0005    when %x4
+0006  i ch 41
+0007   on %1
+0008   not 2
+0009   lp x4
+0010  i oh 39
+0011    sh 2
+0012    when %4
+0013  i sd 37
+0014    rot 4
+0015    when %8
+0016 scale 0
+0017  i bs 40
+0018   lp x10
+0019   sh 2
+0020   on %5
+0021 scale 0
+0022  i r1 38
+0023   on 0 1 3 6 11 16 22 29 37 45 55 66
+0024   lp 0x20
+0025   mu
+0026 lp x20
+0027   i sy 49
+0028    sh 2
+0029    when %4
+0030 i t2 46
+0031  scale 0
+0032  on %6
+0033  lp 0x10
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: rubify_arguments_and_expand_abbreviations
+================================================================================
+0000 lp  0x10
+  Parsed simple expr: "lp  0x10" 1:"lp" 2:"0x10"
+  Arg `0x10' is a IntOrHex: `0x10'
+  Tokens: ["", "loop", ["0x10"], ""]
+  Reassembled: `loop(0x10)'
+0001 ref x10
+  Parsed simple expr: "ref x10" 1:"ref" 2:"x10"
+  Arg `x10' is a IntOrHex: `0x10'
+  Tokens: ["", "refresh_interval", ["0x10"], ""]
+  Reassembled: `refresh_interval(0x10)'
+0002 bpm 112
+  Parsed simple expr: "bpm 112" 1:"bpm" 2:"112"
+  Arg `112' is a IntOrHex: `112'
+  Tokens: ["", "bpm", ["112"], ""]
+  Reassembled: `bpm(112)'
+0003 scale 0
+  Parsed simple expr: "scale 0" 1:"scale" 2:"0"
+  Arg `0' is a IntOrHex: `0'
+  Tokens: ["", "scale", ["0"], ""]
+  Reassembled: `scale(0)'
+0004  i bd 36
+  Parsed simple expr: "i bd 36" 1:"i" 2:"bd 36"
+  Arg `bd' is a Name: `:bd'
+  Arg `36' is a IntOrHex: `36'
+  Tokens: [" ", "instrument", [":bd", "36"], ""]
+  Reassembled: ` instrument(:bd, 36)'
+0005    when %x4
+  Parsed simple expr: "when %x4" 1:"when" 2:"%x4"
+  Arg `%0x4' is a Modulo: `(Proc.new { |t| t%0x4 })'
+  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%0x4 })"], ""]
+  Reassembled: `   trigger((Proc.new { |t| t%0x4 }))'
+0006  i ch 41
+  Parsed simple expr: "i ch 41" 1:"i" 2:"ch 41"
+  Arg `ch' is a Name: `:ch'
+  Arg `41' is a IntOrHex: `41'
+  Tokens: [" ", "instrument", [":ch", "41"], ""]
+  Reassembled: ` instrument(:ch, 41)'
+0007   on %1
+  Parsed simple expr: "on %1" 1:"on" 2:"%1"
+  Arg `%1' is a Modulo: `(Proc.new { |t| t%1 })'
+  Tokens: ["  ", "trigger", ["(Proc.new { |t| t%1 })"], ""]
+  Reassembled: `  trigger((Proc.new { |t| t%1 }))'
+0008   not 2
+  Parsed simple expr: "not 2" 1:"not" 2:"2"
+  Arg `2' is a IntOrHex: `2'
+  Tokens: ["  ", "untrigger", ["2"], ""]
+  Reassembled: `  untrigger(2)'
+0009   lp x4
+  Parsed simple expr: "lp x4" 1:"lp" 2:"x4"
+  Arg `x4' is a IntOrHex: `0x4'
+  Tokens: ["  ", "loop", ["0x4"], ""]
+  Reassembled: `  loop(0x4)'
+0010  i oh 39
+  Parsed simple expr: "i oh 39" 1:"i" 2:"oh 39"
+  Arg `oh' is a Name: `:oh'
+  Arg `39' is a IntOrHex: `39'
+  Tokens: [" ", "instrument", [":oh", "39"], ""]
+  Reassembled: ` instrument(:oh, 39)'
+0011    sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a IntOrHex: `2'
+  Tokens: ["   ", "shift", ["2"], ""]
+  Reassembled: `   shift(2)'
+0012    when %4
+  Parsed simple expr: "when %4" 1:"when" 2:"%4"
+  Arg `%4' is a Modulo: `(Proc.new { |t| t%4 })'
+  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%4 })"], ""]
+  Reassembled: `   trigger((Proc.new { |t| t%4 }))'
+0013  i sd 37
+  Parsed simple expr: "i sd 37" 1:"i" 2:"sd 37"
+  Arg `sd' is a Name: `:sd'
+  Arg `37' is a IntOrHex: `37'
+  Tokens: [" ", "instrument", [":sd", "37"], ""]
+  Reassembled: ` instrument(:sd, 37)'
+0014    rot 4
+  Parsed simple expr: "rot 4" 1:"rot" 2:"4"
+  Arg `4' is a IntOrHex: `4'
+  Tokens: ["   ", "rotate", ["4"], ""]
+  Reassembled: `   rotate(4)'
+0015    when %8
+  Parsed simple expr: "when %8" 1:"when" 2:"%8"
+  Arg `%8' is a Modulo: `(Proc.new { |t| t%8 })'
+  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%8 })"], ""]
+  Reassembled: `   trigger((Proc.new { |t| t%8 }))'
+0016 scale 0
+  Parsed simple expr: "scale 0" 1:"scale" 2:"0"
+  Arg `0' is a IntOrHex: `0'
+  Tokens: ["", "scale", ["0"], ""]
+  Reassembled: `scale(0)'
+0017  i bs 40
+  Parsed simple expr: "i bs 40" 1:"i" 2:"bs 40"
+  Arg `bs' is a Name: `:bs'
+  Arg `40' is a IntOrHex: `40'
+  Tokens: [" ", "instrument", [":bs", "40"], ""]
+  Reassembled: ` instrument(:bs, 40)'
+0018   lp x10
+  Parsed simple expr: "lp x10" 1:"lp" 2:"x10"
+  Arg `x10' is a IntOrHex: `0x10'
+  Tokens: ["  ", "loop", ["0x10"], ""]
+  Reassembled: `  loop(0x10)'
+0019   sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a IntOrHex: `2'
+  Tokens: ["  ", "shift", ["2"], ""]
+  Reassembled: `  shift(2)'
+0020   on %5
+  Parsed simple expr: "on %5" 1:"on" 2:"%5"
+  Arg `%5' is a Modulo: `(Proc.new { |t| t%5 })'
+  Tokens: ["  ", "trigger", ["(Proc.new { |t| t%5 })"], ""]
+  Reassembled: `  trigger((Proc.new { |t| t%5 }))'
+0021 scale 0
+  Parsed simple expr: "scale 0" 1:"scale" 2:"0"
+  Arg `0' is a IntOrHex: `0'
+  Tokens: ["", "scale", ["0"], ""]
+  Reassembled: `scale(0)'
+0022  i r1 38
+  Parsed simple expr: "i r1 38" 1:"i" 2:"r1 38"
+  Arg `r1' is a Name: `:r1'
+  Arg `38' is a IntOrHex: `38'
+  Tokens: [" ", "instrument", [":r1", "38"], ""]
+  Reassembled: ` instrument(:r1, 38)'
+0023   on 0 1 3 6 11 16 22 29 37 45 55 66
+  Parsed simple expr: "on 0 1 3 6 11 16 22 29 37 45 55 66" 1:"on" 2:"0 1 3 6 11 16 22 29 37 45 55 66"
+  Arg `0' is a IntOrHex: `0'
+  Arg `1' is a IntOrHex: `1'
+  Arg `3' is a IntOrHex: `3'
+  Arg `6' is a IntOrHex: `6'
+  Arg `11' is a IntOrHex: `11'
+  Arg `16' is a IntOrHex: `16'
+  Arg `22' is a IntOrHex: `22'
+  Arg `29' is a IntOrHex: `29'
+  Arg `37' is a IntOrHex: `37'
+  Arg `45' is a IntOrHex: `45'
+  Arg `55' is a IntOrHex: `55'
+  Arg `66' is a IntOrHex: `66'
+  Tokens: ["  ", "trigger", ["0", "1", "3", "6", "11", "16", "22", "29", "37", "45", "55", "66"], ""]
+  Reassembled: `  trigger(0, 1, 3, 6, 11, 16, 22, 29, 37, 45, 55, 66)'
+0024   lp 0x20
+  Parsed simple expr: "lp 0x20" 1:"lp" 2:"0x20"
+  Arg `0x20' is a IntOrHex: `0x20'
+  Tokens: ["  ", "loop", ["0x20"], ""]
+  Reassembled: `  loop(0x20)'
+0025   mu
+  Parsed simple expr: "mu" 1:"mu" 2:nil
+  Tokens: ["  ", "mute", [], ""]
+  Reassembled: `  mute'
+0026 lp x20
+  Parsed simple expr: "lp x20" 1:"lp" 2:"x20"
+  Arg `x20' is a IntOrHex: `0x20'
+  Tokens: ["", "loop", ["0x20"], ""]
+  Reassembled: `loop(0x20)'
+0027   i sy 49
+  Parsed simple expr: "i sy 49" 1:"i" 2:"sy 49"
+  Arg `sy' is a Name: `:sy'
+  Arg `49' is a IntOrHex: `49'
+  Tokens: ["  ", "instrument", [":sy", "49"], ""]
+  Reassembled: `  instrument(:sy, 49)'
+0028    sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a IntOrHex: `2'
+  Tokens: ["   ", "shift", ["2"], ""]
+  Reassembled: `   shift(2)'
+0029    when %4
+  Parsed simple expr: "when %4" 1:"when" 2:"%4"
+  Arg `%4' is a Modulo: `(Proc.new { |t| t%4 })'
+  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%4 })"], ""]
+  Reassembled: `   trigger((Proc.new { |t| t%4 }))'
+0030 i t2 46
+  Parsed simple expr: "i t2 46" 1:"i" 2:"t2 46"
+  Arg `t2' is a Name: `:t2'
+  Arg `46' is a IntOrHex: `46'
+  Tokens: ["", "instrument", [":t2", "46"], ""]
+  Reassembled: `instrument(:t2, 46)'
+0031  scale 0
+  Parsed simple expr: "scale 0" 1:"scale" 2:"0"
+  Arg `0' is a IntOrHex: `0'
+  Tokens: [" ", "scale", ["0"], ""]
+  Reassembled: ` scale(0)'
+0032  on %6
+  Parsed simple expr: "on %6" 1:"on" 2:"%6"
+  Arg `%6' is a Modulo: `(Proc.new { |t| t%6 })'
+  Tokens: [" ", "trigger", ["(Proc.new { |t| t%6 })"], ""]
+  Reassembled: ` trigger((Proc.new { |t| t%6 }))'
+0033  lp 0x10
+  Parsed simple expr: "lp 0x10" 1:"lp" 2:"0x10"
+  Arg `0x10' is a IntOrHex: `0x10'
+  Tokens: [" ", "loop", ["0x10"], ""]
+  Reassembled: ` loop(0x10)'
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: rubify_arguments_and_expand_abbreviations
+================================================================================
+0000 loop(0x10)
+0001 refresh_interval(0x10)
+0002 bpm(112)
+0003 scale(0)
+0004  instrument(:bd, 36)
+0005    trigger((Proc.new { |t| t%0x4 }))
+0006  instrument(:ch, 41)
+0007   trigger((Proc.new { |t| t%1 }))
+0008   untrigger(2)
+0009   loop(0x4)
+0010  instrument(:oh, 39)
+0011    shift(2)
+0012    trigger((Proc.new { |t| t%4 }))
+0013  instrument(:sd, 37)
+0014    rotate(4)
+0015    trigger((Proc.new { |t| t%8 }))
+0016 scale(0)
+0017  instrument(:bs, 40)
+0018   loop(0x10)
+0019   shift(2)
+0020   trigger((Proc.new { |t| t%5 }))
+0021 scale(0)
+0022  instrument(:r1, 38)
+0023   trigger(0, 1, 3, 6, 11, 16, 22, 29, 37, 45, 55, 66)
+0024   loop(0x20)
+0025   mute
+0026 loop(0x20)
+0027   instrument(:sy, 49)
+0028    shift(2)
+0029    trigger((Proc.new { |t| t%4 }))
+0030 instrument(:t2, 46)
+0031  scale(0)
+0032  trigger((Proc.new { |t| t%6 }))
+0033  loop(0x10)
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: rubify_pythonesque_blocks
+================================================================================
+0000 00->00 loop(0x10)
+0001 00->00 refresh_interval(0x10)
+0002 00->00 bpm(112)
+0003 00->00 scale(0)
+0004 00->01  instrument(:bd, 36)
+0004        Blockify prior line `scale(0)'.
+0005 01->03    trigger((Proc.new { |t| t%0x4 }))
+0005        Blockify prior line ` instrument(:bd, 36)'.
+0006 03->01  instrument(:ch, 41)
+0006        Leave block
+0007 01->02   trigger((Proc.new { |t| t%1 }))
+0007        Blockify prior line ` instrument(:ch, 41)'.
+0008 02->02   untrigger(2)
+0009 02->02   loop(0x4)
+0010 02->01  instrument(:oh, 39)
+0010        Leave block
+0011 01->03    shift(2)
+0011        Blockify prior line ` instrument(:oh, 39)'.
+0012 03->03    trigger((Proc.new { |t| t%4 }))
+0013 03->01  instrument(:sd, 37)
+0013        Leave block
+0014 01->03    rotate(4)
+0014        Blockify prior line ` instrument(:sd, 37)'.
+0015 03->03    trigger((Proc.new { |t| t%8 }))
+0016 03->00 scale(0)
+0016        Leave block
+0017 00->01  instrument(:bs, 40)
+0017        Blockify prior line `scale(0)'.
+0018 01->02   loop(0x10)
+0018        Blockify prior line ` instrument(:bs, 40)'.
+0019 02->02   shift(2)
+0020 02->02   trigger((Proc.new { |t| t%5 }))
+0021 02->00 scale(0)
+0021        Leave block
+0022 00->01  instrument(:r1, 38)
+0022        Blockify prior line `scale(0)'.
+0023 01->02   trigger(0, 1, 3, 6, 11, 16, 22, 29, 37, 45, 55, 66)
+0023        Blockify prior line ` instrument(:r1, 38)'.
+0024 02->02   loop(0x20)
+0025 02->02   mute
+0026 02->00 loop(0x20)
+0026        Leave block
+0027 00->02   instrument(:sy, 49)
+0027        Blockify prior line `loop(0x20)'.
+0028 02->03    shift(2)
+0028        Blockify prior line `  instrument(:sy, 49)'.
+0029 03->03    trigger((Proc.new { |t| t%4 }))
+0030 03->00 instrument(:t2, 46)
+0030        Leave block
+0031 00->01  scale(0)
+0031        Blockify prior line `instrument(:t2, 46)'.
+0032 01->01  trigger((Proc.new { |t| t%6 }))
+0033 01->01  loop(0x10)
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: rubify_pythonesque_blocks
+================================================================================
+0000 loop(0x10)
+0001 refresh_interval(0x10)
+0002 bpm(112)
+0003 scale(0) do 
+0004  instrument(:bd, 36) do 
+0005    trigger((Proc.new { |t| t%0x4 }))
+0006  end
+0007  instrument(:ch, 41) do 
+0008   trigger((Proc.new { |t| t%1 }))
+0009   untrigger(2)
+0010   loop(0x4)
+0011  end
+0012  instrument(:oh, 39) do 
+0013    shift(2)
+0014    trigger((Proc.new { |t| t%4 }))
+0015  end
+0016  instrument(:sd, 37) do 
+0017    rotate(4)
+0018    trigger((Proc.new { |t| t%8 }))
+0019  end
+0020 end
+0021 scale(0) do 
+0022  instrument(:bs, 40) do 
+0023   loop(0x10)
+0024   shift(2)
+0025   trigger((Proc.new { |t| t%5 }))
+0026  end
+0027 end
+0028 scale(0) do 
+0029  instrument(:r1, 38) do 
+0030   trigger(0, 1, 3, 6, 11, 16, 22, 29, 37, 45, 55, 66)
+0031   loop(0x20)
+0032   mute
+0033  end
+0034 end
+0035 loop(0x20) do 
+0036   instrument(:sy, 49) do 
+0037    shift(2)
+0038    trigger((Proc.new { |t| t%4 }))
+0039   end
+0040 end
+0041 instrument(:t2, 46) do 
+0042  scale(0)
+0043  trigger((Proc.new { |t| t%6 }))
+0044  loop(0x10)
+0045 end
+================================================================================
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: untabify
+================================================================================
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: untabify
+================================================================================
+0000 lp  0x10
+0001 ref x10
+0002 bpm 112
+0003 
+0004 scale 0
+0005  i bd 36
+0006    when %x4
+0007 
+0008  i ch 41
+0009   on %1
+0010   not 2
+0011   lp x4
+0012 
+0013  i oh 39
+0014    sh 2
+0015    when %4
+0016 
+0017  i sd 37  
+0018    rot 4
+0019    when %8
+0020    
+0021 
+0022 scale 0
+0023  i bs 40
+0024   lp x10
+0025   sh 2
+0026   on %5
+0027   mu
+0028 
+0029 scale 0
+0030  i r1 38
+0031   on 0 1 3 6 11 16 22 29 37 45 55 66
+0032   lp 0x20
+0033   mu
+0034 
+0035 lp x20
+0036   i sy 49
+0037    sh 2
+0038    when %4
+0039 
+0040 
+0041 i t2 46
+0042  scale 0 
+0043  on %6
+0044  lp 0x10
+0045 
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace
+================================================================================
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace
+================================================================================
+0000 lp  0x10
+0001 ref x10
+0002 bpm 112
+0003 scale 0
+0004  i bd 36
+0005    when %x4
+0006  i ch 41
+0007   on %1
+0008   not 2
+0009   lp x4
+0010  i oh 39
+0011    sh 2
+0012    when %4
+0013  i sd 37
+0014    rot 4
+0015    when %8
+0016 scale 0
+0017  i bs 40
+0018   lp x10
+0019   sh 2
+0020   on %5
+0021   mu
+0022 scale 0
+0023  i r1 38
+0024   on 0 1 3 6 11 16 22 29 37 45 55 66
+0025   lp 0x20
+0026   mu
+0027 lp x20
+0028   i sy 49
+0029    sh 2
+0030    when %4
+0031 i t2 46
+0032  scale 0
+0033  on %6
+0034  lp 0x10
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: extend_block_comments
+================================================================================
+0000 lp  0x10 
+0001 ref x10 
+0002 bpm 112 
+0003 scale 0 
+0004  i bd 36 
+0005    when %x4 
+0006  i ch 41 
+0007   on %1 
+0008   not 2 
+0009   lp x4 
+0010  i oh 39 
+0011    sh 2 
+0012    when %4 
+0013  i sd 37 
+0014    rot 4 
+0015    when %8 
+0016 scale 0 
+0017  i bs 40 
+0018   lp x10 
+0019   sh 2 
+0020   on %5 
+0021   mu 
+0022 scale 0 
+0023  i r1 38 
+0024   on 0 1 3 6 11 16 22 29 37 45 55 66 
+0025   lp 0x20 
+0026   mu 
+0027 lp x20 
+0028   i sy 49 
+0029    sh 2 
+0030    when %4 
+0031 i t2 46 
+0032  scale 0 
+0033  on %6 
+0034  lp 0x10 
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: extend_block_comments
+================================================================================
+0000 lp  0x10
+0001 ref x10
+0002 bpm 112
+0003 scale 0
+0004  i bd 36
+0005    when %x4
+0006  i ch 41
+0007   on %1
+0008   not 2
+0009   lp x4
+0010  i oh 39
+0011    sh 2
+0012    when %4
+0013  i sd 37
+0014    rot 4
+0015    when %8
+0016 scale 0
+0017  i bs 40
+0018   lp x10
+0019   sh 2
+0020   on %5
+0021   mu
+0022 scale 0
+0023  i r1 38
+0024   on 0 1 3 6 11 16 22 29 37 45 55 66
+0025   lp 0x20
+0026   mu
+0027 lp x20
+0028   i sy 49
+0029    sh 2
+0030    when %4
+0031 i t2 46
+0032  scale 0
+0033  on %6
+0034  lp 0x10
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace_and_comments
+================================================================================
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace_and_comments
+================================================================================
+0000 lp  0x10
+0001 ref x10
+0002 bpm 112
+0003 scale 0
+0004  i bd 36
+0005    when %x4
+0006  i ch 41
+0007   on %1
+0008   not 2
+0009   lp x4
+0010  i oh 39
+0011    sh 2
+0012    when %4
+0013  i sd 37
+0014    rot 4
+0015    when %8
+0016 scale 0
+0017  i bs 40
+0018   lp x10
+0019   sh 2
+0020   on %5
+0021   mu
+0022 scale 0
+0023  i r1 38
+0024   on 0 1 3 6 11 16 22 29 37 45 55 66
+0025   lp 0x20
+0026   mu
+0027 lp x20
+0028   i sy 49
+0029    sh 2
+0030    when %4
+0031 i t2 46
+0032  scale 0
+0033  on %6
+0034  lp 0x10
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: rubify_arguments_and_expand_abbreviations
+================================================================================
+0000 lp  0x10
+  Parsed simple expr: "lp  0x10" 1:"lp" 2:"0x10"
+  Arg `0x10' is a IntOrHex: `0x10'
+  Tokens: ["", "loop", ["0x10"], ""]
+  Reassembled: `loop(0x10)'
+0001 ref x10
+  Parsed simple expr: "ref x10" 1:"ref" 2:"x10"
+  Arg `x10' is a IntOrHex: `0x10'
+  Tokens: ["", "refresh_interval", ["0x10"], ""]
+  Reassembled: `refresh_interval(0x10)'
+0002 bpm 112
+  Parsed simple expr: "bpm 112" 1:"bpm" 2:"112"
+  Arg `112' is a IntOrHex: `112'
+  Tokens: ["", "bpm", ["112"], ""]
+  Reassembled: `bpm(112)'
+0003 scale 0
+  Parsed simple expr: "scale 0" 1:"scale" 2:"0"
+  Arg `0' is a IntOrHex: `0'
+  Tokens: ["", "scale", ["0"], ""]
+  Reassembled: `scale(0)'
+0004  i bd 36
+  Parsed simple expr: "i bd 36" 1:"i" 2:"bd 36"
+  Arg `bd' is a Name: `:bd'
+  Arg `36' is a IntOrHex: `36'
+  Tokens: [" ", "instrument", [":bd", "36"], ""]
+  Reassembled: ` instrument(:bd, 36)'
+0005    when %x4
+  Parsed simple expr: "when %x4" 1:"when" 2:"%x4"
+  Arg `%0x4' is a Modulo: `(Proc.new { |t| t%0x4 })'
+  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%0x4 })"], ""]
+  Reassembled: `   trigger((Proc.new { |t| t%0x4 }))'
+0006  i ch 41
+  Parsed simple expr: "i ch 41" 1:"i" 2:"ch 41"
+  Arg `ch' is a Name: `:ch'
+  Arg `41' is a IntOrHex: `41'
+  Tokens: [" ", "instrument", [":ch", "41"], ""]
+  Reassembled: ` instrument(:ch, 41)'
+0007   on %1
+  Parsed simple expr: "on %1" 1:"on" 2:"%1"
+  Arg `%1' is a Modulo: `(Proc.new { |t| t%1 })'
+  Tokens: ["  ", "trigger", ["(Proc.new { |t| t%1 })"], ""]
+  Reassembled: `  trigger((Proc.new { |t| t%1 }))'
+0008   not 2
+  Parsed simple expr: "not 2" 1:"not" 2:"2"
+  Arg `2' is a IntOrHex: `2'
+  Tokens: ["  ", "untrigger", ["2"], ""]
+  Reassembled: `  untrigger(2)'
+0009   lp x4
+  Parsed simple expr: "lp x4" 1:"lp" 2:"x4"
+  Arg `x4' is a IntOrHex: `0x4'
+  Tokens: ["  ", "loop", ["0x4"], ""]
+  Reassembled: `  loop(0x4)'
+0010  i oh 39
+  Parsed simple expr: "i oh 39" 1:"i" 2:"oh 39"
+  Arg `oh' is a Name: `:oh'
+  Arg `39' is a IntOrHex: `39'
+  Tokens: [" ", "instrument", [":oh", "39"], ""]
+  Reassembled: ` instrument(:oh, 39)'
+0011    sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a IntOrHex: `2'
+  Tokens: ["   ", "shift", ["2"], ""]
+  Reassembled: `   shift(2)'
+0012    when %4
+  Parsed simple expr: "when %4" 1:"when" 2:"%4"
+  Arg `%4' is a Modulo: `(Proc.new { |t| t%4 })'
+  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%4 })"], ""]
+  Reassembled: `   trigger((Proc.new { |t| t%4 }))'
+0013  i sd 37
+  Parsed simple expr: "i sd 37" 1:"i" 2:"sd 37"
+  Arg `sd' is a Name: `:sd'
+  Arg `37' is a IntOrHex: `37'
+  Tokens: [" ", "instrument", [":sd", "37"], ""]
+  Reassembled: ` instrument(:sd, 37)'
+0014    rot 4
+  Parsed simple expr: "rot 4" 1:"rot" 2:"4"
+  Arg `4' is a IntOrHex: `4'
+  Tokens: ["   ", "rotate", ["4"], ""]
+  Reassembled: `   rotate(4)'
+0015    when %8
+  Parsed simple expr: "when %8" 1:"when" 2:"%8"
+  Arg `%8' is a Modulo: `(Proc.new { |t| t%8 })'
+  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%8 })"], ""]
+  Reassembled: `   trigger((Proc.new { |t| t%8 }))'
+0016 scale 0
+  Parsed simple expr: "scale 0" 1:"scale" 2:"0"
+  Arg `0' is a IntOrHex: `0'
+  Tokens: ["", "scale", ["0"], ""]
+  Reassembled: `scale(0)'
+0017  i bs 40
+  Parsed simple expr: "i bs 40" 1:"i" 2:"bs 40"
+  Arg `bs' is a Name: `:bs'
+  Arg `40' is a IntOrHex: `40'
+  Tokens: [" ", "instrument", [":bs", "40"], ""]
+  Reassembled: ` instrument(:bs, 40)'
+0018   lp x10
+  Parsed simple expr: "lp x10" 1:"lp" 2:"x10"
+  Arg `x10' is a IntOrHex: `0x10'
+  Tokens: ["  ", "loop", ["0x10"], ""]
+  Reassembled: `  loop(0x10)'
+0019   sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a IntOrHex: `2'
+  Tokens: ["  ", "shift", ["2"], ""]
+  Reassembled: `  shift(2)'
+0020   on %5
+  Parsed simple expr: "on %5" 1:"on" 2:"%5"
+  Arg `%5' is a Modulo: `(Proc.new { |t| t%5 })'
+  Tokens: ["  ", "trigger", ["(Proc.new { |t| t%5 })"], ""]
+  Reassembled: `  trigger((Proc.new { |t| t%5 }))'
+0021   mu
+  Parsed simple expr: "mu" 1:"mu" 2:nil
+  Tokens: ["  ", "mute", [], ""]
+  Reassembled: `  mute'
+0022 scale 0
+  Parsed simple expr: "scale 0" 1:"scale" 2:"0"
+  Arg `0' is a IntOrHex: `0'
+  Tokens: ["", "scale", ["0"], ""]
+  Reassembled: `scale(0)'
+0023  i r1 38
+  Parsed simple expr: "i r1 38" 1:"i" 2:"r1 38"
+  Arg `r1' is a Name: `:r1'
+  Arg `38' is a IntOrHex: `38'
+  Tokens: [" ", "instrument", [":r1", "38"], ""]
+  Reassembled: ` instrument(:r1, 38)'
+0024   on 0 1 3 6 11 16 22 29 37 45 55 66
+  Parsed simple expr: "on 0 1 3 6 11 16 22 29 37 45 55 66" 1:"on" 2:"0 1 3 6 11 16 22 29 37 45 55 66"
+  Arg `0' is a IntOrHex: `0'
+  Arg `1' is a IntOrHex: `1'
+  Arg `3' is a IntOrHex: `3'
+  Arg `6' is a IntOrHex: `6'
+  Arg `11' is a IntOrHex: `11'
+  Arg `16' is a IntOrHex: `16'
+  Arg `22' is a IntOrHex: `22'
+  Arg `29' is a IntOrHex: `29'
+  Arg `37' is a IntOrHex: `37'
+  Arg `45' is a IntOrHex: `45'
+  Arg `55' is a IntOrHex: `55'
+  Arg `66' is a IntOrHex: `66'
+  Tokens: ["  ", "trigger", ["0", "1", "3", "6", "11", "16", "22", "29", "37", "45", "55", "66"], ""]
+  Reassembled: `  trigger(0, 1, 3, 6, 11, 16, 22, 29, 37, 45, 55, 66)'
+0025   lp 0x20
+  Parsed simple expr: "lp 0x20" 1:"lp" 2:"0x20"
+  Arg `0x20' is a IntOrHex: `0x20'
+  Tokens: ["  ", "loop", ["0x20"], ""]
+  Reassembled: `  loop(0x20)'
+0026   mu
+  Parsed simple expr: "mu" 1:"mu" 2:nil
+  Tokens: ["  ", "mute", [], ""]
+  Reassembled: `  mute'
+0027 lp x20
+  Parsed simple expr: "lp x20" 1:"lp" 2:"x20"
+  Arg `x20' is a IntOrHex: `0x20'
+  Tokens: ["", "loop", ["0x20"], ""]
+  Reassembled: `loop(0x20)'
+0028   i sy 49
+  Parsed simple expr: "i sy 49" 1:"i" 2:"sy 49"
+  Arg `sy' is a Name: `:sy'
+  Arg `49' is a IntOrHex: `49'
+  Tokens: ["  ", "instrument", [":sy", "49"], ""]
+  Reassembled: `  instrument(:sy, 49)'
+0029    sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a IntOrHex: `2'
+  Tokens: ["   ", "shift", ["2"], ""]
+  Reassembled: `   shift(2)'
+0030    when %4
+  Parsed simple expr: "when %4" 1:"when" 2:"%4"
+  Arg `%4' is a Modulo: `(Proc.new { |t| t%4 })'
+  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%4 })"], ""]
+  Reassembled: `   trigger((Proc.new { |t| t%4 }))'
+0031 i t2 46
+  Parsed simple expr: "i t2 46" 1:"i" 2:"t2 46"
+  Arg `t2' is a Name: `:t2'
+  Arg `46' is a IntOrHex: `46'
+  Tokens: ["", "instrument", [":t2", "46"], ""]
+  Reassembled: `instrument(:t2, 46)'
+0032  scale 0
+  Parsed simple expr: "scale 0" 1:"scale" 2:"0"
+  Arg `0' is a IntOrHex: `0'
+  Tokens: [" ", "scale", ["0"], ""]
+  Reassembled: ` scale(0)'
+0033  on %6
+  Parsed simple expr: "on %6" 1:"on" 2:"%6"
+  Arg `%6' is a Modulo: `(Proc.new { |t| t%6 })'
+  Tokens: [" ", "trigger", ["(Proc.new { |t| t%6 })"], ""]
+  Reassembled: ` trigger((Proc.new { |t| t%6 }))'
+0034  lp 0x10
+  Parsed simple expr: "lp 0x10" 1:"lp" 2:"0x10"
+  Arg `0x10' is a IntOrHex: `0x10'
+  Tokens: [" ", "loop", ["0x10"], ""]
+  Reassembled: ` loop(0x10)'
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: rubify_arguments_and_expand_abbreviations
+================================================================================
+0000 loop(0x10)
+0001 refresh_interval(0x10)
+0002 bpm(112)
+0003 scale(0)
+0004  instrument(:bd, 36)
+0005    trigger((Proc.new { |t| t%0x4 }))
+0006  instrument(:ch, 41)
+0007   trigger((Proc.new { |t| t%1 }))
+0008   untrigger(2)
+0009   loop(0x4)
+0010  instrument(:oh, 39)
+0011    shift(2)
+0012    trigger((Proc.new { |t| t%4 }))
+0013  instrument(:sd, 37)
+0014    rotate(4)
+0015    trigger((Proc.new { |t| t%8 }))
+0016 scale(0)
+0017  instrument(:bs, 40)
+0018   loop(0x10)
+0019   shift(2)
+0020   trigger((Proc.new { |t| t%5 }))
+0021   mute
+0022 scale(0)
+0023  instrument(:r1, 38)
+0024   trigger(0, 1, 3, 6, 11, 16, 22, 29, 37, 45, 55, 66)
+0025   loop(0x20)
+0026   mute
+0027 loop(0x20)
+0028   instrument(:sy, 49)
+0029    shift(2)
+0030    trigger((Proc.new { |t| t%4 }))
+0031 instrument(:t2, 46)
+0032  scale(0)
+0033  trigger((Proc.new { |t| t%6 }))
+0034  loop(0x10)
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: rubify_pythonesque_blocks
+================================================================================
+0000 00->00 loop(0x10)
+0001 00->00 refresh_interval(0x10)
+0002 00->00 bpm(112)
+0003 00->00 scale(0)
+0004 00->01  instrument(:bd, 36)
+0004        Blockify prior line `scale(0)'.
+0005 01->03    trigger((Proc.new { |t| t%0x4 }))
+0005        Blockify prior line ` instrument(:bd, 36)'.
+0006 03->01  instrument(:ch, 41)
+0006        Leave block
+0007 01->02   trigger((Proc.new { |t| t%1 }))
+0007        Blockify prior line ` instrument(:ch, 41)'.
+0008 02->02   untrigger(2)
+0009 02->02   loop(0x4)
+0010 02->01  instrument(:oh, 39)
+0010        Leave block
+0011 01->03    shift(2)
+0011        Blockify prior line ` instrument(:oh, 39)'.
+0012 03->03    trigger((Proc.new { |t| t%4 }))
+0013 03->01  instrument(:sd, 37)
+0013        Leave block
+0014 01->03    rotate(4)
+0014        Blockify prior line ` instrument(:sd, 37)'.
+0015 03->03    trigger((Proc.new { |t| t%8 }))
+0016 03->00 scale(0)
+0016        Leave block
+0017 00->01  instrument(:bs, 40)
+0017        Blockify prior line `scale(0)'.
+0018 01->02   loop(0x10)
+0018        Blockify prior line ` instrument(:bs, 40)'.
+0019 02->02   shift(2)
+0020 02->02   trigger((Proc.new { |t| t%5 }))
+0021 02->02   mute
+0022 02->00 scale(0)
+0022        Leave block
+0023 00->01  instrument(:r1, 38)
+0023        Blockify prior line `scale(0)'.
+0024 01->02   trigger(0, 1, 3, 6, 11, 16, 22, 29, 37, 45, 55, 66)
+0024        Blockify prior line ` instrument(:r1, 38)'.
+0025 02->02   loop(0x20)
+0026 02->02   mute
+0027 02->00 loop(0x20)
+0027        Leave block
+0028 00->02   instrument(:sy, 49)
+0028        Blockify prior line `loop(0x20)'.
+0029 02->03    shift(2)
+0029        Blockify prior line `  instrument(:sy, 49)'.
+0030 03->03    trigger((Proc.new { |t| t%4 }))
+0031 03->00 instrument(:t2, 46)
+0031        Leave block
+0032 00->01  scale(0)
+0032        Blockify prior line `instrument(:t2, 46)'.
+0033 01->01  trigger((Proc.new { |t| t%6 }))
+0034 01->01  loop(0x10)
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: rubify_pythonesque_blocks
+================================================================================
+0000 loop(0x10)
+0001 refresh_interval(0x10)
+0002 bpm(112)
+0003 scale(0) do 
+0004  instrument(:bd, 36) do 
+0005    trigger((Proc.new { |t| t%0x4 }))
+0006  end
+0007  instrument(:ch, 41) do 
+0008   trigger((Proc.new { |t| t%1 }))
+0009   untrigger(2)
+0010   loop(0x4)
+0011  end
+0012  instrument(:oh, 39) do 
+0013    shift(2)
+0014    trigger((Proc.new { |t| t%4 }))
+0015  end
+0016  instrument(:sd, 37) do 
+0017    rotate(4)
+0018    trigger((Proc.new { |t| t%8 }))
+0019  end
+0020 end
+0021 scale(0) do 
+0022  instrument(:bs, 40) do 
+0023   loop(0x10)
+0024   shift(2)
+0025   trigger((Proc.new { |t| t%5 }))
+0026   mute
+0027  end
+0028 end
+0029 scale(0) do 
+0030  instrument(:r1, 38) do 
+0031   trigger(0, 1, 3, 6, 11, 16, 22, 29, 37, 45, 55, 66)
+0032   loop(0x20)
+0033   mute
+0034  end
+0035 end
+0036 loop(0x20) do 
+0037   instrument(:sy, 49) do 
+0038    shift(2)
+0039    trigger((Proc.new { |t| t%4 }))
+0040   end
+0041 end
+0042 instrument(:t2, 46) do 
+0043  scale(0)
+0044  trigger((Proc.new { |t| t%6 }))
+0045  loop(0x10)
+0046 end
+================================================================================
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: untabify
+================================================================================
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: untabify
+================================================================================
+0000 lp  0x10
+0001 ref x10
+0002 bpm 112
+0003 
+0004 scale 0
+0005  i bd 36
+0006    when %x4
+0007 
+0008  i ch 41
+0009   on %1
+0010   not 2
+0011   lp x4
+0012   mu
+0013 
+0014  i oh 39
+0015    sh 2
+0016    when %4
+0017 
+0018  i sd 37  
+0019    rot 4
+0020    when %8
+0021    
+0022 
+0023 scale 0
+0024  i bs 40
+0025   lp x10
+0026   sh 2
+0027   on %5
+0028   mu
+0029 
+0030 scale 0
+0031  i r1 38
+0032   on 0 1 3 6 11 16 22 29 37 45 55 66
+0033   lp 0x20
+0034   mu
+0035 
+0036 lp x20
+0037   i sy 49
+0038    sh 2
+0039    when %4
+0040 
+0041 
+0042 i t2 46
+0043  scale 0 
+0044  on %6
+0045  lp 0x10
+0046 
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace
+================================================================================
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace
+================================================================================
+0000 lp  0x10
+0001 ref x10
+0002 bpm 112
+0003 scale 0
+0004  i bd 36
+0005    when %x4
+0006  i ch 41
+0007   on %1
+0008   not 2
+0009   lp x4
+0010   mu
+0011  i oh 39
+0012    sh 2
+0013    when %4
+0014  i sd 37
+0015    rot 4
+0016    when %8
+0017 scale 0
+0018  i bs 40
+0019   lp x10
+0020   sh 2
+0021   on %5
+0022   mu
+0023 scale 0
+0024  i r1 38
+0025   on 0 1 3 6 11 16 22 29 37 45 55 66
+0026   lp 0x20
+0027   mu
+0028 lp x20
+0029   i sy 49
+0030    sh 2
+0031    when %4
+0032 i t2 46
+0033  scale 0
+0034  on %6
+0035  lp 0x10
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: extend_block_comments
+================================================================================
+0000 lp  0x10 
+0001 ref x10 
+0002 bpm 112 
+0003 scale 0 
+0004  i bd 36 
+0005    when %x4 
+0006  i ch 41 
+0007   on %1 
+0008   not 2 
+0009   lp x4 
+0010   mu 
+0011  i oh 39 
+0012    sh 2 
+0013    when %4 
+0014  i sd 37 
+0015    rot 4 
+0016    when %8 
+0017 scale 0 
+0018  i bs 40 
+0019   lp x10 
+0020   sh 2 
+0021   on %5 
+0022   mu 
+0023 scale 0 
+0024  i r1 38 
+0025   on 0 1 3 6 11 16 22 29 37 45 55 66 
+0026   lp 0x20 
+0027   mu 
+0028 lp x20 
+0029   i sy 49 
+0030    sh 2 
+0031    when %4 
+0032 i t2 46 
+0033  scale 0 
+0034  on %6 
+0035  lp 0x10 
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: extend_block_comments
+================================================================================
+0000 lp  0x10
+0001 ref x10
+0002 bpm 112
+0003 scale 0
+0004  i bd 36
+0005    when %x4
+0006  i ch 41
+0007   on %1
+0008   not 2
+0009   lp x4
+0010   mu
+0011  i oh 39
+0012    sh 2
+0013    when %4
+0014  i sd 37
+0015    rot 4
+0016    when %8
+0017 scale 0
+0018  i bs 40
+0019   lp x10
+0020   sh 2
+0021   on %5
+0022   mu
+0023 scale 0
+0024  i r1 38
+0025   on 0 1 3 6 11 16 22 29 37 45 55 66
+0026   lp 0x20
+0027   mu
+0028 lp x20
+0029   i sy 49
+0030    sh 2
+0031    when %4
+0032 i t2 46
+0033  scale 0
+0034  on %6
+0035  lp 0x10
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: strip_blank_lines_and_trailing_whitespace_and_comments
+================================================================================
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: strip_blank_lines_and_trailing_whitespace_and_comments
+================================================================================
+0000 lp  0x10
+0001 ref x10
+0002 bpm 112
+0003 scale 0
+0004  i bd 36
+0005    when %x4
+0006  i ch 41
+0007   on %1
+0008   not 2
+0009   lp x4
+0010   mu
+0011  i oh 39
+0012    sh 2
+0013    when %4
+0014  i sd 37
+0015    rot 4
+0016    when %8
+0017 scale 0
+0018  i bs 40
+0019   lp x10
+0020   sh 2
+0021   on %5
+0022   mu
+0023 scale 0
+0024  i r1 38
+0025   on 0 1 3 6 11 16 22 29 37 45 55 66
+0026   lp 0x20
+0027   mu
+0028 lp x20
+0029   i sy 49
+0030    sh 2
+0031    when %4
+0032 i t2 46
+0033  scale 0
+0034  on %6
+0035  lp 0x10
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: rubify_arguments_and_expand_abbreviations
+================================================================================
+0000 lp  0x10
+  Parsed simple expr: "lp  0x10" 1:"lp" 2:"0x10"
+  Arg `0x10' is a IntOrHex: `0x10'
+  Tokens: ["", "loop", ["0x10"], ""]
+  Reassembled: `loop(0x10)'
+0001 ref x10
+  Parsed simple expr: "ref x10" 1:"ref" 2:"x10"
+  Arg `x10' is a IntOrHex: `0x10'
+  Tokens: ["", "refresh_interval", ["0x10"], ""]
+  Reassembled: `refresh_interval(0x10)'
+0002 bpm 112
+  Parsed simple expr: "bpm 112" 1:"bpm" 2:"112"
+  Arg `112' is a IntOrHex: `112'
+  Tokens: ["", "bpm", ["112"], ""]
+  Reassembled: `bpm(112)'
+0003 scale 0
+  Parsed simple expr: "scale 0" 1:"scale" 2:"0"
+  Arg `0' is a IntOrHex: `0'
+  Tokens: ["", "scale", ["0"], ""]
+  Reassembled: `scale(0)'
+0004  i bd 36
+  Parsed simple expr: "i bd 36" 1:"i" 2:"bd 36"
+  Arg `bd' is a Name: `:bd'
+  Arg `36' is a IntOrHex: `36'
+  Tokens: [" ", "instrument", [":bd", "36"], ""]
+  Reassembled: ` instrument(:bd, 36)'
+0005    when %x4
+  Parsed simple expr: "when %x4" 1:"when" 2:"%x4"
+  Arg `%0x4' is a Modulo: `(Proc.new { |t| t%0x4 })'
+  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%0x4 })"], ""]
+  Reassembled: `   trigger((Proc.new { |t| t%0x4 }))'
+0006  i ch 41
+  Parsed simple expr: "i ch 41" 1:"i" 2:"ch 41"
+  Arg `ch' is a Name: `:ch'
+  Arg `41' is a IntOrHex: `41'
+  Tokens: [" ", "instrument", [":ch", "41"], ""]
+  Reassembled: ` instrument(:ch, 41)'
+0007   on %1
+  Parsed simple expr: "on %1" 1:"on" 2:"%1"
+  Arg `%1' is a Modulo: `(Proc.new { |t| t%1 })'
+  Tokens: ["  ", "trigger", ["(Proc.new { |t| t%1 })"], ""]
+  Reassembled: `  trigger((Proc.new { |t| t%1 }))'
+0008   not 2
+  Parsed simple expr: "not 2" 1:"not" 2:"2"
+  Arg `2' is a IntOrHex: `2'
+  Tokens: ["  ", "untrigger", ["2"], ""]
+  Reassembled: `  untrigger(2)'
+0009   lp x4
+  Parsed simple expr: "lp x4" 1:"lp" 2:"x4"
+  Arg `x4' is a IntOrHex: `0x4'
+  Tokens: ["  ", "loop", ["0x4"], ""]
+  Reassembled: `  loop(0x4)'
+0010   mu
+  Parsed simple expr: "mu" 1:"mu" 2:nil
+  Tokens: ["  ", "mute", [], ""]
+  Reassembled: `  mute'
+0011  i oh 39
+  Parsed simple expr: "i oh 39" 1:"i" 2:"oh 39"
+  Arg `oh' is a Name: `:oh'
+  Arg `39' is a IntOrHex: `39'
+  Tokens: [" ", "instrument", [":oh", "39"], ""]
+  Reassembled: ` instrument(:oh, 39)'
+0012    sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a IntOrHex: `2'
+  Tokens: ["   ", "shift", ["2"], ""]
+  Reassembled: `   shift(2)'
+0013    when %4
+  Parsed simple expr: "when %4" 1:"when" 2:"%4"
+  Arg `%4' is a Modulo: `(Proc.new { |t| t%4 })'
+  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%4 })"], ""]
+  Reassembled: `   trigger((Proc.new { |t| t%4 }))'
+0014  i sd 37
+  Parsed simple expr: "i sd 37" 1:"i" 2:"sd 37"
+  Arg `sd' is a Name: `:sd'
+  Arg `37' is a IntOrHex: `37'
+  Tokens: [" ", "instrument", [":sd", "37"], ""]
+  Reassembled: ` instrument(:sd, 37)'
+0015    rot 4
+  Parsed simple expr: "rot 4" 1:"rot" 2:"4"
+  Arg `4' is a IntOrHex: `4'
+  Tokens: ["   ", "rotate", ["4"], ""]
+  Reassembled: `   rotate(4)'
+0016    when %8
+  Parsed simple expr: "when %8" 1:"when" 2:"%8"
+  Arg `%8' is a Modulo: `(Proc.new { |t| t%8 })'
+  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%8 })"], ""]
+  Reassembled: `   trigger((Proc.new { |t| t%8 }))'
+0017 scale 0
+  Parsed simple expr: "scale 0" 1:"scale" 2:"0"
+  Arg `0' is a IntOrHex: `0'
+  Tokens: ["", "scale", ["0"], ""]
+  Reassembled: `scale(0)'
+0018  i bs 40
+  Parsed simple expr: "i bs 40" 1:"i" 2:"bs 40"
+  Arg `bs' is a Name: `:bs'
+  Arg `40' is a IntOrHex: `40'
+  Tokens: [" ", "instrument", [":bs", "40"], ""]
+  Reassembled: ` instrument(:bs, 40)'
+0019   lp x10
+  Parsed simple expr: "lp x10" 1:"lp" 2:"x10"
+  Arg `x10' is a IntOrHex: `0x10'
+  Tokens: ["  ", "loop", ["0x10"], ""]
+  Reassembled: `  loop(0x10)'
+0020   sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a IntOrHex: `2'
+  Tokens: ["  ", "shift", ["2"], ""]
+  Reassembled: `  shift(2)'
+0021   on %5
+  Parsed simple expr: "on %5" 1:"on" 2:"%5"
+  Arg `%5' is a Modulo: `(Proc.new { |t| t%5 })'
+  Tokens: ["  ", "trigger", ["(Proc.new { |t| t%5 })"], ""]
+  Reassembled: `  trigger((Proc.new { |t| t%5 }))'
+0022   mu
+  Parsed simple expr: "mu" 1:"mu" 2:nil
+  Tokens: ["  ", "mute", [], ""]
+  Reassembled: `  mute'
+0023 scale 0
+  Parsed simple expr: "scale 0" 1:"scale" 2:"0"
+  Arg `0' is a IntOrHex: `0'
+  Tokens: ["", "scale", ["0"], ""]
+  Reassembled: `scale(0)'
+0024  i r1 38
+  Parsed simple expr: "i r1 38" 1:"i" 2:"r1 38"
+  Arg `r1' is a Name: `:r1'
+  Arg `38' is a IntOrHex: `38'
+  Tokens: [" ", "instrument", [":r1", "38"], ""]
+  Reassembled: ` instrument(:r1, 38)'
+0025   on 0 1 3 6 11 16 22 29 37 45 55 66
+  Parsed simple expr: "on 0 1 3 6 11 16 22 29 37 45 55 66" 1:"on" 2:"0 1 3 6 11 16 22 29 37 45 55 66"
+  Arg `0' is a IntOrHex: `0'
+  Arg `1' is a IntOrHex: `1'
+  Arg `3' is a IntOrHex: `3'
+  Arg `6' is a IntOrHex: `6'
+  Arg `11' is a IntOrHex: `11'
+  Arg `16' is a IntOrHex: `16'
+  Arg `22' is a IntOrHex: `22'
+  Arg `29' is a IntOrHex: `29'
+  Arg `37' is a IntOrHex: `37'
+  Arg `45' is a IntOrHex: `45'
+  Arg `55' is a IntOrHex: `55'
+  Arg `66' is a IntOrHex: `66'
+  Tokens: ["  ", "trigger", ["0", "1", "3", "6", "11", "16", "22", "29", "37", "45", "55", "66"], ""]
+  Reassembled: `  trigger(0, 1, 3, 6, 11, 16, 22, 29, 37, 45, 55, 66)'
+0026   lp 0x20
+  Parsed simple expr: "lp 0x20" 1:"lp" 2:"0x20"
+  Arg `0x20' is a IntOrHex: `0x20'
+  Tokens: ["  ", "loop", ["0x20"], ""]
+  Reassembled: `  loop(0x20)'
+0027   mu
+  Parsed simple expr: "mu" 1:"mu" 2:nil
+  Tokens: ["  ", "mute", [], ""]
+  Reassembled: `  mute'
+0028 lp x20
+  Parsed simple expr: "lp x20" 1:"lp" 2:"x20"
+  Arg `x20' is a IntOrHex: `0x20'
+  Tokens: ["", "loop", ["0x20"], ""]
+  Reassembled: `loop(0x20)'
+0029   i sy 49
+  Parsed simple expr: "i sy 49" 1:"i" 2:"sy 49"
+  Arg `sy' is a Name: `:sy'
+  Arg `49' is a IntOrHex: `49'
+  Tokens: ["  ", "instrument", [":sy", "49"], ""]
+  Reassembled: `  instrument(:sy, 49)'
+0030    sh 2
+  Parsed simple expr: "sh 2" 1:"sh" 2:"2"
+  Arg `2' is a IntOrHex: `2'
+  Tokens: ["   ", "shift", ["2"], ""]
+  Reassembled: `   shift(2)'
+0031    when %4
+  Parsed simple expr: "when %4" 1:"when" 2:"%4"
+  Arg `%4' is a Modulo: `(Proc.new { |t| t%4 })'
+  Tokens: ["   ", "trigger", ["(Proc.new { |t| t%4 })"], ""]
+  Reassembled: `   trigger((Proc.new { |t| t%4 }))'
+0032 i t2 46
+  Parsed simple expr: "i t2 46" 1:"i" 2:"t2 46"
+  Arg `t2' is a Name: `:t2'
+  Arg `46' is a IntOrHex: `46'
+  Tokens: ["", "instrument", [":t2", "46"], ""]
+  Reassembled: `instrument(:t2, 46)'
+0033  scale 0
+  Parsed simple expr: "scale 0" 1:"scale" 2:"0"
+  Arg `0' is a IntOrHex: `0'
+  Tokens: [" ", "scale", ["0"], ""]
+  Reassembled: ` scale(0)'
+0034  on %6
+  Parsed simple expr: "on %6" 1:"on" 2:"%6"
+  Arg `%6' is a Modulo: `(Proc.new { |t| t%6 })'
+  Tokens: [" ", "trigger", ["(Proc.new { |t| t%6 })"], ""]
+  Reassembled: ` trigger((Proc.new { |t| t%6 }))'
+0035  lp 0x10
+  Parsed simple expr: "lp 0x10" 1:"lp" 2:"0x10"
+  Arg `0x10' is a IntOrHex: `0x10'
+  Tokens: [" ", "loop", ["0x10"], ""]
+  Reassembled: ` loop(0x10)'
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: rubify_arguments_and_expand_abbreviations
+================================================================================
+0000 loop(0x10)
+0001 refresh_interval(0x10)
+0002 bpm(112)
+0003 scale(0)
+0004  instrument(:bd, 36)
+0005    trigger((Proc.new { |t| t%0x4 }))
+0006  instrument(:ch, 41)
+0007   trigger((Proc.new { |t| t%1 }))
+0008   untrigger(2)
+0009   loop(0x4)
+0010   mute
+0011  instrument(:oh, 39)
+0012    shift(2)
+0013    trigger((Proc.new { |t| t%4 }))
+0014  instrument(:sd, 37)
+0015    rotate(4)
+0016    trigger((Proc.new { |t| t%8 }))
+0017 scale(0)
+0018  instrument(:bs, 40)
+0019   loop(0x10)
+0020   shift(2)
+0021   trigger((Proc.new { |t| t%5 }))
+0022   mute
+0023 scale(0)
+0024  instrument(:r1, 38)
+0025   trigger(0, 1, 3, 6, 11, 16, 22, 29, 37, 45, 55, 66)
+0026   loop(0x20)
+0027   mute
+0028 loop(0x20)
+0029   instrument(:sy, 49)
+0030    shift(2)
+0031    trigger((Proc.new { |t| t%4 }))
+0032 instrument(:t2, 46)
+0033  scale(0)
+0034  trigger((Proc.new { |t| t%6 }))
+0035  loop(0x10)
+================================================================================
+DrumTool::Preprocessors::Preprocessor performing step: rubify_pythonesque_blocks
+================================================================================
+0000 00->00 loop(0x10)
+0001 00->00 refresh_interval(0x10)
+0002 00->00 bpm(112)
+0003 00->00 scale(0)
+0004 00->01  instrument(:bd, 36)
+0004        Blockify prior line `scale(0)'.
+0005 01->03    trigger((Proc.new { |t| t%0x4 }))
+0005        Blockify prior line ` instrument(:bd, 36)'.
+0006 03->01  instrument(:ch, 41)
+0006        Leave block
+0007 01->02   trigger((Proc.new { |t| t%1 }))
+0007        Blockify prior line ` instrument(:ch, 41)'.
+0008 02->02   untrigger(2)
+0009 02->02   loop(0x4)
+0010 02->02   mute
+0011 02->01  instrument(:oh, 39)
+0011        Leave block
+0012 01->03    shift(2)
+0012        Blockify prior line ` instrument(:oh, 39)'.
+0013 03->03    trigger((Proc.new { |t| t%4 }))
+0014 03->01  instrument(:sd, 37)
+0014        Leave block
+0015 01->03    rotate(4)
+0015        Blockify prior line ` instrument(:sd, 37)'.
+0016 03->03    trigger((Proc.new { |t| t%8 }))
+0017 03->00 scale(0)
+0017        Leave block
+0018 00->01  instrument(:bs, 40)
+0018        Blockify prior line `scale(0)'.
+0019 01->02   loop(0x10)
+0019        Blockify prior line ` instrument(:bs, 40)'.
+0020 02->02   shift(2)
+0021 02->02   trigger((Proc.new { |t| t%5 }))
+0022 02->02   mute
+0023 02->00 scale(0)
+0023        Leave block
+0024 00->01  instrument(:r1, 38)
+0024        Blockify prior line `scale(0)'.
+0025 01->02   trigger(0, 1, 3, 6, 11, 16, 22, 29, 37, 45, 55, 66)
+0025        Blockify prior line ` instrument(:r1, 38)'.
+0026 02->02   loop(0x20)
+0027 02->02   mute
+0028 02->00 loop(0x20)
+0028        Leave block
+0029 00->02   instrument(:sy, 49)
+0029        Blockify prior line `loop(0x20)'.
+0030 02->03    shift(2)
+0030        Blockify prior line `  instrument(:sy, 49)'.
+0031 03->03    trigger((Proc.new { |t| t%4 }))
+0032 03->00 instrument(:t2, 46)
+0032        Leave block
+0033 00->01  scale(0)
+0033        Blockify prior line `instrument(:t2, 46)'.
+0034 01->01  trigger((Proc.new { |t| t%6 }))
+0035 01->01  loop(0x10)
+================================================================================
+DrumTool::Preprocessors::Preprocessor's text after performing step: rubify_pythonesque_blocks
+================================================================================
+0000 loop(0x10)
+0001 refresh_interval(0x10)
+0002 bpm(112)
+0003 scale(0) do 
+0004  instrument(:bd, 36) do 
+0005    trigger((Proc.new { |t| t%0x4 }))
+0006  end
+0007  instrument(:ch, 41) do 
+0008   trigger((Proc.new { |t| t%1 }))
+0009   untrigger(2)
+0010   loop(0x4)
+0011   mute
+0012  end
+0013  instrument(:oh, 39) do 
+0014    shift(2)
+0015    trigger((Proc.new { |t| t%4 }))
+0016  end
+0017  instrument(:sd, 37) do 
+0018    rotate(4)
+0019    trigger((Proc.new { |t| t%8 }))
+0020  end
+0021 end
+0022 scale(0) do 
+0023  instrument(:bs, 40) do 
+0024   loop(0x10)
+0025   shift(2)
+0026   trigger((Proc.new { |t| t%5 }))
+0027   mute
+0028  end
+0029 end
+0030 scale(0) do 
+0031  instrument(:r1, 38) do 
+0032   trigger(0, 1, 3, 6, 11, 16, 22, 29, 37, 45, 55, 66)
+0033   loop(0x20)
+0034   mute
+0035  end
+0036 end
+0037 loop(0x20) do 
+0038   instrument(:sy, 49) do 
+0039    shift(2)
+0040    trigger((Proc.new { |t| t%4 }))
 0041   end
 0042 end
 0043 instrument(:t2, 46) do 

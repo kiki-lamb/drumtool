@@ -12,13 +12,14 @@ module DrumTool
 
 	  attr_reader :exception, :engine
 
-	  def initialize filename, refresh_interval: 16, preprocessor: Preprocessors::Preprocessor, logger: nil, pp_logger: nil, rescue_eval: true, output: UniMIDI::Output[0], clock: nil
+	  def initialize filename, refresh_interval: 16, preprocessor: Preprocessors::Preprocessor, logger: nil, pp_logger: nil, rescue_eval: true, output: UniMIDI::Output[0], clock: nil, reset_on_clock_stop: true
 	    @__filename__, @__refresh_interval__, @__preprocessor__, @__logger__, @__pp_logger__, @__rescue_eval__ = filename, refresh_interval, preprocessor, logger, pp_logger, rescue_eval
 	    @__hash__, @engine, @__exception_lines__ = nil, Models::Basic.build, nil
 	    @old_engine = nil
 	    @exception = false
 	    @last_line_length = 2
 			@__clock__ = clock
+			@__reset_on_clock_stop__ = reset_on_clock_stop
 	  end
 
 	  def play
@@ -27,6 +28,8 @@ module DrumTool
 	    refresh_t = nil
 
 	    started_tick = Time.now
+
+			refresh
 
 			clock = Topaz::Clock.new(@__clock__ ? @__clock__ : engine.bpm, interval: 16) do
 	      begin
@@ -45,10 +48,11 @@ module DrumTool
 
 	          refresh_time = Time.now
 	          refresh if (tick%@__refresh_interval__ == 0)
+						refresh_time = (Time.now - refresh_time) * 1000
 
 						clock.tempo = engine.bpm unless @__clock__
 	        
-	          io << ((Time.now - refresh_time) * 1000).to_s[0..4].ljust(5,"0") << " | "
+	          io << refresh_time.to_s[0..4].ljust(5,"0") << " | "
 
 	          engine.play(tick, log: io) do
 	             tmp = [ (engine.tick_length - (Time.now - started_tick)), 0 ].max
@@ -82,6 +86,8 @@ module DrumTool
 	    end
 
 			clock.event.stop do 
+			  puts "STOP"
+				tick -= tick % engine.loop if @__reset_on_clock_stop__ and engine.loop
 			  engine.close_notes
 			end
 
