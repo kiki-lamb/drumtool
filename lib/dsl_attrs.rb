@@ -1,12 +1,27 @@
 module DslAttrs
-  def __dsl_attr_scopified__ self_, name, v, scopable, &block_
+  def __dsl_attr_scopified__ self_, name, v, scopable, &b
     raise "#{self_.class.name}.#{name} is not scopable" unless scopable
-    @@__dsl_attr_scope_klass__ ||= Class.new { extend DslAttrs; include Models::Drum::TimingScope }
-    obj = @@__dsl_attr_scope_klass__.new self_
-    self_.subscopes << obj
-    obj.send name, v
-    obj.build &block_  
+
+		 dsl_scope_klass.new(*dsl_scope_klass_init_args_for(self_)).tap do |o|
+		   o.send(name, v)
+		 end.build &b
   end
+
+	def dsl_scope_klass_init_args_for obj
+	  if obj.respond_to? :dsl_scope_klass_init_args
+		  obj.dsl_scope_klass_init_args
+		else
+		  []
+		end
+	end
+
+	def dsl_scope_klass &b
+	  (@@__dsl_attr_scope_klass__ ||= Class.new do 
+		  extend DslAttrs
+		end).tap do |klass|
+		  klass.class_eval &b if b
+		end
+	end
 
   def dsl_attr name, after: [], up: nil, default: nil, scopable: true, &block
       transformer = block

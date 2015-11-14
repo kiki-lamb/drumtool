@@ -1,6 +1,7 @@
 class Models
 	class Drum
 	  module TimingScope
+
 	    extend DslAttrs
 
 	    attr_reader :parent
@@ -43,10 +44,10 @@ class Models
 
 	    def initialize p
 	      @parent = p
-	      @rotate, @shift, @loop = 0, 0, nil
-	      @instruments = nil 
-	      @subscopes = []
+				@parent.subscopes << self if @parent
 
+	      @rotate, @shift, @loop, @instruments, @subscopes = 0, 0, nil, nil, []
+	      
 	      @__hash__= Hash.new do |h,k| 
 	        h[k] = Instrument.new self, k
 	      end   
@@ -67,6 +68,12 @@ class Models
 	    def include? k
 	      @__hash__.include? k.to_sym
 	    end
+
+		  dsl_scope_klass.include TimingScope
+
+			def dsl_scope_klass_init_args
+				[ self ]
+			end
 
 	    dsl_toggle :mute, up: :parent
 	    dsl_toggle :flip, up: :parent
