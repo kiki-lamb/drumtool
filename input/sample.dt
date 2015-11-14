@@ -3,7 +3,7 @@ ref x10
 bpm 112
 ref 16
 
-mu
+
 scale 0
  i bd 36
    when %4

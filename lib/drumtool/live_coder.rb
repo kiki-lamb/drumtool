@@ -25,13 +25,10 @@ module DrumTool
     )
       @input_clock = clock
 
-		  @reloader = Loader.new(filename, preprocessor: preprocessor, rescue_exceptions: rescue_exceptions)
-			@reloader.after do |to| 
-			  if to
-			    to.bpm from.bpm unless to.bpm
+		  @reloader = Loader.new(filename, preprocessor: preprocessor, rescue_exceptions: rescue_exceptions).after do |to| 
+			    @clock.tempo = to.bpm if to.bpm unless @input_clock
+			    to.bpm @clock.tempo unless to.bpm
 				  @refresh_interval = to.refresh_interval
-			    @clock.tempo = to.bpm unless @input_clock
-				end
 			end
 
       @refresh_interval = refresh_interval
