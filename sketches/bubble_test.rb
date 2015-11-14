@@ -22,7 +22,7 @@ end
 
 input = UniMIDI::Input[1]
 
-clock = Topaz::Clock.new(input, midi_transport: false, interval: 16) do 
+clock = Topaz::Clock.new(118, midi_transport: true, interval: 16, tick_threshhold: 4) do 
 		puts "#{Time.now} #{tb.tick} #{tb.tick!}"
 end
 
