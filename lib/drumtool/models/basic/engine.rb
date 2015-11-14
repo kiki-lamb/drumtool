@@ -22,21 +22,7 @@ module DrumTool
 		    end
 
 		    def play tick, log: $stdout       
-		        log << bpm << " | " << refresh_interval
-
 		        tick = tick % loop if loop
-
-						fill = tick % 4 == 0 ? "--" : ". "
-
-		        log << Formatters::TableRowFormatter.call([ 
-		          tick.to_s(16).rjust(16, "0"), 
-		          
-		          *instruments.group_by(&:short_name).map do |name, instrs| 
-		            (instrs.any? do |i|
-		              i.fires_at?(tick) 
-		            end) ? "#{name.ljust(2)}" : fill 
-		          end
-		        ], [], separator: " | ") << "\n"
 
 		        notes, length = triggers_at(tick), tick_length
 

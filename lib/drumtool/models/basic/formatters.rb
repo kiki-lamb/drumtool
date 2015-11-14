@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 	  module Basic
-	    class Formatters
+	    module Formatters
 	      BasicTableFormatter = Proc.new do |rows|
 	        raise ArgumentError, "Uneven rows" unless rows.map(&:count).uniq.length == 1
 
