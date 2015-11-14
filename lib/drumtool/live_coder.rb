@@ -18,6 +18,7 @@ module DrumTool
 	    @old_engine = nil
 	    @exception = false
 	    @last_line_length = 2
+			@__clock__ = clock
 	  end
 
 	  def play
@@ -27,7 +28,7 @@ module DrumTool
 
 	    started_tick = Time.now
 
-			clock = Topaz::Clock.new(engine.bpm, tick_threshhold: 4) do
+			clock = Topaz::Clock.new(@__clock__ ? @__clock__ : engine.bpm, interval: 16) do
 	      begin
 	        begin
 	          @__exception_lines__ = [] unless exception
@@ -45,7 +46,7 @@ module DrumTool
 	          refresh_time = Time.now
 	          refresh if (tick%@__refresh_interval__ == 0)
 
-						clock.tempo = engine.bpm * 4
+						clock.tempo = engine.bpm unless @__clock__
 	        
 	          io << ((Time.now - refresh_time) * 1000).to_s[0..4].ljust(5,"0") << " | "
 
@@ -80,6 +81,8 @@ module DrumTool
 	      end
 	    end
 
+			puts "Waiting for MIDI clock...\nControl-C to exit\n" unless @__clock__.nil?
+			
   		clock.start
 
 	  rescue Interrupt
