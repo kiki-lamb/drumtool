@@ -29,7 +29,6 @@ module DrumTool
 			    @clock.tempo = to.bpm if to.bpm && @clock unless @input_clock
 			    to.bpm @clock.tempo unless to.bpm
 				  @refresh_interval = to.refresh_interval
-					puts "THIS: #{@refresh_interval}"
 			end
 			@reloader.reload
 
@@ -60,9 +59,7 @@ module DrumTool
 			    begin
 					  a_bunch_of_logging_crap (@tick%@refresh_interval == 0 ? @reloader.reload : 0)
         	  close_notes! 
-						puts "T1: #{@tick}"
 						trigs = engine.triggers_at(@tick)
-						puts trigs
 			  	  open_note! *trigs if engine
           ensure
             @tick += 1
@@ -93,13 +90,12 @@ module DrumTool
 
       fill = @tick % 4 == 0 ? "--" : ". "
 		
-			puts "T2: #{@tick}"        
       io << Models::Basic::Formatters::TableRowFormatter.call([ 
         (engine.loop ? @tick % engine.loop : @tick).to_s(16).rjust(8, "0"), 
 				
         *engine.instruments.group_by(&:short_name).map do |name, instrs| 
           (instrs.any? do |i|
-            i.fires_at?(@tick) 
+            i.fires_at?(@tick)
           end) ? "#{name.ljust(2)}" : fill 
         end
       ], [], separator: " | ") << "\n"

@@ -37,7 +37,7 @@ module DrumTool
 		    end
 
 		    def triggers_at time
-					time = time % loop if loop
+					# time = time % loop if loop # NOT SURE IF THIS SHOULD BE WORKED BACK IN?
 
 		      instruments.map do |i|
 		        i.fires_at?(time) || nil
