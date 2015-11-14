@@ -1,25 +1,26 @@
-require "./lib/bubbles"
+#!/usr/bin/env ruby
 
-class Bubbles
-	tb = bubble do
-	  rotate 0
+require_relative "../lib/drumtool"
+include DrumTool::Models::Bubbles
 
-    bubble do
-  		note :bd, 36 do
-		  trigger { |t| 0 == t % 4 }
-		  rotate 0
-    end
+tb = bubble do
+  rotate 0
 
-		rotate 1 do
-			bubble do
-			  note :sd, 37
-			  trigger { |t| 0 == (t+4) % 8 }
-			end
-    end
-	end
-	
-  16.times do
-			puts "#{tb.tick} #{tb.tick!}"
+  bubble do
+	  note :bd, 36
+    trigger { |t| 0 == t % 4 }
+  end
+
+	rotate 1 do
+		bubble do
+		  note :sd, 37
+		  trigger { |t| 0 == (t+4) % 8 }
+		end
   end
 end
+
+16.times do
+		puts "#{tb.tick} #{tb.tick!}"
+end
+
 
