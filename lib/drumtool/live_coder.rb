@@ -25,12 +25,13 @@ module DrumTool
     )
       @input_clock = clock
 
-		  @reloader = Loader.new(filename, preprocessor: preprocessor, rescue_exceptions: rescue_exceptions) do |proc, old_object|
- 			  eng = Models::Basic.build &proc
-			  eng.bpm old_object.bpm unless eng.bpm if old_object
-				eng
-			end.after do 
-			  @clock.tempo = engine.bpm unless @input_clock
+		  @reloader = Loader.new(filename, preprocessor: preprocessor, rescue_exceptions: rescue_exceptions)
+			@reloader.after do |to| 
+			  if to
+			    to.bpm from.bpm unless to.bpm
+				  @refresh_interval = to.refresh_interval
+			    @clock.tempo = to.bpm
+				end
 			end
 
       @refresh_interval = refresh_interval
@@ -62,7 +63,6 @@ module DrumTool
 			  	  open_note! *engine.triggers_at(@tick) if engine
           ensure
             @tick += 1
-					  @tick %= engine.loop if engine && engine.loop
           end
         end.tap do |c|
 					c.event.stop do 
@@ -89,9 +89,9 @@ module DrumTool
       io << engine.bpm << " | " << @refresh_interval
 
       fill = @tick % 4 == 0 ? "--" : ". "
-
+		
       io << Models::Basic::Formatters::TableRowFormatter.call([ 
-        @tick.to_s(16).rjust(8, "0"), 
+        (engine.loop ? @tick % engine.loop : @tick).to_s(16).rjust(8, "0"), 
         
         *engine.instruments.group_by(&:short_name).map do |name, instrs| 
           (instrs.any? do |i|

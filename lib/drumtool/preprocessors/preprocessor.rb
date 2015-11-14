@@ -60,6 +60,8 @@ module DrumTool
 	              strip_blank_lines_and_trailing_whitespace_and_comments
 	              rubify_arguments_and_expand_abbreviations
 	              rubify_pythonesque_blocks 
+								procify
+								basicify
 	          }.each do |sym|
 	              log_separator
 	              log "#{name} performing step: #{sym}"
@@ -76,11 +78,20 @@ module DrumTool
 	          log_separator
 	          clear_text
 	        end
-	        
+						        
 	        private 
 	        def pad_number num, siz = 4
-	          num.to_s.rjust(siz, "0")
+	          num.to_s.rjust siz, "0" 
 	        end
+
+
+					def basicify
+					  @@text = "Models::Basic.build(&#{@@text})"
+					end
+
+					def procify
+					  @@text = "Proc.new {\n#{@@text}\n}"
+					end
 
 	        def log_separator
 	          log "=" * 80
