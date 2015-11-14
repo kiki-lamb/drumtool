@@ -16,7 +16,7 @@ module DrumTool
 			@digest = nil
 			@text = nil
 
-			@preprocessor = preprocessor
+			@preprocessor = preprocessor || Proc.new { |x| x }
 			@rescue_exceptions = rescue_exceptions
 
 			@payload = nil
