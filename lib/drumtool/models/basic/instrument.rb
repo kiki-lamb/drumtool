@@ -1,9 +1,7 @@
 module DrumTool
 	module Models
 		module Basic
-		  class Instrument
-		    include TimingScope
-
+		  class Instrument < TimingScope
 		    dsl_attr :note, scopable: false
 
 		    attr_reader :name

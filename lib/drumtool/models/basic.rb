@@ -3,7 +3,7 @@ module DrumTool
 		module Basic
 		  class << self
 		    def build &b
-		      Engine.new &b
+		      TimingScope.new &b
 		    end
 		  end
 		end

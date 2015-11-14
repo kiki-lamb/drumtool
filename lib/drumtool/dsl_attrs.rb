@@ -16,11 +16,10 @@ module DrumTool
 			end
 		end
 
-		def dsl_scope_klass &b
-		  (@@__dsl_attr_scope_klass__ ||= Class.new do 
+		def dsl_scope_klass v = nil
+		  @@__dsl_attr_scope_klass__ = v if v
+		  @@__dsl_attr_scope_klass__ ||= Class.new do 
 			  extend DslAttrs
-			end).tap do |klass|
-			  klass.class_eval &b if b
 			end
 		end
 
