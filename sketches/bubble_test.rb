@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
+require "topaz"
 require_relative "../lib/drumtool"
+
 include DrumTool::Models::Bubbles
 
 tb = bubble do
@@ -16,8 +18,15 @@ tb = bubble do
   end
 end
 
-16.times do
+@clock = Topaz::Clock.new(120*4) do
+		puts "#{Time.now.strftime "%M%S"} Before #{@clock.tempo}"
 		puts "#{tb.tick} #{tb.tick!}"
+		puts "AFter"
+		@clock.tempo += 1
 end
+
+@clock.trigger.stop { @i == 32 }
+
+@clock.start
 
 
