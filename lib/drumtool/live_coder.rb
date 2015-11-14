@@ -12,6 +12,7 @@ module DrumTool
     end
 
 		include Logging
+		include MIDIOutput
 
     def initialize(
       filename, 
@@ -22,7 +23,7 @@ module DrumTool
       rescue_exceptions: true, 
       reset_loop_on_stop: true
     )
-      @output = output
+      set_midi_output output
       @input_clock = clock
 
 		  @reloader = Loader.new(filename, preprocessor: preprocessor, rescue_exceptions: rescue_exceptions) do |proc, old_object|
@@ -38,7 +39,6 @@ module DrumTool
       @last_line_length = 2
 			@tick = 0
 			@clock = nil
-			@open_notes = Set.new
     end
 
     def play      
@@ -46,7 +46,7 @@ module DrumTool
 
       @clock.event.stop do 
         $stdout << "\n#{self.class.name}: Stopped by user.\n"
-        close_notes
+        close_notes!
         @tick -= @tick % engine.loop if @reset_loop_on_stop and engine.loop
       end
 
@@ -67,16 +67,13 @@ module DrumTool
 		end
 		
 		def play_tick
-			close_notes
+			close_notes!
 
 			a_bunch_of_logging_crap reload
       
 			engine.triggers_at(@tick).tap do |notes|
-		    close_notes
-
-		    notes.each do |note|
-		      open_note note
-		    end
+		    close_notes!
+	      open_note! *notes
       end if engine		
 
       started_tick = Time.now
@@ -84,22 +81,6 @@ module DrumTool
       @tick += 1
     end
 
-
-		    def close_notes
-		      @open_notes.each do |note|
-		        close_note note
-		      end       
-		    end
-
-		    def open_note note, velocity = 100
-		      close_note note, velocity
-		      @open_notes.add? note
-		      @output.puts 0x90, note, velocity
-		    end
-
-		    def close_note note, velocity = 100
-		      @output.puts 0x80, note, velocity if @open_notes.delete? note
-		    end
 
 		def engine
 		  @reloader.payload
