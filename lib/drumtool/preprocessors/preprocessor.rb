@@ -4,16 +4,11 @@ module DrumTool
 	module Preprocessors
 	    class Preprocessor
 	      class << self
-				  @@log = nil
-
-					def set_log log
-					  @@log = log
-					end
+				  include Logging
 
 	        Abbreviations = {
 	          "refr" => "refresh_interval",
 	          "ref" => "refresh_interval",
-
 
 	          "no" => "untrigger",
 	          "not" => "untrigger",
@@ -227,9 +222,6 @@ module DrumTool
 	          @@text = lines.join
 	        end
 
-	        def log s
-	          @@log << s.chomp << "\n" if @@log
-	        end
 
 	        def clear_text
 	          @@text = nil
