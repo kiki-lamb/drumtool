@@ -57,11 +57,12 @@ module DrumTool
       @clock ||= begin
 			  Topaz::Clock.new(@input_clock ? @input_clock : engine.bpm, interval: 16) do
 			    begin
-					  a_bunch_of_logging_crap reload
+					  a_bunch_of_logging_crap (@tick%@refresh_interval == 0 ? @reloader.reload : 0)
         	  close_notes! 
 			  	  open_note! *engine.triggers_at(@tick) if engine
           ensure
             @tick += 1
+					  @tick %= engine.loop if engine && engine.loop
           end
         end.tap do |c|
 					c.event.stop do 
@@ -69,14 +70,9 @@ module DrumTool
             close_notes!
             @tick -= @tick % engine.loop if @reset_loop_on_stop and engine.loop
           end
-
         end
       end
     end
-
-		def reload
-		  @tick%@refresh_interval == 0 ? @reloader.reload : 0
-		end
 		
 		def a_bunch_of_logging_crap refresh_time
       io = StringIO.new
@@ -89,12 +85,13 @@ module DrumTool
 
       io << refresh_time.to_s[0..4].ljust(5,"0") << " | "
 
+      io << engine.loop << " | " 
       io << engine.bpm << " | " << @refresh_interval
 
       fill = @tick % 4 == 0 ? "--" : ". "
 
       io << Models::Basic::Formatters::TableRowFormatter.call([ 
-        @tick.to_s(16).rjust(16, "0"), 
+        @tick.to_s(16).rjust(8, "0"), 
         
         *engine.instruments.group_by(&:short_name).map do |name, instrs| 
           (instrs.any? do |i|
