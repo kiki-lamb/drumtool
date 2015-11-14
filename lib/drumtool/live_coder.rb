@@ -81,6 +81,10 @@ module DrumTool
 	      end
 	    end
 
+			clock.event.stop do 
+			  engine.close_notes
+			end
+
 			puts "Waiting for MIDI clock...\nControl-C to exit\n" unless @__clock__.nil?
 			
   		clock.start
