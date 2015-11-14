@@ -8,7 +8,7 @@ module DrumTool
   class Loader
 	  attr_reader :exception, :exception_lines, :payload
 
-	  def initialize filename, preprocessor: Preprocessors::Preprocessor, rescue_exceptions: true, &b
+	  def initialize filename, preprocessor: nil, rescue_exceptions: true, &b
 		  raise ArgumentError, "Need block" unless block_given?
 			@create = b
 			
