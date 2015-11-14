@@ -100,9 +100,9 @@ module DrumTool
           rescue Exception => e
             unless @rescue_exceptions
               log "\n\n"
+              @engine.close_notes if @engine
               raise e 
             end
-            @engine.close_notes if @engine
             @exception = e
             @exception_lines = [ "WARNING: #{@exception.to_s}", *@exception.backtrace, "" ]
             @engine = @old_engine
@@ -138,7 +138,7 @@ module DrumTool
 
       if hash != @hash
         @hash = hash
-        proc = eval "\nProc.new do\n#{@preprocessor.call File.open("#{@filename}").read}\nend"
+        proc = eval "\nProc.new do\n#{@preprocessor.call text}\nend"
         @exception = nil
         @old_engine = @engine
         @engine = Models::Basic.build(@output, &proc).inherit @old_engine

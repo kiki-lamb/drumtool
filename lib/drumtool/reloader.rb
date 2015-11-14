@@ -1,29 +1,63 @@
-include "digest"
+require "digest"
+
+# Reloader("somefile") do |proc, old_object|
+#   Models::Basic.build(@output, &proc).inherit old_object
+# end
+
 
 module Drumtool
   class Reloader
-	  attr_reader :filename, :preprocessor, :exception, :exception_lines, :digest, :text
+	  attr_reader :exception, :exception_lines, :payload
 
-	  def initialize filename, preprocessor: nil
+	  def initialize filename, preprocessor: Preprocessors::Preprocessor, rescue_exceptions: true, &b
+		  raise ArgumentError, "Need block" unless block_given?
+			@create = b
+			
 		  filename = filename
-			@preprocessor = preprocessor
-
-			@exception = nil
-			@exception_lines
 			@digest = nil
 			@text = nil
+
+			reread
+
+			@preprocessor = preprocessor
+			@rescue_exceptions = rescue_exceptions
+
+			@payload = nil
+			@exception = nil
+			@exception_lines
 		end
-	
-	  def filename= v
-      @filename = v
 
-			@text = File.open(@filename).read
+		def reload
+		  return unless reread
 
+		  proc = eval "\nProc.new do\n#{@preprocessor.call @text}\nend"
+
+			clear_exception
+
+			payload = create proc
+    rescue Exception => e
+      raise e unless @rescue_exceptions
+      @exception, @exception_lines = e, [ "WARNING: #{@exception.to_s}", *@exception.backtrace, "" ]
+    end
+
+		private
+		def create proc
+		  @create.call proc, @object
+		end
+
+		def clear_exception
+		  @exception, @exception_lines = nil, []
+		end
+
+		def reread		
+			text = File.open(@filename).read
 			md5 = Digest::MD5.new
 			md5 << @text
-			@digest = md5.hexdigest
 
-			@filename
+			if md5.digest != @digest
+			  @digest = md5.hexdigest
+			  @text = text
+			end
 		end
   end
 end
