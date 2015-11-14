@@ -41,7 +41,9 @@ module DrumTool
     end
 
  		def start     
+			log "Waiting for MIDI clock...\nControl-C to exit\n" unless @input_clock.nil?
       clock.start
+		rescue Interrupt
     end    
 
 		def engine
@@ -66,10 +68,6 @@ module DrumTool
             @tick -= @tick % engine.loop if @reset_loop_on_stop and engine.loop
           end
 
-					c.event.start do
-            reload
-					  log "Waiting for MIDI clock...\nControl-C to exit\n" unless @input_clock.nil?
-					end
         end
       end
     end
