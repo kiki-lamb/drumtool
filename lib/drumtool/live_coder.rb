@@ -30,7 +30,7 @@ module DrumTool
 			  if to
 			    to.bpm from.bpm unless to.bpm
 				  @refresh_interval = to.refresh_interval
-			    @clock.tempo = to.bpm
+			    @clock.tempo = to.bpm unless @input_clock
 				end
 			end
 
@@ -56,7 +56,7 @@ module DrumTool
 		private
     def clock      
       @clock ||= begin
-			  Topaz::Clock.new(@input_clock ? @input_clock : engine.bpm, interval: 16) do
+			  Topaz::Clock.new((@input_clock ? @input_clock : engine.bpm), interval: 16) do
 			    begin
 					  a_bunch_of_logging_crap (@tick%@refresh_interval == 0 ? @reloader.reload : 0)
         	  close_notes! 
