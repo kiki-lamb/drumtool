@@ -1,135 +1,110 @@
-require "digest"
 require "stringio"
 require "topaz"
+require "unimidi"
+require "set"
 
 module DrumTool
-	class LiveCoder
-	  class << self
-	    def play *a
-	      new(*a).play
-	    end
-	  end
+  class LiveCoder
+    class << self
+      def start *a
+        new(*a).start
+      end
+    end
 
-	  attr_reader :exception, :engine
+		include Logging
+		include MIDIOutput
 
-	  def initialize filename, refresh_interval: 16, preprocessor: Preprocessors::Preprocessor, logger: nil, pp_logger: nil, rescue_eval: true, output: UniMIDI::Output[0], clock: nil, reset_loop_on_stop: true
-	    @filename, @refresh_interval, @preprocessor, @logger, @pp_logger, @rescue_eval = filename, refresh_interval, preprocessor, logger, pp_logger, rescue_eval
-	    @hash, @engine, @exception_lines = nil, Models::Basic.build, nil
-	    @old_engine = nil
-	    @exception = false
-	    @last_line_length = 2
-			@clock = clock
-			@reset_loop_on_stop = reset_loop_on_stop
-	  end
+    def initialize(
+      filename, 
+      clock: nil, 
+      output: UniMIDI::Output[0], 
+      preprocessor: Preprocessors::Preprocessor, 
+      refresh_interval: 1, 
+      rescue_exceptions: true, 
+      reset_loop_on_stop: true
+    )
+      @input_clock = clock
 
-	  def play
-	    tick = 0
-
-	    refresh_t = nil
-
-	    started_tick = Time.now
-
-			refresh
-
-			clock = Topaz::Clock.new(@clock ? @clock : engine.bpm, interval: 16) do
-	      begin
-	        begin
-	          @exception_lines = [] unless exception
-	          @logger.flush if @logger
-	          @pp_logger.flush if @pp_logger
-
-	          io = StringIO.new
-	          
-	          if engine.loop && 0 == tick % engine.loop && engine.loop != 1
-	            io << "=" * (@last_line_length-2) << "\n"
-	          elsif 0 == tick % 16 
-	            io << "-" * (@last_line_length-2) << "\n"
-	          end
-
-	          refresh_time = Time.now
-	          refresh if (tick%@refresh_interval == 0)
-						refresh_time = (Time.now - refresh_time) * 1000
-
-						clock.tempo = engine.bpm unless @clock
-	        
-	          io << refresh_time.to_s[0..4].ljust(5,"0") << " | "
-
-		        io << engine.bpm << " | " << @refresh_interval
-
-						fill = tick % 4 == 0 ? "--" : ". "
-
-		        io << Models::Basic::Formatters::TableRowFormatter.call([ 
-		          tick.to_s(16).rjust(16, "0"), 
-		          
-		          *engine.instruments.group_by(&:short_name).map do |name, instrs| 
-		            (instrs.any? do |i|
-		              i.fires_at?(tick) 
-		            end) ? "#{name.ljust(2)}" : fill 
-		          end
-		        ], [], separator: " | ") << "\n"
-
-	          engine.play(tick, log: io) do
-	             tmp = [ (engine.tick_length - (Time.now - started_tick)), 0 ].max
-	             @exception_lines.unshift "DROPPED A TICK!" if 0 == tmp
-	             tmp
-	          end if engine
-
-	          started_tick = Time.now
-
-	          io << "\b#{@exception_lines[tick%(@engine.loop || 16)]}\n" if @exception_lines.any?
-
-	          @last_line_length = io.string.length
-
-	          $stdout << io.string
-	        rescue Interrupt
-	          raise
-	        rescue Exception => e
-	          unless @rescue_eval
-	            puts "\n\n"
-	            raise e 
-	          end
-	          engine.close_notes if engine
-	          @exception = e
-	          @exception_lines = [ "WARNING: #{@exception.to_s}", *@exception.backtrace, "" ]
-	          @engine = @old_engine
-	          @refresh_interval = @engine.refresh_interval || @refresh_interval
-	          nil
-	        end
-	      ensure
-	        tick += 1
-	      end
-	    end
-
-			clock.event.stop do 
-			  puts "STOP"
-				tick -= tick % engine.loop if @reset_loop_on_stop and engine.loop
-			  engine.close_notes
+		  @reloader = Loader.new(filename, preprocessor, rescue_exceptions: rescue_exceptions).after do |to| 
+			    @clock.tempo = to.bpm if to.bpm && @clock unless @input_clock
+			    to.bpm @clock.tempo unless to.bpm
+				  @refresh_interval = to.refresh_interval
 			end
+			@reloader.reload
 
-			puts "Waiting for MIDI clock...\nControl-C to exit\n" unless @clock.nil?
-			
-  		clock.start
+      @refresh_interval = refresh_interval
+      @reset_loop_on_stop = reset_loop_on_stop
 
-	  rescue Interrupt
-	    engine.close_notes if engine
-	    $stdout << "\n#{self.class.name}: Stopped by user.\n"
-	  end
+      @last_line_length = 2
+			@tick = 0
+      set_midi_output output
+			@reloader.reload
 
-	  private
-	  def refresh
-	    text = File.open(@filename).read
-	    hash = Digest::MD5.new.tap do |d|
-	      d << text
-	    end.hexdigest
+    end
 
-	    if hash != @hash
-	      @hash = hash
-	      proc = eval "\nProc.new do\n#{@preprocessor.call File.open("#{@filename}").read, logger: @pp_logger}\nend"
-	      @exception = nil
-	      @old_engine = @engine
-	      @engine = Models::Basic.build(&proc).inherit @old_engine
-	      @refresh_interval = @engine.refresh_interval || @refresh_interval
-	    end
-	  end
-	end 
+ 		def start     
+			log "Waiting for MIDI clock...\nControl-C to exit\n" unless @input_clock.nil?
+      clock.start
+		rescue Interrupt
+    end    
+
+		def engine
+		  @reloader.payload
+		end
+
+		private
+    def clock      	  
+      @clock ||= begin
+			  Topaz::Clock.new((@input_clock ? @input_clock : engine.bpm), interval: 16) do
+			    begin
+					  a_bunch_of_logging_crap (@tick%@refresh_interval == 0 ? @reloader.reload : 0)
+        	  close_notes! 
+						trigs = engine.triggers_at(@tick)
+			  	  open_note! *trigs if engine
+          ensure
+            @tick += 1
+          end
+        end.tap do |c|
+					c.event.stop do 
+            $stdout << "\n#{self.class.name}: Stopped by user.\n"
+            close_notes!
+            @tick -= @tick % engine.loop if @reset_loop_on_stop and engine.loop
+          end
+        end
+      end
+    end
+		
+		def a_bunch_of_logging_crap refresh_time
+      io = StringIO.new
+      
+      if engine.loop && 0 == @tick % engine.loop && engine.loop != 1
+        io << "=" * (@last_line_length-2) << "\n"
+      elsif 0 == @tick % 16 
+        io << "-" * (@last_line_length-2) << "\n"
+      end
+
+      io << refresh_time.to_s[0..4].ljust(5,"0") << " | "
+
+      io << engine.loop << " | " 
+      io << engine.bpm << " | " << @refresh_interval
+
+      fill = @tick % 4 == 0 ? "--" : ". "
+		
+      io << Models::Basic::Formatters::TableRowFormatter.call([ 
+        (engine.loop ? @tick % engine.loop : @tick).to_s(16).rjust(8, "0"), 
+				
+        *engine.instruments.group_by(&:short_name).map do |name, instrs| 
+          (instrs.any? do |i|
+            i.fires_at?(@tick)
+          end) ? "#{name.ljust(2)}" : fill 
+        end
+      ], [], separator: " | ") << "\n"
+
+      io << "\b#{@reloader.exception_lines[@tick%(engine.loop || 16)]}\n" if @reloader.exception_lines.any?
+
+      @last_line_length = io.string.length
+
+      log io.string
+		end
+  end 
 end

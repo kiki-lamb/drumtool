@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 		module Basic
-		  module TimingScope
+		  class TimingScope
 			  def self.included(base)
 				  base.extend(ClassMethods)
 				end
@@ -37,6 +37,8 @@ module DrumTool
 		    end
 
 		    def triggers_at time
+					# time = time % loop if loop # NOT SURE IF THIS SHOULD BE WORKED BACK IN?
+
 		      instruments.map do |i|
 		        i.fires_at?(time) || nil
 		      end.compact
@@ -50,7 +52,7 @@ module DrumTool
 		      end
 		    end                   
 
-		    def initialize p
+		    def initialize p = nil, &b
 		      @parent = p
 					@parent.subscopes << self if @parent
 
@@ -59,6 +61,8 @@ module DrumTool
 		      @__hash__= Hash.new do |h,k| 
 		        h[k] = Instrument.new self, k
 		      end   
+
+					build &b if b
 		    end
 
 		    def keys
@@ -77,11 +81,15 @@ module DrumTool
 		      @__hash__.include? k.to_sym
 		    end
 
-			  dsl_scope_klass.include TimingScope
+			  dsl_scope_klass TimingScope
 
 				def dsl_scope_klass_init_args
 					[ self ]
 				end
+
+				# These two are only externally significant on the topmost TimingScope.
+		    dsl_attr :refresh_interval, scopable: false
+		    dsl_attr :bpm, scopable: false
 
 		    dsl_toggle :mute, up: :parent
 		    dsl_toggle :flip, up: :parent
