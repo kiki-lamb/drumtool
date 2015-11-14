@@ -44,8 +44,11 @@ module DrumTool
       clock.start
     end    
 
-		private
+		def engine
+		  @reloader.payload
+		end
 
+		private
     def clock      
       @clock ||= begin
 			  Topaz::Clock.new(@input_clock ? @input_clock : engine.bpm, interval: 16) do
@@ -64,7 +67,7 @@ module DrumTool
           end
 
 					c.event.start do
-            @reloader.reload
+            reload
 					  log "Waiting for MIDI clock...\nControl-C to exit\n" unless @input_clock.nil?
 					end
         end
@@ -81,10 +84,6 @@ module DrumTool
 			end
 		end
 		
-		def engine
-		  @reloader.payload
-		end
-
 		def a_bunch_of_logging_crap refresh_time
       io = StringIO.new
       
