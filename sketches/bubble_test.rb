@@ -21,8 +21,8 @@ end
 
 input = UniMIDI::Input[1]
 
-clock = Topaz::Clock.new(input, midi_transport: true) do 
-		puts "#{tb.tick} #{tb.tick!}"
+clock = Topaz::Clock.new(input, interval: 16) do 
+		puts "#{Time.now} #{tb.tick} #{tb.tick!}"
 end
 
 puts "Waiting for MIDI clock..."
