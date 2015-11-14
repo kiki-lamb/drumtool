@@ -12,9 +12,26 @@ module DrumTool
 
 	  attr_reader :exception, :engine
 
-	  def initialize filename, refresh_interval: 16, preprocessor: Preprocessors::Preprocessor, logger: nil, pp_logger: nil, rescue_eval: true, output: UniMIDI::Output[0], clock: nil, reset_loop_on_stop: true
-	    @filename, @refresh_interval, @preprocessor, @logger, @pp_logger, @rescue_eval = filename, refresh_interval, preprocessor, logger, pp_logger, rescue_eval
-	    @hash, @engine, @exception_lines = nil, Models::Basic.build, nil
+	  def initialize(
+		  filename, 
+			clock: nil, 
+			log: nil, 
+			output: UniMIDI::Output[0], 
+			preprocessor: Preprocessors::Preprocessor, 
+			preprocessor_log: nil, 
+			refresh_interval: 16, 
+			rescue_eval: true, 
+			reset_loop_on_stop: true
+		)
+	    @filename = filename
+			@refresh_interva = refresh_interval
+			@preprocessor = preprocessor
+			@log = log
+			@preprocessor_log = preprocessor_log
+			@rescue_eval = rescue_eval
+	    @hash = nil
+			@engine = Models::Basic.build
+			@exception_lines =  nil
 	    @old_engine = nil
 	    @exception = false
 	    @last_line_length = 2
@@ -35,8 +52,8 @@ module DrumTool
 	      begin
 	        begin
 	          @exception_lines = [] unless exception
-	          @logger.flush if @logger
-	          @pp_logger.flush if @pp_logger
+	          @log.flush if @log
+	          @preprocessor_log.flush if @preprocessor_log
 
 	          io = StringIO.new
 	          
@@ -124,7 +141,7 @@ module DrumTool
 
 	    if hash != @hash
 	      @hash = hash
-	      proc = eval "\nProc.new do\n#{@preprocessor.call File.open("#{@filename}").read, logger: @pp_logger}\nend"
+	      proc = eval "\nProc.new do\n#{@preprocessor.call File.open("#{@filename}").read, log: @preprocessor_log}\nend"
 	      @exception = nil
 	      @old_engine = @engine
 	      @engine = Models::Basic.build(&proc).inherit @old_engine

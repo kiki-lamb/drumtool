@@ -48,11 +48,11 @@ module DrumTool
 	          "f" => "flip"
 	        }
 
-	        def call text, logger: nil
+	        def call text, log: nil
 	          @@text = text 
 	          @@text << "\n"
 
-	          @@logger = logger
+	          @@log = log
 
 	          %i{ untabify
 	              strip_blank_lines_and_trailing_whitespace 
@@ -224,7 +224,7 @@ module DrumTool
 	        end
 
 	        def log s
-	          @@logger << s.chomp << "\n" if @@logger
+	          @@log << s.chomp << "\n" if @@log
 	        end
 
 	        def clear_text
