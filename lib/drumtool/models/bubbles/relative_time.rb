@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class RelativeTimeBubble < EventBubble
+		  class RelativeTime < EventBubble
 		    bubble_attr :loop, default: nil
 		    bubble_attr :rotate
 		    bubble_attr :shift
