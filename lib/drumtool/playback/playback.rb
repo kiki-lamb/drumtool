@@ -95,7 +95,7 @@ module DrumTool
 			assert_valid_engine!
 
       close_notes! 
-			open_note! *engine.events_at(@tick) # .tap { |x| puts x.inspect }
+			open_note! *engine.events_at(@tick).tap { |x| puts "\b"; puts x.inspect }
     ensure
       @tick += 1
     end
