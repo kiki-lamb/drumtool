@@ -7,50 +7,53 @@ module DrumTool
 
 	      class << self
 				  
-	        Abbreviations = {
-	          "refr" => "refresh_interval",
-	          "ref" => "refresh_interval",
+	        def abbreviations
+					  @abbreviations ||= {
+	          	"refr" => "refresh_interval",
+	          	"ref" => "refresh_interval",
 
-	          "no" => "untrigger",
-	          "not" => "untrigger",
-	          "ex" => "untrigger",
-	          "exc" => "untrigger",
-	          "except" => "untrigger",
-	          "excl" => "untrigger",
-	          "exclude" => "untrigger",
+	          	"no" => "untrigger",
+	          	"not" => "untrigger",
+	          	"ex" => "untrigger",
+	          	"exc" => "untrigger",
+	          	"except" => "untrigger",
+	          	"excl" => "untrigger",
+	          	"exclude" => "untrigger",
 
-	          "sc" => "scale",
-	          "sca" => "scale",
-	          "scl" => "scale",
+	          	"sc" => "scale",
+	          	"sca" => "scale",
+	          	"scl" => "scale",
 
-	          "rep" => "repeat",
-	          "rp" => "repeat", 
+	          	"rep" => "repeat",
+	          	"rp" => "repeat", 
 
-	          "when" => "trigger",
-	          "on" => "trigger",
-	          "tr" => "trigger",
-	          "trig" => "trigger",
+	          	"when" => "trigger",
+	          	"on" => "trigger",
+	          	"tr" => "trigger",
+	          	"trig" => "trigger",
 
-	          "inst" => "instrument",
-	          "ins" => "instrument",
-	          "i" => "instrument",
-	          "n" => "instrument",
+	          	"inst" => "instrument",
+	          	"ins" => "instrument",
+	          	"i" => "instrument",
+	          	"n" => "instrument",
 
-	          "rot" => "rotate",
+	          	"rot" => "rotate",
 
-	          "sh" => "shift",
+	          	"sh" => "shift",
 
-	          "lp" => "loop",
-	          "scp" => "loop",
-	          "scope" => "loop",
+	          	"lp" => "loop",
+	          	"scp" => "loop",
+	          	"scope" => "loop",
 
-	          "mu" => "mute",
+	          	"mu" => "mute",
 
-	          "fl" => "flip",
-	          "f" => "flip"
-	        }
+	          	"fl" => "flip",
+	          	"f" => "flip"
+	          }
+          end
 
 	        def call text
+						puts "#{name} CALL"
 	          @@text = text 
 	          @@text << "\n"
 
@@ -61,7 +64,7 @@ module DrumTool
 	              rubify_arguments_and_expand_abbreviations
 	              rubify_pythonesque_blocks 
 								procify
-								basicify
+								objectify
 	          }.each do |sym|
 	              log_separator
 	              log "#{name} performing step: #{sym}"
@@ -85,7 +88,8 @@ module DrumTool
 	        end
 
 
-					def basicify
+					def objectify
+					  puts "#{name} WRONG"
 					  @@text = "Models::Basic.build(&#{@@text})"
 					end
 
@@ -165,7 +169,7 @@ module DrumTool
 	        end 
 
 	        def expand name 
-	          Abbreviations.include?(name) ? Abbreviations[name] : name
+	          abbreviations.include?(name) ? abbreviations[name] : name
 	        end
 
 	        def disassemble_line line

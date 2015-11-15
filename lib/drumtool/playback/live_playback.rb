@@ -11,6 +11,8 @@ module DrumTool
     )
 		  super *a, **b
 
+			puts "PP IS #{@preprocessor}."
+
       @reload_interval = reload_interval
 			@last_reload_time = nil
 			@last_reload_tick = 0

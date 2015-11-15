@@ -13,7 +13,7 @@ module DrumTool
 end
 
 # Current:
-# Base < Instant < RelativeTimeline < Pattern(Triggered, Events, Notes)
-#			 	 				 < AbsoluteTimeline < Track(Events)																		 	 
+# Base < Instant < RelativeTimeline < Pattern(Triggered, Events, Notes, LanguageHelper)
+#			 	 				 < AbsoluteTimeline < Track(Events, LanguageHelper)																		 	 
 
 																		 	 

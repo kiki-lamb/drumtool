@@ -5,6 +5,7 @@ module DrumTool
 			  include Triggered
 				include Events				
 			  include Notes
+				include LanguageHelper
 
 				private				
 				def local_events
