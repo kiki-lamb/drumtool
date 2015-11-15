@@ -9,23 +9,23 @@ module DrumTool
 end
 
 # Current:
-# Base < Events < Time < AbsoluteTime
-#			 	 							 < RelativeTime < Track
-#											                < Triggered < Pattern(Notes)
+# Base <  Timeline < AbsoluteTimeline
+#			 	 					 < RelativeTimeline < Track(Events)
+#											                < Triggered(Events) < Pattern(Notes)
 #
-# In this model, Track must be generate an AbsoluteTime as a parent object when initialized.
+# In this model, Track must be generate an AbsoluteTimeline as a parent object when initialized.
 
 
 
 # Far future:
-# Base < Events < Time < RelativeTime < TriggeredRelativeTime     <- TriggeredPattern
+# Base < Events < Timeline < RelativeTimeline < TriggeredRelativeTimeline     <- TriggeredPattern
 #			 	 							 	 						  < Pattern    									</
-#	                     < AbsoluteTime < Track
+#	                     < AbsoluteTimeline < Track
 #
 # Problem with TriggeredPattern and Pattern here... where to put behaviour?
 
 # Far future:
-# Base < Events < Time < RelativeTime < TriggeredTime <- Pattern
-#	                     < AbsoluteTime < Track
+# Base < Events < Timeline < RelativeTimeline < TriggeredTimeline <- Pattern
+#	                     < AbsoluteTimeline < Track
 #
 # Problem with TriggeredPattern and Pattern here... where to put behaviour?

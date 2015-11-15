@@ -5,12 +5,13 @@ module DrumTool
 		    bubble_attr :refresh_interval, default: 16
 		    bubble_attr :bpm, default: 112
 
+				include Events
+
 				# This is needed to make it a valid engine for Playbacks:
 				def events_at t
 				  tick t
 					events.map &:last
 				end				
-
 
 		    def bubble &b
 		      Pattern.new(self).build(&b)

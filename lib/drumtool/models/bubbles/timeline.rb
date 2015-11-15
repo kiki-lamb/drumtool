@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class Timeline < Events
+		  class Timeline < Base
 			 	bubble_attr :loop, default: nil
 		    bubble_attr :rotate
 		    bubble_attr :shift
