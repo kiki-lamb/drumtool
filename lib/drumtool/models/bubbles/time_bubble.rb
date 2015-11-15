@@ -12,7 +12,7 @@ module DrumTool
 		    proximal_bubble_toggle :mute    
 
 		    def time  
-		      base = (parent ? parent.time : tick) 
+		      base = (parent ? parent.time : top.tick) 
 		      e_time = (base * (2**(-scale))).to_f
 		      e_time -= rotate
 		      e_time %= loop if loop

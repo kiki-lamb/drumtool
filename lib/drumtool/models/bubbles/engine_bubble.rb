@@ -4,10 +4,6 @@ module DrumTool
 		  class EngineBubble < TimeBubble
 		    counter_bubble_attr :tick, return_value: :events
 		    
-		    def initialize *a, &b
-		      super *a, &b
-		    end
-
 		    def bubble &b
 		      MusicBubble.new(self).build(&b)
 		    end
