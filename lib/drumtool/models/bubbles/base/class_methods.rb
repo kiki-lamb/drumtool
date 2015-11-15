@@ -121,7 +121,7 @@ module DrumTool
 	   	     bubble_attr name, default: false, accessor: "local_#{name}", &after       
 
 		 				# Enabler
-	   	     define_method "#{setter_name}!" do |v = nil|
+	   	     define_method "#{setter_name}!" do |v = nil, &b|
 					   if b
 						   self.class.bubble_scope self, "#{setter_name}!", v, &b
 						 else
