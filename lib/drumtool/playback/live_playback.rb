@@ -40,16 +40,20 @@ module DrumTool
       end
 		end
 		
-		def a_bunch_of_logging_crap
+		def log_columns
 		  reload_time = 0
-      io = super
 			unchanged_bars = (@tick-@last_reload_tick)/16.0
 			reload_bars = @reload_interval/16.0
 			countdown = reload_bars-((@tick-@last_reload_tick)/16%reload_bars)
 			countdown = countdown%1.0 == 0  ? countdown.to_i : countdown.to_r
 
-      io << "\b#{@reloader.exception_lines[@tick%(engine.loop || 16)]}\n" if @reloader.exception_lines.any?
-      "| #{unchanged_bars.to_i.to_s.rjust(2)} bars | T-#{countdown} bars | #{@last_reload_time.to_s[0..4].ljust(5,"0")} ms #{io.strip}"
-		end
+		  [ 
+			  "#{unchanged_bars.to_i.to_s.rjust(2)} bars", 
+			  "T-#{countdown} bars",
+				"#{@last_reload_time.to_s[0..4].ljust(5,"0")} ms",
+				*super,
+        ("#{@reloader.exception_lines[@tick%(engine.loop || 16)]}\n" if @reloader.exception_lines.any?)
+			].compact
+		end		
   end 
 end

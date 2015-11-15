@@ -110,10 +110,8 @@ module DrumTool
 			log io.string unless io.string.empty?
 		end
 
-		def a_bunch_of_logging_crap
-      io = StringIO.new
-      
-      fill = @tick % 4 == 0 ? "--" : ". "
+		def log_columns
+		  fill = @tick % 4 == 0 ? "--" : ". "
 		
 	    tail = engine.respond_to?(:instruments) ? (engine.instruments.group_by(&:short_name).map do |name, instrs| 
           (instrs.any? do |i|
@@ -121,9 +119,17 @@ module DrumTool
           end) ? "#{name.ljust(2)}" : fill 
         end) : []
 
-      io << Models::Basic::Formatters::TableRowFormatter.call([          
-				 *tail, (loop ? @tick % loop : @tick).to_s(8).rjust(8, "0"), bpm.to_s.rjust(3)
-      ], [], separator: " | ") << "\n"
+		  [          
+				 *tail, 
+				 (loop ? @tick % loop : @tick).to_s(8).rjust(8, "0"), 
+				 bpm.to_s.rjust(3)
+      ]
+		end
+
+		def a_bunch_of_logging_crap
+      io = StringIO.new
+      
+      io << Models::Basic::Formatters::TableRowFormatter.call(log_columns, [], separator: " | ") << "\n"
 
       io.string			      
 		end
