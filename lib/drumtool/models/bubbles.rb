@@ -11,7 +11,7 @@ end
 # Current:
 # Base < Events < Time < AbsoluteTime
 #			 	 							 < RelativeTime < Track
-#											                < Triggered < Pattern
+#											                < Triggered < Pattern(Notes)
 #
 # In this model, Track must be generate an AbsoluteTime as a parent object when initialized.
 
