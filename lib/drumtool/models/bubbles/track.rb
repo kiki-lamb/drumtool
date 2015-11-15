@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class Engine < AbsoluteTimeline
+		  class Track < AbsoluteTimeline
 		    bubble_attr :refresh_interval, default: 16
 		    bubble_attr :bpm, default: 112
 
@@ -13,7 +13,7 @@ module DrumTool
 
 
 		    def bubble &b
-		      Music.new(self).build(&b)
+		      Pattern.new(self).build(&b)
 		    end
 		  end
 		end

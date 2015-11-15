@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 	  module Bubbles
-			def bubble klass = Engine,  &b
+			def bubble klass = Track,  &b
 				klass.bubble &b
 			end
 		end
@@ -9,27 +9,23 @@ module DrumTool
 end
 
 # Current:
-# Base < Events < RelativeTime < AbsoluteTime < Engine
-#                              < Triggered    < Music 
-
-# Future:
 # Base < Events < Time < AbsoluteTime
-#			 	 							 < RelativeTime < Engine
-#											                < Triggered < Music
+#			 	 							 < RelativeTime < Track
+#											                < Triggered < Pattern
 #
-# In this model, Engine must be generate an AbsoluteTime as a parent object when initialized.
+# In this model, Track must be generate an AbsoluteTime as a parent object when initialized.
 
 
 
 # Far future:
-# Base < Events < Time < RelativeTime < TriggeredRelativeTime     <- TriggeredMusic
-#			 	 							 	 						  < Music    									</
-#	                     < AbsoluteTime < Engine
+# Base < Events < Time < RelativeTime < TriggeredRelativeTime     <- TriggeredPattern
+#			 	 							 	 						  < Pattern    									</
+#	                     < AbsoluteTime < Track
 #
-# Problem with TriggeredMusic and Music here... where to put behaviour?
+# Problem with TriggeredPattern and Pattern here... where to put behaviour?
 
 # Far future:
-# Base < Events < Time < RelativeTime < TriggeredTime <- Music
-#	                     < AbsoluteTime < Engine
+# Base < Events < Time < RelativeTime < TriggeredTime <- Pattern
+#	                     < AbsoluteTime < Track
 #
-# Problem with TriggeredMusic and Music here... where to put behaviour?
+# Problem with TriggeredPattern and Pattern here... where to put behaviour?
