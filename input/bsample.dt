@@ -2,20 +2,21 @@ lp  0x20
 bpm 112
 ref 0x20
 
-
-i bd 36
-	scale 0
+scale 0
+ i bd 36
   when %x4
-  i sd 37
-    shift 4
-		when %8
 
-# i ch 41
-#   on %1
-#   not%3
-# 
-# i oh 39
-#   sh 2
-#   when %4
+ i sd 37
+   shift 4
+	   when %8
+		 note a 39
+
+i ch 41
+  on %1
+  not%3
+
+i oh 39
+  sh 2
+  when %4
 
 

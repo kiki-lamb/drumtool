@@ -4,9 +4,9 @@ module DrumTool
 		  class RelativeTimeline < Instant
 
 			  bubble_attr :loop, default: nil
-				bubble_attr :rotate
-				bubble_attr :shift
-				bubble_attr :scale
+				adding_bubble_attr :rotate
+				adding_bubble_attr :shift
+				adding_bubble_attr :scale
 
 				def time
 				  locate base_time
@@ -17,7 +17,7 @@ module DrumTool
 					e_time -= rotate
 					e_time %= loop if loop
 					e_time -= shift
-					e_time
+					e_time #.tap { |x| puts "#{self} locates #{base_time} at #{x}" }
 				end
 
 				private

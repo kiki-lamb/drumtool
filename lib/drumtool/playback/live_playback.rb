@@ -5,13 +5,11 @@ module DrumTool
     def initialize(
       *a, 
       reload_interval: 16,
-      rescue_exceptions: true,
+      rescue_exceptions: false, 
 			init: Models::Basic::TimingScope.new,
 			**b
     )
 		  super *a, **b
-
-			puts "PP IS #{@preprocessor}."
 
       @reload_interval = reload_interval
 			@last_reload_time = nil

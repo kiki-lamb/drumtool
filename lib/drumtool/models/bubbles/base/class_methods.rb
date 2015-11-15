@@ -3,17 +3,21 @@ module DrumTool
 	  module Bubbles
 		  class Base
         class << self
-				    def bubble &b
-	   	        new.build &b      
-	   	   	  end
-	   		   	    def bubble_attr name, default: 0, accessor: name, &after
-		 				
+				  def bubble *a, &b
+	   	      new(*a).build &b      
+	   	   	end
+
+					def bubble_scope obj, accessor, v, &b
+		 				obj.bubble do 
+		 				  send accessor, v
+		 				end.build &b					
+					end
+
+	   		  def bubble_attr name, default: 0, accessor: name, &after		 				
 						# Combined getter/setter
-	   	      define_method accessor do |v = nil|
-		 				    if false # b
-		 						  bubble do 
-		 							  send accessor, v
-		 							end.build &b
+	   	      define_method accessor do |v = nil, &b|
+		 				    if b
+								  self.class.bubble_scope self, accessor, v, &b
 		 						else				
 	   	         	(
 	   	         	  (
@@ -29,6 +33,17 @@ module DrumTool
 		 					end
 	   	      end
 	   	   end
+
+				 def adding_bubble_attr name, default: 0, accessor: name, &after
+				   bubble_attr "local_#{name}", default: default, &after
+
+					 # Adder-Setter
+	   	     define_method accessor do |v = nil, &b|
+					   old_v = send("local_#{name}") || default
+						 new_v = old_v+v if v
+					   send "local_#{name}", new_v, &b						 
+					 end
+				end
 
 	   	   def counter_bubble_attr name, default: 0, return_value: name, before: nil, after: nil
 	   	     bubble_attr name, default: default
@@ -94,7 +109,11 @@ module DrumTool
 
 		 				# Getter
 	   	     define_method name do |v = nil|
-	   	       send("local_#{name}", v) + (parent ? parent.send(name) : 0)
+					   if b
+						   self.class.bubble_scope self, name, v, &b
+						 else
+	   	         send("local_#{name}", v) + (parent ? parent.send(name) : 0)
+						 end
 	   	     end
 	   	   end
 
@@ -103,8 +122,12 @@ module DrumTool
 
 		 				# Enabler
 	   	     define_method "#{setter_name}!" do |v = nil|
-	   	       send("local_#{name}", true)
-	   	       nil
+					   if b
+						   self.class.bubble_scope self, "#{setter_name}!", v, &b
+						 else
+	   	         send("local_#{name}", true)
+	   	         nil
+             end
 	   	     end
 
 		 				# Getter
