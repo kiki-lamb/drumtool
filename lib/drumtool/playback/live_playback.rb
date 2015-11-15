@@ -13,7 +13,7 @@ module DrumTool
       @reload_interval = reload_interval
 			@last_reload_time = nil
 			@last_reload_tick = 0
-		  @reloader = Loader.new(@filename, @preprocessor, rescue_exceptions: rescue_exceptions)
+		  @reloader = Loader.new(@filename, @preprocessor, rescue_exceptions: rescue_exceptions, init: Models::Basic::TimingScope.new)
 			@reloader.after do |to| 
 			    @clock.tempo = to.bpm if to.bpm && @clock unless @input_clock
 			    to.bpm @clock.tempo unless to.bpm
@@ -52,7 +52,7 @@ module DrumTool
 			  "T-#{countdown} bars",
 				"#{@last_reload_time.to_s[0..4].ljust(5,"0")} ms",
 				*super,
-        ("#{@reloader.exception_lines[@tick%(engine.loop || 16)]}\n" if @reloader.exception_lines.any?)
+        ("#{@reloader.exception_lines[@tick%(engine.loop || 16)].strip}" if @reloader.exception_lines.any?),
 			].compact
 		end		
   end 
