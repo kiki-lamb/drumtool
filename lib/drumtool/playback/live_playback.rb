@@ -4,7 +4,7 @@ module DrumTool
   class LivePlayback < FilePlayback
     def initialize(
       *a, 
-      reload_interval: 1, 
+      reload_interval: 16,
       rescue_exceptions: true,
 			**b
     )
