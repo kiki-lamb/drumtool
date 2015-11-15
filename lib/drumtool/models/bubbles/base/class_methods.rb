@@ -8,9 +8,9 @@ module DrumTool
 						o.build(&b)
 	   	   	end
 
-					def bubble_scope obj, accessor, v, &b
+					def bubble_scope obj, accessor, *v, &b
 		 				obj.bubble do 
-		 				  send accessor, v
+		 				  send accessor, *v
 		 				end.build &b					
 					end
 
@@ -61,7 +61,7 @@ module DrumTool
 	   	     end
 	   	   end
 
-	   	   def array_bubble_attr name, singular: name.to_s.sub(/s$/, ""), uniq: false, &after
+	   	   def array_bubble_attr name, singular: name.to_s.sub(/s$/, ""), uniq: false, scopable: true, &after
 	   	     bubble_attr "#{name}_array", default: nil
 
 		 				# Getter
@@ -72,7 +72,8 @@ module DrumTool
 		 				# Adder
 	   	     define_method singular do |v, &b|
 					   if b
-						 	 self.class.bubble_scope self, singular, v, &b
+						   raise ArgumentError, "Not scopable" unless scopable
+						 	 selxof.class.bubble_scope self, singular, v, &b
 						 else
 	   	         send(name).tap do |a|
 	   	           exists = a.include? v

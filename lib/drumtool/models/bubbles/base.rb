@@ -27,7 +27,7 @@ module DrumTool
 
        def initialize parent = nil, &b
          parent.children << self if Base === parent  
-				 puts "(P)#{parent} << (C)#{self}" if parent
+#				 puts "(P)#{parent} << (C)#{self}" if parent
          @parent = parent
 				 build(&b) if b
        end

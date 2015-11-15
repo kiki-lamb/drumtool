@@ -10,6 +10,7 @@ module DrumTool
 							"bu" => "bubble",
 							"bub" => "bubble",
 							"pat" => "bubble",
+							"p" => "bubble",
 							"pattern" => "bubble",
 							"pt" => "bubble",
 							"patr" => "bubble",
@@ -53,8 +54,8 @@ module DrumTool
 	          	"mu" => "mute!",
 	          	"mute" => "mute!",
 
-	          	"fl" => "flip",
-	          	"f" => "flip"
+	          	"fl" => "flip!",
+	          	"f" => "flip!"
 	          }
           end
 
