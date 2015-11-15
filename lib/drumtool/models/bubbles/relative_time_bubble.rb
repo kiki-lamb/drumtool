@@ -19,14 +19,10 @@ module DrumTool
 		      e_time
 		    end
 
-				def active?
-				  ! mute?
-				end
-
-				# This is needed to make WorldBubble a valid engine for Playbacks:
+				# This is needed to make it a valid engine for Playbacks:
 				def events_at t
-				  tick t
-					events.map(&:last).tap { |x| puts "OUT => #{x}" }
+				  top.tick t
+					events.map &:last
 				end				
 
 		    def events force: false

@@ -83,9 +83,8 @@ module DrumTool
 		    end
 		    
 		    def active? 
-		      # puts "#{" "*depth}(CB) #{self}.active? #{time}"
+				  return if mute?
 
-		      return false unless super
 		      return true if on? or (notes.empty? && triggers.empty?)
 
 		      fires_now = cache[time] ||= begin
