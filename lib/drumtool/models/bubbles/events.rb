@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class EventBubble < Bubble
+		  class Events < Base
 				proximal_bubble_toggle :mute
 
 		    def events force: false

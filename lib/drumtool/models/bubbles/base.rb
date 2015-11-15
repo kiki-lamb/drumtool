@@ -1,7 +1,7 @@
 module DrumTool
   module Models
     module Bubbles
-      class Bubble
+      class Base
        attr_reader :parent
        array_bubble_attr :children, singular: nil
 
@@ -26,7 +26,7 @@ module DrumTool
        end
 
        def initialize parent = nil
-         parent.children << self if Bubble === parent  
+         parent.children << self if Base === parent  
          @parent = parent
        end
 

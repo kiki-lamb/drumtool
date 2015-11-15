@@ -1,7 +1,7 @@
 module DrumTool
   module Models
 	  module Bubbles
-		  class Bubble
+		  class Base
         class << self
 				    def bubble &b
 	   	        new.build &b      
