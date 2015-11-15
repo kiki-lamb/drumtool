@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class Engine < AbsoluteTime
+		  class Engine < AbsoluteTimeline
 		    bubble_attr :refresh_interval, default: 16
 		    bubble_attr :bpm, default: 112
 
@@ -11,9 +11,10 @@ module DrumTool
 					events.map &:last
 				end				
 
-			  def initialize *a
-				  super Music, *a
-				end
+
+		    def bubble &b
+		      Music.new(self).build(&b)
+		    end
 		  end
 		end
 	end
