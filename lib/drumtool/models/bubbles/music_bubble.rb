@@ -1,7 +1,7 @@
 module DrumTool
   module Models
 		module Bubbles
-		  class ChildBubble < TriggeredBubble
+		  class MusicBubble < TriggeredBubble
 			  hash_bubble_attr :notes, flip: true, permissive: true
 
 				def to_s

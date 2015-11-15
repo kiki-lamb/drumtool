@@ -82,12 +82,6 @@ module DrumTool
 		      (force || active?) ? (payload + super(force: true)) : []
 		    end
 		    
-				# This is needed to make WorldBubble a valid engine for Playbacks:
-				def events_at t
-				  tick t
-					events.map(&:last).tap { |x| puts "OUT => #{x}" }
-				end				
-
 		    def active? 
 		      # puts "#{" "*depth}(CB) #{self}.active? #{time}"
 

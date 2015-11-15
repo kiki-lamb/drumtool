@@ -22,6 +22,12 @@ module DrumTool
 		      ! mute?
 		    end
 
+				# This is needed to make WorldBubble a valid engine for Playbacks:
+				def events_at t
+				  tick t
+					events.map(&:last).tap { |x| puts "OUT => #{x}" }
+				end				
+
 		    def events force: false
 		      (
 		        self.children.map do |ch|
