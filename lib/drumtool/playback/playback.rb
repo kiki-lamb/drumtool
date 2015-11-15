@@ -9,6 +9,20 @@ module DrumTool
       def start *a
         new(*a).start
       end
+
+			def conditional_attr name, if_, left, right
+			  define_method name do
+				  v = send(if_) ? left : right
+					
+					if Array === v
+						v.dup.inject(self) do |o, sym|
+						  o.send sym
+						end
+					else
+					  send v
+					end
+				end
+			end
     end
 
 		include Logging
@@ -18,8 +32,13 @@ module DrumTool
 		  engine = nil,
       clock: nil, 
       output: UniMIDI::Output[0], 
-      reset_loop_on_stop: true
+      reset_loop_on_stop: true,
+			fixed_bpm: 128,
+			fixed_loop: 16
     )
+		  @fixed_bpm = fixed_bpm
+		  @fixed_loop = fixed_loop
+
       @input_clock = clock
       @reset_loop_on_stop = reset_loop_on_stop
       @last_line_length = 2
@@ -33,22 +52,28 @@ module DrumTool
 		rescue Interrupt
     end    
 
-		def engine
-		  @engine
+		private
+		attr_accessor :engine
+		conditional_attr :bpm, :assert_valid_engine,  [ :engine, :bpm ], :fixed_bpm
+		conditional_attr :loop, :assert_valid_engine, [ :engine, :loop ],  :fixed_loop
+			
+		def assert_valid_engine
+		  # engine && engine.respond_to?(:bpm) && engine.respond_to?(:loop) && engine.respond_to?(:events_at)
+
+		  engine && engine.respond_to?(:events_at)
 		end
 
-		private
-		def assert_valid_engine! e
-		  "Invalid engine" unless e.respond_to?(:bpm) && e.respond_to?(:loop) && e.respond_to?(:events_at)
+		def assert_valid_engine!
+		  raise RuntimeError, "Invalid engine" unless assert_valid_engine
 		end
 
     def clock      	  
       @clock ||= begin
-			  Topaz::Clock.new((@input_clock ? @input_clock : engine.bpm), interval: 16, &Proc.new { tick }).tap do |c|
+			  Topaz::Clock.new((@input_clock ? @input_clock : bpm), interval: 16, &Proc.new { tick }).tap do |c|
 					c.event.stop do 
             $stdout << "\n#{self.class.name}: Stopped by user.\n"
             close_notes!
-            @tick -= @tick % engine.loop if @reset_loop_on_stop and engine.loop
+            @tick -= @tick % loop if @reset_loop_on_stop
           end
         end
       end
@@ -60,7 +85,7 @@ module DrumTool
       @last_line_length = tmp.length
 		  log tmp
 
-			assert_valid_engine! engine
+			assert_valid_engine!
 
       close_notes! 
 			open_note! *engine.events_at(@tick)
@@ -70,7 +95,7 @@ module DrumTool
 
 		def log_sep
 		  io = StringIO.new
-		  if engine.loop && 0 == @tick % engine.loop && engine.loop != 1
+		  if loop && 0 == @tick % loop && loop != 1
         io << "=" * (@last_line_length) << "\n"
       elsif 0 == @tick % 16 
         io << "-" * (@last_line_length) << "\n"
@@ -81,12 +106,12 @@ module DrumTool
 		def a_bunch_of_logging_crap
       io = StringIO.new
       
-      io << engine.bpm << " | " << @refresh_interval
+      io << bpm << " | " << @refresh_interval
 
       fill = @tick % 4 == 0 ? "--" : ". "
 		
       io << Models::Basic::Formatters::TableRowFormatter.call([ 
-        (engine.loop ? @tick % engine.loop : @tick).to_s(16).rjust(8, "0"), 
+        (loop ? @tick % loop : @tick).to_s(16).rjust(8, "0"), 
 				
         *engine.instruments.group_by(&:short_name).map do |name, instrs| 
           (instrs.any? do |i|

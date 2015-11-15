@@ -20,11 +20,11 @@ module DrumTool
 			end
     end
 
+		private
 		def engine
 		  @reloader.payload
 		end
 
-		private
 		def tick
 		  reload		  
 			super
