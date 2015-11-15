@@ -48,7 +48,7 @@ module DrumTool
 
       @input_clock = clock
       @reset_loop_on_stop = reset_loop_on_stop
-      @last_line_length = 2
+      @last_line_length = 0
 			@tick = 0
       set_midi_output output
     end
@@ -95,7 +95,7 @@ module DrumTool
 			assert_valid_engine!
 
       close_notes! 
-			open_note! *engine.events_at(@tick).tap { |x| puts x.inspect }
+			open_note! *engine.events_at(@tick) # .tap { |x| puts x.inspect }
     ensure
       @tick += 1
     end
@@ -113,8 +113,6 @@ module DrumTool
 		def a_bunch_of_logging_crap
       io = StringIO.new
       
-      io << bpm << " | " << @refresh_interval
-
       fill = @tick % 4 == 0 ? "--" : ". "
 		
 	    tail = engine.respond_to?(:instruments) ? (engine.instruments.group_by(&:short_name).map do |name, instrs| 
@@ -123,9 +121,8 @@ module DrumTool
           end) ? "#{name.ljust(2)}" : fill 
         end) : []
 
-      io << Models::Basic::Formatters::TableRowFormatter.call([ 
-        (loop ? @tick % loop : @tick).to_s(16).rjust(8, "0"), 
-				 *tail				
+      io << Models::Basic::Formatters::TableRowFormatter.call([          
+				 *tail, (loop ? @tick % loop : @tick).to_s(8).rjust(8, "0"), bpm.to_s.rjust(3)
       ], [], separator: " | ") << "\n"
 
       io.string			      

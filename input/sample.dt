@@ -1,6 +1,6 @@
-lp  0x20
-bpm 112
-ref 16
+lp  0x40
+bpm 96
+ref 0x08
 
 scale 1
   i rs 38
