@@ -7,13 +7,13 @@ module DrumTool
 				end														
 
 		    def events
-		      local_events + (
-		        self.children.select do |ch|
+		      [ local_events,
+		        *self.children.select do |ch|
 						  ch.respond_to? :events
 						end.map do |ch|
 		          ch.events
-		        end.flatten(1) unless mute?
-		      ) || []
+		        end
+		      ].flatten(1).compact unless mute?
 		    end
 
 				private

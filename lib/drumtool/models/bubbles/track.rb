@@ -11,7 +11,7 @@ module DrumTool
 				# This is needed to make it a valid engine for Playbacks:
 				def events_at t
 				  parent.time t
-					events.map &:last
+					events
 				end				
 
 		    def bubble &b

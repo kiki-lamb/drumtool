@@ -11,7 +11,7 @@ module DrumTool
 				end
 
 				def notes_a
-				  notes.to_a.map &:reverse!
+				  notes.to_a.map &:first
 				end		    
 			end
 		end

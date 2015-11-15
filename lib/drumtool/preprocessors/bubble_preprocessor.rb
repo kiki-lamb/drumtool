@@ -40,7 +40,8 @@ module DrumTool
 	          	"scp" => "loop",
 	          	"scope" => "loop",
 
-	          	"mu" => "mute",
+	          	"mu" => "mute!",
+	          	"mute" => "mute!",
 
 	          	"fl" => "flip",
 	          	"f" => "flip"
