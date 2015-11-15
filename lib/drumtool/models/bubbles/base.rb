@@ -27,6 +27,7 @@ module DrumTool
 
        def initialize parent = nil, &b
          parent.children << self if Base === parent  
+				 puts "(P)#{parent} << (C)#{self}" if parent
          @parent = parent
 				 build(&b) if b
        end
@@ -44,8 +45,10 @@ module DrumTool
          super(name, all) || (parent && parent.respond_to?(name, all))
        end
 
-       def bubble &b
-         self.class.new(self).build(&b)
+       def bubble *a, &b
+				 o = self.class.new(self, *a)
+#				 puts "B#{self} builds child #{o}"
+         o.build(&b)
        end
 
        def build &b

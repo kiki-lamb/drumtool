@@ -7,6 +7,17 @@ module DrumTool
 	          	"refr" => "refresh_interval",
 	          	"ref" => "refresh_interval",
 
+							"bu" => "bubble",
+							"bub" => "bubble",
+							"pat" => "bubble",
+							"pattern" => "bubble",
+							"pt" => "bubble",
+							"patr" => "bubble",
+							"part" => "bubble",
+							"ptrn" => "bubble",
+
+							"n" => "note",
+
 	          	"no" => "untrigger",
 	          	"not" => "untrigger",
 	          	"ex" => "untrigger",
@@ -30,7 +41,6 @@ module DrumTool
 	          	"inst" => "instrument",
 	          	"ins" => "instrument",
 	          	"i" => "instrument",
-	          	"n" => "instrument",
 
 	          	"rot" => "rotate",
 
@@ -48,8 +58,11 @@ module DrumTool
 	          }
           end
 
+					 def procify
+					 end
+
 				   def objectify
-					     @@text = "self.class.include DrumTool::Models::Bubbles\ntrack(&#{@@text})"
+					     @@text = "self.class.include DrumTool::Models::Bubbles\ntrack do \n#{@@text}\nend"
 						 end
 					end
 				end

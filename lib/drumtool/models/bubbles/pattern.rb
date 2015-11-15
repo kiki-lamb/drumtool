@@ -7,9 +7,13 @@ module DrumTool
 			  include Notes
 				include LanguageHelper
 
+				def events
+					active? ? super : []
+				end
+				
 				private				
 				def local_events
-				  active? ? notes_a : super()
+				  notes_a
 				end
 		  end
 		end

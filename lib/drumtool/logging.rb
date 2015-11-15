@@ -20,6 +20,7 @@ module Logging
 
   	  logs.each do |log|
 			  log << s
+				log.flush
 			end
   	end
 

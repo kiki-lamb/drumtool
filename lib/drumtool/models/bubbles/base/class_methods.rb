@@ -4,7 +4,8 @@ module DrumTool
 		  class Base
         class << self
 				  def bubble *a, &b
-	   	      new(*a).build &b      
+	   	      o = new(*a)
+						o.build(&b)
 	   	   	end
 
 					def bubble_scope obj, accessor, v, &b
@@ -22,6 +23,7 @@ module DrumTool
 	   	         	(
 	   	         	  (
 	   	         	    instance_variable_set("@#{name}", v).tap do
+#										  puts "#{self}.#{name} = #{v.class.name} `#{v.inspect}'"
 	   	         	      instance_exec(v, &after) if after
 	   	         	    end if v
 	   	         	  ) ||
@@ -68,11 +70,15 @@ module DrumTool
 	   	     end
 
 		 				# Adder
-	   	     define_method singular do |v|
-	   	       send(name).tap do |a|
-	   	         exists = a.include? v
-	   	         a << v unless exists
-	   	         instance_exec(v, ! exists, &after) if after
+	   	     define_method singular do |v, &b|
+					   if b
+						 	 self.class.bubble_scope self, singular, v, &b
+						 else
+	   	         send(name).tap do |a|
+	   	           exists = a.include? v
+	   	           a << v unless exists
+	   	           instance_exec(v, ! exists, &after) if after
+							 end
 	   	       end
 	   	     end if singular
 	   	   end
@@ -88,18 +94,22 @@ module DrumTool
 	   	     end
 		 				
 		 			 #Adder
-	   	     define_method singular do |k, v = nil|
-	   	       if flip
-	   	          k, v = v, k
+	   	     define_method singular do |k, v = nil, &b|
+					   if b
+						 	 self.class.bubble_scope self, singular, v, &b
+						 else
+	   	       	 if flip
+	   	       	    k, v = v, k
 
-	   	          if permissive and k.nil?
-	   	            k, v = v, k
-	   	          end
-	   	       end       
+	   	       	    if permissive and k.nil?
+	   	       	      k, v = v, k
+	   	       	    end
+	   	       	 end       
 
-	   	       send(name).tap do |h|
+	   	         send(name).tap do |h|
 	   	           h[k] = v
 	   	           instance_exec(v, &after) if after
+							 end
 	   	       end
 	   	     end
 	   	   end

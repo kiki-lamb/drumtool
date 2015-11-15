@@ -14,8 +14,10 @@ module DrumTool
 					events
 				end				
 
-		    def bubble &b
-		      Pattern.new(self).build(&b)
+       def bubble *a, &b
+			 		o = Pattern.new(self, *a)
+					# puts "Track: #{self} builds child #{o}"
+		      o.build(&b)
 		    end
 		  end
 		end
