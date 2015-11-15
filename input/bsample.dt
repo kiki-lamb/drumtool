@@ -1,11 +1,12 @@
-lp  0x40
+lp  0x10
 bpm 112
-ref 0x08
+ref 0x16
 
 i bd 36
   when %x4
   i sd 37
-    when %x8
+    shift 4
+		when %8
 
 i ch 41
   on %1
@@ -14,3 +15,5 @@ i ch 41
 i oh 39
   sh 2
   when %4
+
+

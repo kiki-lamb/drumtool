@@ -54,7 +54,6 @@ module DrumTool
     end
 
  		def start    
-		  log "Starting the clock." 
 			log "Waiting for MIDI clock...\nControl-C to exit\n" unless @input_clock.nil?
       clock.start
 		rescue Interrupt
@@ -114,7 +113,7 @@ module DrumTool
 		def log_columns
 		  fill = @tick % 4 == 0 ? "--" : ". "
 		
-	    tail = engine.respond_to?(:instruments) ? (engine.instruments.group_by(&:short_name).map do |name, instrs| 
+	    tail = engine.respond_to?(:instrumentso) ? (engine.instruments.group_by(&:short_name).map do |name, instrs| 
           (instrs.any? do |i|
             i.fires_at?(@tick)
           end) ? "#{name.ljust(2)}" : fill 

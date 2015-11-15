@@ -49,7 +49,6 @@ module DrumTool
           end
 
 				   def objectify
-					     puts "#{name} RIGHT"
 					     @@text = "self.class.include DrumTool::Models::Bubbles\ntrack(&#{@@text})"
 						 end
 					end

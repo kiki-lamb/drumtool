@@ -53,7 +53,6 @@ module DrumTool
           end
 
 	        def call text
-						puts "#{name} CALL"
 	          @@text = text 
 	          @@text << "\n"
 
@@ -89,7 +88,6 @@ module DrumTool
 
 
 					def objectify
-					  puts "#{name} WRONG"
 					  @@text = "Models::Basic.build(&#{@@text})"
 					end
 

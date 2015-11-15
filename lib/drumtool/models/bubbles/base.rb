@@ -49,7 +49,6 @@ module DrumTool
        end
 
        def build &b
-			   puts "=> #{self.class.name}"
          instance_eval &b if b
          self
        end
