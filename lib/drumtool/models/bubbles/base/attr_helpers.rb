@@ -3,8 +3,8 @@ module DrumTool
 	  module Bubbles
 		  class Base
         class << self
-				    def bubble &b
-	   	        new.build &b      
+				    def bubble *a, &b
+	   	        new(*a).build &b      
 	   	   	  end
 	   		   	    def bubble_attr name, default: 0, accessor: name, &after
 		 				

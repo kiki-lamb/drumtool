@@ -1,12 +1,12 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class AbsoluteTimeline < Timeline
-		    counter_bubble_attr :tick
+		  class AbsoluteTimeline < Instant
+		    counter_bubble_attr :time
 
-				private
-		    def base_time 
-				  tick
+				def initialize *a, &b
+				  time 0
+					super nil, *a, &b
 				end
 		  end
 		end

@@ -25,9 +25,10 @@ module DrumTool
          ctr
        end
 
-       def initialize parent = nil
+       def initialize parent = nil, &b
          parent.children << self if Base === parent  
          @parent = parent
+				 build(&b) if b
        end
 
        def method_missing name, *a, &b

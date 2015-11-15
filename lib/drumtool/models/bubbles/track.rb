@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class Track < AbsoluteTimeline
+		  class Track < RelativeTimeline
 				include Events
 
 		    bubble_attr :refresh_interval, default: 16
@@ -9,7 +9,7 @@ module DrumTool
 
 				# This is needed to make it a valid engine for Playbacks:
 				def events_at t
-				  tick t
+				  parent.time t
 					events.map &:last
 				end				
 
