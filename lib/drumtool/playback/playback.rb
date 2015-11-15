@@ -88,7 +88,7 @@ module DrumTool
 		
 		def tick 
 		  log_sep
-		  tmp = a_bunch_of_logging_crap
+		  tmp = a_bunch_of_logging_crap.strip
       @last_line_length = tmp.length
 		  log tmp
 
@@ -127,10 +127,8 @@ module DrumTool
 		end
 
 		def a_bunch_of_logging_crap
-      io = StringIO.new
-      
+      io = StringIO.new      
       io << Models::Basic::Formatters::TableRowFormatter.call(log_columns, [], separator: " | ") << "\n"
-
       io.string			      
 		end
   end 
