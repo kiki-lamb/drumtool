@@ -9,5 +9,5 @@ module DrumTool
 end
 
 
-# Bubble < RelativeTimeBubble < AbsoluteTimeBubble
-#                             < TriggeredBubble < MusicBubble 
+# Bubble < EventBubble < RelativeTimeBubble < AbsoluteTimeBubble
+#                                           < TriggeredBubble < MusicBubble 

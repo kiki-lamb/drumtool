@@ -83,8 +83,6 @@ module DrumTool
 		    end
 		    
 		    def active? 
-				  return if mute?
-
 		      return true if on? or (notes.empty? && triggers.empty?)
 
 		      fires_now = cache[time] ||= begin

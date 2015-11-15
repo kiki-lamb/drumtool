@@ -4,6 +4,10 @@ module DrumTool
 		  class AbsoluteTimeBubble < RelativeTimeBubble
 		    counter_bubble_attr :tick, return_value: :events
 		    
+				def base_time 
+				  tick
+				end
+
 		    def bubble &b
 		      MusicBubble.new(self).build(&b)
 		    end
