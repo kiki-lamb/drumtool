@@ -8,8 +8,13 @@ module DrumTool
 				  tick
 				end
 
+				def initialize child_klass = RelativeTimeBubble, *a
+				  @child_klass = child_klass
+					super *a
+				end
+
 		    def bubble &b
-		      MusicBubble.new(self).build(&b)
+		      @child_klass.new(self).build(&b)
 		    end
 		  end
 		end

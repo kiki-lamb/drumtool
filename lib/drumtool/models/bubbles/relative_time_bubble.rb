@@ -2,8 +2,6 @@ module DrumTool
 	module Models
 		module Bubbles
 		  class RelativeTimeBubble < EventBubble
-		    bubble_attr :refresh_interval, default: 16
-		    bubble_attr :bpm, default: 112
 		    bubble_attr :loop, default: nil
 		    bubble_attr :rotate
 		    bubble_attr :shift

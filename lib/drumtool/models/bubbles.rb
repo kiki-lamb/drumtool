@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 	  module Bubbles
-			def bubble klass = AbsoluteTimeBubble,  &b
+			def bubble klass = EngineBubble,  &b
 				klass.bubble &b
 			end
 		end
@@ -9,5 +9,5 @@ module DrumTool
 end
 
 
-# Bubble < EventBubble < RelativeTimeBubble < AbsoluteTimeBubble
+# Bubble < EventBubble < RelativeTimeBubble < AbsoluteTimeBubble < EngineBubble
 #                                           < TriggeredBubble < MusicBubble 
