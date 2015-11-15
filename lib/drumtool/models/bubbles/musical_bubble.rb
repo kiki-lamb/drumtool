@@ -15,17 +15,14 @@ module DrumTool
 		      e_time -= rotate
 		      e_time %= loop if loop
 		      e_time -= shift
-		      e_time # .tap { |x| puts "#{tick} #{self} OUT: #{base} -> #{x}" }
+		      e_time
 		    end
 
 		    def active? 
-		      # puts "#{" "*depth}(MB) #{self}.active? #{time}"
 		      ! mute?
 		    end
 
 		    def events force: false
-		      # puts "#{" "*depth}(MB) #{self}.events #{time}, #{force ? "true" : "false"}"
-
 		      (
 		        self.children.map do |ch|
 		          ch.events

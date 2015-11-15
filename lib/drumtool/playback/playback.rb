@@ -117,14 +117,15 @@ module DrumTool
 
       fill = @tick % 4 == 0 ? "--" : ". "
 		
+	    tail = engine.respond_to?(:instruments) ? (engine.instruments.group_by(&:short_name).map do |name, instrs| 
+          (instrs.any? do |i|
+            i.fires_at?(@tick)
+          end) ? "#{name.ljust(2)}" : fill 
+        end) : []
+
       io << Models::Basic::Formatters::TableRowFormatter.call([ 
         (loop ? @tick % loop : @tick).to_s(16).rjust(8, "0"), 
-				
-#        *engine.instruments.group_by(&:short_name).map do |name, instrs| 
-#          (instrs.any? do |i|
-#            i.fires_at?(@tick)
-#          end) ? "#{name.ljust(2)}" : fill 
-#        end
+				 *tail				
       ], [], separator: " | ") << "\n"
 
       io.string			      
