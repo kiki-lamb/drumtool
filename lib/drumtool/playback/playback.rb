@@ -12,20 +12,22 @@ module DrumTool
 
 			def conditional_attr name, if_, left, right
 			  define_method name do
-				  v = send(if_) ? left : right
-					
-					case v
-					when Array
-						v.dup.inject(self) do |o, sym|
-						  sym[0] == "@" ? o.instance_variable_get(v) : o.send(sym)
-						end
-					when Symbol
-					  v[0] == "@" ? instance_variable_get(v) : send(v)
-					else 
-					  v
-					end
+ 				  (send(if_) && send_or_get(left)) || send_or_get(right)
 				end
 			end
+    end
+
+    def send_or_get v
+      case v
+      when Array
+        v.dup.inject(self) do |o, sym|
+          sym[0] == "@" ? o.instance_variable_get(v) : o.send(sym)
+        end
+      when Symbol
+        v[0] == "@" ? instance_variable_get(v) : send(v)
+      else 
+        v
+      end
     end
 
 		include Logging
@@ -39,6 +41,8 @@ module DrumTool
 			fixed_bpm: 128,
 			fixed_loop: 16
     )
+		  @engine = engine
+
 		  @fixed_bpm = fixed_bpm
 		  @fixed_loop = fixed_loop
 
@@ -116,11 +120,11 @@ module DrumTool
       io << Models::Basic::Formatters::TableRowFormatter.call([ 
         (loop ? @tick % loop : @tick).to_s(16).rjust(8, "0"), 
 				
-        *engine.instruments.group_by(&:short_name).map do |name, instrs| 
-          (instrs.any? do |i|
-            i.fires_at?(@tick)
-          end) ? "#{name.ljust(2)}" : fill 
-        end
+#        *engine.instruments.group_by(&:short_name).map do |name, instrs| 
+#          (instrs.any? do |i|
+#            i.fires_at?(@tick)
+#          end) ? "#{name.ljust(2)}" : fill 
+#        end
       ], [], separator: " | ") << "\n"
 
       io.string			      
