@@ -18,3 +18,18 @@ end
 #											                < Triggered < Music
 #
 # In this model, Engine must be generate an AbsoluteTime as a parent object when initialized.
+
+
+
+# Far future:
+# Base < Events < Time < RelativeTime < TriggeredRelativeTime     <- TriggeredMusic
+#			 	 							 	 						  < Music    									</
+#	                     < AbsoluteTime < Engine
+#
+# Problem with TriggeredMusic and Music here... where to put behaviour?
+
+# Far future:
+# Base < Events < Time < RelativeTime < TriggeredTime <- Music
+#	                     < AbsoluteTime < Engine
+#
+# Problem with TriggeredMusic and Music here... where to put behaviour?
