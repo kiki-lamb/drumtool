@@ -34,7 +34,7 @@ module DrumTool
 		  if @tick % @reload_interval == 0
 		    @last_reload_time = @reloader.reload 
 			else
-			  @last_reload_time = 0
+			  0
       end
 		end
 		

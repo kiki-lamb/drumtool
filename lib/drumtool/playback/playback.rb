@@ -14,12 +14,15 @@ module DrumTool
 			  define_method name do
 				  v = send(if_) ? left : right
 					
-					if Array === v
+					case v
+					when Array
 						v.dup.inject(self) do |o, sym|
-						  o.send sym
+						  sym[0] == "@" ? o.instance_variable_get(v) : o.send(sym)
 						end
-					else
-					  send v
+					when Symbol
+					  v[0] == "@" ? instance_variable_get(v) : send(v)
+					else 
+					  v
 					end
 				end
 			end
@@ -54,8 +57,8 @@ module DrumTool
 
 		private
 		attr_accessor :engine
-		conditional_attr :bpm, :assert_valid_engine,  [ :engine, :bpm ], :fixed_bpm
-		conditional_attr :loop, :assert_valid_engine, [ :engine, :loop ],  :fixed_loop
+		conditional_attr :bpm, :assert_valid_engine,  [ :engine, :bpm ], :@fixed_bpm
+		conditional_attr :loop, :assert_valid_engine, [ :engine, :loop ],  :@fixed_loop
 			
 		def assert_valid_engine
 		  # engine && engine.respond_to?(:bpm) && engine.respond_to?(:loop) && engine.respond_to?(:events_at)
