@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class TriggeredBubble < EngineBubble
+		  class TriggeredBubble < TimeBubble
 		    hash_bubble_attr :cache, singular: :add_cache
 		    proximal_bubble_toggle :flip
 		    bubble_toggle :on
