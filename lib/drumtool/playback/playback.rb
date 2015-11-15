@@ -121,7 +121,7 @@ module DrumTool
 
 		  [          
 				 *tail, 
-				 (loop ? @tick % loop : @tick).to_s(8).rjust(8, "0"), 
+				 (loop ? @tick % loop : @tick).to_s(16).rjust(8, "0"), 
 				 bpm.to_s.rjust(3)
       ]
 		end
