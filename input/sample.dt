@@ -1,5 +1,5 @@
 lp  0x40
-bpm 96
+bpm 112
 ref 0x08
 
 scale 1
