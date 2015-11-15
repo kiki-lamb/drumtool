@@ -36,7 +36,7 @@ module DrumTool
 		      subscopes.map(&:instruments).flatten + @__hash__.values
 		    end
 
-		    def triggers_at time
+		    def events_at time
 					# time = time % loop if loop # NOT SURE IF THIS SHOULD BE WORKED BACK IN?
 
 		      instruments.map do |i|

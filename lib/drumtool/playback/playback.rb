@@ -38,6 +38,10 @@ module DrumTool
 		end
 
 		private
+		def assert_valid_engine! e
+		  "Invalid engine" unless e.respond_to?(:bpm) && e.respond_to?(:loop) && e.respond_to?(:events_at)
+		end
+
     def clock      	  
       @clock ||= begin
 			  Topaz::Clock.new((@input_clock ? @input_clock : engine.bpm), interval: 16, &Proc.new { tick }).tap do |c|
@@ -54,11 +58,12 @@ module DrumTool
 		  log_sep
 		  tmp = a_bunch_of_logging_crap
       @last_line_length = tmp.length
-
 		  log tmp
+
+			assert_valid_engine! engine
+
       close_notes! 
-			trigs = engine.triggers_at(@tick)
-			open_note! *trigs if engine
+			open_note! *engine.events_at(@tick)
     ensure
       @tick += 1
     end
