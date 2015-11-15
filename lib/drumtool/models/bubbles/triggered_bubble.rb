@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class TriggeredBubble < MusicalBubble
+		  class TriggeredBubble < EngineBubble
 		    hash_bubble_attr :cache, singular: :add_cache
 		    proximal_bubble_toggle :flip
 		    bubble_toggle :on
@@ -82,6 +82,12 @@ module DrumTool
 		      (force || active?) ? (payload + super(force: true)) : []
 		    end
 		    
+				# This is needed to make WorldBubble a valid engine for Playbacks:
+				def events_at t
+				  tick t
+					events.map(&:last).tap { |x| puts "OUT => #{x}" }
+				end				
+
 		    def active? 
 		      # puts "#{" "*depth}(CB) #{self}.active? #{time}"
 

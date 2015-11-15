@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class MusicalBubble < Bubble
+		  class TimeBubble < Bubble
 		    bubble_attr :loop, default: nil
 		    bubble_attr :rotate
 		    bubble_attr :shift
