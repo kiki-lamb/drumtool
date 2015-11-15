@@ -8,6 +8,7 @@ module DrumTool
 		    bubble_attr :rotate
 		    bubble_attr :shift
 		    bubble_attr :scale
+				proximal_bubble_toggle :mute
 
 		    def time  
 		      base = (parent ? parent.time : top.tick) 
@@ -18,6 +19,9 @@ module DrumTool
 		      e_time
 		    end
 
+				def active?
+				  ! mute?
+				end
 
 				# This is needed to make WorldBubble a valid engine for Playbacks:
 				def events_at t
@@ -25,7 +29,7 @@ module DrumTool
 					events.map(&:last).tap { |x| puts "OUT => #{x}" }
 				end				
 
-		    def events
+		    def events force: false
 		      (
 		        self.children.map do |ch|
 		          ch.events
