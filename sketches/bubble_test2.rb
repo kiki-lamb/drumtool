@@ -62,6 +62,8 @@ tb = 	track do
 	end
 end
 
+DrumTool::Playback.log_to $stdout
+
 DrumTool::Playback.start tb
 
 

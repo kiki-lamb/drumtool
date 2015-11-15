@@ -53,7 +53,8 @@ module DrumTool
       set_midi_output output
     end
 
- 		def start     
+ 		def start    
+		  log "Starting the clock." 
 			log "Waiting for MIDI clock...\nControl-C to exit\n" unless @input_clock.nil?
       clock.start
 		rescue Interrupt
