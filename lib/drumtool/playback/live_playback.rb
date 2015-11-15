@@ -51,7 +51,7 @@ module DrumTool
 			countdown = countdown%1.0 == 0  ? countdown.to_i : countdown.to_r
 
 		  [ 
-			  engine.class.name, 
+			  @reload_interval,
 			  "#{unchanged_bars.to_i.to_s.rjust(2)} bars", 
 			  "T-#{countdown} bars",
 				"#{@last_reload_time.to_s[0..4].ljust(5,"0")} ms",

@@ -1,6 +1,6 @@
 lp  0x10
 bpm 112
-ref 0x16
+ref 0x20
 
 i bd 36
   when %x4
