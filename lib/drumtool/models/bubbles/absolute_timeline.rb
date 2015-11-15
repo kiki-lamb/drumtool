@@ -1,8 +1,7 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class AbsoluteTimeline < Base
-			  include Timeline
+		  class AbsoluteTimeline < Timeline
 		    counter_bubble_attr :tick
 
 				private

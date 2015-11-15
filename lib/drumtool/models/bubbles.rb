@@ -12,8 +12,4 @@ end
 # Base < Timeline < RelativeTimeline < Pattern(Triggered, Events, Notes)
 #			 	 					< AbsoluteTimeline < Track(Events)																		 	 
 
-
-# Current:
-# Base < RelativeTimeline(Timeline) < Pattern(Triggered, Events, Notes)
-#			 < AbsoluteTimeline(Timeline) < Track(Events)																		 	 
 																		 	 

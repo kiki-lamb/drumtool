@@ -1,13 +1,11 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  module Timeline
-			  def self.included base 
-			 		base.bubble_attr :loop, default: nil
-		    	base.bubble_attr :rotate
-		    	base.bubble_attr :shift
-		    	base.bubble_attr :scale
-				end
+		  class Timeline < Base
+			 	bubble_attr :loop, default: nil
+		    bubble_attr :rotate
+		    bubble_attr :shift
+		    bubble_attr :scale
 
 				def time
 				  locate base_time
