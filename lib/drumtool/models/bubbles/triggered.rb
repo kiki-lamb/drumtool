@@ -1,18 +1,19 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class Triggered < RelativeTimeline
-		    hash_bubble_attr :cache, singular: :add_cache
-		    proximal_bubble_toggle :flip
-		    bubble_toggle :on
-				
-		    array_bubble_attr :triggers, singular: :add_trigger do |v|
-		      clear_cache
-		    end
+		  module Triggered
+			  def self.included base 
+				  base.hash_bubble_attr :cache, singular: :add_cache
+					base.proximal_bubble_toggle :flip
+		      base.bubble_toggle :on
+		    	base.array_bubble_attr :triggers, singular: :add_trigger do |v|
+		        clear_cache
+		    	end
 
-		    array_bubble_attr :untriggers, singular: :add_untrigger do |v|
-		      clear_cache
-		    end
+		    	base.array_bubble_attr :untriggers, singular: :add_untrigger do |v|
+		      	clear_cache
+		    	end
+				end
 
 		    def tick
 		      top.tick
@@ -63,16 +64,6 @@ module DrumTool
 		       send("add_#{method_name}", condition) if condition
 		      end
 		    end
-
-		    def trigger_active? trigger, time
-		      tmp = instance_exec(time, &trigger)
-
-		      if Fixnum === tmp || Float === tmp
-		        0 == tmp
-		      else
-		        tmp
-		      end
-		    end
 		    
 		    def active? 
 		      return true if on? or (notes.empty? && triggers.empty?)
@@ -85,6 +76,17 @@ module DrumTool
 		            trigger_active? t, time
 		          end
 		        end
+		      end
+		    end
+
+				private
+		    def trigger_active? trigger, time
+		      tmp = instance_exec(time, &trigger)
+
+		      if Fixnum === tmp || Float === tmp
+		        0 == tmp
+		      else
+		        tmp
 		      end
 		    end
 		  end

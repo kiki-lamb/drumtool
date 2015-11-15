@@ -1,9 +1,11 @@
 module DrumTool
   module Models
 		module Bubbles
-		  class Pattern < Triggered
-			  include Notes
+		  class Pattern < RelativeTimeline
 				include Events				
+			  include Triggered
+			  include Notes
+
 
 				private				
 				def local_events

@@ -9,23 +9,11 @@ module DrumTool
 end
 
 # Current:
-# Base <  Timeline < AbsoluteTimeline
-#			 	 					 < RelativeTimeline < Track(Events)
-#											                < Triggered(Events) < Pattern(Notes)
-#
-# In this model, Track must be generate an AbsoluteTimeline as a parent object when initialized.
+# Base < Timeline < RelativeTimeline < Pattern(Triggered, Events, Notes)
+#			 	 					< AbsoluteTimeline < Track(Events)																		 	 
 
 
-
-# Far future:
-# Base < Events < Timeline < RelativeTimeline < TriggeredRelativeTimeline     <- TriggeredPattern
-#			 	 							 	 						  < Pattern    									</
-#	                     < AbsoluteTimeline < Track
-#
-# Problem with TriggeredPattern and Pattern here... where to put behaviour?
-
-# Far future:
-# Base < Events < Timeline < RelativeTimeline < TriggeredTimeline <- Pattern
-#	                     < AbsoluteTimeline < Track
-#
-# Problem with TriggeredPattern and Pattern here... where to put behaviour?
+# Current:
+# Base < RelativeTimeline(Timeline) < Pattern(Triggered, Events, Notes)
+#			 < AbsoluteTimeline(Timeline) < Track(Events)																		 	 
+																		 	 

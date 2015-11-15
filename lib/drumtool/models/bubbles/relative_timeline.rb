@@ -1,7 +1,9 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class RelativeTimeline < Timeline
+		  class RelativeTimeline < Base
+			  include Timeline
+
 				private
 				def base_time
 				  parent.time
