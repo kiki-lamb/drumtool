@@ -6,7 +6,7 @@ module DrumTool
       *a, 
       reload_interval: 16,
       rescue_exceptions: false, 
-			init: Models::Basic::TimingScope.new,
+			init: nil,
 			**b
     )
 		  super *a, **b

@@ -1,6 +1,6 @@
 module DrumTool
   class FilePlayback < Playback
-    def initialize filename, *a, preprocessor: Preprocessors::BasicPreprocessor, **b
+    def initialize filename, *a, preprocessor: nil, **b
 		  super *a
 			@filename = filename
 			@preprocessor = preprocessor
@@ -8,7 +8,10 @@ module DrumTool
 
 		private
 		def engine
-		  @engine ||= eval @preprocessor.call(File.open(@filename).read)
+		  @engine ||= begin
+			  text = File.open(@filename).read
+				eval (@preprocessor ? @preprocessor.call(text) : text)
+			end
 		end
   end
 end
