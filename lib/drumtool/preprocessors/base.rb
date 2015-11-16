@@ -49,7 +49,11 @@ module DrumTool
 			attr_accessor :text
 
 			def initialize text = ""
-			  self.text = text
+			  self.text = if File === text
+				  text.read
+				else
+				  text
+				end
 			end
 
 
