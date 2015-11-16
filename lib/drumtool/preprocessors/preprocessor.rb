@@ -10,10 +10,20 @@ module DrumTool
 					  new(text).result
 					end
 					
-					attr_accessor :abbreviations
+					def thesaurus
+					  @thesaurus ||= Thesaurus.new
+					end
+
+					def abbreviate *a, **b
+					  thesaurus.abbreviate *a, **b
+					end
+
+					def expand name
+					  thesaurus[name]
+					end
 				end
 
-        @abbreviations = Thesaurus.new(
+        abbreviate \
           :flip,
           :instrument,
           :loop,
@@ -26,8 +36,8 @@ module DrumTool
           :untrigger,
           loop: :scope,
           trigger: [ :when, :on ],
-          untrigger: [ :not, :except, :exclude ],
-        )                                       
+          untrigger: [ :not, :except, :exclude ]
+				
 								
 				attr_accessor :text
 
@@ -146,7 +156,7 @@ module DrumTool
 	      end 
 
 	      def expand name 
-	        self.class.abbreviations[name] || name
+	        self.class.expand(name) || name
 	      end
 
 	      def disassemble_line line

@@ -2,8 +2,7 @@ module DrumTool
   module Preprocessors
     class BubblePreprocessor < Preprocessor
 
-
-      @abbreviations = Thesaurus.new(
+      abbreviate \
         :bubble,
         :flip,
         :instrument,
@@ -19,7 +18,6 @@ module DrumTool
         bubble: [:pattern, :part, :scope],
         trigger: [ :when, :on ],
         untrigger: [ :not, :except, :exclude ]
-	    )
 
 			def procify
 			end
