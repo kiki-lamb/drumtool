@@ -1,5 +1,4 @@
 lp  0x80
-bpm 112
 ref 0x08
 
 
@@ -7,9 +6,11 @@ p #mu
   n bd 36
   when %xa
   lp x10
-EOF # Stop here
+EOF
 p
   n ch 41
   on %2
   sh 2
 
+
+bpm 600

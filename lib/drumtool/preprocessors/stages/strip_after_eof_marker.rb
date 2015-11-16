@@ -3,7 +3,7 @@ module DrumTool
 	  module Stages
 		  class StripAfterEOFMarker < Base
 		    def call
-				  text.gsub /\nEOF\s*\n.* /m, ""
+				  text.gsub /\nEOF\s*\n.*/m, ""
 	      end
 			end
 		end

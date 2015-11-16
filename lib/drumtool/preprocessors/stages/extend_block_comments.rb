@@ -5,6 +5,7 @@ module DrumTool
 	  module Stages
 		  class ExtendBlockComments < Base
 	    	def call
+				  text << "\n"
 	    	  o = StringIO.new
 	    	  waiting_for_indent = nil
 	    	  

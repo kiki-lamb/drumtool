@@ -27,6 +27,7 @@ module DrumTool
       	   StripBlankLinesAndTrailingWhitespaceAndComments,
 					 StripBetweenHEADMarkerAndBOFMarker,
 					 StripBeforeBOFMarker,
+					 StripBetweenEOFMarkerAndTAILMarker,
 					 StripAfterEOFMarker,
       	   ExtendBlockComments,
       	   StripBlankLinesAndTrailingWhitespaceAndComments,
