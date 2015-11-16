@@ -14,6 +14,14 @@ module DrumTool
 					  @thesaurus ||= Thesaurus.new
 					end
 
+					def stages *stages_
+					  stages_ = Array [*stages_].flatten 1 if stages_
+
+					  (@stages ||= []).tap do |s|
+						  s.push *stages_
+						end						
+					end
+
 					def abbreviate *a, **o
 					  raise ArgumentError, "Use 'synonymize' to add synonyms." unless o.empty?
 					  thesaurus.abbreviate *a
@@ -39,15 +47,7 @@ module DrumTool
 	        @result ||= begin
 						text << "\n"
 
-	        	%i{ untabify
-	        	    strip_blank_lines_and_trailing_whitespace 
-	        	    extend_block_comments
-	        	    strip_blank_lines_and_trailing_whitespace_and_comments
-	        	    rubify_arguments_and_expand_abbreviations
-	        	    rubify_pythonesque_blocks 
-								procify
-								objectify
-	        	}.each do |sym|
+	        	self.class.stages.each do |sym|
 	        	    log_separator
 	        	    log "#{self.class.name} performing step: #{sym}"
 	        	    log_separator
