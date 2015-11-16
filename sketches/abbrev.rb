@@ -27,22 +27,21 @@ class Thesaurus
 
 	def [] abr
 	  abr = abr.to_s
-		return nil if abr.length < min_length
 
-		candidates = @table.select do |key|
-		  key.start_with? abr
-		end
+		if abr.length >= min_length
+		  candidates = @table.select do |key|
+		    key.start_with? abr
+		  end
 		
-		return nil if candidates.none?
-
-		unless candidates.one?
-			raise AmbiguousLookup, "`#{abr}' is ambiguous" if strict
-			return nil
+		  unless candidates.none?
+				if candidates.one?
+				  word, synonym = *candidates.first
+					synonym || word
+				else
+					raise AmbiguousLookup, "`#{abr}' is ambiguous" if strict
+				end
+			end
 		end
-
-		word, synonym = *candidates.first
-
-		synonym || word
 	end
 
 	private
