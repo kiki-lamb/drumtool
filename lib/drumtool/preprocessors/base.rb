@@ -24,6 +24,10 @@ module DrumTool
 
 					def abbreviate *a, **o
 					  raise ArgumentError, "Use 'synonymize' to add synonyms." unless o.empty?
+					  a = Array [*a].flatten 1 if a.any?
+
+						puts "#{name} A is `#{a.inspect}'"
+
 					  thesaurus.abbreviate *a
 					end
 
