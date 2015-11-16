@@ -5,11 +5,12 @@ module DrumTool
 
 			class Ambiguous < Exception; end
 
-			attr_accessor :min_length, :strict
+			attr_accessor :min_length, :strict, :lenient_vowels
 
-			def initialize *abbreviables, min_length: 1, strict: false, **synonyms
+			def initialize *abbreviables, min_length: 1, strict: false, lenient_vowels: true, **synonyms
 				self.min_length = min_length
 				self.strict = strict
+				self.lenient_vowels = lenient_vowels
 
 				@table = Hash.new
 
@@ -29,8 +30,8 @@ module DrumTool
 			  abr = abr.to_s
 
 				if abr.length >= min_length
-				  candidates = @table.select do |key|
-				    key.start_with? abr
+				  candidates = @table.select do |key|					  
+				    key.start_with?(abr) || (lenient_vowels && mumble(key).start_with?(abr))
 				  end
 				
 				  unless candidates.none?
@@ -45,6 +46,10 @@ module DrumTool
 			end
 
 			private
+			def mumble s
+			  s.gsub /(?<!^)[aeiou]/, ""
+			end
+
 			def ary_to_h ary
 		    Hash[ary.map { |w| [w, nil ] }]
 			end

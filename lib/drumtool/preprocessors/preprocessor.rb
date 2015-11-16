@@ -33,8 +33,7 @@ module DrumTool
 					exclude: :untrigger,
 					when: :trigger,
 					on: :trigger,
-					lp: :loop,
-					scp: :loop,
+					scope: :loop,
 			  )																				
 								
 				attr_accessor :text
