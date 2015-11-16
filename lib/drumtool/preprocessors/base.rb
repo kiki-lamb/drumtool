@@ -51,7 +51,13 @@ module DrumTool
 	        	    log_separator
 	        	    log "#{self.class.name} performing step: #{sym}"
 	        	    log_separator
-	        	    send sym
+	        	    
+								if respond_to? sym
+								  send sym
+								else
+								  self.text = self.class.send sym, text
+								end
+
 	        	    log_separator
 	        	    log "#{self.class.name}'s text after performing step: #{sym}"
 	        	    log_separator

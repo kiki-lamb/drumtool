@@ -3,7 +3,12 @@ require "stringio"
 module DrumTool
 	module Preprocessors
 	    class Base
-	      private 
+			  class << self			  
+	        def untabify text
+	          text.gsub /\t/m, '  '       
+	        end
+				end
+
 	      def pad_number num, siz = 4
 	        num.to_s.rjust siz, "0" 
 	      end
@@ -154,10 +159,6 @@ module DrumTool
 	        end
 
 	        self.text =  lines.join
-	      end
-
-	      def untabify 
-	        text.gsub! /\t/m, '  '       
 	      end
 
 	      def strip_blank_lines_and_trailing_whitespace
