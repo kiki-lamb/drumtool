@@ -1,4 +1,4 @@
-lp  0x40
+lp  0x80
 bpm 112
 ref 0x08
 
@@ -47,4 +47,4 @@ i s2 48
 i t2 46
   scale 0 
   on %6
-  sh 2
+  sh 2she
