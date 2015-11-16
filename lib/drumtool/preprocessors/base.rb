@@ -46,7 +46,12 @@ module DrumTool
 				end
 			end
 											
-			attr_accessor :text
+			attr_reader :text
+
+			def text= v
+			  @result = nil
+				@text = v
+			end
 
 			def initialize text = ""
 			  self.text = if File === text
@@ -55,7 +60,6 @@ module DrumTool
 				  text
 				end
 			end
-
 
 	    def log_separator
 	      log "=" * 80
