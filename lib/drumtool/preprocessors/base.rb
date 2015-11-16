@@ -87,10 +87,17 @@ module DrumTool
 	      	    
 							self.text = if Class === obj
 							  obj.new(self).call
+							elsif obj.respond_to? :call
+							  case obj.method(:call_on).arity
+								when 1
+								  obj.call_on self
+								else
+								  raise ArgumentError, "A callable stage should have 1 arguments."
+								end
 							elsif respond_to? obj
 							  send obj
 							else
-							  self.text = self.class.send obj, text
+							  self.class.send obj, text
 							end
 
 	      	    log_separator

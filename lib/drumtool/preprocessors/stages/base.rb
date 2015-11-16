@@ -4,8 +4,13 @@ module DrumTool
 		  class Base
 			  attr_accessor :pp
 
-			  def initialize pp
+			  def initialize pp = nil
 				  self.pp = pp
+				end
+
+				def call_on pp
+					self.pp = pp
+					call
 				end
 				
 				def method_missing name, *a
