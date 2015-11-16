@@ -8,6 +8,10 @@ module DrumTool
 				  new(text).result
 				end
 				
+	    	def pad_number num, siz = 4
+	        num.to_s.rjust siz, "0" 
+	      end
+
 				def stages *stages_
 				  stages_ = Array [*stages_].flatten 1 if stages_
 
@@ -43,9 +47,6 @@ module DrumTool
 			  self.text = text
 			end
 
-	    def pad_number num, siz = 4
-	      num.to_s.rjust siz, "0" 
-	    end
 
 	    def log_separator
 	      log "=" * 80
@@ -53,7 +54,7 @@ module DrumTool
 
 	    def log_text
 	      text.lines.each_with_index do |line, index|
-	        log "#{pad_number index} #{line}"
+	        log "#{self.class.pad_number index} #{line}"
 	      end
 	    end
 
