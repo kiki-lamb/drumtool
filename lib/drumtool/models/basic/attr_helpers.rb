@@ -1,7 +1,7 @@
 module DrumTool
   module Models
     module Basic
-			module DslAttrs
+			module AttrHelpers
 			  def __dsl_attr_scopified__ self_, name, v, scopable, &b
 			    raise "#{self_.class.name}.#{name} is not scopable" unless scopable
 

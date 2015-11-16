@@ -7,10 +7,10 @@ module DrumTool
 				end
 
 				module ClassMethods
-					include DslAttrs
+					include AttrHelpers
         end
 
-				extend DslAttrs
+				extend AttrHelpers
 
 		    attr_reader :parent
 		    attr_accessor :subscopes
