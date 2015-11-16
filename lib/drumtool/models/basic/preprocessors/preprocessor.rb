@@ -36,7 +36,7 @@ module DrumTool
     		     RubifyArgumentsAndExpandAbbreviations,
     		     RubifyPythonesqueBlocks,
     		     Procify,
-						 ObjectifyAsBasic
+						 Objectify
 				end
 			end
 		end

@@ -2,7 +2,6 @@ module DrumTool
   module Models
 	  class Bubbles
 		  module Preprocessors
-
     		class Preprocessor < DrumTool::Preprocessors::Base		
 				  include Stages
 
@@ -38,7 +37,7 @@ module DrumTool
     		     RubifyArgumentsAndExpandAbbreviations,
     		     RubifyPythonesqueBlocks,
 	    		   StripBlankLinesAndTrailingWhitespace,
-						 ObjectifyAsBubble
+						 Objectify
 				end
 			end
 	  end

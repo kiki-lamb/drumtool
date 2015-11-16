@@ -3,7 +3,7 @@ module DrumTool
 	  class Bubbles
 		  module Preprocessors
 			  module Stages
-	  		  class ObjectifyAsBubble < DrumTool::Preprocessors::Stages::Base
+	  		  class Objectify < DrumTool::Preprocessors::Stages::Base
 		  	    def call
 			       "self.class.include DrumTool::Models\nBubbles.track do \n#{text}end"
 			      end

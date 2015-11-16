@@ -3,7 +3,7 @@ module DrumTool
 	  module Basic
 		  module Preprocessors
 			  module Stages
-	  		  class ObjectifyAsBasic < DrumTool::Preprocessors::Stages::Base
+	  		  class Objectify < DrumTool::Preprocessors::Stages::Base
 		  	    def call
 			       "Models::Basic.build(&#{text})"
 			      end

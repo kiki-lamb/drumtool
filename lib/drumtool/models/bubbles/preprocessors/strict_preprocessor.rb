@@ -37,7 +37,7 @@ module DrumTool
       		   RubifyArgumentsAndExpandAbbreviations,
       		   RubifyPythonesqueBlocks,
 	    		   StripBlankLinesAndTrailingWhitespace,
-						 ObjectifyAsBubble
+						 Objectify
 				end
 			end
 		end
