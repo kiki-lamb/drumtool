@@ -28,7 +28,7 @@ module DrumTool
 				end
 
 				def expand name
-				  thesaurus[name]
+				  thesaurus[name] || name
 				end
 
 				private
