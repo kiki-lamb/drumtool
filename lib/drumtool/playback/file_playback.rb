@@ -1,6 +1,6 @@
 module DrumTool
   class FilePlayback < Playback
-    def initialize filename, *a, preprocessor: Preprocessors::Preprocessor, **b
+    def initialize filename, *a, preprocessor: Preprocessors::BasicPreprocessor, **b
 		  super *a
 			@filename = filename
 			@preprocessor = preprocessor
