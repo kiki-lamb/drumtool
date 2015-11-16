@@ -1,15 +1,14 @@
 module DrumTool
 	module Preprocessors
 	  module Stages
-		  module RubifyArgumentsAndExpandAbbreviations
-			  extend Helpers
-				extend StageHelpers
+		  class RubifyArgumentsAndExpandAbbreviations < Base
+			  include StageHelpers
 
-	    	def self.call pp
-	    	  lines = pp.text.lines
+	    	def call
+	    	  lines = text.lines
 
 	    	  lines.each_with_index do |line, index|
-	    	    pp.log "#{pad_number index} #{line.chomp}"
+	    	    log "#{pp.class.pad_number index} #{line.chomp}"
 
 	    	    indent, name, args, block_args = *disassemble_line(line)
 	    	    lines[index] = reassemble_line indent, name, args, block_args

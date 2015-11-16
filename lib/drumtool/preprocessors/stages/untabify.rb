@@ -1,9 +1,9 @@
 module DrumTool
 	module Preprocessors
 	  module Stages
-		  module Untabify 
-		    def self.call pp
-	        pp.text.gsub /\t/m, '  '       
+		  class Untabify < Base
+		    def call
+	        text.gsub /\t/m, '  '       
 	      end
 			end
 		end

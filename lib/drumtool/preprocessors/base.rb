@@ -68,8 +68,8 @@ module DrumTool
 	      	    log "#{self.class.name} performing step: #{obj}"
 	      	    log_separator
 	      	    
-							if Module === obj
-							  self.text = obj.call self
+							if Class === obj
+							  self.text = obj.new(self).call
 							elsif respond_to? obj
 							  send obj
 							else

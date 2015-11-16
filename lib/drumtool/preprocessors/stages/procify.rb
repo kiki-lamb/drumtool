@@ -1,9 +1,9 @@
 module DrumTool
 	module Preprocessors
 	  module Stages
-		  module Procify
-			  def self.call pp
-			    "Proc.new {\n#{pp.text}\n}"
+		  class Procify < Base
+			  def call
+			    "Proc.new {\n#{text}\n}"
 			  end
 			end
 		end

@@ -47,24 +47,24 @@ module DrumTool
 	    	  [ Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip ]
 	    	end 
 
-	    	def disassemble_line pp, line
+	    	def disassemble_line line
 	    	  indent, body, block_args = *partially_disassemble_line(line)
 
 	    	  if PatSimpleExpr.match body
-	    	    pp.log "  Parsed simple expr: #{Regexp.last_match.inspect[12..-2]}"
+	    	    log "  Parsed simple expr: #{Regexp.last_match.inspect[12..-2]}"
 
 	    	    name, args = expand(Regexp.last_match[1]), (Regexp.last_match[2] || "").split(/\s+/).map do |arg|
 	    	      rubify_arg arg
 	    	    end
 	    	  else
-	    	    pp.log "  Parse complex expr: `#{body}'"         
+	    	    log "  Parse complex expr: `#{body}'"         
 	    	    body = "#{Regexp.last_match[1]}#{expand Regexp.last_match[2]}#{Regexp.last_match[3]}" if /^(\s*)(#{PatName})(.*)$/.match body             
 						body.sub! /trigger\s+{(?!\s*\|t\|)/,  "trigger Proc.new { |t| "
 	    	    name, args = body, []
 	    	  end  
 	    	  
 	    	  toks = [ indent, name, args, block_args ]
-	    	  pp.log "  Tokens: #{toks.inspect}"
+	    	  log "  Tokens: #{toks.inspect}"
 	    	  toks
 	    	end
 

@@ -27,7 +27,7 @@ module DrumTool
          :extend_block_comments,
          :strip_blank_lines_and_trailing_whitespace_and_comments,
          RubifyArgumentsAndExpandAbbreviations,
-         :rubify_pythonesque_blocks,
+         RubifyPythonesqueBlocks,
          Procify,
          :objectify
 

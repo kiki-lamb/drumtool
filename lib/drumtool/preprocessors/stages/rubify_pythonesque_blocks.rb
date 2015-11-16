@@ -1,8 +1,10 @@
 module DrumTool
 	module Preprocessors
-	  class Base
-		  class << self			  
-	    	def rubify_pythonesque_blocks text
+	  module Stages
+		  class RubifyPythonesqueBlocks < Base
+			  include StageHelpers
+
+	    	def call
 	    	  lines = text.lines
 	    	  prev_indents = [ 0 ]
 
