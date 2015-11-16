@@ -1,6 +1,6 @@
 module DrumTool
 	module Models
-		module Bubbles
+		class Bubbles
 		  class AbsoluteTimeline < Instant
 		    counter_bubble_attr :time
 

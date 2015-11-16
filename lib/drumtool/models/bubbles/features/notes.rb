@@ -1,6 +1,6 @@
 module DrumTool
   module Models
-		module Bubbles
+		class Bubbles
 		  module Notes
 			  def self.included base
 					base.hash_bubble_attr :notes, flip: true, permissive: true

@@ -1,6 +1,6 @@
 module DrumTool
   module Models
-		module Bubbles
+		class Bubbles
 		  class Pattern < RelativeTimeline
 			  include Triggered
 				include Events				

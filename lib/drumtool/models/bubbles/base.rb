@@ -1,6 +1,6 @@
 module DrumTool
   module Models
-    module Bubbles
+    class Bubbles
       class Base
        attr_reader :parent
        array_bubble_attr :children, singular: nil

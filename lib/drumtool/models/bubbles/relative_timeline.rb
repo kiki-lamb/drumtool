@@ -1,6 +1,6 @@
 module DrumTool
 	module Models
-		module Bubbles
+		class Bubbles
 		  class RelativeTimeline < Instant
 
 			  bubble_attr :loop, default: nil

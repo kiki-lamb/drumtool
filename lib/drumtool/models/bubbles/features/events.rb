@@ -1,6 +1,6 @@
 module DrumTool
 	module Models
-		module Bubbles
+		class Bubbles
 		  module Events
 			  def self.included base
 				  base.proximal_bubble_toggle :mute

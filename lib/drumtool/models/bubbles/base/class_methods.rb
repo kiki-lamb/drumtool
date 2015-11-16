@@ -1,6 +1,6 @@
 module DrumTool
   module Models
-	  module Bubbles
+	  class Bubbles
 		  class Base
         class << self
 				  def bubble *a, &b

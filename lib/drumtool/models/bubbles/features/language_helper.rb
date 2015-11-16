@@ -1,6 +1,6 @@
 module DrumTool
   module Models
-		module Bubbles
+		class Bubbles
 		  module LanguageHelper
 			  def instrument name, note, &b
 				  bubble.build do

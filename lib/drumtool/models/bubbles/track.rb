@@ -1,6 +1,6 @@
 module DrumTool
 	module Models
-		module Bubbles
+		class Bubbles
 		  class Track < RelativeTimeline
 				include Events
 				include LanguageHelper

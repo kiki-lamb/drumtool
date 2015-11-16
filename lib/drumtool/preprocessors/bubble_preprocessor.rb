@@ -63,7 +63,7 @@ module DrumTool
 					 end
 
 				   def objectify
-					     @@text = "self.class.include DrumTool::Models::Bubbles\ntrack do \n#{@@text}\nend"
+					     @@text = "self.class.include DrumTool::Models\nBubbles.track do \n#{@@text}\nend"
 						 end
 					end
 				end
