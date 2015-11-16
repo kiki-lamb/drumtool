@@ -6,56 +6,56 @@ module DrumTool
    			include Logging
 
 				class << self
-	      	def abbreviations
-					  @abbreviations ||= {
-	      	  	"refr" => "refresh_interval",
-	      	  	"ref" => "refresh_interval",
-
-	      	  	"no" => "untrigger",
-	      	  	"not" => "untrigger",
-	      	  	"ex" => "untrigger",
-	      	  	"exc" => "untrigger",
-	      	  	"except" => "untrigger",
-	      	  	"excl" => "untrigger",
-	      	  	"exclude" => "untrigger",
-
-	      	  	"sc" => "scale",
-	      	  	"sca" => "scale",
-	      	  	"scl" => "scale",
-
-	      	  	"rep" => "repeat",
-	      	  	"rp" => "repeat", 
-
-	      	  	"when" => "trigger",
-	      	  	"on" => "trigger",
-	      	  	"tr" => "trigger",
-	      	  	"trig" => "trigger",
-
-	      	  	"inst" => "instrument",
-	      	  	"ins" => "instrument",
-	      	  	"i" => "instrument",
-	      	  	"n" => "instrument",
-
-	      	  	"rot" => "rotate",
-
-	      	  	"sh" => "shift",
-
-	      	  	"lp" => "loop",
-	      	  	"scp" => "loop",
-	      	  	"scope" => "loop",
-
-	      	  	"mu" => "mute",
-
-	      	  	"fl" => "flip",
-	      	  	"f" => "flip"
-	      	  }
-        	end
-
 					def call text
 					  new(text).result
 					end
+					
+					attr_accessor :abbreviations
 				end
 
+				@abbreviations = {
+	      	"refr" => "refresh_interval",
+	      	"ref" => "refresh_interval",
+
+	      	"no" => "untrigger",
+	      	"not" => "untrigger",
+	      	"ex" => "untrigger",
+	      	"exc" => "untrigger",
+	      	"except" => "untrigger",
+	      	"excl" => "untrigger",
+	      	"exclude" => "untrigger",
+
+	      	"sc" => "scale",
+	      	"sca" => "scale",
+	      	"scl" => "scale",
+
+	      	"rep" => "repeat",
+	      	"rp" => "repeat", 
+
+	      	"when" => "trigger",
+	      	"on" => "trigger",
+	      	"tr" => "trigger",
+	      	"trig" => "trigger",
+
+	      	"inst" => "instrument",
+	      	"ins" => "instrument",
+	      	"i" => "instrument",
+	      	"n" => "instrument",
+
+	      	"rot" => "rotate",
+
+	      	"sh" => "shift",
+
+	      	"lp" => "loop",
+	      	"scp" => "loop",
+	      	"scope" => "loop",
+
+	      	"mu" => "mute",
+
+	      	"fl" => "flip",
+	      	"f" => "flip"
+	      }
+				
 				attr_accessor :text
 
 				def initialize text = ""
