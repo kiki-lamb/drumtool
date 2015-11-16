@@ -22,7 +22,6 @@ module DrumTool
         trigger: [ :when, :on ],
         untrigger: [ :not, :except, :exclude ]
 
-
 				stages %i{
 				   untabify
            strip_blank_lines_and_trailing_whitespace
