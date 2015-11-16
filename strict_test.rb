@@ -2,13 +2,14 @@
 require_relative "./lib/drumtool"
 
 include DrumTool
+include DrumTool::Models
 
-Preprocessors::StricterBubblePreprocessor.log_to "output/preprocessor", $stdout
+Bubbles::StrictPreprocessor.log_to "output/preprocessor", $stdout
 
 filename = ARGV[0] || "input/sample3.dt"
 $stdout << "Preprocessing " << filename << "\n"
 
-Preprocessors::StricterBubblePreprocessor.new(File.open(filename)).result
+Bubbles::StrictPreprocessor.new(File.open(filename)).result
 
 
 
