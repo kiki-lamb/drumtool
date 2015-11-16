@@ -23,7 +23,11 @@ module DrumTool
 
 				stages \
 					 Untabify,
-    	     StripBlankLinesAndTrailingWhitespace,
+      	   StripBlankLinesAndTrailingWhitespaceAndComments,
+					 StripBetweenHEADMarkerAndBOFMarker,
+					 StripBeforeBOFMarker,
+					 StripBetweenEOFMarkerAndTAILMarker,
+					 StripAfterEOFMarker,
     	     ExtendBlockComments,
     	     StripBlankLinesAndTrailingWhitespaceAndComments,
     	     RubifyArgumentsAndExpandAbbreviations,

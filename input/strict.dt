@@ -4,8 +4,9 @@ ref 0x08
 
 p #mu
   n bd 36
-  when %xa
+  when %x4
   lp x10
+
 EOF
 p
   n ch 41

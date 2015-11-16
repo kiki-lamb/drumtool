@@ -33,12 +33,8 @@ module DrumTool
       	   StripBlankLinesAndTrailingWhitespaceAndComments,
       	   RubifyArgumentsAndExpandAbbreviations,
       	   RubifyPythonesqueBlocks,
-      	   :objectify,
-	    	   StripBlankLinesAndTrailingWhitespace
-
-				def objectify
-				  self.text = "self.class.include DrumTool::Models\nBubbles.track do \n#{text}\nend"
-				end
+	    	   StripBlankLinesAndTrailingWhitespace,
+					 ObjectifyAsBubble
 			end
 		end
 	end

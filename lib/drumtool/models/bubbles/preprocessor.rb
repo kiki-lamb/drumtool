@@ -24,16 +24,17 @@ module DrumTool
 
 				stages \
 					 Untabify,
-    	     StripBlankLinesAndTrailingWhitespace,
+      	   StripBlankLinesAndTrailingWhitespaceAndComments,
+					 StripBetweenHEADMarkerAndBOFMarker,
+					 StripBeforeBOFMarker,
+					 StripBetweenEOFMarkerAndTAILMarker,
+					 StripAfterEOFMarker,
     	     ExtendBlockComments,
     	     StripBlankLinesAndTrailingWhitespaceAndComments,
     	     RubifyArgumentsAndExpandAbbreviations,
     	     RubifyPythonesqueBlocks,
-    	     :objectify
-
-				def objectify
-				  self.text = "self.class.include DrumTool::Models\nBubbles.track do \n#{text}\nend"
-				end
+	    	   StripBlankLinesAndTrailingWhitespace,
+					 ObjectifyAsBubble
 			end
 	  end
   end
