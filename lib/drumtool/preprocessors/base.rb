@@ -71,6 +71,11 @@ module DrumTool
 	      end
 	    end
 
+			def call(text)
+			  self.text = text
+				result
+			end
+
 	    def result
 	      @result ||= begin
 					text << "\n"
