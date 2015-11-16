@@ -1,7 +1,7 @@
 module DrumTool
   module Preprocessors
     class BubblePreprocessor < Base
-
+		
       abbreviate %i{
         bubble
         flip
@@ -29,7 +29,6 @@ module DrumTool
          StripBlankLinesAndTrailingWhitespaceAndComments,
          RubifyArgumentsAndExpandAbbreviations,
          RubifyPythonesqueBlocks,
-         Procify,
          :objectify
 
 			def objectify

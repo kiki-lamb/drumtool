@@ -3,9 +3,12 @@ module DrumTool
 	  class Base
    		include Logging
 			include Stages
-			extend Helpers
 
 			class << self
+	    	def pad_number num, siz = 4
+	        num.to_s.rjust siz, "0" 
+	      end
+
 				def call text
 				  new(text).result
 				end
@@ -39,11 +42,7 @@ module DrumTool
 
 				private
 				def thesaurus
-				  @thesaurus ||= begin 
-					  t = Thesaurus.new
-						puts "#{self} made #{t}"
-					  t
-					end
+				  @thesaurus ||= Thesaurus.new
 				end
 			end
 											

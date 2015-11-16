@@ -22,7 +22,6 @@ module DrumTool
 			end
 
 			def abbreviate *args, **opts
-			  puts "#{self} abbreviates #{args.inspect} #{opts.inspect}"
 				safe_merge! ary_to_h args
 				safe_merge! Hash[opts.map do |k,v| 
 				  [*v].map do |v|
