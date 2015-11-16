@@ -7,6 +7,7 @@ p #mu
   when %xa
   lp x10
 
+
 p #mu
   lp 0x40
   n rs 38
@@ -22,7 +23,6 @@ p
  n on 39
    sh 2
    when %4
-
 p
   n sd 37  
   rot 4
