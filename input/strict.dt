@@ -25,7 +25,7 @@ p
   scale 1
   sh 2
   on %5
-
+EOF
 p
   n sy 49
   on { 0 != t%6 && 0 == t%2 }

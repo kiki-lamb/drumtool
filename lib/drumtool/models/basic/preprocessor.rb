@@ -16,9 +16,10 @@ module DrumTool
 				}
 
 				synonymize \
-    	    loop: :scope,
+    	    loop: [ :pattern, :part, :scope ],
     	    trigger: [ :when, :on ],
-    	    untrigger: [ :not, :except, :exclude ]
+    	    untrigger: [ :not, :except, :exclude ],
+					instrument: :note
 
 				stages \
 					 Untabify,

@@ -14,7 +14,7 @@ module DrumTool
     	    scale
     	    shift
 					trigger
-					untrigge
+					untrigger
 				}
 
 				synonymize \
