@@ -28,12 +28,10 @@ module DrumTool
 					:instrument,
 					:mute,	
 					:flip,
-					not: :untrigger,
-					except: :untrigger,
-					exclude: :untrigger,
-					when: :trigger,
-					on: :trigger,
-					scope: :loop,
+					untrigger: [ :not, :except, :exclude ],
+					trigger: [ :when, :on ],
+					loop: [ :scope ]
+
 			  )																				
 								
 				attr_accessor :text

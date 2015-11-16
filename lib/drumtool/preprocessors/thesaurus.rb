@@ -23,7 +23,11 @@ module DrumTool
 
 			def abbreviate *args, **opts
 				safe_merge! ary_to_h args
-				safe_merge! opts
+				safe_merge! Hash[opts.map do |k,v| 
+				  [*v].map do |v|
+					  [ v, k ]
+					end
+				end.flatten(1)]
 			end
 
 			def [] abr
@@ -31,12 +35,13 @@ module DrumTool
 
 				if abr.length >= min_length
 				  candidates = @table.select do |key|					  
-				    key.start_with?(abr) || (lenient_vowels && mumble(key).start_with?(abr))
+					  key.start_with?(abr) || (lenient_vowels && mumble(key).start_with?(abr))
 				  end
 				
 				  unless candidates.none?
 						if candidates.one?
 						  word, synonym = *candidates.first
+							
 							synonym || word
 						else
 							raise AmbiguousLookup, "`#{abr}' is ambiguous" if strict
@@ -68,4 +73,3 @@ module DrumTool
 		end
   end
 end
-
