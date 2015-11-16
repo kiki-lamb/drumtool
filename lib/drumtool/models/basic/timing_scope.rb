@@ -36,7 +36,7 @@ module DrumTool
 		      subscopes.map(&:instruments).flatten + @__hash__.values
 		    end
 
-		    def triggers_at time
+		    def events_at time
 					# time = time % loop if loop # NOT SURE IF THIS SHOULD BE WORKED BACK IN?
 
 		      instruments.map do |i|
@@ -88,7 +88,7 @@ module DrumTool
 				end
 
 				# These two are only externally significant on the topmost TimingScope.
-		    dsl_attr :refresh_interval, scopable: false
+		    dsl_attr :refresh_interval, scopable: false, default: 1
 		    dsl_attr :bpm, scopable: false
 
 		    dsl_toggle :mute, up: :parent

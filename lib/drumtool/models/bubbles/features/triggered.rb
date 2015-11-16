@@ -1,19 +1,20 @@
 module DrumTool
 	module Models
 		module Bubbles
-		  class TriggeredBubble < MusicalBubble
-		    hash_bubble_attr :cache, singular: :add_cache
-		    proximal_bubble_toggle :flip
-		    bubble_toggle :on
+		  module Triggered
+			  def self.included base 
+				  base.hash_bubble_attr :cache, singular: :add_cache
+					base.proximal_bubble_toggle :flip
+		      base.bubble_toggle :on
+		    	base.array_bubble_attr :triggers, singular: :add_trigger do |v|
+		        clear_cache
+		    	end
 
-		    array_bubble_attr :triggers, singular: :add_trigger do |v|
-		      clear_cache
-		    end
+		    	base.array_bubble_attr :untriggers, singular: :add_untrigger do |v|
+		      	clear_cache
+		    	end
+				end
 
-		    array_bubble_attr :untriggers, singular: :add_untrigger do |v|
-		      clear_cache
-		    end
-		    
 		    def tick
 		      top.tick
 		    end
@@ -63,29 +64,8 @@ module DrumTool
 		       send("add_#{method_name}", condition) if condition
 		      end
 		    end
-
-		    def payload
-		      raise NotImplemented
-		    end
-
-		    def trigger_active? trigger, time
-		      tmp = instance_exec(time, &trigger)
-
-		      if Fixnum === tmp || Float === tmp
-		        0 == tmp
-		      else
-		        tmp
-		      end
-		    end
-
-		    def events force: false
-		      (force || active?) ? (payload + super(force: true)) : []
-		    end
 		    
 		    def active? 
-		      # puts "#{" "*depth}(CB) #{self}.active? #{time}"
-
-		      return false unless super
 		      return true if on? or (notes.empty? && triggers.empty?)
 
 		      fires_now = cache[time] ||= begin
@@ -96,6 +76,17 @@ module DrumTool
 		            trigger_active? t, time
 		          end
 		        end
+		      end
+		    end
+
+				private
+		    def trigger_active? trigger, time
+		      tmp = instance_exec(time, &trigger)
+
+		      if Fixnum === tmp || Float === tmp
+		        0 == tmp
+		      else
+		        tmp
 		      end
 		    end
 		  end

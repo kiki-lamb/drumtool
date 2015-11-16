@@ -5,8 +5,6 @@ require_relative "../lib/drumtool"
 include DrumTool::Models::Bubbles
 
 tb = bubble do
-  rotate -1
-
   bubble do
 	  trigger { |t| 0 == t % 4 }
 	  note :bd, 36     

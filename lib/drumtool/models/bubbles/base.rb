@@ -1,7 +1,7 @@
 module DrumTool
   module Models
     module Bubbles
-      class Bubble
+      class Base
        attr_reader :parent
        array_bubble_attr :children, singular: nil
 
@@ -25,9 +25,11 @@ module DrumTool
          ctr
        end
 
-       def initialize parent = nil
-         parent.children << self if Bubble === parent  
+       def initialize parent = nil, &b
+         parent.children << self if Base === parent  
+#				 puts "(P)#{parent} << (C)#{self}" if parent
          @parent = parent
+				 build(&b) if b
        end
 
        def method_missing name, *a, &b
@@ -43,12 +45,14 @@ module DrumTool
          super(name, all) || (parent && parent.respond_to?(name, all))
        end
 
-       def bubble &b
-         self.class.new(self).build(&b)
+       def bubble *a, &b
+				 o = self.class.new(self, *a)
+#				 puts "B#{self} builds child #{o}"
+         o.build(&b)
        end
 
        def build &b
-         instance_eval &b
+         instance_eval &b if b
          self
        end
      end

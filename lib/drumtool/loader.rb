@@ -6,9 +6,9 @@ require "digest"
 
 module DrumTool
   class Loader
-	  attr_reader :exception, :exception_lines, :payload
+	  attr_reader :exception, :exception_lines
 
-	  def initialize filename, preprocessor = nil, rescue_exceptions: true
+	  def initialize filename, preprocessor = nil, init: nil, rescue_exceptions: true
 		  @filename = filename
 			@digest = nil
 			@text = nil
@@ -16,7 +16,7 @@ module DrumTool
 			@preprocessor = preprocessor || Proc.new { |x| x }
 			@rescue_exceptions = rescue_exceptions
 
-			@payload = nil
+			@payload = init
 			@exception = nil
 			@exception_lines
 
@@ -27,6 +27,11 @@ module DrumTool
 			raise ArgumentError, "Need block" unless block_given?
 			@after = b
 			self
+		end
+
+		def payload
+		  reload unless @payload
+			@payload
 		end
 
 		def reload
