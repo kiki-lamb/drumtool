@@ -2,7 +2,10 @@ module DrumTool
   module Models
 	  class Bubbles
 		  module Preprocessors
+
     		class Preprocessor < DrumTool::Preprocessors::Base		
+				  include Stages
+
     		  abbreviate %i{
     		    bubble
     		    flip

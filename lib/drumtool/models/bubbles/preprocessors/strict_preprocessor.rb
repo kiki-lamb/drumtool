@@ -3,6 +3,8 @@ module DrumTool
 	  class Bubbles
 		  module Preprocessors
     		class StrictPreprocessor < DrumTool::Preprocessors::Base		
+				  include Stages
+
       		abbreviate %i{
       		  bubble
       		  flip
