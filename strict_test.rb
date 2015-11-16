@@ -5,7 +5,10 @@ include DrumTool
 
 Preprocessors::StricterBubblePreprocessor.log_to "output/preprocessor", $stdout
 
-Preprocessors::StricterBubblePreprocessor.new(File.open("input/strict.dt")).result
+filename = ARGV[0] || "input/sample3.dt"
+$stdout << "Preprocessing " << filename << "\n"
+
+Preprocessors::StricterBubblePreprocessor.new(File.open(filename)).result
 
 
 

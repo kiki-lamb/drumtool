@@ -7,6 +7,9 @@ include DrumTool::Models
 Basic::Preprocessor.log_to "output/preprocessor"
 LivePlayback.log_to                "output/livecoder",  $stdout
 
-LivePlayback.start "input/sample3.dt", preprocessor: Basic::Preprocessor.new, init: Models::Basic::TimingScope.new
+filename = ARGV[0] || "input/sample3.dt"
+$stdout << "Begin playback of " << filename << "\n"
+
+LivePlayback.start filename, preprocessor: Basic::Preprocessor.new, init: Models::Basic::TimingScope.new
 
 

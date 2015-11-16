@@ -16,7 +16,7 @@ module DrumTool
 				}
 
 				synonymize \
-    	    loop: [ :pattern, :part, :scope ],
+    	    loop: [ :pattern, :part, :scope, :bubble ],
     	    trigger: [ :when, :on ],
     	    untrigger: [ :not, :except, :exclude ],
 					instrument: :note
