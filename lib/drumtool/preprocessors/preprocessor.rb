@@ -13,26 +13,21 @@ module DrumTool
 					attr_accessor :abbreviations
 				end
 
-
-				@abbreviations = Thesaurus.new(
-				  :refresh_interval,
-					:untrigger,
-					:scale,
-					:repeat,
-					:trigger,
-					:instrument,
-					:rotate,
-					:shift,
-					:loop,
-					:scale,
-					:instrument,
-					:mute,	
-					:flip,
-					untrigger: [ :not, :except, :exclude ],
-					trigger: [ :when, :on ],
-					loop: [ :scope ]
-
-			  )																				
+        @abbreviations = Thesaurus.new(
+          :flip,
+          :instrument,
+          :loop,
+          :mute, 
+          :refresh_interval,
+          :rotate,
+          :scale,
+          :shift,
+          :trigger,
+          :untrigger,
+          loop: :scope,
+          trigger: [ :when, :on ],
+          untrigger: [ :not, :except, :exclude ],
+        )                                       
 								
 				attr_accessor :text
 

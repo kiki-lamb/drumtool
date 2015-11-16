@@ -8,6 +8,6 @@ include DrumTool::Preprocessors
 BubblePreprocessor.log_to "output/preprocessor"
 LivePlayback.log_to       "output/livecoder",  $stdout
 
-LivePlayback.start "input/sample.dt", preprocessor: BubblePreprocessor, init: Bubbles.track
+LivePlayback.start "input/sample3.dt", preprocessor: BubblePreprocessor, init: Bubbles.track
 
 
