@@ -1,42 +1,14 @@
 lp  0x80
 bpm 112
 ref 0x08
-
+HEAD
 p #mu
   n bd 36
   when %xa
   lp x10
-
+EOF
 p
   n ch 41
   on %2
   sh 2
 
-p
- n on 39
-   sh 2
-   when %4
-p
-  n sd 37  
-  rot 4
-  
-p
-  n bs 40
-  scale 1
-  sh 2
-  on %5
-
-p
-  n sy 49
-  on { 0 != t%6 && 0 == t%2 }
-  scale 3
-  sh 2
-
-i s2 48
-  lp x20
-  on %18
-
-i t2 46
-  scale 0 
-  on %6
-  sh 2

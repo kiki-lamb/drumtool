@@ -6,7 +6,7 @@ include DrumTool::Models
 
 Bubbles::StrictPreprocessor.log_to "output/preprocessor", $stdout
 
-filename = ARGV[0] || "input/sample3.dt"
+filename = ARGV[0] || "input/strict.dt"
 $stdout << "Preprocessing " << filename << "\n"
 
 Bubbles::StrictPreprocessor.new(File.open(filename)).result

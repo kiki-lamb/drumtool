@@ -27,6 +27,9 @@ module DrumTool
       	   StripBlankLinesAndTrailingWhitespace,
       	   ExtendBlockComments,
       	   StripBlankLinesAndTrailingWhitespaceAndComments,
+					 StripBetweenHEADMarkerAndBOFMarker,
+					 StripBeforeBOFMarker,
+					 StripAfterEOFMarker,
       	   RubifyArgumentsAndExpandAbbreviations,
       	   RubifyPythonesqueBlocks,
       	   :objectify
