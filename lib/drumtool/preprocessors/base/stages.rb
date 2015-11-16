@@ -7,30 +7,12 @@ module DrumTool
 	        def untabify text
 	          text.gsub /\t/m, '  '       
 	        end
+
+				  def procify text
+				    "Proc.new {\n#{text}\n}"
+				  end
+
 				end
-
-	      def pad_number num, siz = 4
-	        num.to_s.rjust siz, "0" 
-	      end
-
-
-				def objectify
-				  self.text =  "Models::Basic.build(&#{text})"
-				end
-
-				def procify
-				  self.text =  "Proc.new {\n#{text}\n}"
-				end
-
-	      def log_separator
-	        log "=" * 80
-	      end
-
-	      def log_text
-	        text.lines.each_with_index do |line, index|
-	          log "#{pad_number index} #{line}"
-	        end
-	      end
 
 	      PatBlockArgs = /(?:\|.+\|\s*\n$)/
 	      PatName = /(?:[a-z][a-z0-9_]*)/

@@ -29,15 +29,11 @@ module DrumTool
            strip_blank_lines_and_trailing_whitespace_and_comments
            rubify_arguments_and_expand_abbreviations
            rubify_pythonesque_blocks
-           procify
            objectify			
 				}
 
-			def procify
-			end
-
 			def objectify
-			    self.text =  "self.class.include DrumTool::Models\nBubbles.track do \n#{text}\nend"
+			  self.text = "self.class.include DrumTool::Models\nBubbles.track do \n#{text}\nend"
 			end
 		end
 	end
