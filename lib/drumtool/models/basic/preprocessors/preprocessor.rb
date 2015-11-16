@@ -3,6 +3,8 @@ module DrumTool
 		module Basic
 		  module Preprocessors
     		class Preprocessor < DrumTool::Preprocessors::Base
+				  include Stages
+
     		  abbreviate %i{
     		    flip
     		    instrument
@@ -34,11 +36,7 @@ module DrumTool
     		     RubifyArgumentsAndExpandAbbreviations,
     		     RubifyPythonesqueBlocks,
     		     Procify,
-    		     :objectify
-
-    		  def objectify
-    		    self.text =  "Models::Basic.build(&#{text})"
-    		  end
+						 ObjectifyAsBasic
 				end
 			end
 		end
