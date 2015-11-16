@@ -14,7 +14,6 @@ module DrumTool
 				  elsif pp.class.respond_to? name
 					  pp.class.send name, *a
 					else
-					  puts "#{self} MISSING: #{name}"
 					  super
 					end
 				end
