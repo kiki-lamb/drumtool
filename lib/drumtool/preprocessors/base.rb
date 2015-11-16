@@ -10,10 +10,6 @@ module DrumTool
 					  new(text).result
 					end
 					
-					def thesaurus
-					  @thesaurus ||= Thesaurus.new
-					end
-
 					def stages *stages_
 					  stages_ = Array [*stages_].flatten 1 if stages_
 
@@ -25,9 +21,6 @@ module DrumTool
 					def abbreviate *a, **o
 					  raise ArgumentError, "Use 'synonymize' to add synonyms." unless o.empty?
 					  a = Array [*a].flatten 1 if a.any?
-
-						puts "#{name} A is `#{a.inspect}'"
-
 					  thesaurus.abbreviate *a
 					end
 
@@ -38,6 +31,11 @@ module DrumTool
 
 					def expand name
 					  thesaurus[name]
+					end
+
+					private
+					def thesaurus
+					  @thesaurus ||= Thesaurus.new
 					end
 				end
 												
