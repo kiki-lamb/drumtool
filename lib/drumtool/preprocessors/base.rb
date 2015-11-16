@@ -2,6 +2,7 @@ module DrumTool
 	module Preprocessors
 	  class Base
    		include Logging
+			include Stages
 			extend Helpers
 
 			class << self
@@ -38,7 +39,11 @@ module DrumTool
 
 				private
 				def thesaurus
-				  @thesaurus ||= Thesaurus.new
+				  @thesaurus ||= begin 
+					  t = Thesaurus.new
+						puts "#{self} made #{t}"
+					  t
+					end
 				end
 			end
 											

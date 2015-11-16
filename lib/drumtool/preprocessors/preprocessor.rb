@@ -1,8 +1,6 @@
 module DrumTool
   module Preprocessors
     class Preprocessor < Base
-		  include Stages
-
       abbreviate %i{
         flip
         instrument
