@@ -120,8 +120,6 @@ module DrumTool
 	        PatRangeExact = /^#{PatRange}$/
 	        PatModulo = /(?:%#{PatIntOrHex})/
 	        PatModuloExact = /^#{PatModulo}$/
-	#        PatHexModulo = /(?:%#{PatHex})/
-	#        PatHexModuloExact = /^#{PatHexModulo}$/
 	        PatArg = /#{PatRange}|#{PatIntOrHex}|#{PatModulo}|#{PatName}/
 	        PatSimpleExpr = /^\s*(#{PatName})\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/
 	      
