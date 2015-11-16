@@ -11,13 +11,13 @@ scale 1
 scale 1
  i bd 36
   when %x5
-	lp 0x08
+  lp 0x08
   
  i ch 41
   on %1
   not 2
-	lp x4
-	mu 
+  lp x4
+  mu 
 
  i oh 39
   sh 2
@@ -25,14 +25,14 @@ scale 1
 
  i sd 37  
   rot 4
-	scale -1
+  scale -1
   when %8 
 
 scale 3
  i bs 40
   lp x10
-	sh 2
-	on %5
+  sh 2
+  on %5
 
   
 
@@ -42,7 +42,7 @@ lp x20
 #   on { 0 != t%6 && 0 == t%2 }
    sh 2
    when %5
-	 lp 8
+   lp 8
 
 i s2 47
  lp x20
