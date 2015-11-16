@@ -1,7 +1,6 @@
 module DrumTool
 	module Preprocessors
-	  class Base
-	  	class << self			  
+	  module StageHelpers
 	    	PatBlockArgs = /(?:\|.+\|\s*\n$)/
 	    	PatName = /(?:[a-z][a-z0-9_]*)/
 	    	PatNameExact = /^#{PatName}$/
@@ -48,33 +47,34 @@ module DrumTool
 	    	  [ Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip ]
 	    	end 
 
-	    	def disassemble_line line
+	    	def disassemble_line pp, line
 	    	  indent, body, block_args = *partially_disassemble_line(line)
 
 	    	  if PatSimpleExpr.match body
-	    	    log "  Parsed simple expr: #{Regexp.last_match.inspect[12..-2]}"
+	    	    pp.log "  Parsed simple expr: #{Regexp.last_match.inspect[12..-2]}"
 
 	    	    name, args = expand(Regexp.last_match[1]), (Regexp.last_match[2] || "").split(/\s+/).map do |arg|
 	    	      rubify_arg arg
 	    	    end
 	    	  else
-	    	    log "  Parse complex expr: `#{body}'"         
+	    	    pp.log "  Parse complex expr: `#{body}'"         
 	    	    body = "#{Regexp.last_match[1]}#{expand Regexp.last_match[2]}#{Regexp.last_match[3]}" if /^(\s*)(#{PatName})(.*)$/.match body             
 						body.sub! /trigger\s+{(?!\s*\|t\|)/,  "trigger Proc.new { |t| "
 	    	    name, args = body, []
 	    	  end  
 	    	  
 	    	  toks = [ indent, name, args, block_args ]
-	    	  log "  Tokens: #{toks.inspect}"
+	    	  pp.log "  Tokens: #{toks.inspect}"
 	    	  toks
 	    	end
 
 	    	def reassemble_line indent, name, args, block_args
 	    	  tmp = "#{indent}#{name}#{args.empty?? "" : "(#{args.join ', '})"}#{" #{block_args.strip}" unless block_args.empty?}\n"
-	    	  log "  Reassembled: `#{tmp.chomp}'"
+	    	  pp.log "  Reassembled: `#{tmp.chomp}'"
 	    	  tmp
 	    	end
+
       end
 		end
 	end
-end
+

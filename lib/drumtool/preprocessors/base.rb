@@ -2,6 +2,7 @@ module DrumTool
 	module Preprocessors
 	  class Base
    		include Logging
+			extend Helpers
 
 			class << self
 				def call text
@@ -62,19 +63,21 @@ module DrumTool
 	      @result ||= begin
 					text << "\n"
 
-	      	self.class.stages.each do |sym|
+	      	self.class.stages.each do |obj|
 	      	    log_separator
-	      	    log "#{self.class.name} performing step: #{sym}"
+	      	    log "#{self.class.name} performing step: #{obj}"
 	      	    log_separator
 	      	    
-							if respond_to? sym
-							  send sym
+							if Module === obj
+							  self.text = obj.call self
+							elsif respond_to? obj
+							  send obj
 							else
-							  self.text = self.class.send sym, text
+							  self.text = self.class.send obj, text
 							end
 
 	      	    log_separator
-	      	    log "#{self.class.name}'s text after performing step: #{sym}"
+	      	    log "#{self.class.name}'s text after performing step: #{obj}"
 	      	    log_separator
 	      	    log_text
 	      	end           
