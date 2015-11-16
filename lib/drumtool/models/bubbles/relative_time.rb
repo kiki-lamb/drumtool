@@ -1,7 +1,7 @@
 module DrumTool
 	module Models
 		class Bubbles
-		  class RelativeTimeline < Instant
+		  class RelativeTime < Instant
 
 			  bubble_attr :loop, default: nil
 				adding_bubble_attr :rotate
