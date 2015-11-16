@@ -1,8 +1,8 @@
 module DrumTool
 	module Preprocessors
-	  class Base
-		  class << self			  
-	    	def strip_blank_lines_and_trailing_whitespace_and_comments text
+	  module Stages
+		  class StripBlankLinesAndTrailingWhitespaceAndComments < Base
+	    	def call
 	    	  text.gsub /(?:\s*(?:#[^\n]*)?\n)+/m, "\n"
 	    	end
 			end

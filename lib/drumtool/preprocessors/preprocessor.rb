@@ -23,9 +23,9 @@ module DrumTool
 
 			stages \
 				 Untabify,
-         :strip_blank_lines_and_trailing_whitespace,
-         :extend_block_comments,
-         :strip_blank_lines_and_trailing_whitespace_and_comments,
+         StripBlankLinesAndTrailingWhitespace,
+         ExtendBlockComments,
+         StripBlankLinesAndTrailingWhitespaceAndComments,
          RubifyArgumentsAndExpandAbbreviations,
          RubifyPythonesqueBlocks,
          Procify,

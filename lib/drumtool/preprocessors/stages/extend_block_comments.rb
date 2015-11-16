@@ -2,9 +2,9 @@ require "stringio"
 
 module DrumTool
 	module Preprocessors
-	  class Base
-		  class << self			  
-	    	def extend_block_comments text
+	  module Stages
+		  class ExtendBlockComments < Base
+	    	def call
 	    	  o = StringIO.new
 	    	  waiting_for_indent = nil
 	    	  
