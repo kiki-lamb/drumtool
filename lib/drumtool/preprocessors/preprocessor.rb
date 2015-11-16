@@ -13,49 +13,30 @@ module DrumTool
 					attr_accessor :abbreviations
 				end
 
-				@abbreviations = {
-	      	"refr" => "refresh_interval",
-	      	"ref" => "refresh_interval",
 
-	      	"no" => "untrigger",
-	      	"not" => "untrigger",
-	      	"ex" => "untrigger",
-	      	"exc" => "untrigger",
-	      	"except" => "untrigger",
-	      	"excl" => "untrigger",
-	      	"exclude" => "untrigger",
-
-	      	"sc" => "scale",
-	      	"sca" => "scale",
-	      	"scl" => "scale",
-
-	      	"rep" => "repeat",
-	      	"rp" => "repeat", 
-
-	      	"when" => "trigger",
-	      	"on" => "trigger",
-	      	"tr" => "trigger",
-	      	"trig" => "trigger",
-
-	      	"inst" => "instrument",
-	      	"ins" => "instrument",
-	      	"i" => "instrument",
-	      	"n" => "instrument",
-
-	      	"rot" => "rotate",
-
-	      	"sh" => "shift",
-
-	      	"lp" => "loop",
-	      	"scp" => "loop",
-	      	"scope" => "loop",
-
-	      	"mu" => "mute",
-
-	      	"fl" => "flip",
-	      	"f" => "flip"
-	      }
-				
+				@abbreviations = Thesaurus.new(
+				  "refresh_interval",
+					"untrigger",
+					"scale",
+					"repeat",
+					"trigger",
+					"instrument",
+					"rotate",
+					"shift",
+					"loop",
+					"scale",
+					"instrument",
+					"mute",	
+					"flip",
+					not: "untrigger",
+					except: "untrigger",
+					exclude: "untrigger",
+					when: "trigger",
+					on: "trigger",
+					lp: "loop",
+					scp: "loop",
+			  )																				
+								
 				attr_accessor :text
 
 				def initialize text = ""
@@ -173,7 +154,7 @@ module DrumTool
 	      end 
 
 	      def expand name 
-	        self.class.abbreviations.include?(name) ? self.class.abbreviations[name] : name
+	        self.class.abbreviations[name] || name
 	      end
 
 	      def disassemble_line line

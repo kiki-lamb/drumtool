@@ -7,7 +7,7 @@ module DrumTool
 
 			attr_accessor :min_length, :strict
 
-			def initialize *abbreviables, min_length: 2, strict: false, **synonyms
+			def initialize *abbreviables, min_length: 1, strict: false, **synonyms
 				self.min_length = min_length
 				self.strict = strict
 
