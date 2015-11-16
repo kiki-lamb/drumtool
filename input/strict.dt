@@ -1,12 +1,13 @@
 lp  0x80
 bpm 112
 ref 0x08
-HEAD
+
+
 p #mu
   n bd 36
   when %xa
   lp x10
-EOF
+EOF # Stop here
 p
   n ch 41
   on %2
