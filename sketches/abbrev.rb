@@ -1,24 +1,48 @@
 require './lib/drumtool'
-require 'set'
 
 class Thesaurus
 	include Logging
 
-	attr_accessor :min_length, :lookup_syms, :return_syms
+	class Ambiguous < Exception; end
 
-	def initialize *abbreviables, min_length: 2, lookup_syms: false, return_syms: false, **synonyms
+	attr_accessor :min_length, :strict
+
+	def initialize *abbreviables, min_length: 2, strict: false, **synonyms
 		self.min_length = min_length
-		self.lookup_syms = lookup_syms
-		self.return_syms = return_syms
+		self.strict = strict
 
 		@table = Hash.new
 
-	  add *abbreviables, **synonyms
+	  abbreviate *abbreviables, **synonyms
 	end	
 
-	def add *args, **opts
+	def synonym **opts
+	  abbreviate **opts
+	end
+
+	def abbreviate *args, **opts
 		safe_merge! ary_to_h args
 		safe_merge! opts
+	end
+
+	def [] abr
+	  abr = abr.to_s
+		return nil if abr.length < min_length
+
+		candidates = @table.select do |key|
+		  key.start_with? abr
+		end
+		
+		return nil if candidates.none?
+
+		unless candidates.one?
+			raise AmbiguousLookup, "`#{abr}' is ambiguous" if strict
+			return nil
+		end
+
+		word, synonym = *candidates.first
+
+		synonym || word
 	end
 
 	private
@@ -27,9 +51,9 @@ class Thesaurus
 	end
 
 	def stringify_h h
-	  h.map do |k,v|
-		  { k.to_s => v.to_s }
-		end.reduce(:merge)
+	  Hash[h.map do |k,v|
+		  [ k.to_s, v ? v.to_s : v ]
+		end]
 	end
 
 	def safe_merge! hash
@@ -41,5 +65,7 @@ end
 
 Thesaurus.log_to $stdout
 
-t = Thesaurus.new "refresh", "trigger", on: "trigger"
+t = Thesaurus.new "refresh", "trigger", "restore", on: "trigger", thing: "object"
 puts t.instance_eval { @table }.inspect
+
+puts "THIS: #{t["re"]}"
