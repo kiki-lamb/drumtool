@@ -5,7 +5,7 @@ include DrumTool
 
 Preprocessors::StricterBubblePreprocessor.log_to "output/preprocessor", $stdout
 
-puts Preprocessors::StricterBubblePreprocessor.new(File.open("input/strict.dt")).result
+Preprocessors::StricterBubblePreprocessor.new(File.open("input/strict.dt")).result
 
 
 
