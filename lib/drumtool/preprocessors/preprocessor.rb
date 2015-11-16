@@ -11,7 +11,9 @@ module DrumTool
           :scale,
           :shift,
           :trigger,
-          :untrigger,
+          :untrigger
+
+				synonymize \
           loop: :scope,
           trigger: [ :when, :on ],
           untrigger: [ :not, :except, :exclude ]

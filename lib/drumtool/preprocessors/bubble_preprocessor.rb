@@ -14,7 +14,9 @@ module DrumTool
         :scale,
         :shift,
 				:trigger,
-				:untrigger,
+				:untrigger
+
+			synonymize \
         bubble: [:pattern, :part, :scope],
         trigger: [ :when, :on ],
         untrigger: [ :not, :except, :exclude ]

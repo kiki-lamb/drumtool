@@ -66,8 +66,8 @@ module DrumTool
 			end
 
 			def safe_merge! hash
-			  @table.merge! stringify_h(hash) do |k|
-				  raise ArgumentError, "`#{k}' already defined."
+			  @table.merge! stringify_h(hash) do |k, o|
+				  raise ArgumentError, "`#{k}' already defined." unless o.nil?
 				end
 			end
 		end
