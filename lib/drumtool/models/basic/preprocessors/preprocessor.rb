@@ -3,6 +3,11 @@ module DrumTool
     module Basic
       module Preprocessors
         class Preprocessor < DrumTool::Preprocessors::Base
+
+          # This class will read old style .dt files (scopes started by 'instrument' calls).
+          # Making it read .dt2 files (scopes started by '>') would be a bit of a pain in the ass,
+          # so I may not bother. -KL          
+
           include Stages
 
           abbreviate %i{
@@ -30,7 +35,7 @@ module DrumTool
              NormalizeFullLineComments,
              StripBlankLinesAndTrailingWhitespaceAndComments,
              RubifyArgumentsAndExpandAbbreviations,
-             DumberRubifyPythonesqueBlocks.new(scope_method: :loop, require_prefix: true),
+             RubifyPythonesqueBlocks,
              Procify,
              Objectify
         end
