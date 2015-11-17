@@ -30,7 +30,7 @@ module DrumTool
              NormalizeFullLineComments,
              StripBlankLinesAndTrailingWhitespaceAndComments,
              RubifyArgumentsAndExpandAbbreviations,
-             RubifyPythonesqueBlocks,
+             DumberRubifyPythonesqueBlocks,
              Procify,
              Objectify
         end

@@ -1,6 +1,6 @@
 module DrumTool
 	module Preprocessors
-	  module StageHelpers
+	  module Helpers
 	    	PatBlockArgs = /(?:\|.+\|\s*\n$)/
 	    	PatName = /(?:[a-z][a-z0-9_]*)/
 	    	PatNameExact = /^#{PatName}$/

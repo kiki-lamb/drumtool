@@ -2,7 +2,7 @@ module DrumTool
 	module Preprocessors
 	  module Stages
 		  class RubifyPythonesqueBlocks < Base
-			  include StageHelpers
+			  include Helpers
         class IndentationError < Exception; end
         
 	    	def call
@@ -10,7 +10,6 @@ module DrumTool
 	    	  prev_indents = [ 0 ]
 
 	    	  lines.each_with_index do |line, index|
-            cline = line
 	    	    indent = partially_disassemble_line(line).first
 	    	    log "#{pad_number index} #{pad_number prev_indents.last, 2}->#{pad_number indent.length, 2} #{line.chomp}"
 

@@ -2,7 +2,7 @@ module DrumTool
 	module Preprocessors
 	  module Stages
 		  class RubifyArgumentsAndExpandAbbreviations < Base
-			  include StageHelpers
+			  include Helpers
 
 	    	def call
 	    	  lines = text.lines
