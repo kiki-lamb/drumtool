@@ -12,8 +12,9 @@ module DrumTool
           [ Regexp.last_match[1], Regexp.last_match[2], Regexp.last_match[3] ]
         end
 
-        def initialize require_prefix: nil
+        def initialize scope_method: :bubble, require_prefix: nil
           @require_prefix = require_prefix
+          @scope_method = scope_method
         end
         
 	    	def call
@@ -32,7 +33,7 @@ module DrumTool
               
 	    	      log "#{pad_number index}        Blockify prior line `#{prior[1].chomp}'."
 
-              half_lines.push [ index - 1.5, "#{prior[2]}bubble do \n" ]
+              half_lines.push [ index - 1.5, "#{prior[2]}#{@scope_method} do \n" ]
 	    	      lines[index-1][1] = "#{indent}#{prior[4]}\n"
 
 	    	      prev_indents.push indent.length

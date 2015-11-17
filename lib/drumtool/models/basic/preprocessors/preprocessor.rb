@@ -30,7 +30,7 @@ module DrumTool
              NormalizeFullLineComments,
              StripBlankLinesAndTrailingWhitespaceAndComments,
              RubifyArgumentsAndExpandAbbreviations,
-             RubifyPythonesqueBlocks,
+             DumberRubifyPythonesqueBlocks.new(scope_method: :loop, require_prefix: true),
              Procify,
              Objectify
         end
