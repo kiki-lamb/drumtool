@@ -13,11 +13,7 @@ module DrumTool
 				end
 
 				def locate base_time     
-				  e_time = (base_time * (2**(-scale))).to_f
-					e_time -= rotate
-					e_time %= loop if loop
-					e_time -= shift
-					e_time #.tap { |x| puts "#{self} locates #{base_time} at #{x}" }
+				  ((base_time.to_f * 2**-scale) - rotate) % (loop || base_time +1 ) - shift
 				end
 
 				private
