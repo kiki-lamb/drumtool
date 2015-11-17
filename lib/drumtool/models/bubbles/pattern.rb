@@ -5,15 +5,7 @@ module DrumTool
 			  include Triggered
 				include Events				
 			  include Notes
-
-				def events
-					active? ? super : []
-				end
-				
-				private				
-				def local_events
-				  notes_a
-				end
+			  include PatternBehaviour
 		  end
 		end
   end

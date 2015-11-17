@@ -2,13 +2,7 @@ module DrumTool
 	module Models
 		class Bubbles
 		  class Instant < Base
-			  def time
-				  0
-				end
-
-			  def locate t
-				  time
-				end
+        include InstantBehaviour
 			end
 		end
 	end

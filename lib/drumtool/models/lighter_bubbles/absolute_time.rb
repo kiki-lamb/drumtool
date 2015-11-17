@@ -1,13 +1,8 @@
 module DrumTool
 	module Models
 		class LighterBubbles
-		  class AbsoluteTimeline < Instant
-		    counter_bubble_attr :time
-
-				def initialize *a, &b
-				  time 0
-					super nil, *a, &b
-				end
+		  class AbsoluteTime < Instant
+        include Bubbles::AbsoluteTimeBehaviour
 		  end
 		end
 	end

@@ -2,13 +2,7 @@ module DrumTool
 	module Models
 		class LighterBubbles
 		  class Instant < Base
-			  def time
-				  0
-				end
-
-			  def locate t
-				  time
-				end
+        include Bubbles::InstantBehaviour
 			end
 		end
 	end

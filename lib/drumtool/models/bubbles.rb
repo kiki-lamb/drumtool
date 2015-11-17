@@ -7,7 +7,7 @@ module DrumTool
         end
 
         def timeline *a, &b
-          AbsoluteTimeline.new *a, &b
+          AbsoluteTime.new *a, &b
         end
       end
     end
