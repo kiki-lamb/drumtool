@@ -1,45 +1,45 @@
 module DrumTool
   module Models
-	  class Bubbles
-		  module Preprocessors
-    		class Preprocessor < DrumTool::Preprocessors::Base		
-				  include Stages
+    class Bubbles
+      module Preprocessors
+        class Preprocessor < DrumTool::Preprocessors::Base    
+          include Stages
 
-    		  abbreviate %i{
-    		    bubble
-    		    flip
-    		    instrument
-    		    loop
-    		    mute!
-    		    note
-    		    refresh_interval
-    		    rotate
-    		    scale
-    		    shift
-						trigger
-						untrigger
-					}
+          abbreviate %i{
+            bubble
+            flip
+            instrument
+            loop
+            mute!
+            note
+            refresh_interval
+            rotate
+            scale
+            shift
+            trigger
+            untrigger
+          }
 
-					synonymize \
-    		    bubble: [:pattern, :part, :scope],
-    		    trigger: [ :when, :on ],
-    		    untrigger: [ :not, :except, :exclude ]
+          synonymize \
+            bubble: [:pattern, :part, :scope],
+            trigger: [ :when, :on ],
+            untrigger: [ :not, :except, :exclude ]
 
-					stages \
-						 Untabify,
-      		   StripBlankLinesAndTrailingWhitespaceAndComments,
-						 StripBetweenHEADMarkerAndBOFMarker,
-						 StripBeforeBOFMarker,
-						 StripBetweenEOFMarkerAndTAILMarker,
-						 StripAfterEOFMarker,
-    		     ExtendBlockComments,
-    		     StripBlankLinesAndTrailingWhitespaceAndComments,
-    		     RubifyArgumentsAndExpandAbbreviations,
-    		     RubifyPythonesqueBlocks,
-	    		   StripBlankLinesAndTrailingWhitespace,
-						 Objectify
-				end
-			end
-	  end
+          stages \
+             Untabify,
+             StripBlankLinesAndTrailingWhitespaceAndComments,
+             StripBetweenHEADMarkerAndBOFMarker,
+             StripBeforeBOFMarker,
+             StripBetweenEOFMarkerAndTAILMarker,
+             StripAfterEOFMarker,
+             ExtendBlockComments,
+             StripBlankLinesAndTrailingWhitespaceAndComments,
+             RubifyArgumentsAndExpandAbbreviations,
+             RubifyPythonesqueBlocks,
+             StripBlankLinesAndTrailingWhitespace,
+             Objectify
+        end
+      end
+    end
   end
 end
