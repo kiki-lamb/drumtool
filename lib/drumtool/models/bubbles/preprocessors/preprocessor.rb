@@ -8,7 +8,6 @@ module DrumTool
           abbreviate %i{
             bubble
             flip
-            instrument
             loop
             mute!
             note
@@ -22,6 +21,7 @@ module DrumTool
 
           synonymize \
             bubble: [:pattern, :part, :scope],
+            note: :instrument,
             trigger: [ :when, :on ],
             untrigger: [ :not, :except, :exclude ]
 
@@ -31,9 +31,9 @@ module DrumTool
              NormalizeFullLineComments,
              StripBlankLinesAndTrailingWhitespaceAndComments,
              RubifyArgumentsAndExpandAbbreviations,
-             DumberRubifyPythonesqueBlocks.new(require_prefix: ">")#,
-#             StripBlankLinesAndTrailingWhitespace,
-#             Objectify
+             DumberRubifyPythonesqueBlocks.new(require_prefix: true),
+             StripBlankLinesAndTrailingWhitespace,
+             Objectify
         end
       end
     end

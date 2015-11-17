@@ -5,7 +5,6 @@ module DrumTool
 			  include Triggered
 				include Events				
 			  include Notes
-				include LanguageHelper
 
 				def events
 					active? ? super : []

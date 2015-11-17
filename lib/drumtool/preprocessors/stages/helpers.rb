@@ -42,7 +42,7 @@ module DrumTool
 
 	    	def partially_disassemble_line line
 	    	  line << "\n" unless line[-1] == "\n"
-	    	  /(\s*)((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match line
+	    	  /(\s*>?\s*)((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match line
 
 	    	  [ Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip ]
 	    	end 

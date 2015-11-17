@@ -3,7 +3,6 @@ module DrumTool
 		class Bubbles
 		  class Track < RelativeTime
 				include Events
-				include LanguageHelper
 
 		    bubble_attr :refresh_interval, default: 16
 		    bubble_attr :bpm, default: 112
