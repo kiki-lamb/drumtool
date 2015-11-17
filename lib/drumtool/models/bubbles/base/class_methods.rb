@@ -73,7 +73,7 @@ module DrumTool
 	   	     define_method singular do |v, &b|
 					   if b
 						   raise ArgumentError, "Not scopable" unless scopable
-						 	 selxof.class.bubble_scope self, singular, v, &b
+						 	 self.class.bubble_scope self, singular, v, &b
 						 else
 	   	         send(name).tap do |a|
 	   	           exists = a.include? v
@@ -119,7 +119,7 @@ module DrumTool
 	   	     bubble_attr name, default: default, accessor: "local_#{name}", &after
 
 		 				# Getter
-	   	     define_method name do |v = nil|
+	   	     define_method name do |v = nil, &b|
 					   if b
 						   self.class.bubble_scope self, name, v, &b
 						 else
@@ -151,8 +151,8 @@ module DrumTool
 	   	   	   bubble_toggle name, getter_name: "local_#{name}", &after
 
 		 		 	 # Getter
-	   	   	 define_method "#{name}?" do |v = nil|
-	   	   	   send("local_#{name}?") || 
+	   	   	 define_method "#{name}?" do |v = nil, &b|
+	   	   	   send("local_#{name}?", &b) || 
 	   	   	   ( parent && parent.respond_to?("#{name}?") && parent.send("#{name}?"))
 	   	   	 end
 	   	    end
