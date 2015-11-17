@@ -48,7 +48,7 @@ module DrumTool
 	   	     end
 	   	   end
 
-	   	   def array_bubble_attr name, singular: name.to_s.sub(/s$/, ""), uniq: false, scopable: true, &after
+	   	   def array_bubble_attr name, singular: name.to_s.sub(/s$/, ""), &after
 	   	     bubble_attr "#{name}_array", default: nil
 
 		 				# Getter
@@ -66,7 +66,7 @@ module DrumTool
 	   	     end if singular
 	   	   end
 
-	   	   def hash_bubble_attr name, singular: name.to_s.sub(/s$/, ""), flip: false, permissive: false, uniq: false, &after
+	   	   def hash_bubble_attr name, singular: name.to_s.sub(/s$/, ""), flip: false, permissive: false, &after
 	   	     bubble_attr "#{name}_hash", default: nil
 
 	   	     raise ArgumentError, "permissive can only be used with flip" if permissive && ! flip

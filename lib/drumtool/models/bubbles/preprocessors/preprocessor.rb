@@ -27,6 +27,7 @@ module DrumTool
 
           stages \
              Untabify,
+             NormalizeFullLineComments,
              StripBlankLinesAndTrailingWhitespaceAndComments,
              StripBetweenHEADMarkerAndBOFMarker,
              StripBeforeBOFMarker,
