@@ -26,14 +26,9 @@ module DrumTool
             untrigger: [ :not, :except, :exclude ]
 
           stages \
+             Splitify,
              Untabify,
-             StripBetweenHEADMarkerAndBOFMarker,
-             StripBeforeBOFMarker,
-             StripBetweenEOFMarkerAndTAILMarker,
-             StripAfterEOFMarker,
              NormalizeFullLineComments,
-             StripBlankLinesAndTrailingWhitespaceAndComments,
-             ExtendBlockComments,
              StripBlankLinesAndTrailingWhitespaceAndComments,
              RubifyArgumentsAndExpandAbbreviations,
              RubifyPythonesqueBlocks,

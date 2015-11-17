@@ -3,12 +3,14 @@ module DrumTool
 	  module Stages
 		  class RubifyPythonesqueBlocks < Base
 			  include StageHelpers
-
+        class IndentationError < Exception; end
+        
 	    	def call
 	    	  lines = text.lines
 	    	  prev_indents = [ 0 ]
 
 	    	  lines.each_with_index do |line, index|
+            cline = line
 	    	    indent = partially_disassemble_line(line).first
 	    	    log "#{pad_number index} #{pad_number prev_indents.last, 2}->#{pad_number indent.length, 2} #{line.chomp}"
 
@@ -25,7 +27,8 @@ module DrumTool
 	    	      log "#{pad_number index}        Leave block"
 
 	    	      while prev_indents.last != indent.length
-	    	        begin 
+	    	        begin                  
+                  raise IndentationError, "Bad outdent on line ##{index}" if prev_indents[-2].nil?
 	    	          lines[index-1] << "#{" " * prev_indents[-2]}end\n"
 	    	        rescue ArgumentError
 	    	          raise RuntimeError, "Bad unindent."

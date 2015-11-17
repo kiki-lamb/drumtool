@@ -25,14 +25,9 @@ module DrumTool
             instrument: :note
 
           stages \
+             Splitify,
              Untabify,
-             StripBetweenHEADMarkerAndBOFMarker,
-             StripBeforeBOFMarker,
-             StripBetweenEOFMarkerAndTAILMarker,
-             StripAfterEOFMarker,
              NormalizeFullLineComments,
-             StripBlankLinesAndTrailingWhitespaceAndComments,
-             ExtendBlockComments,
              StripBlankLinesAndTrailingWhitespaceAndComments,
              RubifyArgumentsAndExpandAbbreviations,
              RubifyPythonesqueBlocks,

@@ -3,7 +3,7 @@ module DrumTool
 	  module Stages
 		  class StripBeforeBOFMarker < Base
 		    def call
-				  text.gsub /.*\nBOF\s*\n/m, ""
+				  text.gsub /.*\n#BOF\s*\n/m, ""
 	      end
 			end
 		end

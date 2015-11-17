@@ -3,7 +3,7 @@ module DrumTool
 	  module Stages
 		  class StripBetweenEOFMarkerAndTAILMarker < Base
 		    def call
-				  text.gsub /(?<=\n)EOF\s*\n.*(?<=\n)TAIL\s*\n/m, ""
+				  text.gsub /(?<=\n)#EOF\s*\n.*(?<=\n)#TAIL\s*\n/m, ""
 	      end
 			end
 		end
