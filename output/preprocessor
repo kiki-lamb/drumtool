@@ -146,10 +146,10 @@ DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after pe
 0041   lp 0x10
 0042   sh 2
 ================================================================================
-DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step: #<DrumTool::Preprocessors::Stages::StripBlankLinesAndTrailingWhitespaceAndComments:0x007f9172133458>
+DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step: #<DrumTool::Preprocessors::Stages::StripBlankLinesAndTrailingWhitespaceAndComments:0x007ff45c83b0c8>
 ================================================================================
 ================================================================================
-DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after performing step: #<DrumTool::Preprocessors::Stages::StripBlankLinesAndTrailingWhitespaceAndComments:0x007f9172133458>
+DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after performing step: #<DrumTool::Preprocessors::Stages::StripBlankLinesAndTrailingWhitespaceAndComments:0x007ff45c83b0c8>
 ================================================================================
 0000 lp  0x20
 0001 bpm 112
@@ -470,7 +470,7 @@ DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after pe
 0040   loop(0x10)
 0041   shift(2)
 ================================================================================
-DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::DumberRubifyPythonesqueBlocks:0x007f9172133200>
+DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::DumberRubifyPythonesqueBlocks:0x007ff45c83aa60>
 ================================================================================
 0000 00->00 loop(0x20)
 0001 00->00 bpm(112)
@@ -536,7 +536,7 @@ DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step
 0040 02->02   loop(0x10)
 0041 02->02   shift(2)
 ================================================================================
-DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::DumberRubifyPythonesqueBlocks:0x007f9172133200>
+DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::DumberRubifyPythonesqueBlocks:0x007ff45c83aa60>
 ================================================================================
 0000 loop(0x20)
 0001 bpm(112)
@@ -607,10 +607,10 @@ DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after pe
 0066   shift(2)
 0067 end
 ================================================================================
-DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::Objectify:0x007f9172132cd8>
+DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::Objectify:0x007ff45c83a970>
 ================================================================================
 ================================================================================
-DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::Objectify:0x007f9172132cd8>
+DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::Objectify:0x007ff45c83a970>
 ================================================================================
 0000 self.class.include DrumTool::Models
 0001 Bubbles::Standard.track do 
