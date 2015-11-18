@@ -13,7 +13,12 @@ module DrumTool
           
 				  def notes_a
 				    notes.to_a.map &:first
-				  end		    
+				  end
+
+          private				
+				  def local_events
+				    notes_a + super
+				  end          
 			  end
       end
 		end

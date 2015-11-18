@@ -146,10 +146,10 @@ DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after pe
 0041   lp 0x10
 0042   sh 2
 ================================================================================
-DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step: #<DrumTool::Preprocessors::Stages::StripBlankLinesAndTrailingWhitespaceAndComments:0x007f9a82030ad8>
+DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step: #<DrumTool::Preprocessors::Stages::StripBlankLinesAndTrailingWhitespaceAndComments:0x007fe77b039cf0>
 ================================================================================
 ================================================================================
-DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after performing step: #<DrumTool::Preprocessors::Stages::StripBlankLinesAndTrailingWhitespaceAndComments:0x007f9a82030ad8>
+DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after performing step: #<DrumTool::Preprocessors::Stages::StripBlankLinesAndTrailingWhitespaceAndComments:0x007fe77b039cf0>
 ================================================================================
 0000 lp  0x20
 0001 bpm 112
@@ -278,8 +278,8 @@ DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step
 0013     not 2
   Parsed simple expr: "not 2" 1:"not" 2:"2"
   Arg `2' is a IntOrHex: `2'
-  Tokens: ["    ", "not", ["2"], ""]
-  Reassembled: `    not(2)'
+  Tokens: ["    ", "note", ["2"], ""]
+  Reassembled: `    note(2)'
 0014     lp x4
   Parsed simple expr: "lp x4" 1:"lp" 2:"x4"
   Arg `x4' is a IntOrHex: `0x4'
@@ -440,7 +440,7 @@ DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after pe
 0010     loop(0x08)
 0011   > note(:ch, 41)
 0012     trigger((Proc.new { |t| t%1 }))
-0013     not(2)
+0013     note(2)
 0014     loop(0x4)
 0015     mute!
 0016   > note(:oh, 39)
@@ -470,7 +470,7 @@ DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after pe
 0040   loop(0x10)
 0041   shift(2)
 ================================================================================
-DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::DumberRubifyPythonesqueBlocks:0x007f9a82030880>
+DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::DumberRubifyPythonesqueBlocks:0x007fe77b039b10>
 ================================================================================
 0000 00->00 loop(0x20)
 0001 00->00 bpm(112)
@@ -492,7 +492,7 @@ DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step
 0011        Leave block
 0012 02->04     trigger((Proc.new { |t| t%1 }))
 0012        Blockify prior line `  > note(:ch, 41)'.
-0013 04->04     not(2)
+0013 04->04     note(2)
 0014 04->04     loop(0x4)
 0015 04->04     mute!
 0016 04->02   > note(:oh, 39)
@@ -536,7 +536,7 @@ DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step
 0040 02->02   loop(0x10)
 0041 02->02   shift(2)
 ================================================================================
-DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::DumberRubifyPythonesqueBlocks:0x007f9a82030880>
+DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::DumberRubifyPythonesqueBlocks:0x007fe77b039b10>
 ================================================================================
 0000 loop(0x20)
 0001 bpm(112)
@@ -559,7 +559,7 @@ DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after pe
 0018   bubble do 
 0019     note(:ch, 41)
 0020     trigger((Proc.new { |t| t%1 }))
-0021     not(2)
+0021     note(2)
 0022     loop(0x4)
 0023     mute!
 0024   end
@@ -607,10 +607,10 @@ DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after pe
 0066   shift(2)
 0067 end
 ================================================================================
-DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::Objectify:0x007f9a82030740>
+DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::Objectify:0x007fe77b039a20>
 ================================================================================
 ================================================================================
-DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::Objectify:0x007f9a82030740>
+DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after performing step: #<DrumTool::Models::Bubbles::Standard::Preprocessors::Stages::Objectify:0x007fe77b039a20>
 ================================================================================
 0000 self.class.include DrumTool::Models
 0001 Bubbles::Standard.track do 
@@ -635,7 +635,7 @@ DrumTool::Models::Bubbles::Standard::Preprocessors::Preprocessor's text after pe
 0020   bubble do 
 0021     note(:ch, 41)
 0022     trigger((Proc.new { |t| t%1 }))
-0023     not(2)
+0023     note(2)
 0024     loop(0x4)
 0025     mute!
 0026   end

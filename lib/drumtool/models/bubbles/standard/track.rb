@@ -2,10 +2,13 @@ module DrumTool
 	module Models
 		class Bubbles
       module Standard
-		    class Track < RelativeTime
+		    class Track < Base
+          include Traits::RelativeTime
 				  include Traits::Events
-          include Traits::Track
+          include Traits::Engine
           include Traits::NoteDisplay
+          
+          bubble_attr :child_type, default: Bubbles::Standard::Pattern
 		    end
       end
 		end

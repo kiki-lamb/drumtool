@@ -16,6 +16,10 @@ module DrumTool
 		    	end
 				end
 
+        def events
+					active? ? super : []
+				end
+
 		    def tick
 		      top.tick
 		    end
