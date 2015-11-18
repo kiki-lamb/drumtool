@@ -61,10 +61,10 @@ module DrumTool
 	    	    log "  Parse complex expr: `#{body}'"         
 	    	    body = "#{Regexp.last_match[1]}#{expand Regexp.last_match[2]}#{Regexp.last_match[3]}" if /^(\s*)(#{PatName})(.*)$/.match body             
 						body.sub! /trigger\s+{(?!\s*\|t\|)/,  "trigger Proc.new { |t| "
-	    	    name, args = body, []
+	    	    name, args = body.chomp, []
 	    	  end  
 	    	  
-	    	  toks = [ indent, name, args, block_args ]
+	    	  toks = [ indent.chomp, name, args, block_args ]
 	    	  log "  Tokens: #{toks.inspect}"
 	    	  toks
 	    	end
