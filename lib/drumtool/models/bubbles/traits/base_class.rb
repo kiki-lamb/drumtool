@@ -3,11 +3,6 @@ module DrumTool
 	  class Bubbles
       module Traits
 		  module BaseClass
-				  def bubble *a, &b
-	   	      o = new(*a)
-						o.build(&b)
-	   	   	end
-
 	   		  def bubble_attr name, default: 0, accessor: name, &after		 				
 						# Combined getter/setter
 	   	      define_method accessor do |v = nil|
