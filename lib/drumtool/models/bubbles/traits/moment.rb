@@ -2,7 +2,7 @@ module DrumTool
 	module Models
 		class Bubbles
       module Traits
-		  module Instant
+		  module Moment
 			  def time
 				  0
 				end

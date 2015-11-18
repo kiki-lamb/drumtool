@@ -2,7 +2,7 @@ module DrumTool
 	module Models
 		class Bubbles
       module Standard
-		    class AbsoluteTime < Instant
+		    class AbsoluteTime < Moment
           include Traits::AbsoluteTime
 		    end
       end
