@@ -2,24 +2,26 @@ module DrumTool
   module Models
 	  class Bubbles
       module Traits
-		  module Klass
+		    module Klass
 	   		  def bubble_attr name, default: 0, accessor: name, &after		 				
 						# Combined getter/setter
 	   	      define_method accessor do |v = nil|
-	   	         	(
-	   	         	  (
-	   	         	    instance_variable_set("@#{name}", v).tap do
-	   	         	      instance_exec(v, &after) if after
-	   	         	    end if v
-	   	         	  ) ||
-	   	         	  instance_variable_get("@#{name}") || 
-	   	         	  default
-	   	         	) 
+              if v
+                instance_variable_set("@#{name}", v).tap do
+	   	         	  instance_exec(v, &after) if after
+	   	          end
+              else
+                instance_variable_get("@#{name}") or begin
+                  instance_variable_set("@#{name}", (default.dup rescue default)).tap do
+	   	         	    instance_exec(v, &after) if after
+	   	            end
+                end
+              end
 	   	      end
-	   	   end
+	   	    end
 
-				 def adding_bubble_attr name, default: 0, accessor: name, &after
-				   bubble_attr "local_#{name}", default: default, &after
+          def adding_bubble_attr name, default: 0, accessor: name, &after
+				    bubble_attr "local_#{name}", default: default, &after
 
 					 # Adder-Setter
 	   	     define_method accessor do |v = nil|
@@ -62,7 +64,7 @@ module DrumTool
 	   	   end
 
 	   	   def hash_bubble_attr name, singular: name.to_s.sub(/s$/, ""), flip: false, permissive: false, &after
-	   	     bubble_attr "#{name}_hash", default: nil
+	   	     bubble_attr "#{name}_hash", default: {}
 
 	   	     raise ArgumentError, "permissive can only be used with flip" if permissive && ! flip
 
