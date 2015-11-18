@@ -9,7 +9,7 @@ module DrumTool
             # This class reads new style .dt2 files (scopes starte by '>').
             # If DumberRubifyPythonesqueBlocks stage were initialized with require_prefix = nil,
             # it would read old style .dt files (scopes started by 'instrument' calls).
-            
+
             abbreviate %i{
               bubble
               flip

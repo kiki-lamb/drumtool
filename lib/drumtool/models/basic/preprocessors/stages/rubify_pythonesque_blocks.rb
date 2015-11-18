@@ -2,51 +2,53 @@ module DrumTool
   module Models
 	  module Basic
 		  module Preprocessors
-		    class RubifyPythonesqueBlocks < DrumTool::Preprocessors::Stages::Base
-			    include DrumTool::Preprocessors::Stages::Helpers
-          class IndentationError < Exception; end
-          
-	    	  def call
-	    	    lines = text.lines
-	    	    prev_indents = [ 0 ]
+        module Stages
+		      class RubifyPythonesqueBlocks < DrumTool::Preprocessors::Stages::Base
+			      include DrumTool::Preprocessors::Stages::Helpers
+            class IndentationError < Exception; end
             
-	    	    lines.each_with_index do |line, index|
-	    	      indent = partially_disassemble_line(line).first
-	    	      log "#{pad_number index} #{pad_number prev_indents.last, 2}->#{pad_number indent.length, 2} #{line.chomp}"
+	    	    def call
+	    	      lines = text.lines
+	    	      prev_indents = [ 0 ]
               
-	    	      if prev_indents.last < indent.length
-	    	        prior = lines[index-1]
+	    	      lines.each_with_index do |line, index|
+	    	        indent = partially_disassemble_line(line).first
+	    	        log "#{pad_number index} #{pad_number prev_indents.last, 2}->#{pad_number indent.length, 2} #{line.chomp}"
                 
-	    	        log "#{pad_number index}        Blockify prior line `#{prior.chomp}'."
-	    	        pindent, pbody, pblock_args = *partially_disassemble_line(prior)
-                
-	    	        lines[index-1] = "#{pindent}#{pbody} do #{pblock_args}\n"
-                
+	    	        if prev_indents.last < indent.length
+	    	          prior = lines[index-1]
+                  
+	    	          log "#{pad_number index}        Blockify prior line `#{prior.chomp}'."
+	    	          pindent, pbody, pblock_args = *partially_disassemble_line(prior)
+                  
+	    	          lines[index-1] = "#{pindent}#{pbody} do #{pblock_args}\n"
+                  
 	    	        prev_indents.push indent.length
-	    	      elsif prev_indents.last > indent.length
-	    	        log "#{pad_number index}        Leave block"
-                
-	    	        while prev_indents.last != indent.length
-	    	          begin                  
-                    raise IndentationError, "Bad outdent on line ##{index}" if prev_indents[-2].nil?
-	    	            lines[index-1] << "#{" " * prev_indents[-2]}end\n"
-	    	          rescue ArgumentError
-	    	            raise RuntimeError, "Bad unindent."
+	    	        elsif prev_indents.last > indent.length
+	    	          log "#{pad_number index}        Leave block"
+                  
+	    	          while prev_indents.last != indent.length
+	    	            begin                  
+                      raise IndentationError, "Bad outdent on line ##{index}" if prev_indents[-2].nil?
+	    	              lines[index-1] << "#{" " * prev_indents[-2]}end\n"
+	    	            rescue ArgumentError
+	    	              raise RuntimeError, "Bad unindent."
+	    	            end
+	    	            prev_indents.pop
 	    	          end
-	    	          prev_indents.pop
 	    	        end
 	    	      end
+              
+	    	      while prev_indents.last != 0
+	    	        lines << "#{" " * (prev_indents[-2])}end\n"
+	    	        prev_indents.pop
+	    	      end
+              
+					    lines.join
 	    	    end
-            
-	    	    while prev_indents.last != 0
-	    	      lines << "#{" " * (prev_indents[-2])}end\n"
-	    	      prev_indents.pop
-	    	    end
-            
-					  lines.join
-	    	  end
-			  end
-		  end
-	  end
+			    end
+		    end
+	    end
+    end
   end
 end
