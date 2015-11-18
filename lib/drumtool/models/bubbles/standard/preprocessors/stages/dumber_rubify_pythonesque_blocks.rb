@@ -15,9 +15,11 @@ module DrumTool
                 [ Regexp.last_match[1], Regexp.last_match[2], Regexp.last_match[3] ]
               end
               
-              def initialize scope_method: :bubble, require_prefix: nil
+              def initialize p = nil, scope_method: :bubble, require_prefix: nil, enable_block_comments: false
                 @require_prefix = require_prefix
                 @scope_method = scope_method
+                @enable_block_comments = enable_block_comments
+                super p
               end
               
 	    	      def call
