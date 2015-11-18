@@ -52,7 +52,7 @@ module DrumTool
 			  @reload_interval,
 			  "#{unchanged_bars.to_i.to_s.rjust(2)} bars", 
 			  "T-#{countdown} bars",
-				"#{@last_reload_time.to_s[0..4].rjust(6)} ms",
+				"#{@last_reload_time.to_s[0..4].rjust(4)} ms",
 				*super,
         ("#{@reloader.exception_lines[@tick%(engine.loop || 16)].strip}" if @reloader.exception_lines.any?),
 			].compact

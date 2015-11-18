@@ -111,7 +111,7 @@ module DrumTool
 		end
 
 		def log_columns
-		  fill = @tick % 4 == 0 ? "--" : ". "
+		  fill = @tick % 4 == 0 ? "__" : ". "
 	    tail = if engine.respond_to?(:displayed_notes)
                engine.displayed_notes.map do |note|
                  if note
