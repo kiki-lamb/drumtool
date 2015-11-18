@@ -5,14 +5,15 @@ module DrumTool
 		  module Triggered
 			  def self.included base 
 				  base.hash_bubble_attr :cache, singular: :add_cache
+          base.hash_bubble_attr :ucache, singular: :add_ucache
 					base.proximal_bubble_toggle :flip
 		      base.bubble_toggle :on
 		    	base.array_bubble_attr :triggers, singular: :add_trigger do |v|
-		        clear_cache
+		        clear_caches
 		    	end
 
 		    	base.array_bubble_attr :untriggers, singular: :add_untrigger do |v|
-		      	clear_cache
+		      	clear_caches
 		    	end
 				end
 
@@ -24,7 +25,8 @@ module DrumTool
 		      top.tick
 		    end
 
-		    def clear_cache
+		    def clear_caches
+          ucache_hash {}
 		      cache_hash {}
 		    end
 
@@ -71,18 +73,18 @@ module DrumTool
 		    end
 		    
 		    def active? 
-		      return true if on? or (notes.empty? && triggers.empty?)
+          
 
-		      fires_now = cache[time] ||= begin
-		        if triggers.any? do |t|
-		          trigger_active? t, time
-		        end
-		          ! untriggers.any? do |t|
-		            trigger_active? t, time
-		          end
-		        end
+		      fires_now = (on? or (notes.empty? && triggers.empty?)) || (cache[time] ||= triggers.any? do |t|
+		        trigger_active? t, time
+		      end)
+
+          canceled_now = ucache[time] ||= untriggers.any? do |t|
+		        trigger_active? t, time
 		      end
-		    end
+          
+		      fires_now ^ canceled_now
+        end            
 
 				private
 		    def trigger_active? trigger, time

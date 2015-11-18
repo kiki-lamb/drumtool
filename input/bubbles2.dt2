@@ -1,0 +1,16 @@
+lp  0x10
+bpm 112
+ref 16
+
+> seq
+  > lp x4
+	  ext 8
+	  i bd 36
+		when %2
+  > lp x4
+	  ext 8
+		> i sd 37
+		  on 0
+	  > i bd 36
+		  on %3
+		

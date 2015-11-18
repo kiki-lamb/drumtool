@@ -30,6 +30,7 @@ module DrumTool
               
               self.times_seen << children.first.time if children.first
             end
+
             super
           end
         end

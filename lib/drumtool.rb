@@ -13,7 +13,7 @@ module DrumTool
     playback_klass.log_to *logs
     preprocessor_klass.log_to *preprocessor_logs
 
-    filename = ARGV[0] || default_filename
+    filename = ARGV[1] || default_filename
     
     $stdout << "Begin playback of " << filename << "\n"
 

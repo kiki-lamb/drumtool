@@ -24,6 +24,25 @@ module DrumTool
 			@after = nil
 		end
 
+    def safely_with_payload &b
+      begin
+        if b.arity == 0
+          b.call()
+        else
+          b.(self)
+        end
+      rescue Exception => e
+        raise e unless @rescue_exceptions
+        
+        rollback! e
+        if b.arity == 0
+          b.call()
+        else
+          b.(self)
+        end
+      end
+    end
+    
     def rollback! e = nil
       self.exception = e if e
       raise RuntimeError, "Can't rollback to nil" unless @prior

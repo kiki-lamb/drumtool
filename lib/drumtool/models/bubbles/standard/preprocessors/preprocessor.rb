@@ -23,12 +23,20 @@ module DrumTool
               trigger
               untrigger
               extend
+              rextend
+              chain!
+              drop
+              take              
             }
 
             synonymize \
               bubble: [:pattern, :part, :scope],
               note: :instrument,
+              drop: [ :wait, :rest ],
+              take: [ :duration, :truncate ],
+              chain!: :sequence,
               extend: :stretch,
+              rextend: :rstretch,
               trigger: [ :when, :on ],
               untrigger: [ :off, :except, :exclude, :unless ]
 

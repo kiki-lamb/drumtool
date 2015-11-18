@@ -28,13 +28,10 @@ module DrumTool
 		end
 
 		def tick
-		  reload
-      begin
+      reload
+      
+      @reloader.safely_with_payload do
 			  super
-      rescue Exception => e
-        puts "EMERGENCY ROLLBACK!"
-        @reloader.rollback! e
-        super
       end
 		end
 
