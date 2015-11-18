@@ -5,7 +5,7 @@ module DrumTool
 	    	PatBlockArgs = /(?:\|.+\|\s*\n$)/
 	    	PatName = /(?:[a-z][a-z0-9_]*)/
 	    	PatNameExact = /^#{PatName}$/
-	    	PatHex = /(?:0?[xX][\da-fA_F]+)/
+	    	PatHex = /(?:-?0?[xX][\da-fA_F]+)/
 	    	PatHexExact = /^#{PatHex}$/
 	    	PatFloat = /(?:\d+(?:[\.]\d+)?)/
 	    	PatFloatExact = /^#{PatFloat}$/
@@ -25,7 +25,7 @@ module DrumTool
 	    	    tmp = "(#{arg.gsub /(?<!0)[xX]/, "0x"})"
 	    	    log "  Arg `#{arg}' is a Range: `#{tmp}'"
 	    	  elsif PatIntOrHexExact.match arg
-	    	    tmp = arg.sub /^[xX]/, "0x"
+	    	    tmp = arg.sub(/^(-)?[xX]/) { "#{Regexp.last_match[1]}0x" }
 	    	    log "  Arg `#{arg}' is a IntOrHex: `#{tmp}'"
 	    	  elsif PatModuloExact.match arg
 	    	    arg.sub! /%[xX]/, "%0x"
