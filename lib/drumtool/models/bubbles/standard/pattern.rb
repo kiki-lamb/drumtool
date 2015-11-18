@@ -9,6 +9,7 @@ module DrumTool
 			    include Traits::Notes
           include Traits::NoteDisplayClient
           include Traits::Extendable
+          include Traits::Chain
 		    end
       end
 		end
