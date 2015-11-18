@@ -6,6 +6,7 @@ module DrumTool
         def self.included base
           base.instance_eval { attr_reader :parent }
           base.array_bubble_attr :children, singular: nil
+          base.bubble_attr :child_type, default: nil
         end
 
        def top
@@ -47,8 +48,7 @@ module DrumTool
        end
 
        def bubble *a, &b
-				 o = self.class.new(self, *a)
-         o.build(&b)
+				 (child_type || self.class).new(self, *a).build(&b)
        end
 
        def build &b

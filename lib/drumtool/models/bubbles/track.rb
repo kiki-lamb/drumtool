@@ -5,10 +5,7 @@ module DrumTool
 				include Traits::Events
         include Traits::Track
 
-        def initialize *a, &b
-          pattern_type Pattern
-          super 
-        end
+        bubble_attr :child_type, default: Bubbles::Pattern
 		  end
 		end
 	end
