@@ -1,7 +1,8 @@
 module DrumTool
   module Models
     class Bubbles
-      module BaseInstanceBehaviour
+      module Traits
+      module BaseInstance
         def self.included base
           base.instance_eval { attr_reader :parent }
           base.array_bubble_attr :children, singular: nil
@@ -28,7 +29,7 @@ module DrumTool
        end
 
        def initialize parent = nil, &b
-         parent.children << self if Base === parent  
+         parent.children << self if BaseInstance === parent  
          @parent = parent
 				 build(&b) if b
        end
@@ -54,7 +55,8 @@ module DrumTool
          instance_eval &b if b
          self
        end
-     end
+      end
+      end
     end
   end
 end

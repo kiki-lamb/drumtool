@@ -2,7 +2,7 @@ module DrumTool
 	module Models
 		class Bubbles
 		  class Instant < Base
-        include InstantBehaviour
+        include Traits::Instant
 			end
 		end
 	end

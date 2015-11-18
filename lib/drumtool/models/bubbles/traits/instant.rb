@@ -1,7 +1,8 @@
 module DrumTool
 	module Models
 		class Bubbles
-		  module InstantBehaviour
+      module Traits
+		  module Instant
 			  def time
 				  0
 				end
@@ -10,6 +11,7 @@ module DrumTool
 				  time
 				end
 			end
+      end
 		end
 	end
 end

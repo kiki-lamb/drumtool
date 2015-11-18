@@ -2,10 +2,10 @@ module DrumTool
   module Models
 		class Bubbles
 		  class Pattern < RelativeTime
-			  include Triggered
-				include Events				
-			  include Notes
-			  include PatternBehaviour
+			  include Traits::Triggered
+				include Traits::Events				
+			  include Traits::Notes
+			  include Traits::Pattern
 		  end
 		end
   end

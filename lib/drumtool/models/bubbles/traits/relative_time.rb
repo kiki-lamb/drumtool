@@ -1,7 +1,8 @@
 module DrumTool
 	module Models
 		class Bubbles
-		  module RelativeTimeBehaviour
+      module Traits
+		  module RelativeTime
 			  def self.included base				
 			    base.bubble_attr :loop, default: nil
 					base.adding_bubble_attr :rotate
@@ -24,6 +25,7 @@ module DrumTool
 				  parent.time
 				end
 		  end
+      end
 		end
 	end
 end

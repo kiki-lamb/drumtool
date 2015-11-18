@@ -1,7 +1,8 @@
 module DrumTool
   module Models
 	  class Bubbles
-		  module BaseClassBehaviour
+      module Traits
+		  module BaseClass
 				  def bubble *a, &b
 	   	      o = new(*a)
 						o.build(&b)
@@ -128,4 +129,5 @@ module DrumTool
       end
     end
   end
+end
 end

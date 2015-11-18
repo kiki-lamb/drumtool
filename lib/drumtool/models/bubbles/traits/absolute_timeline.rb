@@ -1,7 +1,8 @@
 module DrumTool
 	module Models
 		class Bubbles
-		  module AbsoluteTimeBehaviour
+      module Traits
+		  module AbsoluteTime
 		    def self.included base
           base.counter_bubble_attr :time
         end
@@ -11,6 +12,7 @@ module DrumTool
 					super nil, *a, &b
 				end
 		  end
+      end
 		end
 	end
 end

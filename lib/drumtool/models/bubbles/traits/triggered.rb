@@ -1,6 +1,7 @@
 module DrumTool
 	module Models
 		class Bubbles
+      module Traits
 		  module Triggered
 			  def self.included base 
 				  base.hash_bubble_attr :cache, singular: :add_cache
@@ -90,6 +91,7 @@ module DrumTool
 		      end
 		    end
 		  end
+      end
 		end
 	end
 end

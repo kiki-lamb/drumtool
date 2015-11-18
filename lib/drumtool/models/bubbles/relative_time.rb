@@ -2,7 +2,7 @@ module DrumTool
 	module Models
 		class Bubbles
 		  class RelativeTime < Instant
-        include RelativeTimeBehaviour
+        include Traits::RelativeTime
 		  end
 		end
 	end

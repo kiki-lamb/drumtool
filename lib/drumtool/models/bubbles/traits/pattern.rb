@@ -1,7 +1,8 @@
 module DrumTool
   module Models
 		class Bubbles
-		  module PatternBehaviour
+      module Traits
+		  module Pattern
 				def events
 					active? ? super : []
 				end
@@ -11,6 +12,7 @@ module DrumTool
 				  notes_a
 				end
 		  end
+      end
 		end
   end
 end
