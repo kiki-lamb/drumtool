@@ -13,7 +13,7 @@ ref 16
     when %x5
     lp 0x08
   
-  #> i ch 41
+  > i ch 41
     on %1
     not 2
     lp x4
