@@ -22,11 +22,11 @@ module DrumTool
               shift
               trigger
               untrigger
-              extend
-              rextend
+              expand
+              stretch
               chain!
               drop
-              take              
+              take
             }
 
             synonymize \
@@ -35,7 +35,7 @@ module DrumTool
               drop: [ :wait, :rest ],
               take: [ :duration, :truncate ],
               chain!: :sequence,
-              extend: :stretch,
+              expand: :stretch,
               rextend: :rstretch,
               trigger: [ :when, :on ],
               untrigger: [ :off, :except, :exclude, :unless ]
