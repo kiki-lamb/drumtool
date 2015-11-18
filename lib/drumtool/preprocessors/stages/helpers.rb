@@ -1,6 +1,7 @@
 module DrumTool
 	module Preprocessors
-	  module Helpers
+    module Stages
+	    module Helpers
 	    	PatBlockArgs = /(?:\|.+\|\s*\n$)/
 	    	PatName = /(?:[a-z][a-z0-9_]*)/
 	    	PatNameExact = /^#{PatName}$/
@@ -18,7 +19,7 @@ module DrumTool
 	    	PatModuloExact = /^#{PatModulo}$/
 	    	PatArg = /#{PatRange}|#{PatIntOrHex}|#{PatModulo}|#{PatName}/
 	    	PatSimpleExpr = /^\s*(#{PatName})\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/	    
-
+        
 	    	def rubify_arg arg      
 	    	  if PatRangeExact.match arg
 	    	    tmp = "(#{arg.gsub /(?<!0)[xX]/, "0x"})"
@@ -39,20 +40,20 @@ module DrumTool
 	    	  
 	    	  tmp
 	    	end
-
+        
 	    	def partially_disassemble_line line
 	    	  line << "\n" unless line[-1] == "\n"
 	    	  /(\s*>?\s*)((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match line
-
+          
 	    	  [ Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip ]
 	    	end 
-
+        
 	    	def disassemble_line line
 	    	  indent, body, block_args = *partially_disassemble_line(line)
-
+          
 	    	  if PatSimpleExpr.match body
 	    	    log "  Parsed simple expr: #{Regexp.last_match.inspect[12..-2]}"
-
+            
 	    	    name, args = expand(Regexp.last_match[1]), (Regexp.last_match[2] || "").split(/\s+/).map do |arg|
 	    	      rubify_arg arg
 	    	    end
@@ -67,7 +68,7 @@ module DrumTool
 	    	  log "  Tokens: #{toks.inspect}"
 	    	  toks
 	    	end
-
+        
 	    	def reassemble_line indent, name, args, block_args
 	    	  tmp = "#{indent}#{name}#{args.empty?? "" : "(#{args.join ', '})"}#{" #{block_args.strip}" unless block_args.empty?}\n"
 	    	  pp.log "  Reassembled: `#{tmp.chomp}'"
@@ -77,4 +78,4 @@ module DrumTool
       end
 		end
 	end
-
+                                                                           end
