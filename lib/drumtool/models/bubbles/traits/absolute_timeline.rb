@@ -4,11 +4,10 @@ module DrumTool
       module Traits
 		  module AbsoluteTime
 		    def self.included base
-          base.counter_bubble_attr :time
+          base.counter_bubble_attr :time, default: 0
         end
 
 				def initialize *a, &b
-				  time 0
 					super nil, *a, &b
 				end
 		  end
