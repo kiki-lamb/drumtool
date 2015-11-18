@@ -1,8 +1,7 @@
 module DrumTool
   module Models
 	  class Bubbles
-		  class Base
-        class << self
+		  module BaseClassBehaviour
 				  def bubble *a, &b
 	   	      o = new(*a)
 						o.build(&b)
@@ -156,7 +155,6 @@ module DrumTool
 	   	   	   ( parent && parent.respond_to?("#{name}?") && parent.send("#{name}?"))
 	   	   	 end
 	   	    end
-        end
       end
     end
   end
