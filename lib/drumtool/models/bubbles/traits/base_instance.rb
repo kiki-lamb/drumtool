@@ -29,10 +29,10 @@ module DrumTool
          ctr
        end
 
-       def initialize parent = nil, &b
+       def initialize parent
+         raise ArgumentError, "No blocks." if block_given?
          parent.children << self if BaseInstance === parent  
          @parent = parent
-				 build(&b) if b
        end
 
        def method_missing name, *a, &b
