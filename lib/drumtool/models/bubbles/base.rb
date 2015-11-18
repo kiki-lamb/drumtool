@@ -2,7 +2,7 @@ module DrumTool
   module Models
     class Bubbles
       class Base
-        extend LighterBaseClassBehaviour
+        extend BaseClassBehaviour
         include BaseInstanceBehaviour
       end
     end
