@@ -28,7 +28,7 @@ module DrumTool
               bubble: [:pattern, :part, :scope],
               note: :instrument,
               trigger: [ :when, :on ],
-              untrigger: [ :not, :except, :exclude ]
+              untrigger: [ :off, :except, :exclude, :unless ]
 
             stages \
               Splitify,
