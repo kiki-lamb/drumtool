@@ -22,11 +22,13 @@ module DrumTool
               shift
               trigger
               untrigger
+              extend
             }
 
             synonymize \
               bubble: [:pattern, :part, :scope],
               note: :instrument,
+              extend: :stretch,
               trigger: [ :when, :on ],
               untrigger: [ :off, :except, :exclude, :unless ]
 

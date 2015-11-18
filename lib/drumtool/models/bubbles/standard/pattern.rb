@@ -8,6 +8,7 @@ module DrumTool
 			    include Traits::Triggered
 			    include Traits::Notes
           include Traits::NoteDisplayClient
+          include Traits::Extendable
 		    end
       end
 		end

@@ -29,12 +29,6 @@ module DrumTool
          ctr
        end
 
-       def initialize parent = nil
-         raise ArgumentError, "No blocks." if block_given?
-         parent.children << self if Instance === parent  
-         @parent = parent
-       end
-
        def method_missing name, *a, &b
          if parent.respond_to?(name)
            parent.send name, *a, &b
@@ -47,6 +41,12 @@ module DrumTool
          super(name, all) || (parent && parent.respond_to?(name, all))
        end
 
+       def initialize parent = nil
+         raise ArgumentError, "No blocks." if block_given?
+         parent.children << self if Instance === parent  
+         @parent = parent
+       end
+       
        def bubble *a, &b
 				 (child_type || self.class).new(self, *a).build(&b)
        end
