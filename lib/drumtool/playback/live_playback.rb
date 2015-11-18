@@ -5,7 +5,7 @@ module DrumTool
     def initialize(
       *a, 
       reload_interval: 16,
-      rescue_exceptions: false, 
+      rescue_exceptions: true, 
 			init: nil,
 			**b
     )
