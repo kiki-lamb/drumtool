@@ -11,15 +11,11 @@ module DrumTool
 				  end
           
 				  def time
-				    locate parent.time
-				  end
-          
-				  def locate time     
-				    e = (time * (2**(-scale))).to_f - rotate
+				    e = (parent.time * (2**(-scale))).to_f - rotate
 					  e %= loop if loop
 					  e -= shift
-				  end          
-		    end
+				  end
+        end
       end
 		end
 	end
