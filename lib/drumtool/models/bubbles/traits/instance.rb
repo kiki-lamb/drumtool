@@ -29,7 +29,7 @@ module DrumTool
          ctr
        end
 
-       def initialize parent
+       def initialize parent = nil
          raise ArgumentError, "No blocks." if block_given?
          parent.children << self if Instance === parent  
          @parent = parent
