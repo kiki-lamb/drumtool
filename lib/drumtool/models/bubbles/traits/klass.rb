@@ -63,8 +63,8 @@ module DrumTool
             end if singular
           end
           
-          def hash_bubble_attr name, singular: name.to_s.sub(/s$/, ""), flip: false, permissive: false, &after
-            bubble_attr "#{name}_hash", default: {}
+          def hash_bubble_attr name, singular: name.to_s.sub(/s$/, ""), flip: false, permissive: false, default: {}, &after
+            bubble_attr "#{name}_hash", default: default
             
             raise ArgumentError, "permissive can only be used with flip" if permissive && ! flip
             
@@ -85,7 +85,7 @@ module DrumTool
               
               send(name).tap do |h|
                 h[k] = v
-                instance_exec(v, &after) if after
+                instance_exec(k, v, &after) if after
               end
             end
           end

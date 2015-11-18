@@ -95,7 +95,7 @@ module DrumTool
 			assert_valid_engine!
 
       close_notes! 
-			open_note! *engine.events_at(@tick).tap { |x| puts x.inspect unless engine.respond_to? :instruments }
+			open_note! *engine.events_at(@tick)
     ensure
       @tick += 1
     end
@@ -112,12 +112,23 @@ module DrumTool
 
 		def log_columns
 		  fill = @tick % 4 == 0 ? "--" : ". "
-		
-	    tail = engine.respond_to?(:instruments) ? (engine.instruments.group_by(&:short_name).map do |name, instrs| 
-          (instrs.any? do |i|
-            i.fires_at?(@tick)
-          end) ? "#{name.ljust(2)}" : fill 
-        end) : []
+	    tail = if engine.respond_to?(:displayed_notes)
+               engine.displayed_notes.map do |note|
+                 if note
+                   note.to_s.upcase
+                 else
+                   fill
+                 end
+               end
+             elsif engine.respond_to?(:instruments)
+               (engine.instruments.group_by(&:short_name).map do |name, instrs| 
+                  (instrs.any? do |i|
+                     i.fires_at?(@tick)
+                   end) ? "#{name.ljust(2)}" : fill 
+                end)
+             else
+               []
+             end
 
 		  [          
 				 *tail, 
