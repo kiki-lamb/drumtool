@@ -6,23 +6,23 @@ require "digest"
 
 module DrumTool
   class Loader
-	  attr_reader :exception, :exception_lines, :prior
+    attr_reader :exception, :exception_lines, :prior
     
-	  def initialize filename, preprocessor = nil, init: nil, rescue_exceptions: true
-		  @filename = filename
-			@digest = nil
-			@text = nil
+    def initialize filename, preprocessor = nil, init: nil, rescue_exceptions: true
+      @filename = filename
+      @digest = nil
+      @text = nil
 
-			@preprocessor = preprocessor || Proc.new { |x| x }
-			@rescue_exceptions = rescue_exceptions
+      @preprocessor = preprocessor || Proc.new { |x| x }
+      @rescue_exceptions = rescue_exceptions
 
-			@payload = init
+      @payload = init
       @prior = nil
-			@exception = nil
-			@exception_lines
+      @exception = nil
+      @exception_lines
 
-			@after = nil
-		end
+      @after = nil
+    end
 
     def safely_with_payload &b
       begin
@@ -49,64 +49,64 @@ module DrumTool
       @payload = @prior
     end
     
-		def after &b
-			raise ArgumentError, "Need block" unless block_given?
-			@after = b
-			self
-		end
+    def after &b
+      raise ArgumentError, "Need block" unless block_given?
+      @after = b
+      self
+    end
 
-		def payload
-		  reload unless @payload
-			@payload
-		end
+    def payload
+      reload unless @payload
+      @payload
+    end
 
     def exception= e
       @exception, @exception_lines = e, [ "WARNING: #{e.to_s}", *e.backtrace, "" ]      
     end
     
-		def reload
-		  return 0 unless read
+    def reload
+      return 0 unless read
 
-		  start = Time.now
-			old_payload = payload
-			clear_exception
+      start = Time.now
+      old_payload = payload
+      clear_exception
 
-		  begin			  		
-				tmp_payload = eval(@preprocessor.call @text)
+      begin           
+        tmp_payload = eval(@preprocessor.call @text)
         @prior = @payload
         @payload = tmp_payload
-			rescue Exception => e
-    	  raise e unless @rescue_exceptions
-    	  self.exception = e
-			end
+      rescue Exception => e
+        raise e unless @rescue_exceptions
+        self.exception = e
+      end
 
-			if @after
-			  if @after.arity == 0 && @exception.nil?
-			    @after.()
-			  elsif @after.arity == 1 && @exception.nil?
-				  @after.(payload)
-				elsif @after.arity == 2
-				  @after.(old_payload, (payload unless @exception))
+      if @after
+        if @after.arity == 0 && @exception.nil?
+          @after.()
+        elsif @after.arity == 1 && @exception.nil?
+          @after.(payload)
+        elsif @after.arity == 2
+          @after.(old_payload, (payload unless @exception))
         end
       end
 
-			(Time.now - start) * 1000
+      (Time.now - start) * 1000
     end
 
-		private
-		def clear_exception
-		  @exception, @exception_lines = nil, []
-		end
+    private
+    def clear_exception
+      @exception, @exception_lines = nil, []
+    end
 
-		def read		
-			text = File.open(@filename).read
-			md5 = Digest::MD5.new
-			md5 << text
+    def read    
+      text = File.open(@filename).read
+      md5 = Digest::MD5.new
+      md5 << text
 
-			if md5.hexdigest != @digest
-			  @digest = md5.hexdigest
-  		  @text = text
-			end
-		end
+      if md5.hexdigest != @digest
+        @digest = md5.hexdigest
+        @text = text
+      end
+    end
   end
 end
