@@ -7,17 +7,9 @@ module DrumTool
 					  base.hash_bubble_attr :notes, flip: true, permissive: true
 				  end
           
-				  def to_s
-				    "#{super}(#{notes.values.join ", "})"
-				  end
-          
-				  def notes_a
-				    notes.to_a.map &:first
-				  end
-
           private				
 				  def local_events
-				    notes_a + super
+				    notes.to_a.map(&:first) + super
 				  end          
 			  end
       end
