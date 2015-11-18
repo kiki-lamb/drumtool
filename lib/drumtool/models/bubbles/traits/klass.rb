@@ -2,7 +2,7 @@ module DrumTool
   module Models
 	  class Bubbles
       module Traits
-		  module BaseClass
+		  module Klass
 	   		  def bubble_attr name, default: 0, accessor: name, &after		 				
 						# Combined getter/setter
 	   	      define_method accessor do |v = nil|

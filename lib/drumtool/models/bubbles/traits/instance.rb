@@ -2,7 +2,7 @@ module DrumTool
   module Models
     class Bubbles
       module Traits
-      module BaseInstance
+      module Instance
         def self.included base
           base.instance_eval { attr_reader :parent }
           base.array_bubble_attr :children, singular: nil
@@ -31,7 +31,7 @@ module DrumTool
 
        def initialize parent
          raise ArgumentError, "No blocks." if block_given?
-         parent.children << self if BaseInstance === parent  
+         parent.children << self if Instance === parent  
          @parent = parent
        end
 

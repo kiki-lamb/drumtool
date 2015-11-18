@@ -3,8 +3,8 @@ module DrumTool
     class Bubbles
       module Standard
         class Base
-          extend Traits::BaseClass
-          include Traits::BaseInstance
+          extend Traits::Klass
+          include Traits::Instance
         end
       end
     end
