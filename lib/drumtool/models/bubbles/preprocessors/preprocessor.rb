@@ -37,7 +37,7 @@ module DrumTool
              RubifyArgumentsAndExpandAbbreviations,
              DumberRubifyPythonesqueBlocks.new(require_prefix: true),
              StripBlankLinesAndTrailingWhitespace,
-             Objectify.new("Bubbles.track")
+             Objectify.new("Bubbles::Standard.track")
         end
       end
     end
