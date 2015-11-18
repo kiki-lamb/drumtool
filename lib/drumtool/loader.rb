@@ -35,17 +35,20 @@ module DrumTool
         raise e unless @rescue_exceptions
         
         rollback! e
-        if b.arity == 0
-          b.call()
-        else
-          b.(self)
+
+        if @payload
+          if b.arity == 0
+            b.call()
+          else
+            b.(self)
+          end
         end
       end
     end
     
     def rollback! e = nil
       self.exception = e if e
-      raise RuntimeError, "Can't rollback to nil" unless @prior
+#      raise RuntimeError, "Can't rollback to nil" unless @prior
       @payload = @prior
     end
     
@@ -68,27 +71,20 @@ module DrumTool
       return 0 unless read
 
       start = Time.now
-      old_payload = payload
       clear_exception
 
-      begin           
+      safely_with_payload do 
         tmp_payload = eval(@preprocessor.call @text)
         @prior = @payload
         @payload = tmp_payload
-      rescue Exception => e
-        raise e unless @rescue_exceptions
-        self.exception = e
-      end
 
-      
-      if @after
-        safely_with_payload do 
+        if @after
           if @after.arity == 0 && @exception.nil?
             @after.()
           elsif @after.arity == 1 && @exception.nil?
-            @after.(payload)
+            @after.(@payload)
           elsif @after.arity == 2
-            @after.(old_payload, (payload unless @exception))
+            @after.(@payload, @prior)
           end
         end
       end
