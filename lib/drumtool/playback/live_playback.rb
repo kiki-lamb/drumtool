@@ -1,11 +1,10 @@
 require "stringio"
-
 module DrumTool
   class LivePlayback < FilePlayback
     def initialize(
       *a, 
       reload_interval: 16,
-      rescue_exceptions: true, 
+      rescue_exceptions: false, 
 			init: nil,
 			**b
     )
