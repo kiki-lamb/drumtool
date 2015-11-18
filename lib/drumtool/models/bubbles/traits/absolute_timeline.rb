@@ -7,8 +7,8 @@ module DrumTool
           base.counter_bubble_attr :time, default: 0
         end
 
-				def initialize *a, &b
-					super nil, *a, &b
+				def initialize &b
+					super nil, &b
 				end
 		  end
       end

@@ -2,12 +2,12 @@ module DrumTool
   module Models
     class Bubbles
       class << self
-        def track klass = Track,  *a, &b
-          klass.new timeline, *a, &b
+        def track klass = Track,  &b
+          klass.new timeline, &b
         end
 
-        def timeline *a, &b
-          AbsoluteTime.new *a, &b
+        def timeline &b
+          AbsoluteTime.new &b
         end
       end
     end
