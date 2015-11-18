@@ -9,7 +9,7 @@ module DrumTool
 			    include Traits::Notes
           include Traits::NoteDisplayClient
           include Traits::Chain
-          include Traits::Extend
+          prepend Traits::EnhancedLooping
           include Traits::DropAndTake
 		    end
       end
