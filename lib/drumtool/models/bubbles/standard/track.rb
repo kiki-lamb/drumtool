@@ -5,7 +5,7 @@ module DrumTool
 		    class Track < RelativeTime
 				  include Traits::Events
           include Traits::Track
-          include Traits::NoteDictionary
+          include Traits::NoteDisplay
 		    end
       end
 		end

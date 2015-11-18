@@ -6,7 +6,7 @@ module DrumTool
 			    include Traits::Triggered
 				  include Traits::Events				
 			    include Traits::Notes
-          include Traits::NoteDictionaryUser
+          include Traits::NoteDisplayClient
 			    include Traits::Pattern
 		    end
       end
