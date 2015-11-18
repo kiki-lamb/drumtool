@@ -80,13 +80,16 @@ module DrumTool
         self.exception = e
       end
 
+      
       if @after
-        if @after.arity == 0 && @exception.nil?
-          @after.()
-        elsif @after.arity == 1 && @exception.nil?
-          @after.(payload)
-        elsif @after.arity == 2
-          @after.(old_payload, (payload unless @exception))
+        safely_with_payload do 
+          if @after.arity == 0 && @exception.nil?
+            @after.()
+          elsif @after.arity == 1 && @exception.nil?
+            @after.(payload)
+          elsif @after.arity == 2
+            @after.(old_payload, (payload unless @exception))
+          end
         end
       end
 
