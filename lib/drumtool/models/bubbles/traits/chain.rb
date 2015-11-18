@@ -6,7 +6,7 @@ module DrumTool
 					def self.included base
 				    base.bubble_toggle :chain
             base.instance_eval do
-              attr_accessor :top_child
+              attr_accessor :disabled_children
               attr_accessor :times_seen
             end
 				  end														
@@ -14,26 +14,23 @@ module DrumTool
           private
           def local_events
             if chain?
-              raise ArgumentError, "Children must be looped." unless children.all? { |c| c.respond_to? :loop }
+              raise ArgumentError, "Children must be looped." unless children.all? { |c| c.loop && c.loop != 0 }
               
-              if top_child && times_seen.include?(top_child.time)
-                children.push top_child
-                self.top_child = nil
+              if self.disabled_children && children.any? && times_seen.include?(children.first.time)
+                children.unshift *self.disabled_children
+                self.disabled_children = nil
               end
-                 
-              self.top_child ||= begin
-                                   self.times_seen = []
-                                   children.shift
-                                 end
-#              puts "#{self}: #{top_child} sees #{top_child.time} at #{time}"
+
+              self.disabled_children ||= begin
+                                           self.times_seen = []
+                                           tmp = children[1..-1]
+                                           children_array [children[0]]
+                                           tmp
+                                         end
               
-              if top_child
-                self.times_seen << top_child.time
-                top_child.events#.tap { |y| puts "Y = #{y.inspect}" }
-              end || []
-            else
-              super
+              self.times_seen << children.first.time if children.first
             end
+            super
           end
         end
       end

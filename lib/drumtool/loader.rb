@@ -6,8 +6,8 @@ require "digest"
 
 module DrumTool
   class Loader
-	  attr_reader :exception, :exception_lines
-
+	  attr_reader :exception, :exception_lines, :prior
+    
 	  def initialize filename, preprocessor = nil, init: nil, rescue_exceptions: true
 		  @filename = filename
 			@digest = nil
@@ -17,12 +17,19 @@ module DrumTool
 			@rescue_exceptions = rescue_exceptions
 
 			@payload = init
+      @prior = nil
 			@exception = nil
 			@exception_lines
 
 			@after = nil
 		end
 
+    def rollback! e = nil
+      self.exception = e if e
+      raise RuntimeError, "Can't rollback to nil" unless @prior
+      @payload = @prior
+    end
+    
 		def after &b
 			raise ArgumentError, "Need block" unless block_given?
 			@after = b
@@ -34,6 +41,10 @@ module DrumTool
 			@payload
 		end
 
+    def exception= e
+      @exception, @exception_lines = e, [ "WARNING: #{e.to_s}", *e.backtrace, "" ]      
+    end
+    
 		def reload
 		  return 0 unless read
 
@@ -42,10 +53,12 @@ module DrumTool
 			clear_exception
 
 		  begin			  		
-				@payload = eval(@preprocessor.call @text) 
+				tmp_payload = eval(@preprocessor.call @text)
+        @prior = @payload
+        @payload = tmp_payload
 			rescue Exception => e
     	  raise e unless @rescue_exceptions
-    	  @exception, @exception_lines = e, [ "WARNING: #{e.to_s}", *e.backtrace, "" ]
+    	  self.exception = e
 			end
 
 			if @after
