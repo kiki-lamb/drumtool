@@ -7,6 +7,14 @@ module DrumTool
 		        base.bubble_attr :refresh_interval, default: 16
 		        base.bubble_attr :bpm, default: 112
           end
+
+          def tick
+            time
+          end
+
+          def tick!
+            time!
+          end
           
 				  # This is needed to make it a valid engine for Playbacks:
 				  def events_at t

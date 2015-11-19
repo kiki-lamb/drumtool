@@ -31,12 +31,12 @@ module DrumTool
             end
           end
           
-          def counter_bubble_attr name, default: 0, return_value: name, before: nil, increment: 1, after: nil
+          def counter_bubble_attr name, default: 0, return_value: name, before: nil, incrementor: "#{name}!", increment: 1, after: nil
             bubble_attr name, default: default
             bubble_attr "#{name}_increment", default: increment
             
             # Incrementer
-            define_method "#{name}!" do
+            define_method incrementor do
               self.send before if before
               
               self.send(return_value).tap do
