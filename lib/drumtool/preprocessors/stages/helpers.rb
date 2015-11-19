@@ -18,7 +18,7 @@ module DrumTool
 	    	PatModulo = /(?:%#{PatIntOrHex})/
 	    	PatModuloExact = /^#{PatModulo}$/
 	    	PatArg = /#{PatRange}|#{PatIntOrHex}|#{PatModulo}|#{PatName}/
-	    	PatSimpleExpr = /^\s*(#{PatName})\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/	    
+	    	PatSimpleExpr = /^\s*(#{PatName}!?)\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/	    
         
 	    	def rubify_arg arg      
 	    	  if PatRangeExact.match arg

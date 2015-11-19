@@ -45,7 +45,7 @@ module DrumTool
 		
 		def log_columns
 		  reload_time = 0
-			unchanged_bars = ((time.to_i-@last_reload_tick.to_i)/16).to_i#.tap { |uc| puts "UC: #{uc}" }
+			unchanged_bars = ((time.to_i-@last_reload_tick.to_i)/16).to_i.abs#.tap { |uc| puts "UC: #{uc}" }
 			reload_bars = (@load_interval/16).to_i#.tap { |rb| puts "RB: #{rb}" }
 			countdown = (reload_bars-((time.to_i-@last_reload_tick.to_i)/16%reload_bars.to_i))#.tap { |c| puts "C1: #{c}" }
 			countdown = (countdown%1.0 == 0  ? countdown.to_i : countdown.to_r)#.tap { |c| puts "C2: #{c}" }

@@ -31,7 +31,7 @@ module DrumTool
             end
           end
           
-          def counter_bubble_attr name, default: 0, return_value: name, before: nil, incrementor: "#{name}!", increment: 1, after: nil
+          def counter_bubble_attr name, default: 0, return_value: name, before: nil, incrementor: "#{name}!", reversor: "reverse_#{name}!", increment: 1, after: nil
             bubble_attr name, default: default
             bubble_attr "#{name}_increment", default: increment
             
@@ -46,7 +46,7 @@ module DrumTool
             end
 
             # Reverse clock direction
-            define_method "reverse_#{name}!" do
+            define_method reversor do
               self.send "#{name}_increment", -self.send("#{name}_increment")
             end
           end

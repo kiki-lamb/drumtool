@@ -68,12 +68,14 @@ module DrumTool
 		conditional_attr :loop, :assert_valid_engine, [ :engine, :loop ],  :@fixed_loop
 			
 		def assert_valid_engine
+      true
 		  # engine && engine.respond_to?(:bpm) && engine.respond_to?(:loop) && engine.respond_to?(:events_at)
 
 		  #engine && engine.respond_to?(:events_at)
 		end
 
 		def assert_valid_engine!
+      true
 #		  raise RuntimeError, "Invalid engine" unless assert_valid_engine
 		end
 
@@ -92,12 +94,13 @@ module DrumTool
 		def tick
       close_notes! 
 			assert_valid_engine!
-      engine.tick!
 			open_note! *engine.events # .tap { |x| puts "#{x.inspect}" }
+
 		  log_sep
 		  tmp = a_bunch_of_logging_crap.strip
       @last_line_length = tmp.length
 		  log tmp
+      engine.tick!
     end
 
 		def log_sep
@@ -132,7 +135,7 @@ module DrumTool
 
 		  [          
 				 *tail, 
-				 (loop ? time % loop : time).to_i.to_s(16).rjust(8, "0"), 
+				 (loop ? time % loop : time).to_i.to_s(16).rjust(4, "0"), 
 				 bpm.to_s.rjust(3)
       ]
 		end
