@@ -17,8 +17,7 @@ module DrumTool
             def respond_to? name, all = false
               super(name, all) || (next_method_responder_object && next_method_responder_object.respond_to?(name, all))
             end
-            
-            
+                       
             def next_method_responder_object              
               send ChainedMethodResolutionNextResponder
             end
