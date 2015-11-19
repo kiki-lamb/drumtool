@@ -4,6 +4,7 @@ module DrumTool
       module Standard
         class Base
           extend  Traits::Klass
+          include Traits::Tree
           include Traits::Instance
 
         end
