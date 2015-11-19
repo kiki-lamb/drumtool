@@ -39,10 +39,9 @@ module DrumTool
             define_method incrementor do
               self.send before if before
               
-              self.send(return_value).tap do
-                self.send name, self.send(name) + send("#{name}_increment")
-                self.send after if after
-              end
+              t = self.send name, self.send(name) + send("#{name}_increment")
+              self.send after if after
+              t
             end
 
             # Reverse clock direction

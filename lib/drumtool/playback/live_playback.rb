@@ -4,21 +4,27 @@ module DrumTool
     def initialize(
       *a, 
       reload_interval: 16,
-      rescue_exceptions: false, 
+      rescue_exceptions: true, 
 			init: nil,
 			**b
         )
-      puts "A: #{a.inspect}, B: #{b.inspect}"
 		  super *a, **b
 
       @load_interval = reload_interval
 			@last_reload_time = nil
 			@last_reload_tick = 0
 		  @loader = Loader.new(@filename, @preprocessor, rescue_exceptions: rescue_exceptions, init: init)
-			@loader.after do |to| 
-			    @clock.tempo = to.bpm if to.bpm && @clock unless @input_clock
-			    to.bpm @clock.tempo unless to.bpm
+			@loader.after do |to, from|
+#        puts "TO: #{to.state}"
+#        puts "FROM: #{from.state}"
+        to.state = from.state
+#        puts "TO2: #{to.state}"
+        	if @clock && ! @input_clock
+#            puts "SET CLOCK TO #{to.bpm}"
+            @clock.tempo = ( to.bpm || 112)
+          end
 				  @load_interval = to.refresh_interval if to.respond_to?(:refresh_interval)
+          @load_interval ||= 16
 			end
     end
 
@@ -46,14 +52,14 @@ module DrumTool
 		
 		def log_columns
 		  reload_time = 0
-			unchanged_bars = ((time.to_i-@last_reload_tick.to_i)/16).to_i.abs#.tap { |uc| puts "UC: #{uc}" }
-			reload_bars = (@load_interval/16).to_i#.tap { |rb| puts "RB: #{rb}" }
-			countdown = (reload_bars-((time.to_i-@last_reload_tick.to_i)/16%reload_bars.to_i))#.tap { |c| puts "C1: #{c}" }
+			unchanged_bars = (((time.to_i-@last_reload_tick.to_i).abs)/16).to_i.abs+1#.tap { |uc| puts "UC: #{uc}" }
+      #puts "LI: #{@load_interval}"
+			reload_bars = (@load_interval/16.0)#.tap { |rb| puts "RB: #{rb}" }
+			countdown = (reload_bars-((time.to_i-@last_reload_tick.to_i)/16%reload_bars))#.tap { |c| puts "C1: #{c}" }
 			countdown = (countdown%1.0 == 0  ? countdown.to_i : countdown.to_r)#.tap { |c| puts "C2: #{c}" }
 
 		  [ 
-			  @load_interval,
-			  "#{unchanged_bars.to_i.to_s.rjust(2)} bars", 
+			  "Bar #{unchanged_bars.to_i.to_s.rjust(2)}", 
 			  "T-#{countdown} bars",
 				"#{@last_reload_time.to_s[0..5].rjust(6)} ms",
 				*super,

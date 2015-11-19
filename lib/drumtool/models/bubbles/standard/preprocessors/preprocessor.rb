@@ -18,7 +18,6 @@ module DrumTool
               hard_reverse!
               loop
               mute!
-              note
               refresh_interval
               reverse!
               rotate
