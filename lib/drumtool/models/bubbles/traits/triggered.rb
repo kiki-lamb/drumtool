@@ -73,15 +73,17 @@ module DrumTool
 		    end
 		    
 		    def active? 
-          fires_now = (on? or (notes.empty? && triggers.empty?)) || (cache[time] ||= triggers.any? do |t|
-		        trigger_active? t, time
-		      end)
-
-          canceled_now = ucache[time] ||= untriggers.any? do |t|
-		        trigger_active? t, time
-		      end
-          
-		      flip? ^ ((fires_now ^ canceled_now))
+          (on? or (notes.empty? && triggers.empty?)) or begin          
+                                                          fires_now = cache[time] ||= triggers.any? do |t|
+		                                                        trigger_active? t, time
+		                                                      end
+                                                          
+                                                          canceled_now = ucache[time] ||= untriggers.any? do |t|
+		                                                        trigger_active? t, time
+		                                                      end
+                                                          
+		                                                      fires_now ^ canceled_now ^ flip?
+                                                        end
         end            
 
 				private

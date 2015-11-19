@@ -12,21 +12,22 @@ module DrumTool
 
             abbreviate %i{
               bubble
-              flip
+              chain!
+              drop
+              flip!
+              hard_reverse!
               loop
               mute!
               note
               refresh_interval
+              reverse!
               rotate
               scale
               shift
+              stretch
+              take
               trigger
               untrigger
-              expand
-              stretch
-              chain!
-              drop
-              take
             }
 
             synonymize \
@@ -35,8 +36,8 @@ module DrumTool
               drop: [ :wait, :rest ],
               take: [ :duration, :truncate ],
               chain!: :sequence,
-              expand: :stretch,
-              rextend: :rstretch,
+              hard_reverse!: [ :h_reverse!, :hreverse! ],
+              stretch: :expand,
               trigger: [ :when, :on ],
               untrigger: [ :off, :except, :exclude, :unless ]
 

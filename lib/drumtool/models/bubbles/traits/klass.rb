@@ -31,17 +31,23 @@ module DrumTool
             end
           end
           
-          def counter_bubble_attr name, default: 0, return_value: name, before: nil, after: nil
+          def counter_bubble_attr name, default: 0, return_value: name, before: nil, increment: 1, after: nil
             bubble_attr name, default: default
+            bubble_attr "#{name}_increment", default: increment
             
             # Incrementer
             define_method "#{name}!" do
               self.send before if before
               
               self.send(return_value).tap do
-                self.send name, self.send(name) + 1
+                self.send name, self.send(name) + send("#{name}_increment")
                 self.send after if after
               end
+            end
+
+            # Reverse clock direction
+            define_method "reverse_#{name}!" do
+              self.send "#{name}_increment", -self.send("#{name}_increment")
             end
           end
           
@@ -105,12 +111,11 @@ module DrumTool
             # Enabler
             define_method "#{setter_name}!" do |v = nil|
               send("local_#{name}", true)
-              nil
             end
             
             # Getter
             define_method "#{getter_name}?" do |v = nil|
-              send("local_#{name}") 
+              !! send("local_#{name}") 
             end
           end
           

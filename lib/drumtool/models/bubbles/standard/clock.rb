@@ -4,7 +4,6 @@ module DrumTool
       module Standard
 		    class Clock < Base
           include Traits::AbsoluteTime
-          include Traits::ClockReverse
 		    end
       end
 		end

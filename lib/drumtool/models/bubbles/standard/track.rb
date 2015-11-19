@@ -7,6 +7,7 @@ module DrumTool
 				  include Traits::Events
           include Traits::Engine
           include Traits::NoteDisplay
+          include Traits::Chain
           
           bubble_attr :child_type, default: Bubbles::Standard::Pattern
 		    end

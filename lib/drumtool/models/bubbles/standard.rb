@@ -3,11 +3,11 @@ module DrumTool
     class Bubbles
 		  module Standard
         def self.track &b
-          Standard::Track.new(timeline).build &b
+          Standard::Track.new(clock).build &b
         end
         
-        def self.timeline
-          Standard::AbsoluteTime.new
+        def self.clock
+          Standard::Clock.new
         end
 			end
 		end
