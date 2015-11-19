@@ -64,9 +64,6 @@ reverse
  lp x4
  mu
 
-
->scale 1
-
 >scale 1
  >i BD
   when %x5
@@ -83,7 +80,7 @@ reverse
  rot 4
  when %8 
  lp x10
- 
+
 >scale 3
  >i BS
   lp x10
