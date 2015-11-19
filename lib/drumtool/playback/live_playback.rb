@@ -24,6 +24,7 @@ module DrumTool
             @clock.tempo = to.bpm
           end
 				  @load_interval = to.refresh_interval if to.respond_to?(:refresh_interval)
+          @load_interval ||= 16
 			end
     end
 
@@ -51,15 +52,14 @@ module DrumTool
 		
 		def log_columns
 		  reload_time = 0
-			unchanged_bars = (((time.to_i-@last_reload_tick.to_i).abs)/16).to_i.abs#.tap { |uc| puts "UC: #{uc}" }
+			unchanged_bars = (((time.to_i-@last_reload_tick.to_i).abs)/16).to_i.abs+1#.tap { |uc| puts "UC: #{uc}" }
       #puts "LI: #{@load_interval}"
 			reload_bars = (@load_interval/16.0)#.tap { |rb| puts "RB: #{rb}" }
 			countdown = (reload_bars-((time.to_i-@last_reload_tick.to_i)/16%reload_bars))#.tap { |c| puts "C1: #{c}" }
 			countdown = (countdown%1.0 == 0  ? countdown.to_i : countdown.to_r)#.tap { |c| puts "C2: #{c}" }
 
 		  [ 
-			  @load_interval,
-			  "#{unchanged_bars.to_i.to_s.rjust(2)} bars", 
+			  "Bar #{unchanged_bars.to_i.to_s.rjust(2)}", 
 			  "T-#{countdown} bars",
 				"#{@last_reload_time.to_s[0..5].rjust(6)} ms",
 				*super,

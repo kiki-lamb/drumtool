@@ -3,20 +3,21 @@ module DrumTool
 		class Bubbles
       module Traits
 		    module BetterNoteDisplay
-			    def self.included base
-					  base.hash_bubble_attr :registered_notes, default: (Hash.new { |h,k| h[k] = Array.new })
-				  end
-          
-          def register_note n
-            registered_notes[n.name] << n
+          def register_note name, number = nil, velocity = nil, channel = nil
+            note_registry[name].merge! Note.new(name: name, number: number, channel: channel, velocity: velocity).tap { |x| puts x.inspect }
           end
 
           def displayed_notes
             evts = events
-            registered_notes.map do |k, v|
-              (evts & v.map(&:number)).any?? k : nil
+            
+            note_registry.map do |k, v|
+              (evts.include? v.number)? k : nil
             end
-          end         
+          end
+
+          def note_registry
+            @__note_registry ||= Hash.new { |h,k| h[k] = Note.new }
+          end
 			  end
       end
 		end
