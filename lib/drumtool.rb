@@ -9,7 +9,8 @@ module DrumTool
         sync = nil,
         logs: [ "output/livecoder", $stdout ],
         preprocessor_logs: [ "output/preprocessor" ],
-        playback_klass: LivePlayback
+        playback_klass: LivePlayback,
+        **opts        
       )
     sync &&= UniMIDI::Input[1]
     
@@ -19,7 +20,7 @@ module DrumTool
     filename = ARGV[1] || default_filename
     
     $stdout << "Begin playback of " << filename << "\n"
-    playback_klass.start filename, preprocessor: preprocessor_klass.new, init: fail_obj, clock: sync
+    playback_klass.start filename, preprocessor: preprocessor_klass.new, init: fail_obj, clock: sync, **opts
   end
 end
 

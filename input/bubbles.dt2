@@ -2,11 +2,11 @@ lp  0x10
 bpm 112
 ref 16
 
-> chain!
-  > lp x8
-	  i bd 36
-		when %2
-  > lp x8
-	  i bd 36
-		when %4
-		
+> i bd 36
+	when %4
+  > i bd 88
+	  when %2
+> i bd 36
+	when %4
+  > i bd 88
+	  when %2

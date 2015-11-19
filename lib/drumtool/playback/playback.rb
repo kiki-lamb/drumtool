@@ -17,6 +17,7 @@ module DrumTool
 			end
     end
 
+
     def time
       (engine && engine.parent.time) || 0
     end

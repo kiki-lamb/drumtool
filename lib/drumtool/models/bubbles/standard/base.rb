@@ -4,7 +4,15 @@ module DrumTool
       module Standard
         class Base
           extend  Traits::Klass
-          include Traits::Instance
+          include Traits::Tree
+          include Traits::MethodResolutionCascading
+
+          def initialize(*a)
+#            puts "#{self} BASE INITIALIZE(#{a.inspect})"
+            super(*a)
+            next_responder :parent
+
+          end
         end
       end
     end

@@ -2,7 +2,6 @@ bpm 104
 ref 16
 
 
-> seq
  > lp x20
    i bd 30
    sh 2

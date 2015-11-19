@@ -4,7 +4,7 @@ module DrumTool
     def initialize(
       *a, 
       reload_interval: 16,
-      rescue_exceptions: true, 
+      rescue_exceptions: false, 
 			init: nil,
 			**b
         )
@@ -37,6 +37,8 @@ module DrumTool
       reload
       
       @loader.safely_with_payload do
+#        puts engine.descendants.inspect
+#        raise RuntimeError
 			  super
       end
 		end

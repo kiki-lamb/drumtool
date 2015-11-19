@@ -2,7 +2,7 @@ module DrumTool
   module Models
     class Bubbles
       module Traits
-        module Instance
+        module Tree
           def self.included base
             base.instance_eval { attr_reader :parent }
             base.array_bubble_attr :children, singular: nil
@@ -13,7 +13,9 @@ module DrumTool
           # Initializer
           ################################################################################
                   
-          def initialize parent = nil
+          def initialize parent = nil, *a
+#            puts "#{self} TREE INITIALIZE(#{parent}, #{a.inspect})"
+            super *a
             raise ArgumentError, "No blocks." if block_given?
             parent.children << self if Instance === parent  
             @parent = parent
@@ -88,22 +90,6 @@ module DrumTool
           def build &b
             instance_eval &b if b
             self
-          end
-          
-          ################################################################################
-          # Method resolution
-          ################################################################################
-          
-          def method_missing name, *a, &b
-            if parent.respond_to?(name)
-              parent.send name, *a, &b
-            else
-              super
-            end
-          end
-          
-          def respond_to? name, all = false
-            super(name, all) || (parent && parent.respond_to?(name, all))
           end
         end
       end
