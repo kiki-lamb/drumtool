@@ -21,10 +21,6 @@ module DrumTool
 					active? ? super : []
 				end
 
-		    def tick
-		      top.tick
-		    end
-
 		    def clear_caches
           ucache_hash {}
 		      cache_hash {}
