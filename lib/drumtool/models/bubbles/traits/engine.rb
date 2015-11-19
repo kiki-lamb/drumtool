@@ -15,6 +15,16 @@ module DrumTool
           def tick!
             time!
           end
+
+          def state h = nil
+            unless h
+              { bpm: bpm, refresh_inteval: refresh_interval, time: time }
+            else
+              bpm h[:bpm]
+              refresh_interval h[:refresh_interval]
+              time h[:time]
+            end
+          end
           
 				  # This is needed to make it a valid engine for Playbacks:
 				  def events_at t

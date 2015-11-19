@@ -89,7 +89,7 @@ module DrumTool
 		def tick
       close_notes! 
 			assert_valid_engine!
-			open_note! *engine.events_at(@tick) #.tap { |x| puts "#{x.inspect}" }
+			open_note! *engine.events_at(@tick).tap { |x| puts "#{x.inspect}" }
 		  log_sep
 		  tmp = a_bunch_of_logging_crap.strip
       @last_line_length = tmp.length

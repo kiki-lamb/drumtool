@@ -2,9 +2,7 @@ lp  0x10
 bpm 104
 ref 16
 
->	hard_re
-  >	lp -x6
-    lp x8
+>	on %2
   	> i bd 36
   	  on 0..3
   	> i sd 40
