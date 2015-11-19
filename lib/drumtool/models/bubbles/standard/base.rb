@@ -5,11 +5,12 @@ module DrumTool
         class Base
           include Traits::BubbleAttrs
           include Traits::Tree
-          include Traits::ChainedBubbleAttrs
-          include Traits::ChainedMethodResolution
 
-          NextMethodResponder = :parent
+          include Traits::ChainedBubbleAttrs
           NextBubbleAttrResponder = :parent
+
+          include Traits::ChainedMethodResolution
+          NextMethodResponder = :parent
         end
       end
     end
