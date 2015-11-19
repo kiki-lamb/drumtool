@@ -2,11 +2,11 @@ module DrumTool
   module Models
     class Bubbles
 		  module Standard
-        def self.track &b
+        def track &b
           Standard::Track.new(clock).build &b
         end
         
-        def self.clock
+        def clock
           Standard::Clock.new
         end
 			end

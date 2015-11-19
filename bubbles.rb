@@ -2,10 +2,10 @@
 require_relative "./lib/drumtool"
 
 include DrumTool
-puts "BIP: `#{ARGV[0]}'"
+include DrumTool::Models::Bubbles::Standard
 
 easy_start(
-  Models::Bubbles::Standard::Preprocessors::Preprocessor,
-  Models::Bubbles::Standard.track,
+  Preprocessors::Preprocessor,
+  track,
   ARGV[0] || "input/bubbles2.dt2", false
 )
