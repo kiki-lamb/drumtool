@@ -25,14 +25,13 @@ module DrumTool
           end
 
           def self.included base
-            base.bubble_attr :next_bubble_attr_responder, default: nil
             base.extend ClassMethods           
           end
 
           private
           def next_bubble_attr_responder_object
-            return nil unless next_method_responder
-            send next_method_responder
+            return nil unless self.class.constants.include? :NextBubbleAttrResponder
+            send self.class.const_get(:NextBubbleAttrResponder)
           end          
         end
       end
