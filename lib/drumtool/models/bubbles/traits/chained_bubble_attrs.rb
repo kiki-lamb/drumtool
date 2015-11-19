@@ -25,12 +25,10 @@ module DrumTool
           end
 
           as_trait do |next_responder|
-            ChainedBubbleAttrsNextResponder = next_responder
-
             extend ClassMethods
-            
-            def next_bubble_attr_responder_object
-              send ChainedBubbleAttrsNextResponder
+
+            define_method :next_bubble_attr_responder_object do
+              send next_responder if next_responder
             end
           end
         end

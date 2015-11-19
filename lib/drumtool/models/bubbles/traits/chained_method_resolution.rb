@@ -4,7 +4,9 @@ module DrumTool
       module Traits
         module ChainedMethodResolution
           as_trait do |next_responder|
-            ChainedMethodResolutionNextResponder = next_responder
+            define_method :next_method_responder_object do
+              send next_responder if next_responder
+            end
             
             def method_missing name, *a, &b
               if next_method_responder_object && next_method_responder_object.respond_to?(name)
@@ -18,9 +20,6 @@ module DrumTool
               super(name, all) || (next_method_responder_object && next_method_responder_object.respond_to?(name, all))
             end
                        
-            def next_method_responder_object              
-              send ChainedMethodResolutionNextResponder
-            end
           end
         end
       end
