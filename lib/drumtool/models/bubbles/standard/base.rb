@@ -3,10 +3,10 @@ module DrumTool
     class Bubbles
       module Standard
         class Base
-          include  Traits::BubbleAttrs
-          include Traits::ChainedMethodResolution
+          include Traits::BubbleAttrs
           include Traits::Tree
-          include  Traits::ChainedBubbleAttrs
+          include Traits::ChainedBubbleAttrs
+          include Traits::ChainedMethodResolution
 
           def initialize(*)            
             next_method_responder :parent
