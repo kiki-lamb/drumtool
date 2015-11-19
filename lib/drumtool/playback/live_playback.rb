@@ -35,9 +35,9 @@ module DrumTool
 		end
 
 		def reload
-		  if @tick % @load_interval == 0
+		  if time % @load_interval == 0
 		    @last_reload_time = @loader.reload
-				@last_reload_tick = @tick unless 0 == @last_reload_time
+				@last_reload_tick = time.to_i unless 0 == @last_reload_time
 			else
 			  @last_reload_time = 0
       end
@@ -45,10 +45,10 @@ module DrumTool
 		
 		def log_columns
 		  reload_time = 0
-			unchanged_bars = (@tick-@last_reload_tick)/16.0
-			reload_bars = @load_interval/16.0
-			countdown = reload_bars-((@tick-@last_reload_tick)/16%reload_bars)
-			countdown = countdown%1.0 == 0  ? countdown.to_i : countdown.to_r
+			unchanged_bars = ((time.to_i-@last_reload_tick.to_i)/16).to_i#.tap { |uc| puts "UC: #{uc}" }
+			reload_bars = (@load_interval/16).to_i#.tap { |rb| puts "RB: #{rb}" }
+			countdown = (reload_bars-((time.to_i-@last_reload_tick.to_i)/16%reload_bars.to_i))#.tap { |c| puts "C1: #{c}" }
+			countdown = (countdown%1.0 == 0  ? countdown.to_i : countdown.to_r)#.tap { |c| puts "C2: #{c}" }
 
 		  [ 
 			  @load_interval,
@@ -56,7 +56,7 @@ module DrumTool
 			  "T-#{countdown} bars",
 				"#{@last_reload_time.to_s[0..5].rjust(6)} ms",
 				*super,
-        ("#{@loader.exception_lines[@tick%(engine.loop || 16)].strip}" if @loader.exception_lines.any?),
+        ("#{@loader.exception_lines[time%(engine.loop || 16)].strip}" if @loader.exception_lines.any?),
 			].compact
 		end		
   end 

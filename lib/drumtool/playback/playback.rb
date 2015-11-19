@@ -18,7 +18,7 @@ module DrumTool
     end
 
     def time
-      (engine && engine.tick) || 0
+      (engine && engine.parent.time) || 0
     end
     
     def send_or_get v
@@ -93,7 +93,7 @@ module DrumTool
       close_notes! 
 			assert_valid_engine!
       engine.tick!
-			open_note! *engine.events.tap { |x| puts "#{x.inspect}" }
+			open_note! *engine.events # .tap { |x| puts "#{x.inspect}" }
 		  log_sep
 		  tmp = a_bunch_of_logging_crap.strip
       @last_line_length = tmp.length
