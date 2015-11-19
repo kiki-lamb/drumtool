@@ -6,8 +6,8 @@ module DrumTool
           include Traits::RelativeTime
 				  include Traits::Events				
 			    include Traits::Triggered
-			    include Traits::Notes
-          include Traits::NoteDisplayClient
+			    include Traits::BetterNotes
+          include Traits::BetterNoteDisplayClient
           include Traits::Chain
           prepend Traits::EnhancedLooping
           include Traits::DropAndTake
