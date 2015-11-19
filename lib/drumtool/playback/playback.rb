@@ -17,6 +17,10 @@ module DrumTool
 			end
     end
 
+    def time
+      (engine && engine.tick) || 0
+    end
+    
     def send_or_get v
       case v
       when Array
@@ -49,7 +53,6 @@ module DrumTool
       @input_clock = clock
       @reset_loop_on_stop = reset_loop_on_stop
       @last_line_length = 0
-			@tick = 0
       set_midi_output output
     end
 
@@ -67,11 +70,11 @@ module DrumTool
 		def assert_valid_engine
 		  # engine && engine.respond_to?(:bpm) && engine.respond_to?(:loop) && engine.respond_to?(:events_at)
 
-		  engine && engine.respond_to?(:events_at)
+		  #engine && engine.respond_to?(:events_at)
 		end
 
 		def assert_valid_engine!
-		  raise RuntimeError, "Invalid engine" unless assert_valid_engine
+#		  raise RuntimeError, "Invalid engine" unless assert_valid_engine
 		end
 
     def clock      	  
@@ -80,7 +83,7 @@ module DrumTool
 					c.event.stop do 
             $stdout << "\n#{self.class.name}: Stopped by user.\n"
             close_notes!
-            @tick -= @tick % loop if @reset_loop_on_stop
+            engine.parent.time( time - time%loop ) if @reset_loop_on_stop
           end
         end
       end
@@ -89,27 +92,26 @@ module DrumTool
 		def tick
       close_notes! 
 			assert_valid_engine!
-			open_note! *engine.events_at(@tick).tap { |x| puts "#{x.inspect}" }
+      engine.tick!
+			open_note! *engine.events.tap { |x| puts "#{x.inspect}" }
 		  log_sep
 		  tmp = a_bunch_of_logging_crap.strip
       @last_line_length = tmp.length
 		  log tmp
-    ensure
-      @tick += 1
     end
 
 		def log_sep
 		  io = StringIO.new
-		  if loop && 0 == @tick % loop && loop != 1
+		  if loop && 0 == (time) % loop && loop != 1
         io << "=" * (@last_line_length) << "\n"
-      elsif 0 == @tick % 16 
+      elsif 0 == time % 16 
         io << "-" * (@last_line_length) << "\n"
       end
 			log io.string unless io.string.empty?
 		end
 
 		def log_columns
-		  fill = @tick % 4 == 0 ? "__" : ". "
+		  fill = time % 4 == 0 ? "__" : ". "
 	    tail = if engine.respond_to?(:displayed_notes)
                engine.displayed_notes.map do |note|
                  if note
@@ -121,7 +123,7 @@ module DrumTool
              elsif engine.respond_to?(:instruments)
                (engine.instruments.group_by(&:short_name).map do |name, instrs| 
                   (instrs.any? do |i|
-                     i.fires_at?(@tick)
+                     i.fires_at?(time)
                    end) ? "#{name.ljust(2)}" : fill 
                 end)
              else
@@ -130,7 +132,7 @@ module DrumTool
 
 		  [          
 				 *tail, 
-				 (loop ? @tick % loop : @tick).to_s(16).rjust(8, "0"), 
+				 (loop ? time % loop : time).to_i.to_s(16).rjust(8, "0"), 
 				 bpm.to_s.rjust(3)
       ]
 		end
