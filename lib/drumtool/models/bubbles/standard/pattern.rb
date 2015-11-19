@@ -3,10 +3,7 @@ module DrumTool
 		class Bubbles
       module Standard
 		    class Pattern
-          include Traits::BubbleAttrs
-          include Traits::Tree[Pattern]
-          include Traits::ChainedBubbleAttrs[:parent]
-          include Traits::ChainedMethodResolution[:parent]          
+          include Traits::ChainedBubbleTree[Pattern]
           include Traits::RelativeTime
 				  include Traits::Events				
 			    include Traits::Triggered
@@ -14,11 +11,6 @@ module DrumTool
           include Traits::Chain
           prepend Traits::EnhancedLooping
           include Traits::DropAndTake
-
-#          def initialize(*)
-#            next_responder :parent
- #           super
- #         end
 		    end
       end
 		end
