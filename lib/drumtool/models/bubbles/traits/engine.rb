@@ -4,8 +4,8 @@ module DrumTool
       module Traits
 		    module Engine
 				  def self.included base
-		        base.bubble_attr :refresh_interval, default: 16
-		        base.bubble_attr :bpm, default: 112           
+		        base.bubble_attr :refresh_interval, default: nil
+		        base.bubble_attr :bpm, default: nil
           end
 
           def tick
@@ -21,8 +21,8 @@ module DrumTool
           end
 
           def state= h
-            bpm h[:bpm]
-            refresh_interval h[:refresh_interval]
+            @bpm ||= h[:bpm]
+            @refresh_interval ||= h[:refresh_interval]
             parent.time h[:time]
           end
           

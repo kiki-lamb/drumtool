@@ -4,17 +4,17 @@ module DrumTool
       module Traits
 		    module BetterNoteDisplay
 			    def self.included base
-					  base.hash_bubble_attr :note_names, default: (Hash.new { |h,k| h[k] = Array.new })
+					  base.hash_bubble_attr :registered_notes, default: (Hash.new { |h,k| h[k] = Array.new })
 				  end
           
-          def register_note name, number
-            note_names[name] << number
+          def register_note n
+            registered_notes[n.name] << n
           end
 
           def displayed_notes
             evts = events
-            note_names.map do |k, v|
-              (evts & v).any?? k : nil
+            registered_notes.map do |k, v|
+              (evts & v.map(&:number)).any?? k : nil
             end
           end         
 			  end
