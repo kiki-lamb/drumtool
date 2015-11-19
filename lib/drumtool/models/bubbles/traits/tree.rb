@@ -22,7 +22,7 @@ module DrumTool
 #              puts "#{self} TREE INITIALIZE(#{parent}, #{a.inspect})"
               super *a
               raise ArgumentError, "No blocks." if block_given?
-              parent.children << self if Tree2 === parent  
+              parent.children << self if Tree === parent  
               @parent = parent
             end
 
