@@ -3,7 +3,7 @@ module DrumTool
     module Stages
 	    module Helpers
 	    	PatBlockArgs = /(?:\|.+\|\s*\n$)/
-	    	PatName = /(?:[a-z][a-z0-9_]*)/
+	    	PatName = /(?:[a-zA-Z][A-Za-z0-9_]*)/
 	    	PatNameExact = /^#{PatName}$/
 	    	PatHex = /(?:-?0?[xX][\da-fA_F]+)/
 	    	PatHexExact = /^#{PatHex}$/

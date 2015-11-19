@@ -39,7 +39,7 @@ module DrumTool
 
     def initialize(
 		  engine = nil,
-      clock: nil, 
+      clock: UniMIDI::Input[1], 
       output: UniMIDI::Output[0], 
       reset_loop_on_stop: true#,
 #			fixed_bpm: 128,

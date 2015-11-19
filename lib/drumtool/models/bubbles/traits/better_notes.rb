@@ -4,8 +4,7 @@ module DrumTool
       module Traits
 		    module BetterNotes
           def note name, number = nil, velocity = nil, channel = nil
-            puts "`#{name}' `#{number}'"
-            local_notes[name] = register_note(name, number, velocity, channel).tap { |x| puts "T: #{x.inspect}" }
+            local_notes[name] = register_note name, number, velocity, channel
           end
 
           def notes
@@ -14,7 +13,7 @@ module DrumTool
           
           private				
 				  def local_events
-				    [ *local_notes.values.map(&:number), *super ]
+				    [ *local_notes.values.map(&:number), *super ]  # .tap { |x| puts "#{self} yields #{x.inspect}" }
 				  end
 
           def local_notes

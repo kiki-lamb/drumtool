@@ -3,7 +3,7 @@ module DrumTool
   class Note
     attr_accessor :number, :name, :channel, :velocity
     def short_name
-      name[0..1].upcase.ljust 2, " "
+      name[0..1].ljust 2, " "
     end
     
     def merge! other

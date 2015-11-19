@@ -4,7 +4,7 @@ module DrumTool
       module Traits
 		    module BetterNoteDisplay
           def register_note name, number = nil, velocity = nil, channel = nil
-            note_registry[name].merge! Note.new(name: name, number: number, channel: channel, velocity: velocity).tap { |x| puts x.inspect }
+            note_registry[name].merge! Note.new(name: name, number: number, channel: channel, velocity: velocity)#.tap { |x| puts x.inspect }
           end
 
           def displayed_notes

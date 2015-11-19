@@ -4,7 +4,7 @@ module DrumTool
     def initialize(
       *a, 
       reload_interval: 16,
-      rescue_exceptions: false, 
+      rescue_exceptions: true, 
 			init: nil,
 			**b
     )
@@ -21,7 +21,7 @@ module DrumTool
 #        puts "TO2: #{to.state}"
         	if @clock && ! @input_clock
 #            puts "SET CLOCK TO #{to.bpm}"
-            @clock.tempo = to.bpm
+            @clock.tempo = ( to.bpm || 112)
           end
 				  @load_interval = to.refresh_interval if to.respond_to?(:refresh_interval)
           @load_interval ||= 16
