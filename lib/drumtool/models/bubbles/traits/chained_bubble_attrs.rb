@@ -24,15 +24,15 @@ module DrumTool
             end
           end
 
-          def self.included base
-            base.extend ClassMethods           
-          end
+          as_trait do |next_responder|
+            ChainedBubbleAttrsNextResponder = next_responder
 
-          private
-          def next_bubble_attr_responder_object
-            return nil unless self.class.constants.include? :NextBubbleAttrResponder
-            send self.class.const_get(:NextBubbleAttrResponder)
-          end          
+            extend ClassMethods
+            
+            def next_bubble_attr_responder_object
+              send ChainedBubbleAttrsNextResponder
+            end
+          end
         end
       end
     end
