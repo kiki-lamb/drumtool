@@ -11,12 +11,14 @@ module DrumTool
       name[0..1].upcase.ljust 2, " "
     end
     
-    def initialize name: nil, number: nil, channel: nil, velocity: nil, open: false
+    def initialize name: nil, number: nil, channel: nil, velocity: 100, open: false
       self.name     = name
       self.number   = number
       self.channel  = channel
       self.velocity = velocity
-      self.open     = open    
+      self.open     = open
+
+      raise ArgumentError, "You must specify a name for this note" unless self.name
     end
   end
 end

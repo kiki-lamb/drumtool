@@ -1,12 +1,11 @@
-lp  0x10
 bpm 104
 ref 16
 
 reverse!
 
 
-> lp x10
-  > i bd 40
-    on 0
-	> i ch 45
-	  on 0..3
+
+> i bd 40
+  on 0
+> i ch 45
+  on 0..3

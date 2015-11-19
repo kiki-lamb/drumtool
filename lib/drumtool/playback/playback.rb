@@ -41,14 +41,14 @@ module DrumTool
 		  engine = nil,
       clock: nil, 
       output: UniMIDI::Output[0], 
-      reset_loop_on_stop: true,
-			fixed_bpm: 128,
-			fixed_loop: 16
+      reset_loop_on_stop: true#,
+#			fixed_bpm: 128,
+#			fixed_loop: 16
     )
 		  @engine = engine
 
-		  @fixed_bpm = fixed_bpm
-		  @fixed_loop = fixed_loop
+#		  @fixed_bpm = fixed_bpm
+#		  @fixed_loop = fixed_loop
 
       @input_clock = clock
       @reset_loop_on_stop = reset_loop_on_stop
@@ -64,8 +64,8 @@ module DrumTool
 
 		private
 		attr_accessor :engine
-		conditional_attr :bpm, :assert_valid_engine,  [ :engine, :bpm ], :@fixed_bpm
-		conditional_attr :loop, :assert_valid_engine, [ :engine, :loop ],  :@fixed_loop
+#		conditional_attr :bpm, :assert_valid_engine,  [ :engine, :bpm ], :@fixed_bpm
+#		conditional_attr :loop, :assert_valid_engine, [ :engine, :loop ],  :@fixed_loop
 			
 		def assert_valid_engine
       true
@@ -81,11 +81,11 @@ module DrumTool
 
     def clock      	  
       @clock ||= begin
-			  Topaz::Clock.new((@input_clock ? @input_clock : bpm), interval: 16, &Proc.new { tick }).tap do |c|
+			  Topaz::Clock.new((@input_clock ? @input_clock : engine.bpm), interval: 16, &Proc.new { tick }).tap do |c|
 					c.event.stop do 
             $stdout << "\n#{self.class.name}: Stopped by user.\n"
             close_notes!
-            engine.parent.time( time - time%loop ) if @reset_loop_on_stop
+            engine.parent.time( time - time%engine.loop ) if engine.loop && @reset_loop_on_stop
           end
         end
       end
@@ -105,7 +105,7 @@ module DrumTool
 
 		def log_sep
 		  io = StringIO.new
-		  if loop && 0 == (time) % loop && loop != 1
+		  if engine.loop && 0 == (time) % engine.loop && engine.loop != 1
         io << "=" * (@last_line_length) << "\n"
       elsif 0 == time % 16 
         io << "-" * (@last_line_length) << "\n"
@@ -133,10 +133,11 @@ module DrumTool
                []
              end
 
-		  [          
+		  [  
 				 *tail, 
-				 (loop ? time % loop : time).to_i.to_s(16).rjust(4, "0"), 
-				 bpm.to_s.rjust(3)
+				 engine.bpm.to_s.rjust(3),
+				 (engine.loop ? time % engine.loop : time).to_i.to_s(16).rjust(4, "0"), 
+         time.to_s.rjust(4," ")
       ]
 		end
 

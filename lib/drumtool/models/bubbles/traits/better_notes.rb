@@ -4,7 +4,7 @@ module DrumTool
       module Traits
 		    module BetterNotes
 			    def self.included base
-					  base.hash_bubble_attr :notes, flip: true, default: {}, permissive: true
+					  base.hash_bubble_attr :notes_storage
 				  end
           
           private				
