@@ -11,10 +11,10 @@ module DrumTool
           prepend Traits::EnhancedLooping
           include Traits::DropAndTake
 
-          def initialize(*)
-            next_responder :parent
-            super
-          end
+#          def initialize(*)
+#            next_responder :parent
+ #           super
+ #         end
 		    end
       end
 		end
