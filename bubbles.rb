@@ -6,5 +6,5 @@ include DrumTool
 easy_start(
   Models::Bubbles::Standard::Preprocessors::Preprocessor,
   Models::Bubbles::Standard.track,
-  "input/bubbles2.dt2"
+  "input/bubbles2.dt2", false
 )

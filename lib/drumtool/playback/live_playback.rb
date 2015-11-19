@@ -7,7 +7,8 @@ module DrumTool
       rescue_exceptions: false, 
 			init: nil,
 			**b
-    )
+        )
+      puts "A: #{a.inspect}, B: #{b.inspect}"
 		  super *a, **b
 
       @load_interval = reload_interval

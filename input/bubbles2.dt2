@@ -2,17 +2,11 @@ lp  0x20
 bpm 104
 ref 16
 
-reverse!
-
 > seq
-  > lp x10
-	  i bd 40
-		on %2
-	> lp x10
-	  > i bd 40
-	    on %4
-		> i sd 44
-		  on %8
-			sh 4
-		> i ch 45
-		  on xc..xf
+ > lp x20
+   i bd 30
+   sh 2
+   on %4
+
+
+	 
