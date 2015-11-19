@@ -4,11 +4,9 @@ module DrumTool
       module Standard
 		    class Track
           include Traits::ChainedBubbleTree[Pattern]
-          include Traits::RelativeTime
-				  include Traits::Events
-          include Traits::Engine
+          include Traits::ChainableEventsInRelativeTime
           include Traits::BetterNoteDisplay
-          include Traits::Chain          
+          include Traits::Engine
 		    end
       end
 		end

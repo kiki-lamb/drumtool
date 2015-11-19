@@ -10,7 +10,6 @@ module DrumTool
                                  
 
             define_method :default_child_type do
-              puts "=> #{default_child_type_}"
               default_child_type_
             end
             

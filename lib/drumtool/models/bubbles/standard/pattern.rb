@@ -4,13 +4,11 @@ module DrumTool
       module Standard
 		    class Pattern
           include Traits::ChainedBubbleTree[Pattern]
-          include Traits::RelativeTime
-				  include Traits::Events				
-			    include Traits::Triggered
+          include Traits::ChainableEventsInRelativeTime
 			    include Traits::BetterNotes
-          include Traits::Chain
-          prepend Traits::EnhancedLooping
+			    include Traits::Triggered
           include Traits::DropAndTake
+          prepend Traits::EnhancedLooping
 		    end
       end
 		end
