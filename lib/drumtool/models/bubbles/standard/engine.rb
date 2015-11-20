@@ -3,9 +3,9 @@ module DrumTool
 		class Bubbles
       module Standard
 		    class Engine
-          include Traits
-          
+          include Traits          
           include BubbleAttrs
+          
           include TreeOf[ Track ]
 
           include Time::Absolute
