@@ -2,7 +2,7 @@ module DrumTool
   module Models
     class Bubbles
       module Traits
-        module ChainedMethodResolution
+        module MethodResolutionChainedVia
           as_trait do |next_responder|
             define_method :next_method_responder_object do
               send next_responder if next_responder

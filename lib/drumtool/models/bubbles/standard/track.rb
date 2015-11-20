@@ -4,9 +4,9 @@ module DrumTool
       module Standard
 		    class Track
           include Traits::BubbleAttrs
-          include Traits::Tree[Pattern]
-          include Traits::ChainedMethodResolution[:parent]
-          include Traits::BubbleAttrs::Chained[:parent]
+          include Traits::TreeOf[Pattern]
+          include Traits::MethodResolutionChainedVia[:parent]
+          include Traits::BubbleAttrs::ChainedVia[:parent]
 
           include Traits::Time::Relative
 				  include Traits::Time::Events

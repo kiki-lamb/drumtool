@@ -2,7 +2,7 @@ module DrumTool
   module Models
     class Bubbles
       module Traits
-        module Tree
+        module TreeOf
           as_trait do |default_child_type_|
             attr_accessor :parent
             array_bubble_attr :children, singular: :child
@@ -18,7 +18,7 @@ module DrumTool
             def initialize parent = nil, *a
               super *a
               raise ArgumentError, "No blocks." if block_given?
-              parent.children << self if Tree === parent  
+              parent.children << self if TreeOf === parent  
               @parent = parent
             end
 
