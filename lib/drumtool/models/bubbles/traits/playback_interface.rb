@@ -3,7 +3,9 @@ module DrumTool
 		class Bubbles
       module Traits
 		    module PlaybackInterface
-				  def self.included base
+          # These are all of the methods called on the engine by any of the Playback classes.
+
+          def self.included base
 		        base.bubble_attr :refresh_interval, default: nil
 		        base.bubble_attr :bpm, default: nil
             base.class_eval do
@@ -12,10 +14,6 @@ module DrumTool
             end
           end
           
-          def tick
-            time
-          end
-
           def tick!
             time!
           end

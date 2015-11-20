@@ -80,7 +80,7 @@ module DrumTool
 					c.event.stop do 
             $stdout << "\n#{self.class.name}: Stopped.\n"
             close_notes!
-            engine.time( time - time%engine.loop ) if engine.loop && @reset_loop_on_stop
+            engine.tim( time - time%engine.loop ) if engine.loop && @reset_loop_on_stop
           end
         end
       end
