@@ -14,7 +14,7 @@ module DrumTool
         end
         
         def clock
-          Standard::Engine.new
+          Engine.new
         end
 			end
 		end
