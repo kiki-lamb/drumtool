@@ -5,7 +5,7 @@ module DrumTool
 		    class Track
           include Traits::ChainedBubbleTree[Pattern]
           include Traits::ChainableEventsInRelativeTime
-          include Traits::BetterNoteDisplay
+          include Traits::Events::BetterNoteDisplay
           include Traits::Engine
 		    end
       end

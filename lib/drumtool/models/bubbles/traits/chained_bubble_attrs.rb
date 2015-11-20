@@ -2,7 +2,8 @@ module DrumTool
   module Models
     class Bubbles
       module Traits
-        module ChainedBubbleAttrs
+        module BubbleAttrs
+          module Chained
           module ClassMethods            
             def cumulative_bubble_attr name, default: 0, &after
               bubble_attr name, default: default, accessor: "local_#{name}", &after
@@ -37,3 +38,4 @@ module DrumTool
   end
 end
 
+end

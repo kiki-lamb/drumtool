@@ -8,7 +8,7 @@ module DrumTool
           as_trait do |child_klass|
             include Traits::BubbleAttrs
             include Traits::Tree[child_klass]
-            include Traits::ChainedBubbleAttrs[:parent]
+            include Traits::BubbleAttrs::Chained[:parent]
             include Traits::ChainedMethodResolution[:parent]
           end
         end

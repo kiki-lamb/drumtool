@@ -5,10 +5,10 @@ module DrumTool
 		    class Pattern
           include Traits::ChainedBubbleTree[Pattern]
           include Traits::ChainableEventsInRelativeTime
-			    include Traits::BetterNotes
-			    include Traits::Triggered
-          include Traits::DropAndTake
-          prepend Traits::EnhancedLooping
+			    include Traits::Events::BetterNotes
+			    include Traits::Events::Triggered
+          include Traits::Events::Triggered::DropAndTake
+          prepend Traits::RelativeTime::EnhancedLooping
 		    end
       end
 		end
