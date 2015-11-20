@@ -6,9 +6,8 @@ module DrumTool
           module MIDINotes
             module Table
               def register_note note
-                note.tap { |n| puts "N: #{n}" }
-              note_registry[note.name].merge!(note) # .tap { |d| puts "DUP: #{d}" }
-            end
+                note_registry[note.name].merge!(note) # .tap { |d| puts "DUP: #{d}" }
+              end
 
             def lookup note
               if note_registry.include? note.name

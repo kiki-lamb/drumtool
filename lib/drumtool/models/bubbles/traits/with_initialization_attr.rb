@@ -2,7 +2,7 @@ module DrumTool
   module Models
     class Bubbles
       module Traits
-        module WithParent
+        module WithInitializationAttr
           as_trait do |attr_name|
             attr_accessor attr_name
 

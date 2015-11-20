@@ -20,7 +20,6 @@ module DrumTool
                     
             def initialize parent = nil, *a
               super *a
-              raise ArgumentError, "No blocks." if block_given?
               parent.children << self if TreeOf === parent  
               @parent = parent
             end
