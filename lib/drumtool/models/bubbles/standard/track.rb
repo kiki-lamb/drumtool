@@ -14,9 +14,6 @@ module DrumTool
 
 				  include Events
           include Events::Chain
-          include Events::NotesDisplay
-
-          include Engine
 		    end
       end
 		end

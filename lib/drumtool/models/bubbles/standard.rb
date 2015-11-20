@@ -5,7 +5,9 @@ module DrumTool
     class Bubbles
 		  module Standard
         def track &b
-          Standard::Track.new(clock).build &b
+          c = clock
+          t = Standard::Track.new(c).build &b
+          c
         end
         
         def clock

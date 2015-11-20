@@ -19,7 +19,7 @@ module DrumTool
 
 
     def time
-      (engine && engine.parent.time) || 0
+      (engine && engine.time) || 0
     end
     
     def send_or_get v
@@ -80,7 +80,7 @@ module DrumTool
 					c.event.stop do 
             $stdout << "\n#{self.class.name}: Stopped.\n"
             close_notes!
-            engine.parent.time( time - time%engine.loop ) if engine.loop && @reset_loop_on_stop
+            engine.time( time - time%engine.loop ) if engine.loop && @reset_loop_on_stop
           end
         end
       end

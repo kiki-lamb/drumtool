@@ -16,19 +16,26 @@ module DrumTool
             time!
           end
 
+          def loop
+            if children.first
+              children.first.loop
+            else
+              nil
+            end
+          end
+          
           def state
-            { bpm: bpm, refresh_inteval: refresh_interval, time: parent.time }
+            { bpm: bpm, refresh_inteval: refresh_interval, time: time }
           end
 
           def state= h
             @bpm ||= h[:bpm]
             @refresh_interval ||= h[:refresh_interval]
-            parent.time h[:time]
+            time h[:time]
           end
           
-				  # This is needed to make it a valid engine for Playbacks:
 				  def events_at t
-				    parent.time t
+				    time t
 					  events
 				  end				
 		    end
