@@ -20,7 +20,7 @@ module DrumTool
 
           def loop
             if children.first
-              children.first.loop
+              children.map(&:loop).compact.max
             else
               nil
             end
