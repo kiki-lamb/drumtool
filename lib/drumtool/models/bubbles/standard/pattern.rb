@@ -12,7 +12,7 @@ module DrumTool
           include Triggered::DropAndTake
           
 			    prepend MIDINotes
-          prepend MIDINotes::Scale
+          prepend MIDINotes::Filters
         end
       end
 		end
