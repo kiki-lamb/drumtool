@@ -4,11 +4,9 @@ module DrumTool
       module Traits
         module Tree
           as_trait do |default_child_type_|
-
-            attr_reader :parent 
-            array_bubble_attr :children, singular: nil
-                                 
-
+            attr_accessor :parent
+            array_bubble_attr :children, singular: :child
+            
             define_method :default_child_type do
               default_child_type_
             end
@@ -18,7 +16,6 @@ module DrumTool
             ################################################################################
                     
             def initialize parent = nil, *a
-#              puts "#{self} TREE INITIALIZE(#{parent}, #{a.inspect})"
               super *a
               raise ArgumentError, "No blocks." if block_given?
               parent.children << self if Tree === parent  
@@ -101,3 +98,4 @@ module DrumTool
     end
   end
 end
+
