@@ -4,6 +4,8 @@ module DrumTool
   module Models
     class Bubbles
 		  module Standard
+        include Traits          
+
         def track &b
           c = clock
           t = c.child
@@ -12,7 +14,7 @@ module DrumTool
         end
         
         def clock
-          Standard::Clock.new
+          Standard::Engine.new
         end
 			end
 		end
