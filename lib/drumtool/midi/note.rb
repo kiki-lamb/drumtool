@@ -13,14 +13,22 @@ module DrumTool
         self.number   ||= other.number
         self.channel  ||= other.channel
         self.velocity ||= other.velocity
-        self.action  ||= other.action
+        self.action   ||= other.action
         self
       end
 
       def process!
-        self.action.(self) if self.action
+        puts "SHIT"
+        if self.action
+          case self.action.arity
+          when 0
+            self.action.()
+          else
+            self.action.(self)
+          end
+        end
       end
-      
+        
       def initialize name: nil, number: nil, velocity: 100, channel: 1, &b
         self.name     = name
         self.number   = number

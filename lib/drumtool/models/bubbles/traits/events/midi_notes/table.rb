@@ -3,7 +3,8 @@ module DrumTool
 		class Bubbles
       module Traits
 		    module Events
-          module MIDINotesTable
+          module MIDINotes
+            module Table
             def register_note note
               note_registry[note.name].merge! note
             end
@@ -39,7 +40,7 @@ module DrumTool
             end
             
             def note_registry
-              @__note_registry ||= Hash.new { |h,k| h[k] = MIDI::Note.new }
+              @__note_registry ||= Hash.new { |h,k| h[k] = MIDINotes::EnhancedMIDINote.new self }
             end
 			    end
         end
@@ -48,3 +49,4 @@ module DrumTool
   end
 end
 
+end

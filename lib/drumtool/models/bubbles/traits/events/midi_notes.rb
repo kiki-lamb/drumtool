@@ -7,7 +7,7 @@ module DrumTool
           def note name, number = nil, velocity = nil, channel = nil, &b
             name, number = number, name if Fixnum === name
             
-            n = EnhancedMIDINote.new name: name, number: number, channel: channel, velocity: velocity, &b
+            n = EnhancedMIDINote.new self, name: name, number: number, channel: channel, velocity: velocity, &b
             local_notes[number] = if respond_to?(:register_note)
                                   register_note n 
                                 else
