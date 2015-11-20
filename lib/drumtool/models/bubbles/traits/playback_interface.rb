@@ -10,7 +10,7 @@ module DrumTool
 		        base.bubble_attr :bpm, default: nil
             base.class_eval do
               include Events         
-              include Events::MIDINotesTable
+              prepend Events::MIDINotesTable
             end
           end
           
@@ -21,8 +21,7 @@ module DrumTool
           def time= v
             @time = v
           end
-          
-          
+                    
           def loop
             if children.first
               children.map(&:loop).compact.max
