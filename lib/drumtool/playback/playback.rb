@@ -78,7 +78,7 @@ module DrumTool
       @clock ||= begin
 			  Topaz::Clock.new((@input_clock ? @input_clock : (engine.bpm || 112)), interval: 16, &Proc.new { tick }).tap do |c|
 					c.event.stop do 
-            $stdout << "\n#{self.class.name}: Stopped by user.\n"
+            $stdout << "\n#{self.class.name}: Stopped.\n"
             close_notes!
             engine.parent.time( time - time%engine.loop ) if engine.loop && @reset_loop_on_stop
           end

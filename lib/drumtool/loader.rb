@@ -15,7 +15,6 @@ module DrumTool
 
       @preprocessor = preprocessor || Proc.new { |x| x }
       @rescue_exceptions = rescue_exceptions
-
       @payload = init
       @prior = nil
       @exception = nil
@@ -69,12 +68,12 @@ module DrumTool
     
     def reload
       return 0 unless read
-
+      puts "RELOAD!"
       start = Time.now
       clear_exception
 
-      safely_with_payload do 
-        tmp_payload = eval(@preprocessor.call @text)
+      begin
+        tmp_payload = eval(@preprocessor.call @text) 
         @prior = @payload
         @payload = tmp_payload
 
@@ -87,6 +86,8 @@ module DrumTool
             @after.(@payload, @prior)
           end
         end
+      rescue Exception => e
+        self.exception = e
       end
 
       (Time.now - start) * 1000
