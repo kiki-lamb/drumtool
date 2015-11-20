@@ -32,6 +32,8 @@ module DrumTool
                     self.instance_exec self, &action
                   end
                 end
+
+                self.process!
               end              
             end
           end

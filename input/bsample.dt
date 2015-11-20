@@ -31,10 +31,10 @@ lp  x40
 	
 
 > lp x40
- > i SB 20 { n.note %= 12; n.note += 55; n.note += time / 16 }
-   on %2
-	 excl %6
-	 rot 2
+ > i SB { } #n.note = 55; n.note += time % 16 }
+   on %6
+	 minor D
+
 
   
 > i BD 

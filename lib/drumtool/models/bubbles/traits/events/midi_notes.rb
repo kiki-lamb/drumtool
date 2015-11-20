@@ -17,7 +17,7 @@ module DrumTool
           end
 
           def notes
-            local_notes.values.map &:dup
+            ns = local_notes.values.map(&:dup)
           end
           
           private				

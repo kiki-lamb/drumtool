@@ -6,7 +6,7 @@ module DrumTool
 
 
       def note= x
-        self.number = x
+        self.number = (x.to_i % 127 if x)
       end
 
       def note
@@ -41,6 +41,8 @@ module DrumTool
             self.action.(self)
           end
         end
+        
+        self.action = nil
       end
         
       def initialize name: nil, number: nil, velocity: 100, channel: 1, &b

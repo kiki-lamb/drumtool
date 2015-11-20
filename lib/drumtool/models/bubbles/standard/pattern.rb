@@ -10,7 +10,9 @@ module DrumTool
 			    include Events::MIDINotes
 			    include Events::Triggered
           include Events::Triggered::DropAndTake
-		    end
+
+          prepend Events::MIDINotes::Scale
+        end
       end
 		end
   end
