@@ -10,8 +10,12 @@ module DrumTool
               include Traits::MethodResolutionChainedVia[:parent]
               include Traits::BubbleAttrs::Attrify[:velocity, as: :vel ]
               include Traits::BubbleAttrs::Attrify[:channel,  as: :chan ]
-              include Traits::BubbleAttrs::Attrify[:number,   as: :num ]
+              include Traits::BubbleAttrs::Attrify[:number,   as: :note ]
 
+              def n
+                self
+              end
+              
               def merge! other
                 self.parent = other.parent # .tap { |x| puts "X: #{x}" }
                 super

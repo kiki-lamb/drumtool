@@ -1,3 +1,7 @@
+require "bundler"
+Bundler.setup
+require "rb-music-theory"
+
 require 'require_all'
 require_rel '.'
 

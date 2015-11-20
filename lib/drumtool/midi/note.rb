@@ -1,9 +1,24 @@
 module DrumTool
   module MIDI
     class Note
-      attr_accessor :number, :name, :channel, :velocity, :action
+      attr_accessor :name, :channel, :velocity, :action
+      attr_writer :number
+
+
+      def note= x
+        self.number = x
+      end
+
+      def note
+        self.number
+      end
+      
       def short_name
         name[0..1].ljust 2, " "
+      end
+
+      def number
+        (@number ||= nil).to_i if @number
       end
       
       def merge! other
@@ -18,7 +33,6 @@ module DrumTool
       end
 
       def process!
-        puts "SHIT"
         if self.action
           case self.action.arity
           when 0

@@ -1,11 +1,10 @@
 bpm 120
 ref x10
-lp  x20
+lp  x40
 
 >
   i BD 36
-#HEAD
-i RS 38
+  i RS 38
   i CH 41
   i OH 39
   i SD 37
@@ -14,7 +13,7 @@ i RS 38
   i S2 47
   i T2 46
   i XX 48
-
+#HEAD
 
 > i SY
   on %6
@@ -30,12 +29,19 @@ i RS 38
   on 15
   lp x10
 	
-#BOF
 
-> i BD { |n| puts time*8; vel time * 4 }
+> lp x40
+ > i SB 20 { n.note %= 12; n.note += 55; n.note += time / 16 }
+   on %2
+	 excl %6
+	 rot 2
+
+  
+> i BD 
   on %4
 	lp x20
 	
+
 #EOF
 
 >i S2
