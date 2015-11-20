@@ -7,7 +7,6 @@ module DrumTool
           
           include BubbleAttrs
           include TreeOf[Track]
-          include MethodResolutionChainedVia[:parent]
 
           include Events         
           include Engine

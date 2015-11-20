@@ -6,7 +6,8 @@ module DrumTool
 		  module Standard
         def track &b
           c = clock
-          t = Standard::Track.new(c).build &b
+          t = c.child
+          t.build &b
           c
         end
         
