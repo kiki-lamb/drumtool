@@ -7,6 +7,7 @@ module DrumTool
       end
       
       def merge! other
+        self.name     ||= other.name
         self.number   ||= other.number
         self.channel  ||= other.channel
         self.velocity ||= other.velocity

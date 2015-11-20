@@ -7,6 +7,12 @@ module DrumTool
             def register_note note
               note_registry[note.name].merge! note
             end
+
+            def events
+              super.each do |evt|
+                evt.merge! note_registry[evt.name] if MIDI::Note === evt && note_registry.include?(evt.name)
+              end
+            end
             
             def displayed_notes
               evts = events
