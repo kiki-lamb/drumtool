@@ -3,9 +3,9 @@ module DrumTool
 		class Bubbles
       module Traits
         module Events
-		    module Notes
+		    module MIDINotes
           def note name, number = nil, velocity = nil, channel = nil
-            n = Note.new name: name, number: number, channel: channel, velocity: velocity
+            n = MIDI::Note.new name: name, number: number, channel: channel, velocity: velocity
             local_notes[name] = if respond_to?(:register_note)
                                   register_note n 
                                 else

@@ -10,7 +10,7 @@ module DrumTool
 		        base.bubble_attr :bpm, default: nil
             base.class_eval do
               include Events         
-              include Events::NotesTable
+              include Events::MIDINotesTable
             end
           end
           

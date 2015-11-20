@@ -59,7 +59,7 @@ module DrumTool
     end
 
 		include Logging
-		include MIDIOutput
+		include MIDI
 
     def initialize(
 		  engine = nil,

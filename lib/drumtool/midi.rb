@@ -2,7 +2,7 @@ require "unimidi"
 require "set"
 
 module DrumTool
-  module MIDIOutput
+  module MIDI
 	  def open_notes
 		  @__open_notes__ ||= Set.new
 		end
