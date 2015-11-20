@@ -15,7 +15,7 @@ module DrumTool
 
 				  include Events
           include Events::Chain
-			    include Events::BetterNotes
+			    include Events::Notes
 			    include Events::Triggered
           include Events::Triggered::DropAndTake
 		    end
