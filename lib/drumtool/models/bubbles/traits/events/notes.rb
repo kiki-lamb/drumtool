@@ -5,7 +5,12 @@ module DrumTool
         module Events
 		    module Notes
           def note name, number = nil, velocity = nil, channel = nil
-            local_notes[name] = register_note name, number, velocity, channel
+            n = Note.new name: name, number: number, channel: channel, velocity: velocity
+            local_notes[name] = if respond_to?(:register_note)
+                                  register_note n 
+                                else
+                                  n
+                                end
           end
 
           def notes

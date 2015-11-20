@@ -6,11 +6,11 @@ module DrumTool
           include Traits
           
           include BubbleAttrs
-          include TreeOf[Track]
+          include TreeOf[ Track ]
 
-          include PlaybackInterface
-          
           include Time::Absolute
+
+          include PlaybackInterface          
 		    end
       end
 		end

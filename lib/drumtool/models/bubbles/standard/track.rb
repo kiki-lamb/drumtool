@@ -6,9 +6,9 @@ module DrumTool
           include Traits
           
           include BubbleAttrs
-          include TreeOf[Pattern]
-          include MethodResolutionChainedVia[:parent]
-          include BubbleAttrs::ChainedVia[:parent]
+          include TreeOf[ Pattern ]
+          include MethodResolutionChainedVia[ :parent ]
+          include BubbleAttrs::ChainedVia[ :parent ]
           
           include Time::Relative
 
