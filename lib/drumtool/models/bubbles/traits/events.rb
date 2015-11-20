@@ -4,7 +4,7 @@ module DrumTool
       module Traits
 		  module Events
         def self.included base
-				  base.proximal_bubble_toggle :mute
+				  base.bubble_toggle :mute
           base.instance_eval do
             attr_accessor :event_cache
           end

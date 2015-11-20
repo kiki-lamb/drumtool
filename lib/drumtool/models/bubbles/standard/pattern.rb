@@ -3,13 +3,11 @@ module DrumTool
 		class Bubbles
       module Standard
 		    class Pattern
-          include Traits::TreeOf[Pattern]
-
           include Traits::BubbleAttrs
-          include Traits::BubbleAttrs::ChainedVia[:parent]
-
+          include Traits::TreeOf[Pattern]
           include Traits::MethodResolutionChainedVia[:parent]
-
+          include Traits::BubbleAttrs::ChainedVia[:parent]
+         
           include Traits::Time::Relative
           prepend Traits::Time::Relative::EnhancedLooping
 
