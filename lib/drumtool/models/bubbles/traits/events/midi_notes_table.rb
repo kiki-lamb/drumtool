@@ -8,17 +8,33 @@ module DrumTool
               note_registry[note.name].merge! note
             end
 
+            def lookup note
+              if note_registry.include? note.name
+                note_registry[note.name]
+              elsif (n = note_registry.find do |reg_note|
+                       reg_note.number == note.number
+                     end)
+                n
+              elsif note.name || note.number
+                register_note note
+              end
+            end
+            
             def events
               super.each do |evt|
-                evt.merge! note_registry[evt.name] if MIDI::Note === evt && note_registry.include?(evt.name)
+                if MIDI::Note === evt
+                  evt.merge! lookup(evt) # .tap { |x| puts "#{evt.inspect} MERGE WITH #{x.inspect}" }
+                end                                         
               end
             end
             
             def displayed_notes
               evts = events
+              evts_names = events.map &:name
+              evts_nums = events.map &:number
               
               note_registry.map do |k, v|
-                (evts.include? v.number) || (evts.include? v) ? k : nil
+                evts_names.include?(v.name) || evts_nums.include?(v.number) ? k : nil
               end
             end
             

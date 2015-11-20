@@ -7,6 +7,8 @@ module DrumTool
       end
       
       def merge! other
+        return unless other
+        
         self.name     ||= other.name
         self.number   ||= other.number
         self.channel  ||= other.channel
@@ -14,7 +16,7 @@ module DrumTool
         self
       end
       
-      def initialize name: nil, number: nil, velocity: 100, channel: nil
+      def initialize name: nil, number: nil, velocity: 100, channel: 1
         self.name     = name
         self.number   = number
         self.channel  = channel
