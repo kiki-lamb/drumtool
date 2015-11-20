@@ -5,7 +5,10 @@ module DrumTool
         module TreeOf
           as_trait do |default_child_type_|
             attr_accessor :parent
-            array_bubble_attr :children, singular: :child
+
+            def children
+              @children ||= []
+            end
             
             define_method :default_child_type do
               default_child_type_
