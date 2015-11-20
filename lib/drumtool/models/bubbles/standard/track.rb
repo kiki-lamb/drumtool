@@ -13,7 +13,7 @@ module DrumTool
           include Time::Relative
 
 				  include Events
-          include Events::Chain
+          include Events::Sequence
 		    end
       end
 		end

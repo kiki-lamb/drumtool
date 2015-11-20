@@ -3,9 +3,9 @@ module DrumTool
     class Bubbles
       module Traits
         module Events
-        module Chain
+        module Sequence
 					def self.included base
-				    base.bubble_toggle :chain
+				    base.bubble_toggle :sequence
             base.instance_eval do
               attr_accessor :disabled_children
               attr_accessor :times_seen
@@ -14,7 +14,7 @@ module DrumTool
 
           private
           def local_events
-            if chain?
+            if sequence?
               raise ArgumentError, "Children must be looped." unless children.all? { |c| c.loop && c.loop != 0 }
               
               if self.disabled_children && children.any? && times_seen.include?(children.first.time)

@@ -12,7 +12,7 @@ module DrumTool
 
             abbreviate %i{
               bubble
-              chain!
+              sequence!
               drop
               flip!
               hard_reverse!
@@ -34,7 +34,6 @@ module DrumTool
               note: :instrument,
               drop: [ :wait, :rest ],
               take: [ :duration, :truncate ],
-              chain!: :sequence,
               hard_reverse!: [ :h_reverse!, :hreverse! ],
               stretch: :expand,
               trigger: [ :when, :on ],
