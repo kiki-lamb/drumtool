@@ -6,17 +6,19 @@ module DrumTool
 		      module MIDINotes
 
 				    class EnhancedMIDINote < MIDI::Note
-              class << self
-              end
-              
               include Traits::WithParent[:parent]
               include Traits::MethodResolutionChainedVia[:parent]
               include Traits::BubbleAttrs::Attrify[:velocity, as: :vel ]
               include Traits::BubbleAttrs::Attrify[:channel,  as: :chan ]
               include Traits::BubbleAttrs::Attrify[:number,   as: :num ]
 
+              def merge! other
+                self.parent = other.parent # .tap { |x| puts "X: #{x}" }
+                super
+              end
+              
               def process!
-                puts "#{self} => #{parent}"
+                # puts "#{self} => #{parent}"
                 
                 if self.action
                   case self.action.arity

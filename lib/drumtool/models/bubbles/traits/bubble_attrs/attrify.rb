@@ -10,7 +10,7 @@ module DrumTool
               attrs.each do |attr|
                 define_method (as || attr) do | x = nil |
                   return super() unless x
-                  self.send "#{existing_attr}=", x
+                  self.send "#{attr}=", x
                 end
               end
             end

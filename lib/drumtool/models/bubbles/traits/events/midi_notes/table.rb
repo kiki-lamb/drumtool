@@ -5,8 +5,9 @@ module DrumTool
 		    module Events
           module MIDINotes
             module Table
-            def register_note note
-              note_registry[note.name].merge!(note).dup
+              def register_note note
+                note.tap { |n| puts "N: #{n}" }
+              note_registry[note.name].merge!(note) # .tap { |d| puts "DUP: #{d}" }
             end
 
             def lookup note
