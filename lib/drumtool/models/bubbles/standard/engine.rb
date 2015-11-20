@@ -10,7 +10,7 @@ module DrumTool
 
           include Time::Absolute
 
-          prepend PlaybackInterface          
+          prepend EngineInterface          
 		    end
       end
 		end

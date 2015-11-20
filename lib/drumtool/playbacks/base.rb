@@ -95,7 +95,7 @@ module DrumTool
 		end
 
 		def assert_valid_engine!
-      true
+      raise RuntimeError, "Invalid engine" unless EngineInterface === engine 
 #		  raise RuntimeError, "Invalid engine" unless assert_valid_engine
 		end
 
