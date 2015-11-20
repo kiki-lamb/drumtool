@@ -21,14 +21,22 @@ module DrumTool
 		   end       
 	  end
 
+    def __open_note__! note, velocity = 100
+      open_notes.add? note
+		  midi_output.puts 0x90, note, velocity      
+    end
+    
 		def open_note! *notes, velocity: 100
 		  assert_midi_output!
 
-			close_note! *notes, velocity: velocity
+			close_note! *notes
 
-		  notes.each do |note|		    
-		    open_notes.add? note
-		    midi_output.puts 0x90, note, velocity
+		  notes.each do |note|
+        if Note === note
+          __open_note__! note.number, (note.velocity || velocity)
+        else
+          __open_note__! note, velocity
+        end                        
       end
 		end
 

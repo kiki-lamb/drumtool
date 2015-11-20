@@ -14,12 +14,12 @@ module DrumTool
           end
 
           def notes
-            local_notes.values.to_a
+            local_notes.values
           end
           
           private				
 				  def local_events
-				    [ *local_notes.values.map(&:number), *super ]  # .tap { |x| puts "#{self} yields #{x.inspect}" }
+				    [ *notes, *super ]  # .tap { |x| puts "#{self} yields #{x.inspect}" }
 				  end
 
           def local_notes

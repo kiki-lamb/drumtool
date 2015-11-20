@@ -17,11 +17,34 @@ module DrumTool
 			end
     end
 
+    ################################################################################
+    # Engine access
+    ################################################################################
+    def events
+      (engine ? engine.events : []) #.tap { |e| log "EVENTS: #{e}" }
+    end
 
+    def tick!
+      engine.tick! if engine
+    end
+    
     def time
       (engine && engine.time) || 0
     end
+
+    def loop
+      engine && engine.loop
+    end
+
+    def bpm
+      (engine && engine.bpm) || 112
+    end
     
+		private
+		attr_accessor :engine
+    ################################################################################
+
+		public	    
     def send_or_get v
       case v
       when Array
@@ -59,9 +82,6 @@ module DrumTool
 		rescue Interrupt
     end    
 
-		private
-		attr_accessor :engine
-			
 		def assert_valid_engine
       true
 		  # engine && engine.respond_to?(:bpm) && engine.respond_to?(:loop) && engine.respond_to?(:events_at)
@@ -76,20 +96,20 @@ module DrumTool
 
     def clock      	  
       @clock ||= begin
-			  Topaz::Clock.new((@input_clock ? @input_clock : (engine.bpm || 112)), interval: 16, &Proc.new { tick }).tap do |c|
+			  Topaz::Clock.new((@input_clock ? @input_clock : bpm), interval: 16, &Proc.new { tick }).tap do |c|
 					c.event.stop do 
             $stdout << "\n#{self.class.name}: Stopped.\n"
             close_notes!
-            engine.tim( time - time%engine.loop ) if engine.loop && @reset_loop_on_stop
+            time( time - time%loop ) if loop && @reset_loop_on_stop
           end
         end
       end
     end
-		
+
 		def tick
       close_notes! 
 			assert_valid_engine!
-			open_note! *engine.events#.tap { |x| puts "#{x.inspect}" }
+			open_note! *events#.tap { |x| puts "#{x.inspect}" }
 
 		  log_sep
 		  tmp = a_bunch_of_logging_crap.strip
@@ -100,7 +120,7 @@ module DrumTool
 
 		def log_sep
 		  io = StringIO.new
-		  if engine.loop && 0 == (time) % engine.loop && engine.loop != 1
+		  if loop && 0 == time % loop && loop != 1
         io << "=" * (@last_line_length) << "\n"
       elsif 0 == time % 16 
         io << "-" * (@last_line_length) << "\n"
@@ -130,8 +150,8 @@ module DrumTool
 
 		  [  
 				 *tail, 
-				 engine.bpm.to_s.rjust(3),
-				 (engine.loop ? time % engine.loop : time).to_i.to_s(16).rjust(4, "0"), 
+				 bpm.to_s.rjust(3),
+				 (loop ? time % loop : time).to_i.to_s(16).rjust(4, "0"), 
          time.to_s.rjust(4," ")
       ]
 		end

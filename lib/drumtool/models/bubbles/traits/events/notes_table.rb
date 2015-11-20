@@ -12,7 +12,7 @@ module DrumTool
               evts = events
               
               note_registry.map do |k, v|
-                (evts.include? v.number)? k : nil
+                (evts.include? v.number) || (evts.include? v) ? k : nil
               end
             end
             
