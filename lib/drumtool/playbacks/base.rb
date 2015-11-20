@@ -33,6 +33,10 @@ module DrumTool
       (engine && engine.time) || 0
     end
 
+    def time= v
+      engine.time = v
+    end
+    
     def loop
       engine && engine.loop
     end
@@ -101,7 +105,7 @@ module DrumTool
 					c.event.stop do 
             $stdout << "\n#{self.class.name}: Stopped.\n"
             close_notes!
-            time( time - time%loop ) if loop && @reset_loop_on_stop
+            self.time = ( time - time%loop ) if loop
           end
         end
       end
@@ -130,11 +134,11 @@ module DrumTool
 		end
 
 		def log_columns
-		  fill = time % 4 == 0 ? "__" : ". "
+		  fill = time % 4 == 0 ? "___" : ".  "
 	    tail = if engine.respond_to?(:displayed_notes)
                engine.displayed_notes.map do |note|
                  if note
-                   note.to_s.upcase
+                   note.to_s.upcase.ljust(3, " ")
                  else
                    fill
                  end

@@ -18,6 +18,11 @@ module DrumTool
             time!
           end
 
+          def time= v
+            @time = v
+          end
+          
+          
           def loop
             if children.first
               children.map(&:loop).compact.max
