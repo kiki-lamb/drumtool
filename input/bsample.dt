@@ -2,10 +2,10 @@ bpm 120
 ref x10
 lp  x20
 
-
 >
-  i RS 38
   i BD 36
+#HEAD
+i RS 38
   i CH 41
   i OH 39
   i SD 37
@@ -14,6 +14,7 @@ lp  x20
   i S2 47
   i T2 46
   i XX 48
+
 
 > i SY
   on %6
@@ -28,13 +29,16 @@ lp  x20
   sh 4
   on 15
   lp x10
+	
+#BOF
 
->
- > i BD
-   on %4
-   lp x10
+> i BD { |n| puts time; puts time*8; n.velocity = time * 4 }
+  on %4
+	lp x20
+	
+#EOF
 
- >i S2
+>i S2
   >lp x20
    on %9
    lp x10

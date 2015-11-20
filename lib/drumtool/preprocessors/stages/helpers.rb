@@ -2,7 +2,9 @@ module DrumTool
 	module Preprocessors
     module Stages
 	    module Helpers
-	    	PatBlockArgs = /(?:\|.+\|\s*\n$)/
+#	    	PatBlockArgs = /(?:\|.+\|\s*\n$)/
+        PatCurlyBlock = /(?:\{.+\}\s*$)/
+        PatCurlyBlockExact = /^#{PatCurlyBlock}/
 	    	PatName = /(?:[a-zA-Z][A-Za-z0-9_]*)/
 	    	PatNameExact = /^#{PatName}$/
 	    	PatHex = /(?:-?0?[xX][\da-fA_F]+)/
@@ -17,7 +19,7 @@ module DrumTool
 	    	PatRangeExact = /^#{PatRange}$/
 	    	PatModulo = /(?:%#{PatIntOrHex})/
 	    	PatModuloExact = /^#{PatModulo}$/
-	    	PatArg = /#{PatRange}|#{PatIntOrHex}|#{PatModulo}|#{PatName}/
+	    	PatArg = /#{PatRange}|#{PatIntOrHex}|#{PatModulo}|#{PatName}|/
 	    	PatSimpleExpr = /^\s*(#{PatName}!?)\s*(#{PatArg}(?:\s+#{PatArg})*)?\s*$/	    
         
 	    	def rubify_arg arg      
@@ -34,8 +36,10 @@ module DrumTool
 	    	  elsif PatNameExact.match arg
 	    	    tmp = ":#{arg}"
 	    	    log "  Arg `#{arg}' is a Name: `#{tmp}'"
+          elsif PatCurlyBlockExact.match arg
+            raise ArgumentError, "Bang"
 	    	  else
-	    	    raise ArgumentError, "Unrecognized argument"
+	    	    raise ArgumentError, "Unrecognized argument `#{arg}'"
 	    	  end
 	    	  
 	    	  tmp
@@ -43,7 +47,7 @@ module DrumTool
         
 	    	def partially_disassemble_line line
 	    	  line << "\n" unless line[-1] == "\n"
-	    	  /(\s*>?\s*)((?:.(?!#{PatBlockArgs}))*)\s*(#{PatBlockArgs})?/.match line
+	    	  /(\s*>?\s*)((?:.(?!#{PatCurlyBlock}))*)\s*(#{PatCurlyBlock})?\s*$/.match line
           
 	    	  [ Regexp.last_match[1], Regexp.last_match[2].strip, (Regexp.last_match[3] || "").strip ]
 	    	end 
@@ -53,7 +57,7 @@ module DrumTool
           
 	    	  if PatSimpleExpr.match body
 	    	    log "  Parsed simple expr: #{Regexp.last_match.inspect[12..-2]}"
-            
+
 	    	    name, args = expand(Regexp.last_match[1]), (Regexp.last_match[2] || "").split(/\s+/).map do |arg|
 	    	      rubify_arg arg
 	    	    end
