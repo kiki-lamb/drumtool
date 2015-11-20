@@ -2,6 +2,7 @@ module DrumTool
 	module Models
 		class Bubbles
       module Traits
+        module Time
 		  module Events
 			  def self.included base
 				  base.proximal_bubble_toggle :mute
@@ -30,4 +31,5 @@ module DrumTool
       end
 		end
 	end
+end
 end

@@ -2,6 +2,7 @@ module DrumTool
   module Models
 		class Bubbles
       module Traits
+        module Time
 		    module Events
           module BetterNoteDisplay
           def register_note name, number = nil, velocity = nil, channel = nil
@@ -23,5 +24,6 @@ module DrumTool
       end
 		end
 	end
+end
 end
 end

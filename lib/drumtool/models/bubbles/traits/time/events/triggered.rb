@@ -2,6 +2,7 @@ module DrumTool
 	module Models
 		class Bubbles
       module Traits
+        module Time
         module Events
 		    module Triggered
 			  def self.included base 
@@ -97,5 +98,6 @@ module DrumTool
       end
 		end
 	end
+end
 end
 end

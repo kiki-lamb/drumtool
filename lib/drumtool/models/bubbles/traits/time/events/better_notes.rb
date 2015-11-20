@@ -2,6 +2,7 @@ module DrumTool
   module Models
 		class Bubbles
       module Traits
+        module Time
         module Events
 		    module BetterNotes
           def note name, number = nil, velocity = nil, channel = nil
@@ -25,4 +26,5 @@ module DrumTool
       end
 		end
 	end
+end
 end
