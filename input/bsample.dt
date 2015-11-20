@@ -1,7 +1,7 @@
 bpm 120
 ref x10
 lp  x40
-
+#HEAD
 >
   i BD 36
   i RS 38
@@ -13,7 +13,7 @@ lp  x40
   i S2 47
   i T2 46
   i XX 48
-#HEAD
+
 
 > i SY
   on %6
@@ -29,14 +29,13 @@ lp  x40
   on 15
   lp x10
 	
-
-> lp x40
- > i SB { } #n.note = 55; n.note += time % 16 }
+#BOF
+> i SB 55 { n.note = 55; n.note += time % 16 }
    on %6
 	 minor D
 
 
-  
+#EOF  
 > i BD 
   on %4
 	lp x20

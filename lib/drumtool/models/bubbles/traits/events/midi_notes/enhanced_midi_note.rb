@@ -6,12 +6,21 @@ module DrumTool
 		      module MIDINotes
 
 				    class EnhancedMIDINote < MIDI::Note
-              include Traits::WithInitializationAttr[:parent]
+#              include Traits::WithInitializationAttr[:parent]
               include Traits::MethodResolutionChainedVia[:parent]
               include Traits::BubbleAttrs::Attrify[:velocity, as: :vel ]
               include Traits::BubbleAttrs::Attrify[:channel,  as: :chan ]
               include Traits::BubbleAttrs::Attrify[:number,   as: :note ]
 
+              attr_accessor :parent
+              attr_accessor :action              
+
+              def initialize parent, *a, &b
+                self.parent = parent
+                self.action = b
+                super *a
+              end
+              
               def n
                 self
               end
@@ -22,18 +31,18 @@ module DrumTool
               end
               
               def process!
-                # puts "#{self} => #{parent}"
+                puts "#{self}.action = #{action}"
                 
                 if self.action
                   case self.action.arity
                   when 0
-                    self.instance_eval &action
+                    self.dup.instance_eval &action
                   else
-                    self.instance_exec self, &action
+                    self.dup.instance_exec self, &action
                   end
+                else
+                  self.dup                  
                 end
-
-                self.process!
               end              
             end
           end

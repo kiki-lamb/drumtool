@@ -11,20 +11,25 @@ module DrumTool
                 end
               end
               
-              def minor note_name
-                self.scale_notes = Note.new(note_name.to_s).minor_scale.note_values.map { |x| x % 12 }
+              def lowest note_name
+                (Note.new(note_name.to_s)-(@__down__ = NoteInterval.new(60)))
               end
               
               def major note_name
-                self.scale_notes = Note.new(note_name.to_s).major_scale.note_values.map { |x| x % 12 }
+                self.scale_notes = lowest(note_name).major_scale.note_values.map { |x| x % 12 }
               end
                                                        
+              def minor note_name
+                self.scale_notes = lowest(note_name).minor_scale.note_values.map { |x| x % 12 }
+              end
+
               def events
                 super.each do |evt|
                   if MIDI::Note === evt
                     if self.scale_notes
-                      evt.process!
-                      evt.action = nil
+                      puts "NOTE MUST BE IN #{self.scale_notes}"
+#                      evt.process!
+##                      evt.action = nil
                       o = evt.number
 
                       until self.scale_notes.include?((evt.number % 12))

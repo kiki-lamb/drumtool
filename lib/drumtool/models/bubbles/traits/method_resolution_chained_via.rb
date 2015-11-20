@@ -9,7 +9,7 @@ module DrumTool
             end
             
             def method_missing name, *a, &b
-              # puts "#{self} is missing #{name}"
+              puts "#{self} is missing #{name}"
               if next_method_responder_object && next_method_responder_object.respond_to?(name)
                 next_method_responder_object.send name, *a, &b
               else
