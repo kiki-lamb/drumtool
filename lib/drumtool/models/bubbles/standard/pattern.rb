@@ -5,7 +5,7 @@ module DrumTool
 		    class Pattern < Track
           include Traits
           
-          prepend EnhancedLooping
+          prepend RelativeTime::EnhancedLooping
 
 			    include Events::Notes
 			    include Events::Triggered
