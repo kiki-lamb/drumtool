@@ -19,6 +19,7 @@ module DrumTool
                 self.parent = parent
                 self.action = b
                 super *a
+                puts "#{self.inspect} ACTION IS #{b}"
               end
               
               def n
@@ -26,23 +27,29 @@ module DrumTool
               end
               
               def merge! other
-                self.parent = other.parent # .tap { |x| puts "X: #{x}" }
+                self.parent = other.parent   # .tap { |x| puts "X: #{x}" }
+                self.action ||= other.action # .tap { |x| puts "X: #{x}" }
                 super
               end
               
               def process!
-                puts "#{self}.action = #{action}"
+                puts "#{self.inspect}.action = #{action}"
+                copy = self.dup
                 
                 if self.action
                   case self.action.arity
                   when 0
-                    self.dup.instance_eval &action
+                    copy.instance_eval &action
                   else
-                    self.dup.instance_exec self, &action
+                    copy.instance_exec self, &action
                   end
                 else
-                  self.dup                  
+                  copy                  
                 end
+
+                copy.action = nil
+                
+                copy
               end              
             end
           end

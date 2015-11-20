@@ -30,7 +30,7 @@ lp  x40
   lp x10
 	
 #BOF
-> i SB 55 { n.note = 55; n.note += time % 16 }
+> i SB 55 { n.note = 65; n.note += time % 16 }
    on %6
 	 minor D
 

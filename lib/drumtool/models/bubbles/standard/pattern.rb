@@ -7,7 +7,7 @@ module DrumTool
           
           prepend Time::Relative::EnhancedLooping
 
-			    include Events::MIDINotes
+			    prepend Events::MIDINotes
 			    include Events::Triggered
           include Events::Triggered::DropAndTake
 

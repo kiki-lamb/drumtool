@@ -17,12 +17,12 @@ module DrumTool
           end
 
           def notes
-            ns = local_notes.values # .map(&:process!).tap { |xs| puts "#{self}.XS: #{xs}" }
+            ns = local_notes.values.map(&:process!) # .tap { |xs| puts "#{self}.XS: #{xs}" }
           end
           
           private				
 				  def local_events
-				    [ *notes, *super ].tap { |x| puts "#{self} yields #{x.inspect}" }
+				    [ *notes, *super ] # .tap { |x| puts "#{self} yields #{x.inspect}" }
 				  end
 
           def local_notes

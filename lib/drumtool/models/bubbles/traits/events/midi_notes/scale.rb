@@ -28,16 +28,9 @@ module DrumTool
                   if MIDI::Note === evt
                     if self.scale_notes
                       puts "NOTE MUST BE IN #{self.scale_notes}"
-#                      evt.process!
-##                      evt.action = nil
-                      o = evt.number
-
                       until self.scale_notes.include?((evt.number % 12))
-
                         evt.number += 1
                       end
-                      evt.action = nil
-#                      puts "#{o} => #{evt.number}"
                     end
                   end                                         
                 end
