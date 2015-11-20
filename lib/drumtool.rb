@@ -9,7 +9,7 @@ module DrumTool
         sync = nil,
         logs: [ "output/livecoder", $stdout ],
         preprocessor_logs: [ "output/preprocessor" ],
-        playback_klass: LivePlayback,
+        playback_klass: Playbacks::LivePlayback,
         **opts        
       )
     sync &&= UniMIDI::Input[1]

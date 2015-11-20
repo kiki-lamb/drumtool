@@ -1,5 +1,6 @@
 module DrumTool
-  class FilePlayback < Playback
+  module Playbacks
+  class FilePlayback < Base
     def initialize filename, *a, preprocessor: nil, **b
 		  super *a, **b
 			@filename = filename
@@ -13,5 +14,6 @@ module DrumTool
 				eval (@preprocessor ? @preprocessor.call(text) : text)
 			end
 		end
+  end
   end
 end

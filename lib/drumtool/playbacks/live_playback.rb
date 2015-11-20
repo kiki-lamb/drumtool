@@ -1,5 +1,7 @@
 require "stringio"
+
 module DrumTool
+  module Playbacks
   class LivePlayback < FilePlayback
     def initialize(
       *a, 
@@ -66,5 +68,6 @@ module DrumTool
         ("#{@loader.exception_lines[time%((engine && engine.loop) || 16)].to_s.strip}" if @loader.exception_lines.any?),
 			].compact
 		end		
-  end 
+  end
+  end
 end

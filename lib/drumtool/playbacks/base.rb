@@ -4,7 +4,8 @@ require "unimidi"
 require "set"
 
 module DrumTool
-  class Playback
+  module Playbacks
+  class Base
     class << self
       def start *a
         new(*a).start
@@ -162,4 +163,5 @@ module DrumTool
       io.string			      
 		end
   end 
+end
 end
