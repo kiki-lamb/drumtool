@@ -7,7 +7,7 @@ module DrumTool
 
 				    class EnhancedMIDINote < MIDI::Note
               include Traits::WithInitializationAttr[:parent]
-              include Traits::MethodResolutionChainedVia[:parent]
+              include Traits::MethodResolutionChainedThrough[:parent]
               include Traits::BubbleAttrs::Attrify[:velocity, as: :vel ]
               include Traits::BubbleAttrs::Attrify[:channel,  as: :chan ]
               include Traits::BubbleAttrs::Attrify[:number,   as: :note ]
