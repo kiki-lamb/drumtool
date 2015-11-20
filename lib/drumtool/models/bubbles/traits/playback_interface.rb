@@ -5,7 +5,7 @@ module DrumTool
 		    module PlaybackInterface
           # These are all of the methods called on the engine by any of the Playback classes.
 
-          def self.included base
+          def self.prepended base
 		        base.bubble_attr :refresh_interval, default: nil
 		        base.bubble_attr :bpm, default: nil
             base.class_eval do
