@@ -68,7 +68,6 @@ module DrumTool
     
     def reload
       return 0 unless read
-      puts "RELOAD!"
       start = Time.now
       clear_exception
 
