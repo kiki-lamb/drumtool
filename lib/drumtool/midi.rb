@@ -33,7 +33,6 @@ module DrumTool
 
 		  notes.each do |note|
         if Note === note
-#          note.process!
           __open_note__! note.number, (note.velocity || velocity)
         else
           __open_note__! note, velocity

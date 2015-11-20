@@ -28,11 +28,11 @@ lp  x40
   sh 4
   on 15
   lp x10
-	
 #BOF
-> i SB 55 { n.note = 65; n.note += time % 16 }
-   on %6
-	 minor D
+
+> i SB 55 { n.note = 60; n.note += time % 16 }
+   on %1
+	 in_scale C minor
 
 
 #EOF  

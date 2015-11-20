@@ -21,24 +21,10 @@ module DrumTool
               end
             end
 
-            def filter note
-              o = note.number
-              @scale ||= (Note.new("E")-NoteInterval.new(60)).minor_scale.note_values
-
-              if note.number >= 50               
-                until @scale.include?(note.number % 12)
-                  note.number += 1
-                  note.number %= 127
-                end
-              end
-            end
-            
             def events
               super.each do |evt|
                 if MIDI::Note === evt
                   evt.merge! lookup(evt) # .tap { |x| puts "#{evt.inspect} MERGE WITH #{x.inspect}" }
-                  
-                  filter evt if evt.number >= 50
                 end                                         
               end
             end

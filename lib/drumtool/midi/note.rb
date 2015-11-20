@@ -4,9 +4,9 @@ module DrumTool
       attr_accessor :name, :channel, :velocity, :action
       attr_writer :number
 
-
       def note= x
-        self.number = (x.to_i % 127 if x)
+        self.number = x.to_i
+        self.number %= 128
       end
 
       def note
