@@ -3,10 +3,12 @@ module DrumTool
 		class Bubbles
       module Standard
 		    class Track
-          include Traits::BubbleAttrs
           include Traits::TreeOf[Pattern]
           include Traits::MethodResolutionChainedVia[:parent]
+
+          include Traits::BubbleAttrs
           include Traits::BubbleAttrs::ChainedVia[:parent]
+
 
           include Traits::Time::Relative
 
