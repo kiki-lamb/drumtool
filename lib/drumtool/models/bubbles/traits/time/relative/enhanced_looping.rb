@@ -5,6 +5,7 @@ module DrumTool
         module Time
           module Relative
             module EnhancedLooping
+              
               def self.prepended base
                 base.prepend Traits::Tree::Prepend
                 base.bubble_toggle :reverse

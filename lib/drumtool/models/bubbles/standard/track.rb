@@ -9,9 +9,9 @@ module DrumTool
           include Traits::BubbleAttrs::ChainedVia[:parent]
 
           include Traits::Time::Relative
-				  include Traits::Time::Events
-          include Traits::Time::Events::Chain
-          include Traits::Time::Events::BetterNoteDisplay
+				  include Traits::Events
+          include Traits::Events::Chain
+          include Traits::Events::BetterNoteDisplay
 
           include Traits::Engine
 		    end

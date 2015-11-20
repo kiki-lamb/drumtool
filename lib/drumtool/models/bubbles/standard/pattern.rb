@@ -10,11 +10,12 @@ module DrumTool
 
           include Traits::Time::Relative
           prepend Traits::Time::Relative::EnhancedLooping
-				  include Traits::Time::Events
-          include Traits::Time::Events::Chain
-			    include Traits::Time::Events::BetterNotes
-			    include Traits::Time::Events::Triggered
-          include Traits::Time::Events::Triggered::DropAndTake
+
+				  include Traits::Events
+          include Traits::Events::Chain
+			    include Traits::Events::BetterNotes
+			    include Traits::Events::Triggered
+          include Traits::Events::Triggered::DropAndTake
 		    end
       end
 		end
