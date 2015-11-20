@@ -4,21 +4,20 @@ module DrumTool
       module Traits
         module Events
 		      module MIDINotes
+
 				    class EnhancedMIDINote < MIDI::Note
-              attr_accessor :parent
-
+              class << self
+              end
+              
+              include Traits::WithParent[:parent]
               include Traits::MethodResolutionChainedVia[:parent]
+              include Traits::BubbleAttrs::Attrify[:velocity, as: :vel ]
+              include Traits::BubbleAttrs::Attrify[:channel,  as: :chan ]
+              include Traits::BubbleAttrs::Attrify[:number,   as: :num ]
 
-              def vel x
-                self.velocity = x
-              end
-              
-              def initialize parent, *a, **o, &b
-                self.parent = parent
-                super *a, **o, &b
-              end
-              
               def process!
+                puts "#{self} => #{parent}"
+                
                 if self.action
                   case self.action.arity
                   when 0

@@ -32,7 +32,7 @@ i RS 38
 	
 #BOF
 
-> i BD {  self.velocity =  time * 4 }
+> i BD { vel time * 4 }
   on %4
 	lp x20
 	

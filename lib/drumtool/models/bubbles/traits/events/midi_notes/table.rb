@@ -6,7 +6,7 @@ module DrumTool
           module MIDINotes
             module Table
             def register_note note
-              note_registry[note.name].merge! note
+              note_registry[note.name].merge!(note).dup
             end
 
             def lookup note
@@ -40,7 +40,7 @@ module DrumTool
             end
             
             def note_registry
-              @__note_registry ||= Hash.new { |h,k| h[k] = MIDINotes::EnhancedMIDINote.new self }
+              @__note_registry ||= Hash.new { |h,k| h[k] = MIDINotes::EnhancedMIDINote.new }
             end
 			    end
         end
