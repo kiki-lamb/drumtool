@@ -4,15 +4,14 @@ module DrumTool
       module Standard
 		    class Pattern < Track
           include Traits
-          include Traits::Events
           
-          prepend Time::Relative::EnhancedLooping
-
 			    include Triggered
           include Triggered::DropAndTake
+
+          prepend Time::Relative::EnhancedLooping
           
-			    prepend MIDINotes
-          prepend MIDINotes::Filters
+			    prepend Events::MIDINotes
+          prepend Events::MIDINotes::Filters
         end
       end
 		end
