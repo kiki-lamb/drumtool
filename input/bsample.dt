@@ -3,19 +3,18 @@ ref x10
 lp  x40
 #HEAD
 >
-  i BD 36
-  i RS 38
-  i CH 41
-  i OH 39
-  i SD 37
-  i BS 40
-  i SY 49
-  i S2 47
-  i T2 46
-  i XX 48
+  ins BD 36
+  ins RS 38
+  ins CH 41
+  ins OH 39
+  ins SD 37
+  ins BS 40
+  ins SY 49
+  ins S2 47
+  ins T2 46
+  ins XX 48
 
-
-> i SY
+> ins SY
   on %6
   rot 2
   scale 1
@@ -23,56 +22,56 @@ lp  x40
   exp x10
 
 
-> i SD
+> ins SD
   on %8
   sh 4
   on 15
   lp x10
 #BOF
 
-> i SB 55 { n.note = 60; n.note += time % 16 }
+> ins SB 55 { n.note = 60; n.note += time % 16 }
    on %1
 	 in_scale C minor
-
+	 max_note 64
 
 #EOF  
-> i BD 
+> ins BD 
   on %4
 	lp x20
 	
 
 #EOF
 
->i S2
+> ins S2
   >lp x20
    on %9
    lp x10
 
 
- >i BS
+ > ins BS
    lp x10
    on %5
    sh 2
   
 
-   >i XX
+   > ins XX
     on %3 %7
   
-> i OH
+> ins OH
    on %4
    sh 2
 
    on %5
    lp x10
 
->i RS
+> ins RS
   on 1 3 6 10 15
   rev
   lp 0x20
   scale 
   mu
 
->i CH
+> ins CH
   on %2
   not %3
   lp x4
@@ -84,24 +83,24 @@ lp  x40
  
  >lp x20
   >scale 1
-   >i SY
+   > ins SY
     on { 0 != t%6 && 0 == t%2 }
     lp 8
 
 
  >scale 1
-  >i BD
+  > ins BD
    when %x5
    lp 0x08
 
    
   
- >i OH
+ > ins OH
   sh 2
   when %4
   lp x20
   
- >i SD  
+ > ins SD  
   rot 4
   when %8 
   lp x10

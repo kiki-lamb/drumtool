@@ -7,25 +7,29 @@ module DrumTool
 					  module Scale
               def self.prepended base
                 base.class_eval do
-                  attr_accessor :scale_notes 
+                  attr_accessor :scale_notes
+                  
+                  bubble_attr :max_note, default: 127
+                  bubble_attr :min_note, default: 0
                 end
               end              
 
               def events
                 super.map do |evt|
-                  if MIDI::Note === evt
-                    if self.scale_notes
-                      o = evt.number
-                      #puts "NOTE MUST BE IN #{self.scale_notes}"
-                      until self.scale_notes.include?((evt.number % 12))
-                        evt.number += 1
-                      end
-                      #puts "transp #{o} to #{evt.number}"
+                  if self.scale_notes
+                    o = evt.number
+                    #puts "NOTE MUST BE IN #{self.scale_notes}"
+                    until self.scale_notes.include?((evt.number % 12))
+                      evt.number += 1
                     end
-                    
-                    evt
-                  end                                         
-                end#.tap { |ns| puts "YIELD #{ns.inspect}" }
+                    #puts "transp #{o} to #{evt.number}"
+                  end
+                  
+                  evt                    
+                end.select do |evt_|
+                  n = evt_.number
+                  ((! max_note) || n <= max_note) && ((! min_note) || n >= min_note)
+                end
               end
 
               def in_scale note_name, type = :minor

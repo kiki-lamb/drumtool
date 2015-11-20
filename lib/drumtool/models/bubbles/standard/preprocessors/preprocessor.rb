@@ -27,6 +27,9 @@ module DrumTool
               take
               trigger
               untrigger
+              in_scale
+              min_note
+              max_note
             }
 
             synonymize \
