@@ -92,7 +92,7 @@ DrumTool source code files look like this (or at least, they would look like thi
 
      puts message
 
-DrumTool's preprocessor internally converts your input code into Ruby code like this: 
+DrumTool internally converts your input code into Ruby code that looks like this: 
 
     self.class.include DrumTool::Models
     Bubbles::Standard.track do 
