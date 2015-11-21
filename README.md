@@ -7,9 +7,11 @@ DrumTool uses arirusso's https://github.com/arirusso/topaz and https://github.co
 
 DrumTool source code files look like this (or at least, it would look like this if people actually wrote this many comments while performing):
 
-     bpm 112               # The BPM that's used if DrumTool isn't hooked up to a MIDI clock.
-     lp x40                # Loop every 4 bars.
-     refresh_interval x10  # Refresh the code every 1 bar.
+     bpm 112               # If DrumTool isn't hooked up to a MIDI clock,
+		                       # this is the BPM it will play at.
+													 
+     lp x40                # Loop the entire track every 4 bars.
+     refresh_interval x10  # Reread the code in this file every 1 bar.
 
      >                     # Instruments in a section only play if the section 
        inst BD 36          # has triggers, so this just sets some default note values
