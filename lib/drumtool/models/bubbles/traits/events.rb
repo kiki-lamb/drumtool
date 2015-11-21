@@ -14,7 +14,7 @@ module DrumTool
           if mute?
             []
           else
-              local_events
+            local_events
           end
         end
 

@@ -44,6 +44,10 @@ module DrumTool
 
     attr_accessor :engine
 
+    def displayed_notes
+      engine.displayed_notes || []
+    end
+    
     def events
       @last_events = (engine ? engine.events : [])
     end
@@ -125,17 +129,13 @@ module DrumTool
 
     def log_columns
       fill = time % 4 == 0 ? "_____" : "  .  "
-      tail = if engine.respond_to?(:displayed_notes)
-               engine.displayed_notes.map do |note|
-                 if note
-                   note.to_s.upcase.ljust(3, " ")
-                 else
-                   fill
-                 end
-               end
-             else
-               []
-             end
+      tail = displayed_notes.map do |note|
+        if note
+          note.to_s.upcase.ljust(3, " ")
+        else
+          fill
+        end
+      end
 
       [  
          *tail, 
