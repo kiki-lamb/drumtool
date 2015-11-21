@@ -9,27 +9,27 @@ module DrumTool
           EngineInterface === e
         end
         
-        @engines = engines
+        (@engines = engines) # .tap { |x| puts "ENGINES: #{x.inspect}" }
       end
       
       def displayed_notes
-        @engines.map(&:displayed_notes).flatten 1
+        @engines.map(&:displayed_notes).flatten(1) # .tap { |x| puts "displayed_notes: #{x.inspect}" }
       end
 
       def events
-        @engines.map(&:events).flatten 1
+        @engines.map(&:events).flatten(1) # .tap { |x| puts "events: #{x.inspect}" }
       end
       
       def bpm
-        @engines.first.bpm
+        @engines.first.bpm # .tap { |x| puts "bpm: #{x.inspect}" }
       end
       
       def tick!
-        @engines.each &:tick!
+        @engines.each(&:tick!) # .tap { |x| puts "tick!: #{x.inspect}" }
       end
 
       def time
-        @engines.first.time
+        @engines.first.time # .tap { |x| puts "time: #{x.inspect}" }
       end
       
       def time= v
@@ -39,11 +39,11 @@ module DrumTool
       end
       
       def loop
-        @engines.map(&:loop).compact.min
+        @engines.map(&:loop).compact.max # .tap { |x| puts "loop: #{x.inspect}" }
       end
       
       def state
-        @engines.first.state
+        @engines.first.state # .tap { |x| puts "state: #{x.inspect}" }
       end
       
       def state= h

@@ -30,7 +30,7 @@ module DrumTool
       @c_ct ||= 0
       @o_ct += 1
       open_notes.add? note
-      puts "OPEN  #{note} @ #{velocity} (#{@o_ct-@c_ct})"
+      # puts "OPEN  #{note} @ #{velocity} (#{@o_ct-@c_ct})"
       midi_output.puts 0x90, note, velocity      
     end
     
@@ -52,7 +52,7 @@ module DrumTool
       @c_ct ||= 0
       @o_ct ||= 0
       @c_ct += 1
-      puts "CLOSE #{note} @ #{velocity} (#{@o_ct-@c_ct})"
+      # puts "CLOSE #{note} @ #{velocity} (#{@o_ct-@c_ct})"
       midi_output.puts 0x80, note, velocity
     end
     

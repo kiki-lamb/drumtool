@@ -15,7 +15,7 @@ module DrumTool
     end
 
     def exception
-      @loaders.map(&:exception).first
+      @loaders.find(&:exception)
     end
 
     def exception_lones
@@ -23,9 +23,7 @@ module DrumTool
     end
     
     def safely_with_payload &b
-      @loaders.each do |loader|
-        loader.safely_with_payload &b
-      end
+      @loaders.first.safely_with_payload &b
     end
     
     def after &b
@@ -42,7 +40,7 @@ module DrumTool
     end
 
     def reload
-      time = @loaders.map(&:reload).inject { |x,y| x+y }
+      time = @loaders.map(&:reload).inject { |x, y| x + y }  # .tap { |x| "ML.reloaded = #{x}" }.inject { |x,y| x+y }
       @payload = Playbacks::MultiEngine.new *@loaders.map(&:payload)
       time
     end

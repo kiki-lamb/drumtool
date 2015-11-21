@@ -5,7 +5,6 @@ module DrumTool
     attr_reader :exception, :exception_lines, :prior
     
     def initialize filename, preprocessor = nil, init: nil, rescue_exceptions: true
-      puts "FILENAME = #{filename}"
       @filename = filename
       @digest = nil
       @text = nil

@@ -20,12 +20,12 @@ module DrumTool
       )
     
     playback_klass.log_to *logs
-    preprocessor_klass.log_to *preprocessor_logs
+    preprocessor_klass.log_to *preprocessor_logs if preprocessor_klass
 
     filename = ARGV[1] || default_filename
     
     $stdout << "Begin playback of " << filename << "\n"
-    playback_klass.start filename, preprocessor: preprocessor_klass.new, init: fail_obj, clock: sync, **opts
+    playback_klass.start filename, preprocessor: (preprocessor_klass.new if preprocessor_klass), init: fail_obj, clock: sync, **opts
   end
 end
 

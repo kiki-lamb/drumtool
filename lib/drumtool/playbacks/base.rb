@@ -45,32 +45,39 @@ module DrumTool
     attr_accessor :engine
 
     def displayed_notes
+      #puts "Access engine.displayed_notes"
       engine.displayed_notes || []
     end
     
     def events
+      #puts "Access engine.events"
       @last_events = (engine ? engine.events : [])
     end
 
     def tick!
+      #puts "Access engine.tick!"
       engine.tick! if engine
       
       @last_events = nil
     end
     
     def time
+      #puts "Access engine.time"
       (engine && engine.time) || 0
     end
 
     def time= v
+      #puts "Access engine.time= v"
       engine.time = v
     end
     
     def loop
+      #puts "Access engine.loop"
       engine && engine.loop
     end
 
     def bpm
+      #puts "Access engine.bpm"
       (engine && engine.bpm) || 112
     end
     
@@ -106,7 +113,6 @@ module DrumTool
     end
 
     def tick
-      puts "TICK THIS AT #{time}"
       close_notes! 
       assert_valid_engine!
       open_note! *events
