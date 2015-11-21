@@ -5,8 +5,7 @@ module DrumTool
 		    class Pattern < Track
           include Traits
           
-			    include Triggered
-          include Triggered::DropAndTake
+			    prepend Triggered
 
           prepend Time::Relative::EnhancedLooping
           
