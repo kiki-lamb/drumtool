@@ -11,6 +11,7 @@ module DrumTool
         end
 
 		    def events
+          puts "#{self} CALL Events#events"
           if mute?
             []
           else
@@ -19,12 +20,14 @@ module DrumTool
 		    end
 
 				private
-				def local_events 
+				def local_events
+          puts "#{self} CALL Events#local_events IN"
 				  children.select do |ch|
 						ch.respond_to? :events
 					end.map do |ch|
+            puts "#{self} THIS CHILD: #{ch}"
 		        ch.events
-		      end.flatten(1).compact
+		      end.flatten(1).compact.tap { puts "#{self} CALL Events#local_events OUT" }
 				end
 		  end
       end

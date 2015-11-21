@@ -2,15 +2,23 @@ module DrumTool
   module Models
 		class Bubbles
       module Standard
-		    class Pattern < Track
+		    class Pattern
           include Traits
-          
-			    prepend Triggered
 
+          include BubbleAttrs
+          
+          include TreeOf[ Pattern ]
+          include MethodResolutionChainedThrough[ :parent ]
+          include BubbleAttrs::ChainedAttrsThrough[ :parent ]
+          
+          include Time::Relative
           prepend Time::Relative::EnhancedLooping
           
-			    prepend Events::MIDINotes
+				  include Events
           prepend Events::MIDINotes::Filters
+			    prepend Events::Triggered
+			    prepend Events::MIDINotes
+
         end
       end
 		end

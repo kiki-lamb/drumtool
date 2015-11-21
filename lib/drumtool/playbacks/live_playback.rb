@@ -65,7 +65,7 @@ module DrumTool
 			  "T-#{countdown} bars",
 				"#{@last_reload_time.to_s[0..5].rjust(6)} ms",
 				*super,
-        ("#{@loader.exception_lines[time%((engine && engine.loop) || 16)].to_s.strip}" if @loader.exception_lines.any?),
+        ("#{@loader.exception_lines[time%((engine && loop) || 16)].to_s.strip}" if @loader.exception_lines.any?),
 			].compact
 		end		
   end

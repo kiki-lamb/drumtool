@@ -4,7 +4,7 @@ module DrumTool
       module Traits
         module Events
 		    module Triggered
-			  def self.included base 
+			  def self.prepended base 
 				  base.hash_bubble_attr :cache, singular: :add_cache
           base.hash_bubble_attr :ucache, singular: :add_ucache
 					base.proximal_bubble_toggle :flip
@@ -18,7 +18,8 @@ module DrumTool
 		    	end
 				end
 
-        def events
+        def local_events
+          puts "#{self} CALL Triggered#local_events"
 					active? ? super : []
 				end
 
@@ -27,51 +28,51 @@ module DrumTool
 		      cache_hash {}
 		    end
 
-        def self.prepended base
-          %i{ trigger untrigger }.each do |method_name|
-		        base.send :define_method, method_name do |*args, &condition|
-		          if args.any?
-		            ranges, args = args.partition do |arg|
-		              Range === arg
-		            end
-                
-		            fixnums, args = args.partition do |arg|
+        
+        %i{ trigger untrigger }.each do |method_name|
+		      define_method method_name do |*args, &condition|
+		        if args.any?
+		          ranges, args = args.partition do |arg|
+		            Range === arg
+		          end
+              
+		          fixnums, args = args.partition do |arg|
 		              Fixnum === arg
+		          end
+		          
+		          procs, others = args.partition do |arg|
+		            Proc === arg
+		          end
+              
+		          raise ArgumentError, "Invalid argument: #{others.first.class.name} `#{others.first.inspect}'." if others.any?
+              
+		          if fixnums.count == 1
+		            send method_name  do |t|
+		              fixnums.first == t
 		            end
-		            
-		            procs, others = args.partition do |arg|
-		              Proc === arg
-		            end
-                
-		            raise ArgumentError, "Invalid argument: #{others.first.class.name} `#{others.first.inspect}'." if others.any?
-                
-		            if fixnums.count == 1
-		              send method_name  do |t|
-		                fixnums.first == t
-		              end
-		            elsif fixnums.count > 1
-		              send method_name do |t|
-		                fixnums.include? t
-		              end
-		            end
-                
-		            ranges.each do |range|
-		              send method_name do |t|
-		                range.include? t
-		              end
-		            end
-                
-		            procs.each do |proc|
-		              send method_name, &proc
+		          elsif fixnums.count > 1
+		            send method_name do |t|
+		              fixnums.include? t
 		            end
 		          end
               
-		          send("add_#{method_name}", condition) if condition
+		          ranges.each do |range|
+		            send method_name do |t|
+		              range.include? t
+		            end
+		          end
+              
+		          procs.each do |proc|
+		            send method_name, &proc
+		          end
 		        end
+            
+		        send("add_#{method_name}", condition) if condition
 		      end
-        end
+		    end
 		    
-		    def active? 
+		    def active?
+          puts "#{self} CALL active?"
           (on? or (notes.empty? && triggers.empty?)) or begin          
                                                           fires_now = cache[time] ||= triggers.any? do |t|
 		                                                        trigger_active? t, time
@@ -90,7 +91,7 @@ module DrumTool
                                                             canceled_now.tap { |x| puts (x ? "#{self} CN YES" : "#{self} CN NO" ) }
                                                           end
                                                           
-		                                                      (fires_now ^ canceled_now).tap { |x| puts (x ? "#{self} RF YES" : "#{self} RF NO" ) if bip }
+		                                                      (fires_now && ! canceled_now).tap { |x| puts (x ? "#{self} RF YES" : "#{self} RF NO" ) if bip }
                                                         end
         end            
 

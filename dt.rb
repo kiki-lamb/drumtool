@@ -9,5 +9,5 @@ easy_start(
   track,
   ARGV[0] || "input/new.dt2",
   true,
-  rescue_exceptions: true
+  rescue_exceptions: false
 )

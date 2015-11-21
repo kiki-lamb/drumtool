@@ -2,12 +2,14 @@ bpm 112
 lp x40                          # Loop every 4 bars.
 refresh_interval x10            # Refresh the code every 1 bar.
 
+#HEAD
 >                               # Instruments in a section only play if the section 
   inst BD 36                    # has triggers, so this just sets some default note values
   inst CH 41                    # for certain instruments names (because when inst is called 
   inst OH 39                    # with no note number, it uses the lasts note number given
   inst SD 37                    # for that name).
   inst RS 38
+
 
 > inst BD                       # Play the 'BD' instrument
   when %4                       # on notes evenly divisible by 4 (every quarter note)
@@ -16,29 +18,37 @@ refresh_interval x10            # Refresh the code every 1 bar.
    when %8                      # on notes evenly divisible by 8 (every 8th note)
    shift 4                      # shifted back (later in time) by 4/16ths.
 
-
 > inst CH                       # Play the 'CH' instrument.
-  when %1                       # Every sixtenth note
-  off %3                        # except those divisible by 3
-  lp x4                         # Loop every 4/16ths of a bar.
-  mu 														# This is muted, though, don't play it.
-
+  when %4                       # on notes evenly divisible by 4 (every quarter note)
+  shift 2                       # shifted back (later in time) by 2/16ths.
+	fl		                        # Flip the result (play when it would ordinarily not play and vice versa).
+	mu														# But it's muted, so we don't hear it.
+	
 > inst OH                       # Play the 'SD' instrument
   when %4                       # on notes evenly divisible by 4 (every quarter note)
   shift 2                       # shifted back (later in time) by 2/16ths.
 
 > inst RS                       # Play the 'RS' instrument
   lp x20                        # looped every 2 bars
-  on 1 3 6 10 15 21 28 36       # on ticks landing on some triangular numbers.
-#  off 0..8
-	off 0..x10
-	
+  on 1 3 6 10 15 21 28 36       # on ticks landing on some triangular numbers
+	off 0..x8                     # but not during the first 8 ticks (half a bar)
+	shift 1                       # shifted 1/16th later in time
+	mu
+
+
+
 > lp x20                        # Loop this content in this scope every 2 bars.
-  > scale 1                     # Halve the speed of this content (2 quarters the speed, -1 doubles the speed).
-    in_scale C minor            # Restrict notes that bubble up from here to a C minor scale.
-    > inst SY { n.note = 60; n.note += time % 16 }
+  > in_scale C minor            # Restrict notes that bubble up from here to a C minor scale.
+
+#BOF
+> inst SY { n.note = 60; n.note += time % 4 }
                                 # ^ Play the 'SY' instrument. This call includes an expression to manipulate the
                                 #   MIDI note number based on the time.
-      when %3                   #   Play on notes evenly divisible by %3 (every dotted eighth note)
-      rev                       #   This section plays in reverse
+      when %2                   #   Play on notes evenly divisible by %3 (every dotted eighth note)
+			not %6
+      lp x20
 
+
+#EOF
+
+These are just extra content that isn't going to be processed.

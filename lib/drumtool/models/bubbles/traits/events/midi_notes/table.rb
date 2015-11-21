@@ -21,12 +21,13 @@ module DrumTool
               end
             end
 
-            def events
-              super.each do |evt|
-                if MIDI::Note === evt
-                  evt.merge! lookup(evt) # .tap { |x| puts "#{evt.inspect} MERGE WITH #{x.inspect}" }
-                end                                         
-              end
+              def local_events
+                puts "#{self} Table#local_events IN"
+                super.each do |evt|
+                  if MIDI::Note === evt
+                    evt.merge! lookup(evt) # .tap { |x| puts "#{evt.inspect} MERGE WITH #{x.inspect}" }
+                  end                                         
+                end.tap {                 puts "#{self} Table#local_events OUT" }
             end
             
             def displayed_notes
