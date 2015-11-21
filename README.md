@@ -1,7 +1,6 @@
 # drumtool
 Drum livecoding for Ruby.
 
-`
 		 bpm 112
 		 lp x40                          # Loop every 4 bars.
 		 refresh_interval x10            # Refresh the code every 1 bar.
@@ -71,4 +70,4 @@ Drum livecoding for Ruby.
 		 END
 
 		 puts message
-` 
+ 
