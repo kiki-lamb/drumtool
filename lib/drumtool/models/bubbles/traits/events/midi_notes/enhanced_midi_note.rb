@@ -25,8 +25,8 @@ module DrumTool
               end
               
               def merge! other
-                self.parent = other.parent   # .tap { |x| puts "X: #{x}" }
-                self.action ||= other.action # .tap { |x| puts "X: #{x}" }
+                self.parent = other.parent
+                self.action ||= other.action
                 super
               end
               
