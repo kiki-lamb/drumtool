@@ -1,8 +1,8 @@
 module DrumTool
   module Models
-		class Bubbles
+    class Bubbles
       module Traits
-		    module Events
+        module Events
           module MIDINotes
             module Table
               def register_note note
@@ -51,10 +51,10 @@ module DrumTool
             def note_registry
               @__note_registry ||= Hash.new { |h,k| h[k] = MIDINotes::EnhancedMIDINote.new(nil) }
             end
-			    end
+          end
         end
-		  end
-	  end
+      end
+    end
   end
 end
 

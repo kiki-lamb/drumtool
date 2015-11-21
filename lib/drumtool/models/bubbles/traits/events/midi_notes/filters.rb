@@ -1,10 +1,10 @@
 module DrumTool
   module Models
-		class Bubbles
+    class Bubbles
       module Traits
         module Events
-		      module MIDINotes
-					  module Filters
+          module MIDINotes
+            module Filters
               def self.prepended base
                 base.class_eval do
                   attr_accessor :scale_notes

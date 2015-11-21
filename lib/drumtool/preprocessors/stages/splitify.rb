@@ -1,10 +1,10 @@
 module DrumTool
-	module Preprocessors
-	  module Stages
-		  class Splitify < Base
-		    def call         
+  module Preprocessors
+    module Stages
+      class Splitify < Base
+        def call         
           splitter.source
-	      end
+        end
 
         def splitter
           @splitter ||= Splitter.new text
@@ -13,7 +13,7 @@ module DrumTool
         def ruby
           splitter.ruby
         end
-			end
-		end
-	end
+      end
+    end
+  end
 end

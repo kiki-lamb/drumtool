@@ -1,17 +1,17 @@
 module DrumTool
   module Models
-		class Bubbles
+    class Bubbles
       module Standard
-		    class Pattern < Track
+        class Pattern < Track
           include Traits
 
           prepend Time::Relative::EnhancedLooping
 
           prepend Events::MIDINotes
-			    prepend Events::Triggered
+          prepend Events::Triggered
           prepend Events::MIDINotes::Filters
         end
       end
-		end
+    end
   end
 end

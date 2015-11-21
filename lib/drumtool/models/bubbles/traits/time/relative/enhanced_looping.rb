@@ -26,7 +26,7 @@ module DrumTool
             elsif num > 0
               super num
             elsif num < 0
-					    raise ArgumentError, "Can't right-loop outside a loop" unless least_loop && least_loop != 0
+              raise ArgumentError, "Can't right-loop outside a loop" unless least_loop && least_loop != 0
 
                 num += least_loop
                 shift -num
@@ -34,15 +34,15 @@ module DrumTool
             end
           end
           
-				  def stretch num
-					  local_loop = loop
-					  raise ArgumentError, "Stretch must follow a local loop loop" unless local_loop && local_loop != 0
+          def stretch num
+            local_loop = loop
+            raise ArgumentError, "Stretch must follow a local loop loop" unless local_loop && local_loop != 0
             
             if num > local_loop
               prepend_bubble do
-						    untrigger(Proc.new { |t| t >= local_loop })
+                untrigger(Proc.new { |t| t >= local_loop })
                 loop num
-						  end
+              end
             elsif num < 0
               num *= -1
               prepend_bubble do
@@ -51,11 +51,11 @@ module DrumTool
                 trigger((0..tmp+1))
                 untrigger(Proc.new { |t| t > (tmp + 1) })
                 loop num
-						  end
+              end
             else
               loop num
             end
-					end
+          end
 
           private
           # Getter
@@ -68,7 +68,7 @@ module DrumTool
               a.loop if a.respond_to? :loop
             end.compact.min
           end         
-				end
+        end
       end
     end
   end

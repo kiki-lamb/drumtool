@@ -1,7 +1,7 @@
 module DrumTool
-	module Preprocessors
-	  module Stages
-		  class StripBlankLinesAndTrailingWhitespaceAndComments < Base
+  module Preprocessors
+    module Stages
+      class StripBlankLinesAndTrailingWhitespaceAndComments < Base
         def initialize *a, exclude: nil
           @exclude = exclude
           super *a
@@ -9,8 +9,8 @@ module DrumTool
 
         def call
           text.gsub /(?:\s*(?:##{"(?!#{@exclude})" if @exclude}[^\n]*)?\n)+/m, "\n"
-	    	end
-			end
-		end
-	end
+        end
+      end
+    end
+  end
 end

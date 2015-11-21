@@ -1,6 +1,6 @@
 module DrumTool
   module Models
-		class Bubbles
+    class Bubbles
       module Standard
         module Preprocessors
           class Preprocessor < DrumTool::Preprocessors::Base    

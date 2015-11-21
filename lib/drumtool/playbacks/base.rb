@@ -11,11 +11,11 @@ module DrumTool
         new(*a).start
       end
 
-			def conditional_attr name, if_, left, right
-			  define_method name do
- 				  (send(if_) && send_or_get(left)) || send_or_get(right)
-				end
-			end
+      def conditional_attr name, if_, left, right
+        define_method name do
+          (send(if_) && send_or_get(left)) || send_or_get(right)
+        end
+      end
     end
 
     ################################################################################
@@ -48,11 +48,11 @@ module DrumTool
       (engine && engine.bpm) || 112
     end
     
-		private
-		attr_accessor :engine
+    private
+    attr_accessor :engine
     ################################################################################
 
-		public	    
+    public      
     def send_or_get v
       case v
       when Array
@@ -66,46 +66,46 @@ module DrumTool
       end
     end
 
-		include Logging
-		include MIDI
+    include Logging
+    include MIDI
 
     def initialize(
-		  engine = nil,
+      engine = nil,
       clock: nil,
       output: UniMIDI::Output[0], 
       reset_loop_on_stop: true,
-			fixed_bpm: 128,
-			fixed_loop: 16
+      fixed_bpm: 128,
+      fixed_loop: 16
         )
-		  @engine = engine
+      @engine = engine
       @input_clock = clock
       @reset_loop_on_stop = reset_loop_on_stop
       @last_line_length = 0
       set_midi_output output
     end
 
- 		def start          
-			log "Waiting for MIDI clock #{@input_clock}...\nControl-C to exit\n" if @input_clock
+    def start          
+      log "Waiting for MIDI clock #{@input_clock}...\nControl-C to exit\n" if @input_clock
       clock.start
-		rescue Interrupt
+    rescue Interrupt
     end    
 
-		def assert_valid_engine
+    def assert_valid_engine
       true
-		  # engine && engine.respond_to?(:bpm) && engine.respond_to?(:loop) && engine.respond_to?(:events_at)
+      # engine && engine.respond_to?(:bpm) && engine.respond_to?(:loop) && engine.respond_to?(:events_at)
 
-		  #engine && engine.respond_to?(:events_at)
-		end
+      #engine && engine.respond_to?(:events_at)
+    end
 
-		def assert_valid_engine!
+    def assert_valid_engine!
       raise RuntimeError, "Invalid engine" unless EngineInterface === engine 
-#		  raise RuntimeError, "Invalid engine" unless assert_valid_engine
-		end
+#     raise RuntimeError, "Invalid engine" unless assert_valid_engine
+    end
 
-    def clock      	  
+    def clock         
       @clock ||= begin
-			  Topaz::Clock.new((@input_clock ? @input_clock : bpm), interval: 16, &Proc.new { tick }).tap do |c|
-					c.event.stop do 
+        Topaz::Clock.new((@input_clock ? @input_clock : bpm), interval: 16, &Proc.new { tick }).tap do |c|
+          c.event.stop do 
             $stdout << "\n#{self.class.name}: Stopped.\n"
             close_notes!
             self.time = ( time - time%loop ) if loop
@@ -114,31 +114,31 @@ module DrumTool
       end
     end
 
-		def tick
+    def tick
       close_notes! 
-			assert_valid_engine!
-			open_note! *events#.tap { |x| puts "#{x.inspect}" }
+      assert_valid_engine!
+      open_note! *events#.tap { |x| puts "#{x.inspect}" }
 
-		  log_sep
-		  tmp = a_bunch_of_logging_crap.strip
+      log_sep
+      tmp = a_bunch_of_logging_crap.strip
       @last_line_length = tmp.length
-		  log tmp
+      log tmp
       tick!
     end
 
-		def log_sep
-		  io = StringIO.new
-		  if loop && 0 == time % loop && loop != 1
+    def log_sep
+      io = StringIO.new
+      if loop && 0 == time % loop && loop != 1
         io << "=" * (@last_line_length) << "\n"
       elsif 0 == time % 16 
         io << "-" * (@last_line_length) << "\n"
       end
-			log io.string unless io.string.empty?
-		end
+      log io.string unless io.string.empty?
+    end
 
-		def log_columns
-		  fill = time % 4 == 0 ? "_____" : "  .  "
-	    tail = if engine.respond_to?(:displayed_notes)
+    def log_columns
+      fill = time % 4 == 0 ? "_____" : "  .  "
+      tail = if engine.respond_to?(:displayed_notes)
                engine.displayed_notes.map do |note|
                  if note
                    note.to_s.upcase.ljust(3, " ")
@@ -156,19 +156,19 @@ module DrumTool
                []
              end
 
-		  [  
-				 *tail, 
-				 bpm.to_s.rjust(3),
-				 (loop ? time % loop : time).to_i.to_s(16).rjust(4, "0"), 
+      [  
+         *tail, 
+         bpm.to_s.rjust(3),
+         (loop ? time % loop : time).to_i.to_s(16).rjust(4, "0"), 
          time.to_s.rjust(4," ")
       ]
-		end
+    end
 
-		def a_bunch_of_logging_crap
+    def a_bunch_of_logging_crap
       io = StringIO.new      
       io << Models::Basic::Formatters::TableRowFormatter.call(log_columns, [], separator: " | ") << "\n"
-      io.string			      
-		end
+      io.string           
+    end
   end 
 end
 end

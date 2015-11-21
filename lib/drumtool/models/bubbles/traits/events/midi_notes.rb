@@ -1,9 +1,9 @@
 module DrumTool
   module Models
-		class Bubbles
+    class Bubbles
       module Traits
         module Events
-		    module MIDINotes
+        module MIDINotes
           def note name, number = nil, velocity = nil, channel = nil, &b
             name, number = number, name if Fixnum === name
             
@@ -20,18 +20,18 @@ module DrumTool
             local_notes.values.map(&:process!) # .tap { |xs| puts "#{self}.XS: #{xs}" }
           end
           
-          private				
-				  def local_events            
-				    [ *notes, *super ]  #.tap { |x| puts "#{self} MidiNotes#events OUT = #{x.inspect}" }
-				  end
+          private       
+          def local_events            
+            [ *notes, *super ]  #.tap { |x| puts "#{self} MidiNotes#events OUT = #{x.inspect}" }
+          end
 
           def local_notes
             @__local_notes ||= {}
           end
-			  end
+        end
         end
       end
-		end
-	end
+    end
+  end
 end
 

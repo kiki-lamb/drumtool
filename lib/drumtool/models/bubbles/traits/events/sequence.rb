@@ -4,13 +4,13 @@ module DrumTool
       module Traits
         module Events
         module Sequence
-					def self.included base
-				    base.bubble_toggle :sequence
+          def self.included base
+            base.bubble_toggle :sequence
             base.instance_eval do
               attr_accessor :disabled_children
               attr_accessor :times_seen
             end
-				  end														
+          end                           
 
           private
           def local_events

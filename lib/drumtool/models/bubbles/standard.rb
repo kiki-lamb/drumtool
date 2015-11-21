@@ -3,7 +3,7 @@ require "modularity"
 module DrumTool
   module Models
     class Bubbles
-		  module Standard
+      module Standard
         include Traits          
 
         def track &b
@@ -16,7 +16,7 @@ module DrumTool
         def clock
           Engine.new
         end
-			end
-		end
+      end
+    end
   end
 end

@@ -1,106 +1,106 @@
 module DrumTool
-	module Models
-		module Basic
-		  class TimingScope
-			  def self.included(base)
-				  base.extend(ClassMethods)
-				end
-
-				module ClassMethods
-					include AttrHelpers
+  module Models
+    module Basic
+      class TimingScope
+        def self.included(base)
+          base.extend(ClassMethods)
         end
 
-				extend AttrHelpers
+        module ClassMethods
+          include AttrHelpers
+        end
 
-		    attr_reader :parent
-		    attr_accessor :subscopes
+        extend AttrHelpers
 
-		    def top
-		      obj = self
-		      while (next_obj = obj.parent) != nil do
-		          obj = next_obj 
-		      end
-		      obj
-		    end
+        attr_reader :parent
+        attr_accessor :subscopes
 
-		    def method_missing name, *a, &b
-		      parent.send name, *a, &b
-		    end
+        def top
+          obj = self
+          while (next_obj = obj.parent) != nil do
+              obj = next_obj 
+          end
+          obj
+        end
 
-		    def build &b
-		      instance_eval &b if b
-		      self
-		    end
+        def method_missing name, *a, &b
+          parent.send name, *a, &b
+        end
 
-		    def instruments
-		      subscopes.map(&:instruments).flatten + @__hash__.values
-		    end
+        def build &b
+          instance_eval &b if b
+          self
+        end
 
-		    def events_at time
-					# time = time % loop if loop # NOT SURE IF THIS SHOULD BE WORKED BACK IN?
+        def instruments
+          subscopes.map(&:instruments).flatten + @__hash__.values
+        end
 
-		      instruments.map do |i|
-		        i.fires_at?(time) || nil
-		      end.compact
-		    end
+        def events_at time
+          # time = time % loop if loop # NOT SURE IF THIS SHOULD BE WORKED BACK IN?
 
-		    def instrument name, note = nil, &b 
-		      if block_given?
-		        i = @__hash__[name]
-		        i.note note if note
-		        i.build &b 
-		      end
-		    end                   
+          instruments.map do |i|
+            i.fires_at?(time) || nil
+          end.compact
+        end
 
-		    def initialize p = nil, &b
-		      @parent = p
-					@parent.subscopes << self if @parent
+        def instrument name, note = nil, &b 
+          if block_given?
+            i = @__hash__[name]
+            i.note note if note
+            i.build &b 
+          end
+        end                   
 
-		      @rotate, @shift, @loop, @instruments, @subscopes = 0, 0, nil, nil, []
-		      
-		      @__hash__= Hash.new do |h,k| 
-		        h[k] = Instrument.new self, k
-		      end   
+        def initialize p = nil, &b
+          @parent = p
+          @parent.subscopes << self if @parent
 
-					build &b if b
-		    end
+          @rotate, @shift, @loop, @instruments, @subscopes = 0, 0, nil, nil, []
+          
+          @__hash__= Hash.new do |h,k| 
+            h[k] = Instrument.new self, k
+          end   
 
-		    def keys
-		      @__hash__.keys
-		    end
+          build &b if b
+        end
 
-		    def [] k
-		      @__hash__[k.to_sym]
-		    end
+        def keys
+          @__hash__.keys
+        end
 
-		    def []= k, v
-		      @__hash__[k.to_sym] = v
-		    end
+        def [] k
+          @__hash__[k.to_sym]
+        end
 
-		    def include? k
-		      @__hash__.include? k.to_sym
-		    end
+        def []= k, v
+          @__hash__[k.to_sym] = v
+        end
 
-			  dsl_scope_klass TimingScope
+        def include? k
+          @__hash__.include? k.to_sym
+        end
 
-				def dsl_scope_klass_init_args
-					[ self ]
-				end
+        dsl_scope_klass TimingScope
 
-				# These two are only externally significant on the topmost TimingScope.
-		    dsl_attr :refresh_interval, scopable: false, default: 1
-		    dsl_attr :bpm, scopable: false
+        def dsl_scope_klass_init_args
+          [ self ]
+        end
 
-		    dsl_toggle :mute, up: :parent
-		    dsl_toggle :flip, up: :parent
+        # These two are only externally significant on the topmost TimingScope.
+        dsl_attr :refresh_interval, scopable: false, default: 1
+        dsl_attr :bpm, scopable: false
 
-		    additive_dsl_attr :rotate, up: :parent
-		    additive_dsl_attr :shift,  up: :parent
-		    additive_dsl_attr :scale,  up: :parent
-		    dsl_attr(         :loop,   up: :parent) do |v|
-		      0 == v ? nil : v
-		    end   
-		  end
-		end
-	end
+        dsl_toggle :mute, up: :parent
+        dsl_toggle :flip, up: :parent
+
+        additive_dsl_attr :rotate, up: :parent
+        additive_dsl_attr :shift,  up: :parent
+        additive_dsl_attr :scale,  up: :parent
+        dsl_attr(         :loop,   up: :parent) do |v|
+          0 == v ? nil : v
+        end   
+      end
+    end
+  end
 end

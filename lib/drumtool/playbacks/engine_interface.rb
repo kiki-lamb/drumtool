@@ -1,6 +1,6 @@
 module DrumTool
     module Playbacks
-		  module EngineInterface
+      module EngineInterface
         # These are all of the methods called on the engine by any of the Playback classes.
 
         def bpm
@@ -28,5 +28,5 @@ module DrumTool
         end
       end
     end
-	end
+  end
 

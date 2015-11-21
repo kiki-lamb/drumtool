@@ -1,9 +1,9 @@
 module DrumTool
-	module Models
-		class Bubbles
+  module Models
+    class Bubbles
       module Traits
         module Time
-		    module Absolute
+        module Absolute
           def self.included base
             base.counter_bubble_attr :time, default: 0 # , reversor: :reverse!
           end
@@ -13,7 +13,7 @@ module DrumTool
           end
         end
       end
-		end
-	end
+    end
+  end
 end
 end

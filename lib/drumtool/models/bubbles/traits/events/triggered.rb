@@ -1,110 +1,107 @@
 module DrumTool
-	module Models
-		class Bubbles
+  module Models
+    class Bubbles
       module Traits
         module Events
-		    module Triggered
-			  def self.prepended base 
-				  base.hash_bubble_attr :cache, singular: :add_cache
+        module Triggered
+        def self.prepended base 
+          base.hash_bubble_attr :cache, singular: :add_cache
           base.hash_bubble_attr :ucache, singular: :add_ucache
-					base.proximal_bubble_toggle :flip
-		      base.bubble_toggle :force
-		    	base.array_bubble_attr :triggers, singular: :add_trigger do |v|
-		        clear_caches
-		    	end
+          base.proximal_bubble_toggle :flip
+          base.bubble_toggle :force
+          base.array_bubble_attr :triggers, singular: :add_trigger do |v|
+            clear_caches
+          end
 
-		    	base.array_bubble_attr :untriggers, singular: :add_untrigger do |v|
-		      	clear_caches
-		    	end
-				end
+          base.array_bubble_attr :untriggers, singular: :add_untrigger do |v|
+            clear_caches
+          end
+        end
 
         def local_events
-#          puts "#{self} CALL Triggered#local_events"
-					active? ? super : []  #.tap { put "I'm ACTIVE" } ? super.tap { puts "I'm calling super" } : [].tap { puts "I'm giving nothing." }
-				end
+          active? ? super : []
+        end
 
-		    def clear_caches
+        def clear_caches
           ucache_hash {}
-		      cache_hash {}
-		    end
+          cache_hash {}
+        end
 
         
         %i{ trigger untrigger }.each do |method_name|
-		      define_method method_name do |*args, &condition|
-		        if args.any?
-		          ranges, args = args.partition do |arg|
-		            Range === arg
-		          end
+          define_method method_name do |*args, &condition|
+            if args.any?
+              ranges, args = args.partition do |arg|
+                Range === arg
+              end
               
-		          fixnums, args = args.partition do |arg|
-		              Fixnum === arg
-		          end
-		          
-		          procs, others = args.partition do |arg|
-		            Proc === arg
-		          end
+              fixnums, args = args.partition do |arg|
+                  Fixnum === arg
+              end
               
-		          raise ArgumentError, "Invalid argument: #{others.first.class.name} `#{others.first.inspect}'." if others.any?
+              procs, others = args.partition do |arg|
+                Proc === arg
+              end
               
-		          if fixnums.count == 1
-		            send method_name  do |t|
-		              fixnums.first == t
-		            end
-		          elsif fixnums.count > 1
-		            send method_name do |t|
-		              fixnums.include? t
-		            end
-		          end
+              raise ArgumentError, "Invalid argument: #{others.first.class.name} `#{others.first.inspect}'." if others.any?
               
-		          ranges.each do |range|
-		            send method_name do |t|
-		              range.include? t
-		            end
-		          end
+              if fixnums.count == 1
+                send method_name  do |t|
+                  fixnums.first == t
+                end
+              elsif fixnums.count > 1
+                send method_name do |t|
+                  fixnums.include? t
+                end
+              end
               
-		          procs.each do |proc|
-		            send method_name, &proc
-		          end
-		        end
+              ranges.each do |range|
+                send method_name do |t|
+                  range.include? t
+                end
+              end
+              
+              procs.each do |proc|
+                send method_name, &proc
+              end
+            end
             
-		        send("add_#{method_name}", condition) if condition
-		      end
-		    end
-		    
-		    def active?
-          #puts "#{self} CALL active?"
+            send("add_#{method_name}", condition) if condition
+          end
+        end
+        
+        def active?
           (force? or (notes.empty? && triggers.empty?)) or begin          
                                                           fires_now = cache[time] ||= triggers.any? do |t|
-		                                                        trigger_active? t, time
-		                                                      end
+                                                            trigger_active? t, time
+                                                          end
 
                                                           bip = false
                                                           
                                                           canceled_now = ucache[time] ||= untriggers.any? do |t|
-#                                                            puts "#{self} CHECKING UNTRIGGER AT #{time}"
                                                             bip = true
-		                                                        trigger_active? t, time
-		                                                      end
+                                                            trigger_active? t, time
+                                                          end
                                                           
-		                                                      t = (fires_now && ! canceled_now)#.tap { |x| puts (x ? "#{self} RF YES" : "#{self} RF NO" ) if bip }
+                                                          t = (fires_now && ! canceled_now)
                                                           flip?? !t : !!t
                                                         end
         end            
 
-				private
-		    def trigger_active? trigger, time
-		      tmp = instance_exec(time, &trigger)
+        private
+        def trigger_active? trigger, time
+          tmp = instance_exec(time, &trigger)
 
-		      if Fixnum === tmp || Float === tmp
-		        0 == tmp
-		      else
-		        tmp
-		      end
-		    end
-		  end
+          if Fixnum === tmp || Float === tmp
+            0 == tmp
+          else
+            tmp
+          end
+        end
       end
-		end
-	end
+      end
+    end
+  end
 end
 end
 

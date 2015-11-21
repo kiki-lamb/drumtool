@@ -1,8 +1,8 @@
 module DrumTool
-	module Models
-		class Bubbles
+  module Models
+    class Bubbles
       module Standard
-		    class Engine
+        class Engine
           include Traits          
           include BubbleAttrs
           
@@ -11,8 +11,8 @@ module DrumTool
           include Time::Absolute
 
           prepend EngineInterface          
-		    end
+        end
       end
-		end
-	end
+    end
+  end
 end

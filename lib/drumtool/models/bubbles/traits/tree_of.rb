@@ -87,7 +87,7 @@ module DrumTool
 
             def child *a
               raise ArgumentError, "No blocks" if block_given?
-			  	    (default_child_type || self.class).new(self, *a)
+              (default_child_type || self.class).new(self, *a)
             end
 
             def build &b

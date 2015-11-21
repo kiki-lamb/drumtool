@@ -31,14 +31,14 @@ lp  x40
 
 > ins SB 55 { n.note = 60; n.note += time % 16 }
    on %1
-	 in_scale C minor
-	 max_note 64
+   in_scale C minor
+   max_note 64
 
 
 > ins BD 
   on %4
-	lp x20
-	
+  lp x20
+  
 > ins S2
   >lp x20
    on %9

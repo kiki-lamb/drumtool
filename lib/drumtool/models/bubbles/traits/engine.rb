@@ -1,11 +1,11 @@
 module DrumTool
-	module Models
-		class Bubbles
+  module Models
+    class Bubbles
       module Traits
-		    module PlaybackInterface
-				  def self.included base
-		        base.bubble_attr :refresh_interval, default: nil
-		        base.bubble_attr :bpm, default: nil
+        module PlaybackInterface
+          def self.included base
+            base.bubble_attr :refresh_interval, default: nil
+            base.bubble_attr :bpm, default: nil
             base.class_eval do
               include Events         
               include Events::NotesDisplay              
@@ -39,6 +39,6 @@ module DrumTool
           end
         end
       end
-		end
-	end
+    end
+  end
 end

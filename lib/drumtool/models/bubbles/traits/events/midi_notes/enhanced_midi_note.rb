@@ -1,10 +1,10 @@
 module DrumTool
   module Models
-		class Bubbles
+    class Bubbles
       module Traits
         module Events
-		      module MIDINotes
-				    class EnhancedMIDINote < MIDI::Note
+          module MIDINotes
+            class EnhancedMIDINote < MIDI::Note
               include Traits::MethodResolutionChainedThrough[:parent]
               include Traits::BubbleAttrs::Attrify[:velocity, as: :vel ]
               include Traits::BubbleAttrs::Attrify[:channel,  as: :chan ]

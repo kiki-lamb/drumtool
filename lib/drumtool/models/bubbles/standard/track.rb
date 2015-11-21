@@ -1,8 +1,8 @@
 module DrumTool
-	module Models
-		class Bubbles
+  module Models
+    class Bubbles
       module Standard
-		    class Track
+        class Track
           include Traits
           include BubbleAttrs
           
@@ -12,9 +12,9 @@ module DrumTool
           
           include Time::Relative
 
-				  include Events
-		    end
+          include Events
+        end
       end
-		end
-	end
+    end
+  end
 end

@@ -1,14 +1,14 @@
 module DrumTool
-	module Models
-		class Bubbles
+  module Models
+    class Bubbles
       module Traits
-		    module EngineInterface
+        module EngineInterface
           # These are all of the methods called on the engine by any of the Playback classes.
           
           def self.prepended base
             base.include Playbacks::EngineInterface
-		        base.bubble_attr :refresh_interval, default: nil
-		        base.bubble_attr :bpm, default: nil
+            base.bubble_attr :refresh_interval, default: nil
+            base.bubble_attr :bpm, default: nil
             base.class_eval do
               include Events         
               prepend Events::MIDINotes::Table
@@ -42,6 +42,6 @@ module DrumTool
           end
         end
       end
-		end
-	end
+    end
+  end
 end
