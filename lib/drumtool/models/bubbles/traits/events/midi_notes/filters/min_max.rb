@@ -14,10 +14,8 @@ module DrumTool
                 end
 
                 def events
-                  super.tap do |s|
-                    s.select do |evt_|
-                      ((! max_note) || evt_.number <= max_note) && ((! min_note) || evt_.number >= min_note)
-                    end if s
+                  super.select do |evt_|
+                    ((! max_note) || evt_.number <= max_note) && ((! min_note) || evt_.number >= min_note)
                   end
                 end
               end

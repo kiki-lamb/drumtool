@@ -14,11 +14,9 @@ module DrumTool
                 end
                 
                 def events
-                  super.tap do |s|
-                    s.each do |evt|
-                      evt.number += semitones
-                      evt.number += octave * 12
-                    end if s
+                  super.each do |evt|
+                    evt.number += semitones
+                    evt.number += octave * 12
                   end
                 end               
               end

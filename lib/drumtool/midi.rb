@@ -3,6 +3,8 @@ require "set"
 
 module DrumTool
   module MIDI
+    include Logging
+    
     def open_notes
       @__open_notes__ ||= Set.new
     end
@@ -23,6 +25,7 @@ module DrumTool
 
     def __open_note__! note, velocity = 100
       open_notes.add? note
+      puts "OPEN #{note} @ #{velocity}"
       midi_output.puts 0x90, note, velocity      
     end
     
@@ -33,7 +36,7 @@ module DrumTool
 
       notes.each do |note|
         if Note === note
-          __open_note__! note.number, (note.velocity || velocity)
+          __open_note__! note.number, note.velocity
         else
           __open_note__! note, velocity
         end                        
@@ -44,6 +47,7 @@ module DrumTool
       assert_midi_output!
 
       notes.each do |note|
+        puts "CLOSE #{note} @ #{velocity}"
         midi_output.puts 0x80, note, velocity if open_notes.delete?(note) || force
       end
     end
