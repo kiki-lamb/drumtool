@@ -15,11 +15,11 @@ module DrumTool
                 end
                 
                 def in_degrees *a
+                  @degrees_reject ||= true
                   @degrees = a
                 end
 
                 def to_degrees *a
-                  @degrees_reject ||= true
                   @degrees = a
                 end
 
