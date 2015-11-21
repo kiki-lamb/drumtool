@@ -154,4 +154,4 @@ As it plays back your track, DrumTool produces output like this to help you see 
      | Bar  4 | T-1 bars |      0 ms |   .   |   .   | OH 39 |   .   |   .   |   .   | 112 | 003e |   62 |
      | Bar  4 | T-1 bars |      0 ms |   .   |   .   |   .   |   .   |   .   | SY 59 | 112 | 003f |   63 |
 
-DrumTool is at an early stage of development. It isn't the most user friendly tool in the world yet, and there are still plenty of bugs to work out.
+DrumTool is at an early stage of development - it isn't the most user friendly tool in the world yet, and there are still plenty of bugs to work out.
