@@ -27,7 +27,7 @@ module DrumTool
 
     def tick!
       engine.tick! if engine
-      puts "RESET"
+#      puts "RESET"
       
       @last_events = nil
     end
@@ -137,7 +137,6 @@ module DrumTool
 		end
 
 		def log_columns
-      return
 		  fill = time % 4 == 0 ? "_____" : "  .  "
 	    tail = if engine.respond_to?(:displayed_notes)
                engine.displayed_notes.map do |note|

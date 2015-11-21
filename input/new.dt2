@@ -45,7 +45,7 @@ refresh_interval x10            # Refresh the code every 1 bar.
                                 # ^ Play the 'SY' instrument. This call includes an expression to manipulate the
                                 #   MIDI note number based on the time.
       when %2                   #   Play on notes evenly divisible by %3 (every dotted eighth note)
-			not %6
+			exclude %6
       lp x20
 
 

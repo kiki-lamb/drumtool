@@ -19,8 +19,8 @@ module DrumTool
 				end
 
         def local_events
-          puts "#{self} CALL Triggered#local_events"
-					active? ? super : []
+#          puts "#{self} CALL Triggered#local_events"
+					active? ? super : []  #.tap { put "I'm ACTIVE" } ? super.tap { puts "I'm calling super" } : [].tap { puts "I'm giving nothing." }
 				end
 
 		    def clear_caches
@@ -72,7 +72,7 @@ module DrumTool
 		    end
 		    
 		    def active?
-          puts "#{self} CALL active?"
+          #puts "#{self} CALL active?"
           (on? or (notes.empty? && triggers.empty?)) or begin          
                                                           fires_now = cache[time] ||= triggers.any? do |t|
 		                                                        trigger_active? t, time
@@ -81,17 +81,16 @@ module DrumTool
                                                           bip = false
                                                           
                                                           canceled_now = ucache[time] ||= untriggers.any? do |t|
-                                                            puts "#{self} CHECKING UNTRIGGER AT #{time}"
+#                                                            puts "#{self} CHECKING UNTRIGGER AT #{time}"
                                                             bip = true
 		                                                        trigger_active? t, time
-		                                                      end.tap { |x| puts (x ? "YES" : "NO" ) if bip}
+		                                                      end
 
                                                           if bip
-                                                            fires_now.tap { |x| puts (x ? "#{self} FN YES" : "#{self} FN NO" ) }
-                                                            canceled_now.tap { |x| puts (x ? "#{self} CN YES" : "#{self} CN NO" ) }
+#                                                            puts "FIRES: #{fires_now} #{canceled_now}"
                                                           end
                                                           
-		                                                      (fires_now && ! canceled_now).tap { |x| puts (x ? "#{self} RF YES" : "#{self} RF NO" ) if bip }
+		                                                      (fires_now && ! canceled_now)#.tap { |x| puts (x ? "#{self} RF YES" : "#{self} RF NO" ) if bip }
                                                         end
         end            
 

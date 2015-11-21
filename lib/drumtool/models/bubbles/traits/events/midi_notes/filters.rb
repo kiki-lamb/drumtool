@@ -15,7 +15,7 @@ module DrumTool
               end              
 
               def local_events
-                puts "#{self} CALL Filters.local_events"
+#                puts "#{self} CALL Filters.local_events"
                 super.map do |evt|
                   if self.scale_notes
                     o = evt.number

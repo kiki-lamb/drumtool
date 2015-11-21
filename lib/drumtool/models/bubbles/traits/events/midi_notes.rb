@@ -21,8 +21,8 @@ module DrumTool
           end
           
           private				
-				  def local_events
-				    [ *notes, *super ] # .tap { |x| puts "#{self} yields #{x.inspect}" }
+				  def local_events            
+				    notes  #.tap { |x| puts "#{self} MidiNotes#events OUT = #{x.inspect}" }
 				  end
 
           def local_notes
