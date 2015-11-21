@@ -1,8 +1,0 @@
-bpm 104
-ref 16
-
-
- > lp x20
-   i bd 30
-   sh 2
-   on %4

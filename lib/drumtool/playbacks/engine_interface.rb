@@ -6,6 +6,10 @@ module DrumTool
       def displayed_notes
         raise NotImplementedError
       end
+
+      def events
+        raise NotImplementedError
+      end
       
       def bpm
         raise NotImplementedError
@@ -16,6 +20,10 @@ module DrumTool
       end
       
       def time= v
+        raise NotImplementedError
+      end
+      
+      def time
         raise NotImplementedError
       end
       

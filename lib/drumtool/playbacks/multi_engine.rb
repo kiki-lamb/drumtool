@@ -1,6 +1,7 @@
 module DrumTool
   module Playbacks
-    module MultiEngine < EngineInterface
+    class MultiEngine
+      include EngineInterface
       # These are all of the methods called on the engine by any of the Playback classes.
 
       def initialize *engines
@@ -14,13 +15,21 @@ module DrumTool
       def displayed_notes
         @engines.map(&:displayed_notes).flatten 1
       end
+
+      def events
+        @engines.map(&:events).flatten 1
+      end
       
       def bpm
         @engines.first.bpm
       end
       
       def tick!
-        @engines.each &:tick
+        @engines.each &:tick!
+      end
+
+      def time
+        @engines.first.time
       end
       
       def time= v
@@ -30,7 +39,7 @@ module DrumTool
       end
       
       def loop
-        @engines.map(&:loop).min
+        @engines.map(&:loop).compact.min
       end
       
       def state

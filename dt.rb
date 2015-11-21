@@ -8,9 +8,16 @@ easy_start(
   Preprocessors::Preprocessor,
   track,
   ARGV[0] || "input/new.dt2",
-  # UniMIDI::Input[1],
+  UniMIDI::Input[1],
   rescue_exceptions: false,
   output: UniMIDI::Output[0],
-#  logs: [],
-  preprocessor_logs: []
+  # logs: [],
+  preprocessor_logs: [],
+  loader: MultiLoader.new(
+    Preprocessors::Preprocessor,
+    "input/new.dt2",
+    "input/bubbles2.dt2",
+    init: track,
+    rescue_exceptions: false
+    )
 )

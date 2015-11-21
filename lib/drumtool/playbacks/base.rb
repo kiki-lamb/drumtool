@@ -106,6 +106,7 @@ module DrumTool
     end
 
     def tick
+      puts "TICK THIS AT #{time}"
       close_notes! 
       assert_valid_engine!
       open_note! *events
