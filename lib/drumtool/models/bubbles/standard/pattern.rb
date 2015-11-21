@@ -8,12 +8,12 @@ module DrumTool
           prepend Time::Relative::EnhancedLooping
 
           prepend Events::MIDINotes
-          prepend Events::Triggered
           prepend Events::MIDINotes::Filters::Transpose
           prepend Events::MIDINotes::Filters::Transform
           prepend Events::MIDINotes::Filters::Scale  
           prepend Events::MIDINotes::Filters::MinMax
           prepend Events::Muteable
+          prepend Events::Triggered
         end
       end
     end

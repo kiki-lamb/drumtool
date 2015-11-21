@@ -19,14 +19,13 @@ module DrumTool
         end
 
         def events
-          active? ? super : nil
+          super if active?
         end
 
         def clear_caches
           ucache_hash {}
           cache_hash {}
         end
-
         
         %i{ trigger untrigger }.each do |method_name|
           define_method method_name do |*args, &condition|
@@ -76,10 +75,7 @@ module DrumTool
                                                             trigger_active? t, time
                                                           end
 
-                                                          bip = false
-                                                          
                                                           canceled_now = ucache[time] ||= untriggers.any? do |t|
-                                                            bip = true
                                                             trigger_active? t, time
                                                           end
                                                           
