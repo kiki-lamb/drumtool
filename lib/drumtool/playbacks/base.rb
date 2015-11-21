@@ -6,69 +6,15 @@ require "set"
 module DrumTool
   module Playbacks
   class Base
+    include Logging
+    include MIDI
+
     class << self
       def start *a
         new(*a).start
       end
-
-      def conditional_attr name, if_, left, right
-        define_method name do
-          (send(if_) && send_or_get(left)) || send_or_get(right)
-        end
-      end
-    end
-
-    ################################################################################
-    # Engine access
-    ################################################################################
-    def events
-      @last_events = (engine ? engine.events : []) #.tap { |e| log "EVENTS: #{e}" }
-    end
-
-    def tick!
-      engine.tick! if engine
-#      puts "RESET"
-      
-      @last_events = nil
     end
     
-    def time
-      (engine && engine.time) || 0
-    end
-
-    def time= v
-      engine.time = v
-    end
-    
-    def loop
-      engine && engine.loop
-    end
-
-    def bpm
-      (engine && engine.bpm) || 112
-    end
-    
-    private
-    attr_accessor :engine
-    ################################################################################
-
-    public      
-    def send_or_get v
-      case v
-      when Array
-        v.dup.inject(self) do |o, sym|
-          sym[0] == "@" ? o.instance_variable_get(v) : o.send(sym)
-        end
-      when Symbol
-        v[0] == "@" ? instance_variable_get(v) : send(v)
-      else 
-        v
-      end
-    end
-
-    include Logging
-    include MIDI
-
     def initialize(
       engine = nil,
       clock: nil,
@@ -90,16 +36,57 @@ module DrumTool
     rescue Interrupt
     end    
 
-    def assert_valid_engine
-      true
-      # engine && engine.respond_to?(:bpm) && engine.respond_to?(:loop) && engine.respond_to?(:events_at)
+    ################################################################################
+    # Engine access
+    ################################################################################
 
-      #engine && engine.respond_to?(:events_at)
+    private
+
+    attr_accessor :engine
+
+    def events
+      @last_events = (engine ? engine.events : [])
+    end
+
+    def tick!
+      engine.tick! if engine
+      
+      @last_events = nil
+    end
+    
+    def time
+      (engine && engine.time) || 0
+    end
+
+    def time= v
+      engine.time = v
+    end
+    
+    def loop
+      engine && engine.loop
+    end
+
+    def bpm
+      (engine && engine.bpm) || 112
+    end
+    
+    ################################################################################
+
+    def send_or_get v
+      case v
+      when Array
+        v.dup.inject(self) do |o, sym|
+          sym[0] == "@" ? o.instance_variable_get(v) : o.send(sym)
+        end
+      when Symbol
+        v[0] == "@" ? instance_variable_get(v) : send(v)
+      else 
+        v
+      end
     end
 
     def assert_valid_engine!
       raise RuntimeError, "Invalid engine" unless EngineInterface === engine 
-#     raise RuntimeError, "Invalid engine" unless assert_valid_engine
     end
 
     def clock         
@@ -117,7 +104,7 @@ module DrumTool
     def tick
       close_notes! 
       assert_valid_engine!
-      open_note! *events#.tap { |x| puts "#{x.inspect}" }
+      open_note! *events
 
       log_sep
       tmp = a_bunch_of_logging_crap.strip
