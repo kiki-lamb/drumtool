@@ -26,7 +26,7 @@ module DrumTool
                   return tmp if degrees.empty?
                   
                   tmp.select do |evt|                                            
-                    degrees.include?(scale_notes.empty?? evt.note%12 : scale_notes.find_index(evt.note%12))
+                    degrees.include?((scale_notes.empty? || scale_notes.nil?)? evt.note%12 : scale_notes.find_index(evt.note%12))
                   end
                 end                
                 
@@ -34,7 +34,7 @@ module DrumTool
                 def degrees *a
                   (@degrees ||= []).push *a
                 end
-                
+
                 def lowest note_name
                   (Note.new(note_name.to_s)-(@__down__ = NoteInterval.new(60)))
                 end
