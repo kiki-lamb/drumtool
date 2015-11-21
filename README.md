@@ -1,6 +1,12 @@
 # drumtool
 Drum livecoding for Ruby.
 
+DrumTool is an algorithmic MIDI pattern generator intended for livecoding: as you edit a source file in DrumTool's built in language, DrumTool generates MIDI note patterns and sends them to your sequencer of choice in realtime.
+
+DrumTool uses arirusso's https://github.com/arirusso/topaz and https://github.com/arirusso/unimidi gems for MIDI I/O and synchronization.
+
+DrumTool source code files look like this:
+
 		 bpm 112               
 		 lp x40                # Loop every 4 bars.
 		 refresh_interval x10  # Refresh the code every 1 bar.
@@ -45,16 +51,20 @@ Drum livecoding for Ruby.
 		 	shift 1                    # shifted 1/16th later in time
 
 		 > in_scale E minor    # Restrict notes that bubble up from here to an E minor scale.
-		 	lp x40               # Loop for 4 bars
-		   xform { note(note-time/12); vel(127 - (time * 4)) }
-		 	                              # ^ Apply arbitrary transformations to notes passing through.
-		   > oct 1                       # Transpose notes coming from here up by 1 octave
-		 		lp x08                      # Loop this content in this scope every 8 ticks (1/2 a bar).
-		     > inst SY { num(55 - time / 4) }
-		                                 # ^ Play the 'SY' instrument. This call includes an expression to manipulate the
-		                                 #   MIDI note number based on the time.
-		       when %5                   # Play on notes evenly divisible by %6 (every dotted eighth note)
-		 			sh 2                      # 2/16ths late.
+		 	 lp x40              # Loop for 4 bars
+
+			 xform { note(note-time/12); vel(127 - (time * 4)) }
+			 # ^ Apply arbitrary transformations to notes passing through. 
+		 	                              
+		   > oct 1             # Transpose notes coming from here up by 1 octave
+		 		 lp x08            # Loop this content in this scope every 8 ticks (1/2 a bar).
+
+         > inst SY { num(55 - time / 4) }
+         # ^ Play the 'SY' instrument. This call includes an expression to manipulate the
+		     #   MIDI note number based on the time.
+				 
+		     when %5           # Play on notes evenly divisible by %6 (every dotted eighth note)
+		 		 sh 2              # 2/16ths late.
 
 		 #EOF
 
