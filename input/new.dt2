@@ -39,7 +39,7 @@ refresh_interval x10            # Refresh the code every 1 bar.
 
 
 > to_scale E minor
-  to_degrees 1 4 7
+  in_degrees 1 4 7
 	drop!
   > xform { note(note+time%16)  }
     inst SY { num(55 - time / 4) }

@@ -6,12 +6,6 @@ module DrumTool
           module MIDINotes
             module Filters
               module Scale
-                def self.prepended base
-                  base.class_eval do
-                    attr_accessor :scale_notes
-                  end
-                end
-
                 def lift!
                   @mod = 1
                 end
@@ -40,7 +34,7 @@ module DrumTool
 
                 def local_events
                   tmp = super
-
+                  
                   if @scale_notes
                     if @scales_reject
                       tmp.select! do |evt|
@@ -56,19 +50,18 @@ module DrumTool
                   if @degrees
                     if @degrees_reject
                       tmp.select! do |evt|                                            
-                        @degrees.include?((scale_notes.empty? || scale_notes.nil?)? evt.note%12 : scale_notes.find_index(evt.note%12))
+                        @degrees.include?((@scale_notes.nil? || @scale_notes.empty?)? evt.note%12 : @scale_notes.find_index(evt.note%12))
                       end
                     else
                       tmp.each do |evt|
-                        ix = (scale_notes.nil? || scale_notes.empty?)? evt.note%12 : scale_notes.find_index(evt.note%12)
-                        evt.number += @mod until @degrees.include?(ix)
+                        evt.number += @mod until @degrees.include? (@scale_notes.nil? || @scale_notes.empty?)? evt.note%12 : @scale_notes.find_index(evt.note%12)
                       end
                     end
                   end
-
+                  
                   tmp
                 end
-
+                
 
                 def lowest note_name
                   (Note.new(note_name.to_s)-(@__down__ = NoteInterval.new(60)))
