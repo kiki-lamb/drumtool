@@ -1,16 +1,16 @@
 # drumtool
 Drum livecoding for Ruby.
 
-		 bpm 112
-		 lp x40                          # Loop every 4 bars.
-		 refresh_interval x10            # Refresh the code every 1 bar.
+		 bpm 112               
+		 lp x40                # Loop every 4 bars.
+		 refresh_interval x10  # Refresh the code every 1 bar.
 
 
-		 >                               # Instruments in a section only play if the section 
-		   inst BD 36                    # has triggers, so this just sets some default note values
-		   inst CH 41                    # for certain instruments names (because when inst is called 
-		   inst OH 39                    # with no note number, it uses the lasts note number given
-		   inst SD 37                    # for that name).
+		 >                     # Instruments in a section only play if the section 
+		   inst BD 36          # has triggers, so this just sets some default note values
+		   inst CH 41          # for certain instruments names (because when inst is called 
+		   inst OH 39          # with no note number, it uses the lasts note number given
+		   inst SD 37          # for that name).
 		   inst RS 38
 
 		 #HEAD
@@ -21,31 +21,31 @@ Drum livecoding for Ruby.
 
 		 #BOF
 
-		 > inst BD                       # Play the 'BD' instrument
-		   when %4                       # on notes evenly divisible by 4 (every quarter note)
+		 > inst BD             # Play the 'BD' instrument
+		   when %4             # on notes evenly divisible by 4 (every quarter note)
 		   
-		 > inst SD                       # Play the 'SD' instrument
-		    when %8                      # on notes evenly divisible by 8 (every 8th note)
-		    shift 4                      # shifted back (later in time) by 4/16ths.
+		 > inst SD             # Play the 'SD' instrument
+		    when %8            # on notes evenly divisible by 8 (every 8th note)
+		    shift 4            # shifted back (later in time) by 4/16ths.
 
-		 > inst CH                       # Play the 'CH' instrument.
-		   when %4                       # on notes evenly divisible by 4 (every quarter note)
-		   shift 2                       # shifted back (later in time) by 2/16ths.
-		 	fl		                        # Flip the result (play when it would ordinarily not play and vice versa).
-		 	mu													  # But it's muted, so we don't hear it.
+		 > inst CH             # Play the 'CH' instrument.
+		   when %4             # on notes evenly divisible by 4 (every quarter note)
+		   shift 2             # shifted back (later in time) by 2/16ths.
+		 	fl		               # Flip the result (play when it would ordinarily not play and vice versa).
+		 	mu									 # But it's muted, so we don't hear it.
 		 	
-		 > inst OH                       # Play the 'SD' instrument
-		   when %4                       # on notes evenly divisible by 4 (every quarter note)
-		   shift 2                       # shifted back (later in time) by 2/16ths.
+		 > inst OH             # Play the 'SD' instrument
+		   when %4             # on notes evenly divisible by 4 (every quarter note)
+		   shift 2             # shifted back (later in time) by 2/16ths.
 
-		 > inst RS                       # Play the 'RS' instrument
-		   lp x20                        # looped every 2 bars
-		   on 1 3 6 10 15 21 28 36       # on ticks landing on some triangular numbers
-		 	off 0..x8                     # but not during the first 8 ticks (half a bar)
-		 	shift 1                       # shifted 1/16th later in time
+		 > inst RS                   # Play the 'RS' instrument
+		   lp x20                    # looped every 2 bars
+		   on 1 3 6 10 15 21 28 36   # on ticks landing on some triangular numbers
+		 	off 0..x8                  # but not during the first 8 ticks (half a bar)
+		 	shift 1                    # shifted 1/16th later in time
 
-		 > in_scale E minor            	# Restrict notes that bubble up from here to an E minor scale.
-		 	lp x40                        # Loop for 4 bars
+		 > in_scale E minor    # Restrict notes that bubble up from here to an E minor scale.
+		 	lp x40               # Loop for 4 bars
 		   xform { note(note-time/12); vel(127 - (time * 4)) }
 		 	                              # ^ Apply arbitrary transformations to notes passing through.
 		   > oct 1                       # Transpose notes coming from here up by 1 octave
