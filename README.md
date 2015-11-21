@@ -13,7 +13,7 @@ DrumTool source code files look like this (or at least, it would look like this 
 
      >                     # Instruments in a section only play if the section 
        inst BD 36          # has triggers, so this just sets some default note values
-       inst CH 41          # for certain instruments names (because when inst is called 
+       inst CH 41          # for these instrument names (because when inst is called 
        inst OH 39          # with no note number, it uses the lasts note number given
        inst SD 37          # for that name).
        inst RS 38
