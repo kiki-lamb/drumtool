@@ -133,12 +133,6 @@ module DrumTool
                    fill
                  end
                end
-             elsif engine.respond_to?(:instruments)
-               (engine.instruments.group_by(&:short_name).map do |name, instrs| 
-                  (instrs.any? do |i|
-                     i.fires_at?(time)
-                   end) ? "#{name.ljust(2)}" : fill 
-                end)
              else
                []
              end
