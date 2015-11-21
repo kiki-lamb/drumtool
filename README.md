@@ -38,8 +38,8 @@ DrumTool source code files look like this (or at least, they would look like thi
      > inst CH   # Play the 'CH' instrument.
        when %4   # on notes evenly divisible by 4 (every quarter note)
        shift 2   # shifted back (later in time) by 2/16ths.
-      fl         # Flip the result (play when it would ordinarily not play and vice versa).
-      mu         # But it's muted, so we don't hear it.
+       fl        # Flip triggers coming from this node (play when it would ordinarily not play and vice versa).
+       mu        # But it's muted, so we don't hear it.
       
      > inst OH   # Play the 'SD' instrument
        when %4   # on notes evenly divisible by 4 (every quarter note)
@@ -69,13 +69,15 @@ DrumTool source code files look like this (or at least, they would look like thi
 
      #EOF
 
-     This is after the #EOF tag so it's just extra content that isn't going to be processed.
+     This is after the #EOF tag so it's just extra content that isn't
+		 going to be processed.
 
      #RUBY
 
      message = <<END
-     Right now we don't use this content, but in the future, you'll be able to write custom ruby code here
-     and reference it within your DrumTool script.
+     Right now we don't use this content, but in the future, you'll
+		 be able to write custom ruby code here and reference it within your
+		 DrumTool script.
 
      Won't that be cool?
      END
