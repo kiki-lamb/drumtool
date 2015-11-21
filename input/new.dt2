@@ -22,9 +22,9 @@ refresh_interval x10            # Refresh the code every 1 bar.
 > lp x20                        # Loop this content in this scope every 2 bars.
   > scale 1                     # Halve the speed of this content (2 quarters the speed, -1 doubles the speed).
     in_scale C minor            # Restrict notes that bubble up from here to a C minor scale.
-    > inst SY 55 { n.note = 60; n.note += time % 16 }
+    > inst SY { n.note = 60; n.note += time % 16 }
                                 # ^ Play the 'SY' instrument. This call includes an expression to manipulate the
                                 #   MIDI note number based on the time.
-      when %2                   #   Play on notes evenly divisible by %4 (every quarter note)
-      shift 4                   #   shifted back (later in time) by 2/16ths.
+      when %3                   #   Play on notes evenly divisible by %4 (every quarter note)
+      shift -2                   #   shifted back (later in time) by 2/16ths.
 

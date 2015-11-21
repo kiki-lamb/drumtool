@@ -134,7 +134,7 @@ module DrumTool
 		end
 
 		def log_columns
-		  fill = time % 4 == 0 ? "___" : ".  "
+		  fill = time % 4 == 0 ? "_____" : "  .  "
 	    tail = if engine.respond_to?(:displayed_notes)
                engine.displayed_notes.map do |note|
                  if note

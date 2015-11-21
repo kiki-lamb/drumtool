@@ -32,11 +32,18 @@ module DrumTool
             def displayed_notes
               evts = events
               evts_names = events.map &:name
-              evts_nums = events.map &:number
+#              evts_nums = events.map(&:number).tap { |ns| puts "NUMS: #{ns}" }
               
               note_registry.map do |k, v|
-                evts_names.include?(v.name) || evts_nums.include?(v.number) ? k : nil
-                evts_names.include?(v.name) ? k : nil
+                if evts_names.include?(v.name)
+                  evt = evts.find do |e|
+                    e.name == v.name
+                  end
+                  
+                  "#{k.to_s.ljust(2," ")} #{evt.number.to_s.ljust(2," ")}"
+                else
+                  nil
+                end
               end
             end
             
