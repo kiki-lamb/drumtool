@@ -4,7 +4,6 @@ module DrumTool
       module Traits
         module Events
 		      module MIDINotes
-
 				    class EnhancedMIDINote < MIDI::Note
               include Traits::MethodResolutionChainedThrough[:parent]
               include Traits::BubbleAttrs::Attrify[:velocity, as: :vel ]
@@ -31,16 +30,19 @@ module DrumTool
                 super
               end
               
-              def process!
-                self.dup.tap do |copy|              
-                  case copy.action.arity
-                  when 0
-                    copy.instance_eval &action
-                  else
-                    copy.instance_exec copy, &action
-                  end if copy.action
+              def process! in_parent = nil, &blk
+                self.dup.tap do |copy|
+                  p = blk || copy.action
+                  copy.parent = in_parent if in_parent
                   
-                  copy.action = nil
+                  case p.arity
+                  when 0
+                    copy.instance_eval &p
+                  else
+                    copy.instance_exec copy, &p
+                  end if p
+                  
+                  copy.action = nil unless blk
                 end
               end              
             end

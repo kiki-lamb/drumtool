@@ -33,6 +33,7 @@ module DrumTool
               octave
               semitones
               force!
+              xform
             }
 
             synonymize \

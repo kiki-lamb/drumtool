@@ -8,6 +8,7 @@ module DrumTool
               def self.prepended base
                 base.class_eval do
                   attr_accessor :scale_notes
+                  attr_accessor :transform_action
                   
                   bubble_attr :max_note, default: 127
                   bubble_attr :min_note, default: 0
@@ -16,10 +17,19 @@ module DrumTool
                 end
               end              
 
+              def xform &blk
+                self.transform_action = blk
+              end
+              
               def local_events
                 super.map do |evt|
                   evt.number += semitones
                   evt.number += octave * 12
+                  
+                  if self.transform_action
+                    o_evt = evt
+                    evt = evt.process! self, &self.transform_action
+                  end
                   
                   if self.scale_notes
                     o = evt.number

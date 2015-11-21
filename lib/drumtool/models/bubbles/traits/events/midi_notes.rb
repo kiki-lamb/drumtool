@@ -17,7 +17,7 @@ module DrumTool
           end
 
           def notes
-            ns = local_notes.values.map(&:process!) # .tap { |xs| puts "#{self}.XS: #{xs}" }
+            local_notes.values.map(&:process!) # .tap { |xs| puts "#{self}.XS: #{xs}" }
           end
           
           private				
