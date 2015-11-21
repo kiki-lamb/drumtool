@@ -42,13 +42,13 @@ But this content isn't since it occurs before the #BOF tag.
 	shift 1                       # shifted 1/16th later in time
 	mu
 
-> lp x10                        # Loop this content in this scope every 2 bars.
+> lp x08                        # Loop this content in this scope every 2 bars.
  > in_scale E minor             # Restrict notes that bubble up from here to an E minor scale.
    transpose 3                  # Transpose up 3 semitones.
-   > inst SY { num 60 - time / 3 }
+   > inst SY { num 55 - time / 3 }
                                 # ^ Play the 'SY' instrument. This call includes an expression to manipulate the
                                 #   MIDI note number based on the time.
-      when %6                   # Play on notes evenly divisible by %6 (every dotted eighth note)
+      when %5                   # Play on notes evenly divisible by %6 (every dotted eighth note)
 			sh 2                      # 2/16ths late.
 #EOF
 

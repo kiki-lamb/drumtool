@@ -32,6 +32,7 @@ module DrumTool
               max_note
               octave
               semitones
+              force!
             }
 
             synonymize \

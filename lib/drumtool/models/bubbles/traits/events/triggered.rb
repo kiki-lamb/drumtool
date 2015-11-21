@@ -8,7 +8,7 @@ module DrumTool
 				  base.hash_bubble_attr :cache, singular: :add_cache
           base.hash_bubble_attr :ucache, singular: :add_ucache
 					base.proximal_bubble_toggle :flip
-		      base.bubble_toggle :on
+		      base.bubble_toggle :force
 		    	base.array_bubble_attr :triggers, singular: :add_trigger do |v|
 		        clear_caches
 		    	end
@@ -73,7 +73,7 @@ module DrumTool
 		    
 		    def active?
           #puts "#{self} CALL active?"
-          (on? or (notes.empty? && triggers.empty?)) or begin          
+          (force? or (notes.empty? && triggers.empty?)) or begin          
                                                           fires_now = cache[time] ||= triggers.any? do |t|
 		                                                        trigger_active? t, time
 		                                                      end
