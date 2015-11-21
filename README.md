@@ -3,6 +3,8 @@ Drum livecoding for Ruby.
 
 DrumTool is an algorithmic MIDI pattern generator intended for livecoding: as you edit a source file in DrumTool's built in language, DrumTool generates MIDI note patterns and sends them to your sequencer of choice in realtime.
 
+DrumTool's DSL's syntax is designed to be concise, for speed during live performance, but more verbose commands can be used if you feel that clarity is more important to you than speed: any unambiguous abbreviation of a valid command will be accepted. You can even ditch vowels, excluding the first one, if you like. For example: 'ref', 'rfr', 'rfrsh' and 'refresh' are all valid shorthand for the 'refresh_interval' command, but 're' isn't since it's ambiguous as it could be confused with the 'reverse' command.
+
 DrumTool uses arirusso's https://github.com/arirusso/topaz and https://github.com/arirusso/unimidi gems for MIDI I/O and synchronization.
 
 DrumTool source code files look like this (or at least, they would look like this if people actually wrote this many comments while performing):
@@ -12,6 +14,9 @@ DrumTool source code files look like this (or at least, they would look like thi
                            
      lp x40                # Loop the entire track every 4 bars.
      refresh_interval x10  # Reread the code in this file every 1 bar.
+     
+     # reverse             # Uncommenting this would reverse playback
+                           # of the entire track.
 
      >                     # Instruments in a section only play if the section 
        inst BD 36          # has triggers, so this just sets some default note values
@@ -64,9 +69,11 @@ DrumTool source code files look like this (or at least, they would look like thi
          # ^ Play the 'SY' instrument. This call includes an expression to manipulate the
          #   MIDI note number based on the time.
          
-         when %5   # Play on notes evenly divisible by %6 (every dotted eighth note)
-         sh 2      # 2/16ths late.
+         when %5   # Play on notes evenly divisible by 5.
+         sh 2      # but play 2/16ths late.
 
+         reverse   # Play this section in reverse
+ 
      #EOF
 
      This is after the #EOF tag so it's just extra content that isn't
