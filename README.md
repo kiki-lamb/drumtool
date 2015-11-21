@@ -43,7 +43,8 @@ DrumTool source code files look like this (or at least, they would look like thi
      > inst CH   # Play the 'CH' instrument.
        when %4   # on notes evenly divisible by 4 (every quarter note)
        shift 2   # shifted back (later in time) by 2/16ths.
-       fl        # Flip triggers coming from this node (play when it would ordinarily not play and vice versa).
+       fl        # Flip triggers coming from this node (play when it
+			 					 # would ordinarily not play and vice versa).
        mu        # But it's muted, so we don't hear it.
       
      > inst OH   # Play the 'SD' instrument
