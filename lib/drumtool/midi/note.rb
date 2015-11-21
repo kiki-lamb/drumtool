@@ -28,29 +28,14 @@ module DrumTool
         self.number   ||= other.number
         self.channel  ||= other.channel
         self.velocity ||= other.velocity
-#        self.action   ||= other.action
         self
       end
-
-#      def process!
-#        if self.action
-#          case self.action.arity
-#          when 0
-#            self.action.()
-#          else
-#            self.action.(self)
-#          end
-#        end
-#        
-#        self.action = nil
-#      end
         
-      def initialize name: nil, number: nil, velocity: 100, channel: 1 # , &b
+      def initialize name: nil, number: nil, velocity: 100, channel: 1
         self.name     = name
         self.number   = number
         self.channel  = channel
         self.velocity = velocity
-#        self.action   = b
       end
     end
   end

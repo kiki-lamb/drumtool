@@ -1,0 +1,30 @@
+bpm 112
+lp x40                          # Loop every 4 bars.
+refresh_interval x10            # Refresh the code every 1 bar.
+
+>                               # Instruments in a section only play if the section 
+  inst BD 36                    # has triggers, so this just sets some default note values
+  inst CH 41                    # for certain instruments names (because when inst is called 
+  inst OH 39                    # with no note number, it uses the lasts note number given
+  inst SD 37                    # for that name).
+
+> inst BD                       # Play the 'BD' instrument
+  when %4                       # on notes evenly divisible by 4 (every quarter note)
+  
+> inst SD                       # Play the 'SD' instrument
+   when %8                      # on notes evenly divisible by 8 (every 8th note)
+   shift 4                      # shifted back (later in time) by 4/16ths.
+   
+> inst OH                       # Play the 'SD' instrument
+  when %4                       # on notes evenly divisible by 4 (every quarter note)
+  shift 2                       # shifted back (later in time) by 2/16ths.
+
+> lp x20                        # Loop this content in this scope every 2 bars.
+  > scale 1                     # Halve the speed of this content (2 quarters the speed, -1 doubles the speed).
+    in_scale C minor            # Restrict notes that bubble up from here to a C minor scale.
+    > inst SY 55 { n.note = 60; n.note += time % 16 }
+                                # ^ Play the 'SY' instrument. This call includes an expression to manipulate the
+                                #   MIDI note number based on the time.
+      when %2                   #   Play on notes evenly divisible by %4 (every quarter note)
+      shift 4                   #   shifted back (later in time) by 2/16ths.
+

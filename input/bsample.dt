@@ -27,21 +27,18 @@ lp  x40
   sh 4
   on 15
   lp x10
-#BOF
+
 
 > ins SB 55 { n.note = 60; n.note += time % 16 }
    on %1
 	 in_scale C minor
 	 max_note 64
 
-#EOF  
+
 > ins BD 
   on %4
 	lp x20
 	
-
-#EOF
-
 > ins S2
   >lp x20
    on %9
