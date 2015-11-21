@@ -14,17 +14,26 @@ module DrumTool
                   def in_scale note_name, type = :minor
                     self.scale_notes = lowest(note_name).send("#{type.to_s}_scale").note_values.map { |x| x % 12 }
                   end
-                                    
+
                   def local_events
-                    return super unless self.scale_notes
-                    
-                    super.each do |evt|                  
-                      o = evt.number
+                    tmp = super
+
+                    tmp = tmp.each do |evt|
                       evt.number += 1 until self.scale_notes.include?((evt.number % 12))
-                    end                    
+                    end if scale_notes
+
+                    return tmp if degrees.empty?
+                    
+                    tmp.select do |evt|                                            
+                      degrees.include?(scale_notes.empty?? evt.note%12 : scale_notes.find_index(evt.note%12))
+                    end
                   end                
                   
                   private
+                  def degrees
+                    @degrees ||= []
+                  end
+                  
                   def lowest note_name
                     (Note.new(note_name.to_s)-(@__down__ = NoteInterval.new(60)))
                   end
