@@ -20,13 +20,22 @@ module DrumTool
                   @mod = -1
                 end
                 
-                def to_scale note_name, type = :minor
-                  self.scale_notes = lowest(note_name).send("#{type.to_s}_scale").note_values.map { |x| x % 12 }
+                def in_degrees *a
+                  @degrees = a
                 end
 
-                def in_scale *a
+                def to_degrees *a
+                  @degrees_reject ||= true
+                  @degrees = a
+                end
+
+                def to_scale note_name, type = :minor
+                  @scale_notes = lowest(note_name).send("#{type.to_s}_scale").note_values.map { |x| x % 12 }
+                end
+
+                def in_scale note_name, type = :minor
                   @scales_reject ||= true
-                  to_scale *a
+                  @scale_notes = lowest(note_name).send("#{type.to_s}_scale").note_values.map { |x| x % 12 }
                 end
 
                 def local_events
@@ -60,14 +69,6 @@ module DrumTool
                   tmp
                 end
 
-                def in_degrees *a
-                  (@degrees ||= []).push *a 
-                end
-
-                def to_degrees *a
-                  @degrees_reject ||= true
-                  in_degrees *a
-                end
 
                 def lowest note_name
                   (Note.new(note_name.to_s)-(@__down__ = NoteInterval.new(60)))
