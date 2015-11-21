@@ -90,7 +90,67 @@ DrumTool source code files look like this (or at least, they would look like thi
      END
 
      puts message
- 
+
+DrumTool's preprocessors internally convert your input code into Ruby code like this: 
+
+    self.class.include DrumTool::Models
+    Bubbles::Standard.track do 
+    bpm(112)
+    loop(0x40)
+    refresh_interval(0x10)
+    child.build do
+      note(:BD, 36)
+      note(:CH, 41)
+      note(:OH, 39)
+      note(:SD, 37)
+      note(:RS, 38)
+    end
+    child.build do
+      note(:BD)
+      trigger((Proc.new { |t| t%4 }))
+    end
+    child.build do
+       note(:SD)
+       trigger((Proc.new { |t| t%8 }))
+       shift(4)
+    end
+    child.build do
+      note(:CH)
+      trigger((Proc.new { |t| t%4 }))
+      shift(2)
+      flip!
+      mute!
+    end
+    child.build do
+      note(:OH)
+      trigger((Proc.new { |t| t%4 }))
+      shift(2)
+    end
+    child.build do
+      note(:RS)
+      loop(0x20)
+      trigger(1, 3, 6, 10, 15, 21, 28, 36)
+      untrigger((0..0x8))
+      shift(1)
+    end
+    child.build do
+      in_scale(:E, :minor)
+      loop(0x40)
+      xform { note(note-time/12); vel(127 - (time * 4)) }
+      child.build do
+        octave(1)
+        loop(0x08)
+        child.build do
+          note(:SY) { num(55 - time / 4) }
+          trigger((Proc.new { |t| t%5 }))
+          shift(2)
+        end
+      end
+    end
+    end 
+
+Right now these preprocessor's are regex based and a little ugly, but soon they'll be replaced with a PEG parser... just as soon as someone can recommend a good parsing gem to me. Let me know if you've got ideas.
+
 As it plays back your track, DrumTool produces output like this to help you see what's going on and plan your next move:
 
      Begin playback of input/new.dt2

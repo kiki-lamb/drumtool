@@ -54,6 +54,7 @@ module DrumTool
               StripBlankLinesAndTrailingWhitespaceAndComments.new(exclude: /\s*>/),
               RubifyArgumentsAndExpandAbbreviations,
               DumberRubifyPythonesqueBlocks.new(require_prefix: true, enable_block_comments: true),
+              StripBlankLinesAndTrailingWhitespaceAndComments,
               Objectify.new("Bubbles::Standard.track")
           end
         end
