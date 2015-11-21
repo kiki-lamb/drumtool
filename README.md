@@ -1,6 +1,6 @@
 # drumtool
 
-TODO: Rename this to something cooler. What kind of lame ass name is DrumTool, anyhow?
+TODO: Rename this project to something cooler. What kind of lame ass name is DrumTool, anyhow?
 
 A Ruby tool for the livecoding of drum patterns, courtesy of Kiki Lamb (https://soundcloud.com/kiki_lamb).
 
