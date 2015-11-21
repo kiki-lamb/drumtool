@@ -91,7 +91,7 @@ DrumTool source code files look like this (or at least, they would look like thi
 
      puts message
 
-DrumTool's preprocessors internally convert your input code into Ruby code like this: 
+DrumTool's preprocessor internally converts your input code into Ruby code like this: 
 
     self.class.include DrumTool::Models
     Bubbles::Standard.track do 
@@ -149,7 +149,7 @@ DrumTool's preprocessors internally convert your input code into Ruby code like 
     end
     end 
 
-Right now these preprocessor's are regex based and a little ugly, but soon they'll be replaced with a PEG parser... just as soon as someone can recommend a good parsing gem to me. Let me know if you've got ideas.
+Right now this preprocessor is regex based and a little ugly, but soon it will be replaced with a proper PEG-based parser... just as soon as someone can recommend a good parsing gem to me. Let me know if you've got ideas.
 
 As it plays back your track, DrumTool produces output like this to help you see what's going on and plan your next move:
 
