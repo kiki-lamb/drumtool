@@ -49,21 +49,21 @@ DrumTool source code files look like this (or at least, it would look like this 
       off 0..x8                  # but not during the first 8 ticks (half a bar)
       shift 1                    # shifted 1/16th later in time
 
-     > in_scale E minor    # Restrict notes that bubble up from here to an E minor scale.
-       lp x40              # Loop for 4 bars
+     > in_scale E minor   # Restrict notes that bubble up from here to an E minor scale.
+       lp x40             # Loop for 4 bars
 
        xform { note(note-time/12); vel(127 - (time * 4)) }
        # ^ Apply arbitrary transformations to notes passing through. 
                                     
-       > oct 1             # Transpose notes coming from here up by 1 octave
-         lp x08            # Loop this content in this scope every 8 ticks (1/2 a bar).
+       > oct 1    # Transpose notes coming from here up by 1 octave
+         lp x08   # Loop this content in this scope every 8 ticks (1/2 a bar).
 
          > inst SY { num(55 - time / 4) }
          # ^ Play the 'SY' instrument. This call includes an expression to manipulate the
          #   MIDI note number based on the time.
          
-         when %5           # Play on notes evenly divisible by %6 (every dotted eighth note)
-         sh 2              # 2/16ths late.
+         when %5   # Play on notes evenly divisible by %6 (every dotted eighth note)
+         sh 2      # 2/16ths late.
 
      #EOF
 
