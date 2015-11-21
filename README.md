@@ -227,3 +227,5 @@ As it plays back your track, DrumTool produces output like this to help you see 
      | Bar  4 | T-1 bars |      0 ms |   .   |   .   |   .   |   .   |   .   | SY 59 | 112 | 003f |   63 |
 
 DrumTool is at an early stage of development - it isn't the most user friendly tool in the world yet, and there are still plenty of bugs to work out.
+
+As time goes by, you'll be able to hear more demos and jam sessions using this software on my Soundcloud at https://soundcloud.com/kiki_lamb, so feel invited to check there for new stuff periodically.
