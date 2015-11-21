@@ -27,13 +27,18 @@ module DrumTool
               take
               trigger
               untrigger
-              in_scale
               min_note
               max_note
               octave
               semitones
               force!
               xform
+              in_scale
+              to_scale
+              in_degrees
+              to_degrees
+              lift!
+              drop!
             }
 
             synonymize \

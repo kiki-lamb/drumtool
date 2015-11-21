@@ -11,28 +11,62 @@ module DrumTool
                     attr_accessor :scale_notes
                   end
                 end
-                
-                def in_scale note_name, type = :minor
-                  self.scale_notes = lowest(note_name).send("#{type.to_s}_scale").note_values.map { |x| x % 12 }
+
+                def lift!
+                  @mod = 1
+                end
+
+                def drop!
+                  @mod = -1
                 end
                 
+                def to_scale note_name, type = :minor
+                  self.scale_notes = lowest(note_name).send("#{type.to_s}_scale").note_values.map { |x| x % 12 }
+                end
+
+                def in_scale *a
+                  @scales_reject ||= true
+                  to_scale *a
+                end
+
                 def local_events
                   tmp = super
-                  
-                  tmp = tmp.each do |evt|
-                    evt.number += 1 until self.scale_notes.include?((evt.number % 12))
-                  end if scale_notes
-                  
-                  return tmp if degrees.empty?
-                  
-                  tmp.select do |evt|                                            
-                    degrees.include?((scale_notes.empty? || scale_notes.nil?)? evt.note%12 : scale_notes.find_index(evt.note%12))
+
+                  if scale_notes
+                    if @scales_reject
+                      tmp.select! do |evt|
+                        self.scale_notes.include?((evt.number % 12))
+                      end
+                    else
+                      tmp.each do |evt|
+                        evt.number += @mod until self.scale_notes.include?((evt.number % 12))
+                      end
+                    end
                   end
-                end                
-                
-                private
-                def degrees *a
-                  (@degrees ||= []).push *a
+                  
+                  if @degrees
+                    if @degrees_reject
+                      tmp.select! do |evt|                                            
+                        @degrees.include?((scale_notes.empty? || scale_notes.nil?)? evt.note%12 : scale_notes.find_index(evt.note%12))
+                      end
+                    else
+                      tmp.each do |evt|
+                        ix = (scale_notes.nil? || scale_notes.empty?)? evt.note%12 : scale_notes.find_index(evt.note%12)
+                        evt.number += @mod until @degrees.include?(ix)
+                      end
+                    end
+                  end
+
+                  tmp
+                end
+
+                def in_degrees *a
+                  (@degrees ||= []).push *a 
+                end
+
+                def to_degrees *a
+                  @degrees_reject ||= true
+                  in_degrees *a
                 end
 
                 def lowest note_name

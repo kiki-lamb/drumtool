@@ -8,6 +8,6 @@ easy_start(
   Preprocessors::Preprocessor,
   track,
   ARGV[0] || "input/new.dt2",
-  true,
+  false,
   rescue_exceptions: false
 )
