@@ -55,7 +55,7 @@ DrumTool source code files look like this (or at least, they would look like thi
        lp x40             # Loop for 4 bars
 
        xform { note(note-time/12); vel(127 - (time * 4)) }
-       # ^ Apply arbitrary transformations to notes passing through. 
+       # ^ Apply arbitrary transformations to notes that bubble up from here.
                                     
        > oct 1    # Transpose notes coming from here up by 1 octave
          lp x08   # Loop this content in this scope every 8 ticks (1/2 a bar).
