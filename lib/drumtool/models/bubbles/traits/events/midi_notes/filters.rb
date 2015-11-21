@@ -11,19 +11,21 @@ module DrumTool
                   
                   bubble_attr :max_note, default: 127
                   bubble_attr :min_note, default: 0
+                  bubble_attr :semitones, default: 0
+                  bubble_attr :octave, default: 0
                 end
               end              
 
               def local_events
-#                puts "#{self} CALL Filters.local_events"
                 super.map do |evt|
+                  evt.number += semitones
+                  evt.number += octave * 12
+                  
                   if self.scale_notes
                     o = evt.number
-                    #puts "NOTE MUST BE IN #{self.scale_notes}"
                     until self.scale_notes.include?((evt.number % 12))
                       evt.number += 1
                     end
-                    #puts "transp #{o} to #{evt.number}"
                   end
                   
                   evt                    
@@ -34,7 +36,7 @@ module DrumTool
               end
 
               def in_scale note_name, type = :minor
-#                self.scale_notes = lowest(note_name).send("#{type.to_s}_scale").note_values.map { |x| x % 12 }.tap { |ns| "SCALE: #{ns.inspect}" }
+                self.scale_notes = lowest(note_name).send("#{type.to_s}_scale").note_values.map { |x| x % 12 }.tap { |ns| "SCALE: #{ns.inspect}" }
               end
               
               private

@@ -30,11 +30,14 @@ module DrumTool
               in_scale
               min_note
               max_note
+              octave
+              semitones
             }
 
             synonymize \
               bubble: [:pattern, :part, :scope],
               note: :instrument,
+              semitones: :transpose,
               drop: [ :wait, :rest ],
               take: [ :duration, :truncate ],
               hard_reverse!: [ :h_reverse!, :hreverse! ],

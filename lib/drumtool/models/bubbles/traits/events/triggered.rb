@@ -85,12 +85,9 @@ module DrumTool
                                                             bip = true
 		                                                        trigger_active? t, time
 		                                                      end
-
-                                                          if bip
-#                                                            puts "FIRES: #{fires_now} #{canceled_now}"
-                                                          end
                                                           
-		                                                      (fires_now && ! canceled_now)#.tap { |x| puts (x ? "#{self} RF YES" : "#{self} RF NO" ) if bip }
+		                                                      t = (fires_now && ! canceled_now)#.tap { |x| puts (x ? "#{self} RF YES" : "#{self} RF NO" ) if bip }
+                                                          flip?? !t : !!t
                                                         end
         end            
 

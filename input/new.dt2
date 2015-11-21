@@ -2,7 +2,7 @@ bpm 112
 lp x40                          # Loop every 4 bars.
 refresh_interval x10            # Refresh the code every 1 bar.
 
-#HEAD
+
 >                               # Instruments in a section only play if the section 
   inst BD 36                    # has triggers, so this just sets some default note values
   inst CH 41                    # for certain instruments names (because when inst is called 
@@ -10,6 +10,13 @@ refresh_interval x10            # Refresh the code every 1 bar.
   inst SD 37                    # for that name).
   inst RS 38
 
+#HEAD
+
+Content above #HEAD is always processed.
+
+But this content isn't since it occurs before the #BOF tag.
+
+#BOF
 
 > inst BD                       # Play the 'BD' instrument
   when %4                       # on notes evenly divisible by 4 (every quarter note)
@@ -22,7 +29,7 @@ refresh_interval x10            # Refresh the code every 1 bar.
   when %4                       # on notes evenly divisible by 4 (every quarter note)
   shift 2                       # shifted back (later in time) by 2/16ths.
 	fl		                        # Flip the result (play when it would ordinarily not play and vice versa).
-	mu														# But it's muted, so we don't hear it.
+	mu													  # But it's muted, so we don't hear it.
 	
 > inst OH                       # Play the 'SD' instrument
   when %4                       # on notes evenly divisible by 4 (every quarter note)
@@ -35,20 +42,14 @@ refresh_interval x10            # Refresh the code every 1 bar.
 	shift 1                       # shifted 1/16th later in time
 	mu
 
-
-
-> lp x20                        # Loop this content in this scope every 2 bars.
-  > in_scale C minor            # Restrict notes that bubble up from here to a C minor scale.
-
-#BOF
-> inst SY { n.note = 60; n.note += time % 4 }
+> lp x10                        # Loop this content in this scope every 2 bars.
+ > in_scale E minor             # Restrict notes that bubble up from here to an E minor scale.
+   transpose 3                  # Transpose up 3 semitones.
+   > inst SY { num 60 - time / 3 }
                                 # ^ Play the 'SY' instrument. This call includes an expression to manipulate the
                                 #   MIDI note number based on the time.
-      when %2                   #   Play on notes evenly divisible by %3 (every dotted eighth note)
-			exclude %6
-      lp x20
-
-
+      when %6                   # Play on notes evenly divisible by %6 (every dotted eighth note)
+			sh 2                      # 2/16ths late.
 #EOF
 
 These are just extra content that isn't going to be processed.

@@ -22,7 +22,7 @@ module DrumTool
           
           private				
 				  def local_events            
-				    notes  #.tap { |x| puts "#{self} MidiNotes#events OUT = #{x.inspect}" }
+				    [ *notes, *super ]  #.tap { |x| puts "#{self} MidiNotes#events OUT = #{x.inspect}" }
 				  end
 
           def local_notes
