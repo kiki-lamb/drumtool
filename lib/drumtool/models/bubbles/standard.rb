@@ -1,5 +1,3 @@
-require "modularity"
-
 module DrumTool
   module Models
     class Bubbles
