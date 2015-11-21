@@ -1,7 +1,8 @@
 require "bundler"
 Bundler.setup
 require "rb-music-theory"
-
+require "modularity"
+require "unimidi"
 require 'require_all'
 require_rel '.'
 
@@ -14,9 +15,9 @@ module DrumTool
         logs: [ "output/livecoder", $stdout ],
         preprocessor_logs: [ "output/preprocessor" ],
         playback_klass: Playbacks::LivePlayback,
+        output: UniMIDI::Output[0],
         **opts        
       )
-    sync &&= UniMIDI::Input[1]
     
     playback_klass.log_to *logs
     preprocessor_klass.log_to *preprocessor_logs
