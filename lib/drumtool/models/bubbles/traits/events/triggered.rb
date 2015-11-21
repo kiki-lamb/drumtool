@@ -19,7 +19,7 @@ module DrumTool
         end
 
         def events
-          super if active?
+          [ *(super if active?) ]
         end
 
         def clear_caches
