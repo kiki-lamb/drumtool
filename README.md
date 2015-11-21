@@ -8,8 +8,8 @@ DrumTool uses arirusso's https://github.com/arirusso/topaz and https://github.co
 DrumTool source code files look like this (or at least, they would look like this if people actually wrote this many comments while performing):
 
      bpm 112               # If DrumTool isn't hooked up to a MIDI clock,
-		                       # this is the BPM it will play at.
-													 
+                           # this is the BPM it will play at.
+                           
      lp x40                # Loop the entire track every 4 bars.
      refresh_interval x10  # Reread the code in this file every 1 bar.
 
@@ -70,14 +70,14 @@ DrumTool source code files look like this (or at least, they would look like thi
      #EOF
 
      This is after the #EOF tag so it's just extra content that isn't
-		 going to be processed.
+     going to be processed.
 
      #RUBY
 
      message = <<END
      Right now we don't use this content, but in the future, you'll
-		 be able to write custom ruby code here and reference it within your
-		 DrumTool script.
+     be able to write custom ruby code here and reference it within your
+     DrumTool script.
 
      Won't that be cool?
      END
