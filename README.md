@@ -1,4 +1,7 @@
 # drumtool
+
+TODO: Rename this to something cooler. What kind of lame ass name is DrumTool, anyhow?
+
 A Ruby tool for the livecoding of drum patterns, courtesy of Kiki Lamb (https://soundcloud.com/kiki_lamb).
 
 DrumTool is an algorithmic MIDI pattern generator intended for livecoding: as you edit a source file in DrumTool's built in language, DrumTool generates MIDI note patterns and sends them to your sequencer of choice in realtime.
