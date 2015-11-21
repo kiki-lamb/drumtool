@@ -1,9 +1,5 @@
 require "digest"
 
-# Reloader("somefile") do |proc, old_object|
-#   Models::Basic.build(@output, &proc).inherit old_object
-# end
-
 module DrumTool
   class Loader
     attr_reader :exception, :exception_lines, :prior
@@ -47,7 +43,7 @@ module DrumTool
     
     def rollback! e = nil
       self.exception = e if e
-#      raise RuntimeError, "Can't rollback to nil" unless @prior
+      raise RuntimeError, "Can't rollback to nil" unless @prior
       @payload = @prior
     end
     
