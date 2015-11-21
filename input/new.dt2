@@ -26,5 +26,6 @@ refresh_interval x10            # Refresh the code every 1 bar.
                                 # ^ Play the 'SY' instrument. This call includes an expression to manipulate the
                                 #   MIDI note number based on the time.
       when %3                   #   Play on notes evenly divisible by %4 (every quarter note)
-      shift -2                   #   shifted back (later in time) by 2/16ths.
+      shift -2                  #   shifted back (later in time) by 2/16ths.
+			rev                       #   This section plays in reverse
 
