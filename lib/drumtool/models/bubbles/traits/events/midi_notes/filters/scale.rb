@@ -41,14 +41,14 @@ module DrumTool
                 def local_events
                   tmp = super
 
-                  if scale_notes
+                  if @scale_notes
                     if @scales_reject
                       tmp.select! do |evt|
-                        self.scale_notes.include?((evt.number % 12))
+                        @scale_notes.include?((evt.number % 12))
                       end
                     else
                       tmp.each do |evt|
-                        evt.number += @mod until self.scale_notes.include?((evt.number % 12))
+                        evt.number += @mod until @scale_notes.include?((evt.number % 12))
                       end
                     end
                   end
