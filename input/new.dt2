@@ -10,10 +10,11 @@ refresh_interval x10            # Refresh the code every 1 bar.
   inst SD 37                    # for that name).
   inst RS 38
 
-#HEAD
 
 > inst BD                       # Play the 'BD' instrument
   when %4                       # on notes evenly divisible by 4 (every quarter note)
+
+#HEAD
 
 > inst SD                       # Play the 'SD' instrument
    when %8                      # on notes evenly divisible by 8 (every 8th note)
@@ -42,17 +43,36 @@ refresh_interval x10            # Refresh the code every 1 bar.
   when %6                       # on notes evenly divisible by 4 (every quarter note)
   lp x10
   shift 2                       # shifted back (later in time) by 2/16ths.
+#BOF
 
->lp x10                        # Loop for 4 bars
- 
- >in_scale C minor              # Restrict notes that bubble up from here to an E minor scale.
-  to_degrees 1  3 7
-	xform { note(note + 12) if time.to_i%16/4%2==0; note(note + time % 4 + time / 4) }
-  oct 3
-	
-  > inst SY 45
-      when %2                   # Play on notes evenly divisible by %6 (every dotted eighth note)
-      lp x20
+
+# W    0
+#  B   1
+# W
+#  B   3
+# W    4
+# W
+#  B   6
+# W    
+#  B
+# W   
+#  B  10
+# W   11
+
+
+
+> in_scale 0 1 3 4 6 10 11 0
+	drop!
+	lp x10
+	sh 2
+  >  
+	  xform { note(note + rand(12).to_i) }
+		oct 1
+    > inst SY 55
+      when %3
+      lp x20   
+
+
 #EOF
 
 This is after the #EOF tag so it's just extra content that isn't going to be processed.

@@ -16,20 +16,24 @@ module DrumTool
                 
                 def in_degrees *a
                   @degrees_reject ||= true
-                  @degrees = a
+                  to_degrees *a
                 end
 
                 def to_degrees *a
                   @degrees = a
                 end
 
-                def to_scale note_name, type = :minor
-                  @scale_notes = lowest(note_name).send("#{type.to_s}_scale").note_values.map { |x| x % 12 }
+                def to_scale note_name, type = :minor, *a
+                  @scale_notes = if Fixnum === note_name
+                                   [ note_name, type, *a ]
+                                 else
+                                   lowest(note_name).send("#{type.to_s}_scale").note_values.map { |x| x % 12 }
+                                 end
                 end
 
-                def in_scale note_name, type = :minor
+                def in_scale *a
                   @scales_reject ||= true
-                  @scale_notes = lowest(note_name).send("#{type.to_s}_scale").note_values.map { |x| x % 12 }
+                  to_scale *a
                 end
 
                 def events
@@ -41,7 +45,7 @@ module DrumTool
                         end
                       else
                         tmp.each do |evt|
-                          evt.number += @mod || 1 until @scale_notes.include?((evt.number % 12))
+                          evt.number += @mod || -1 until @scale_notes.include?((evt.number % 12))
                         end
                       end
                     end
@@ -53,7 +57,7 @@ module DrumTool
                         end
                       else
                         tmp.each do |evt|
-                          evt.number += @mod || 1 until @degrees.include? (@scale_notes.nil? || @scale_notes.empty?)? evt.note%12 : @scale_notes.find_index(evt.note%12)
+                          evt.number += @mod || -1 until @degrees.include? (@scale_notes.nil? || @scale_notes.empty?)? evt.note%12 : @scale_notes.find_index(evt.note%12)
                         end
                       end
                     end

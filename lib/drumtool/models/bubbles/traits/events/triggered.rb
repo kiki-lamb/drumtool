@@ -19,7 +19,8 @@ module DrumTool
         end
 
         def events
-          [ *(super if active?) ]
+          @ecache ||= {}
+          @ecache[time] ||= [ *(super if active?) ]
         end
 
         def clear_caches
