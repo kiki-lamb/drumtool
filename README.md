@@ -5,7 +5,7 @@ DrumTool is an algorithmic MIDI pattern generator intended for livecoding: as yo
 
 DrumTool uses arirusso's https://github.com/arirusso/topaz and https://github.com/arirusso/unimidi gems for MIDI I/O and synchronization.
 
-DrumTool source code files look like this:
+DrumTool source code files look like this (or at least, it would look like this if people actually wrote this many comments while performing):
 
      bpm 112               
      lp x40                # Loop every 4 bars.
@@ -26,22 +26,22 @@ DrumTool source code files look like this:
 
      #BOF
 
-     > inst BD             # Play the 'BD' instrument
-       when %4             # on notes evenly divisible by 4 (every quarter note)
+     > inst BD   # Play the 'BD' instrument
+       when %4   # on notes evenly divisible by 4 (every quarter note)
        
-     > inst SD             # Play the 'SD' instrument
-        when %8            # on notes evenly divisible by 8 (every 8th note)
-        shift 4            # shifted back (later in time) by 4/16ths.
+     > inst SD   # Play the 'SD' instrument
+        when %8  # on notes evenly divisible by 8 (every 8th note)
+        shift 4  # shifted back (later in time) by 4/16ths.
 
-     > inst CH             # Play the 'CH' instrument.
-       when %4             # on notes evenly divisible by 4 (every quarter note)
-       shift 2             # shifted back (later in time) by 2/16ths.
-      fl                   # Flip the result (play when it would ordinarily not play and vice versa).
-      mu                   # But it's muted, so we don't hear it.
+     > inst CH   # Play the 'CH' instrument.
+       when %4   # on notes evenly divisible by 4 (every quarter note)
+       shift 2   # shifted back (later in time) by 2/16ths.
+      fl         # Flip the result (play when it would ordinarily not play and vice versa).
+      mu         # But it's muted, so we don't hear it.
       
-     > inst OH             # Play the 'SD' instrument
-       when %4             # on notes evenly divisible by 4 (every quarter note)
-       shift 2             # shifted back (later in time) by 2/16ths.
+     > inst OH   # Play the 'SD' instrument
+       when %4   # on notes evenly divisible by 4 (every quarter note)
+       shift 2   # shifted back (later in time) by 2/16ths.
 
      > inst RS                   # Play the 'RS' instrument
        lp x20                    # looped every 2 bars
@@ -153,3 +153,5 @@ As it plays back your track, DrumTool produces output like this to help you see 
 		 | Bar  4 | T-1 bars |      0 ms |   .   |   .   |   .   |   .   | RS 38 |   .   | 112 | 003d |   61 |
 		 | Bar  4 | T-1 bars |      0 ms |   .   |   .   | OH 39 |   .   |   .   |   .   | 112 | 003e |   62 |
 		 | Bar  4 | T-1 bars |      0 ms |   .   |   .   |   .   |   .   |   .   | SY 59 | 112 | 003f |   63 |
+
+DrumTool is at an early stage of development. It isn't the most user friendly tool in the world yet, and there are still plenty of bugs to work out.
