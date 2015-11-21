@@ -153,7 +153,7 @@ module DrumTool
 
     def a_bunch_of_logging_crap
       io = StringIO.new      
-      io << Models::Basic::Formatters::TableRowFormatter.call(log_columns, [], separator: " | ") << "\n"
+      io << Formatters::TableRowFormatter.call(log_columns, [], separator: " | ") << "\n"
       io.string           
     end
   end 
