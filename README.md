@@ -11,7 +11,6 @@ DrumTool source code files look like this:
 		 lp x40                # Loop every 4 bars.
 		 refresh_interval x10  # Refresh the code every 1 bar.
 
-
 		 >                     # Instruments in a section only play if the section 
 		   inst BD 36          # has triggers, so this just sets some default note values
 		   inst CH 41          # for certain instruments names (because when inst is called 
