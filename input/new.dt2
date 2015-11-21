@@ -1,5 +1,5 @@
 bpm 112
-lp x40                          # Loop every 4 bars.
+lp x20                          # Loop every 4 bars.
 refresh_interval x10            # Refresh the code every 1 bar.
 
 
@@ -38,12 +38,16 @@ refresh_interval x10            # Refresh the code every 1 bar.
 #BOF
 
 
-> to_scale E minor
-  to_degrees 2 3 4
+> to_scale A minor
+  to_degrees 1 2 3
 	drop!
-  > xform { note(note+time%16)  }
-    inst SY { num(55 - time / 4) }
-    when %2
+	scale -1
+	octave 3
+	lp -x10
+	rot 2
+  > xform { note((note/(1.0+time*0.02)).to_i) }
+    inst SY 55
+    when %5
 	  oct 2
 
 #EOF
