@@ -1,5 +1,5 @@
 bpm 112
-lp x20                          # Loop every 4 bars.
+lp  x40                          # Loop every 4 bars.
 refresh_interval x10            # Refresh the code every 1 bar.
 
 
@@ -14,42 +14,45 @@ refresh_interval x10            # Refresh the code every 1 bar.
 
 > inst BD                       # Play the 'BD' instrument
   when %4                       # on notes evenly divisible by 4 (every quarter note)
-  
+
 > inst SD                       # Play the 'SD' instrument
    when %8                      # on notes evenly divisible by 8 (every 8th note)
    shift 4                      # shifted back (later in time) by 4/16ths.
+   on 15
+   on 30
+   lp x20
 
 > inst CH                       # Play the 'CH' instrument.
   when %4                       # on notes evenly divisible by 4 (every quarter note)
   shift 2                       # shifted back (later in time) by 2/16ths.
-	fl		                        # Flip the result (play when it would ordinarily not play and vice versa).
-	mu													  # But it's muted, so we don't hear it.
-	
+  fl                            # Flip the result (play when it would ordinarily not play and vice versa).
+  mu 
+  
 > inst OH                       # Play the 'SD' instrument
-  when %4                       # on notes evenly divisible by 4 (every quarter note)
+  when %3                       # on notes evenly divisible by 4 (every quarter note)
   shift 2                       # shifted back (later in time) by 2/16ths.
-
+  
 > inst RS                       # Play the 'RS' instrument
   lp x20                        # looped every 2 bars
   on 1 3 6 10 15 21 28 36       # on ticks landing on some triangular numbers
-	off 0..x8                     # but not during the first 8 ticks (half a bar)
-	shift 1                       # shifted 1/16th later in time
+  shift 0                       # shifted 1/16th later in time
+  scale 2  
 
-#BOF
+> inst B2 49                    # Play the 'B2' instrument
+  when %6                       # on notes evenly divisible by 4 (every quarter note)
+  lp x10
+  shift 2                       # shifted back (later in time) by 2/16ths.
 
-
-> to_scale A minor
-  to_degrees 1 2 3
-	drop!
-	scale -1
-	octave 3
-	lp -x10
-	rot 2
-  > xform { note((note/(1.0+time*0.02)).to_i) }
-    inst SY 55
-    when %5
-	  oct 2
-
+>lp x10                        # Loop for 4 bars
+ 
+ >in_scale C minor              # Restrict notes that bubble up from here to an E minor scale.
+  to_degrees 1  3 7
+	xform { note(note + 12) if time.to_i%16/4%2==0; note(note + time % 4 + time / 4) }
+  oct 3
+	
+  > inst SY 45
+      when %2                   # Play on notes evenly divisible by %6 (every dotted eighth note)
+      lp x20
 #EOF
 
 This is after the #EOF tag so it's just extra content that isn't going to be processed.
@@ -63,4 +66,4 @@ and reference it within your DrumTool script.
 Won't that be cool?
 END
 
-puts message
+puts message 

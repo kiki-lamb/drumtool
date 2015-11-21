@@ -18,8 +18,8 @@ module DrumTool
           end
         end
 
-        def local_events
-          active? ? super : []
+        def events
+          active? ? super : nil
         end
 
         def clear_caches

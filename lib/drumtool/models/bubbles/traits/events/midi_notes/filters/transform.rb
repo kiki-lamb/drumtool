@@ -16,11 +16,12 @@ module DrumTool
                   self.transform_action = blk
                 end
 
-                def local_events
+                def events
                   return super unless self.transform_action
-                  
-                  super.map! do |evt|
-                    evt.process! self, &self.transform_action
+                  super.tap do |s|                                    
+                    s.map! do |evt|
+                      evt.process! self, &self.transform_action
+                    end if s
                   end
                 end
               end

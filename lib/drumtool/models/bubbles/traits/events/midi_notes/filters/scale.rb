@@ -32,8 +32,10 @@ module DrumTool
                   @scale_notes = lowest(note_name).send("#{type.to_s}_scale").note_values.map { |x| x % 12 }
                 end
 
-                def local_events
+                def events
                   tmp = super
+
+                  return unless super
                   
                   if @scale_notes
                     if @scales_reject
@@ -42,7 +44,7 @@ module DrumTool
                       end
                     else
                       tmp.each do |evt|
-                        evt.number += @mod until @scale_notes.include?((evt.number % 12))
+                        evt.number += @mod || 1 until @scale_notes.include?((evt.number % 12))
                       end
                     end
                   end
@@ -54,7 +56,7 @@ module DrumTool
                       end
                     else
                       tmp.each do |evt|
-                        evt.number += @mod until @degrees.include? (@scale_notes.nil? || @scale_notes.empty?)? evt.note%12 : @scale_notes.find_index(evt.note%12)
+                        evt.number += @mod || 1 until @degrees.include? (@scale_notes.nil? || @scale_notes.empty?)? evt.note%12 : @scale_notes.find_index(evt.note%12)
                       end
                     end
                   end

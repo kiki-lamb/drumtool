@@ -21,8 +21,10 @@ module DrumTool
           end
           
           private       
-          def local_events            
-            [ *notes, *super ]
+          def events
+            super.tap do |s|
+              s.push *notes if s
+            end
           end
 
           def local_notes
