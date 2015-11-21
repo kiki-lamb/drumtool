@@ -5,7 +5,7 @@ DrumTool is an algorithmic MIDI pattern generator intended for livecoding: as yo
 
 DrumTool uses arirusso's https://github.com/arirusso/topaz and https://github.com/arirusso/unimidi gems for MIDI I/O and synchronization.
 
-DrumTool source code files look like this (or at least, it would look like this if people actually wrote this many comments while performing):
+DrumTool source code files look like this (or at least, they would look like this if people actually wrote this many comments while performing):
 
      bpm 112               # If DrumTool isn't hooked up to a MIDI clock,
 		                       # this is the BPM it will play at.
