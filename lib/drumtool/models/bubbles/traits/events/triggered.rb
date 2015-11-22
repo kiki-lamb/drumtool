@@ -7,25 +7,26 @@ module DrumTool
         def self.prepended base 
           base.hash_bubble_attr :cache, singular: :add_cache
           base.hash_bubble_attr :ucache, singular: :add_ucache
+          base.hash_bubble_attr :ecache, singular: :add_ecache
           base.proximal_bubble_toggle :flip
           base.bubble_toggle :force
           base.array_bubble_attr :triggers, singular: :add_trigger do |v|
             clear_caches
           end
-
           base.array_bubble_attr :untriggers, singular: :add_untrigger do |v|
             clear_caches
           end
         end
 
         def events
-          @ecache ||= {}
-          @ecache[time] ||= [ *(super if active?) ]
+          add_ecache time, [ *(super if active?) ] unless ecache[time]
+          ecache[time]
         end
 
         def clear_caches
           ucache_hash {}
           cache_hash {}
+          ecache_hash {}
         end
         
         %i{ trigger untrigger }.each do |method_name|
