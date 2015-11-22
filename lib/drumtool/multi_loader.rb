@@ -4,7 +4,7 @@ module DrumTool
   class MultiLoader
     attr_reader :exception, :exception_lines
     
-    def initialize preprocessor, *filenames, init: nil, rescue_exceptions: true
+    def initialize preprocessor, *filenames, init: nil, rescue_exceptions: false
       @loaders = filenames.map do |filename|
         Loader.new filename, preprocessor, init: init, rescue_exceptions: rescue_exceptions
       end

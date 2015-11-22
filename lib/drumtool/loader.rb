@@ -27,6 +27,7 @@ module DrumTool
           b.(self)
         end
       rescue Exception => e
+        puts "RESCUE SOMETHING!"
         raise e unless @rescue_exceptions
         
         rollback! e

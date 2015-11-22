@@ -4,6 +4,8 @@ require_relative "./lib/drumtool"
 include DrumTool
 include DrumTool::Models::Bubbles::Standard
 
+Preprocessors::Preprocessor.log_to  "output/preprocessor"
+
 easy_start(
   nil, #Preprocessors::Preprocessor,
   track,
@@ -12,10 +14,10 @@ easy_start(
   rescue_exceptions: false,
   output: UniMIDI::Output[0],
   # logs: [],
-  preprocessor_logs: ["output/preprocessor"],
+  preprocessor_logs: ["output/preprocessor", $stdout],
   loader: MultiLoader.new(
     Preprocessors::Preprocessor,
-    "input/new.dt2",
+    "input/new2.dt2",
 #    "input/bubbles2.dt2",
     init: track,
     rescue_exceptions: false

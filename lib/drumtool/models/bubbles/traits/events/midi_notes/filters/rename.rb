@@ -7,7 +7,7 @@ module DrumTool
             module Filters
               module Rename
                 def self.prepended base
-                  base.bubble_attr :rename
+                  base.bubble_attr :rename, default: nil
                 end
 
                 def events
