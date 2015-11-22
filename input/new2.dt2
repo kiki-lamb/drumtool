@@ -2,7 +2,6 @@ bpm 112
 lp  x40                         # Loop every 4 bars.
 refresh_interval x10            # Refresh the code every 1 bar.
 
-
 >                               # Instruments in a section only play if the section 
   inst BD 36                    # has triggers, so this just sets some default note values
   inst CH 41                    # for certain instruments names (because when inst is called 
@@ -46,10 +45,9 @@ refresh_interval x10            # Refresh the code every 1 bar.
   on %4
 
 > name SY
- > xform { vel(vel-32) if time%4 == 0 }
-  >remap 1 1 1  2 2 2  4 4 4  5 5 5
-   oct 3
-   > note 45
+ > xform { vel(vel-48) if time%4 == 0 }
+   remap 1 1 1  2 2 2  4 4 4  5 5 5
+   > note 81
      sh 2
      loop x20
      when %2
