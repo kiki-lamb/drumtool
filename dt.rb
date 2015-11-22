@@ -16,7 +16,7 @@ easy_start(
   loader: MultiLoader.new(
     Preprocessors::Preprocessor,
     "input/new.dt2",
-    "input/bubbles2.dt2",
+#    "input/bubbles2.dt2",
     init: track,
     rescue_exceptions: false
     )

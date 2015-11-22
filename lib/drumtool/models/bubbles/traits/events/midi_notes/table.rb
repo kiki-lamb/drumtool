@@ -12,12 +12,10 @@ module DrumTool
               def lookup note
                 if note_registry.include? note.name
                   note_registry[note.name]
-                elsif (n = note_registry.find do |reg_note|
-                         reg_note.number == note.number
-                       end)
-                  n
-                elsif note.name || note.number
+                elsif note.name
                   register_note note
+                else
+                  note
                 end
               end
               

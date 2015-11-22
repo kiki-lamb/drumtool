@@ -1,4 +1,5 @@
 bpm 112
 
-> inst BD 36
-  on %4
+> rename XX
+  > inst BD 36
+    on %4
