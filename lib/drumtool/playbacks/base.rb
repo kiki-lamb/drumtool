@@ -34,6 +34,7 @@ module DrumTool
       log "Waiting for MIDI clock #{@input_clock}...\nControl-C to exit\n" if @input_clock
       clock.start
     rescue Interrupt
+      close_notes!
     end    
 
     ################################################################################
