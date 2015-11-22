@@ -6,15 +6,15 @@ module DrumTool
           module MIDINotes
             module Filters
               module Rename
-                def rename new_name
-                  @new_name = new_name
+                def self.prepended base
+                  base.bubble_attr :rename
                 end
 
                 def events
-                  return super unless @new_name
+                  return super unless rename
                   
                   super.each do |evt|
-                    evt.name = @new_name
+                    evt.name = rename
                   end
                 end
               end
