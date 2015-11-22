@@ -7,7 +7,7 @@ include DrumTool::Models::Bubbles::Standard
 easy_start(
   Preprocessors::Preprocessor,
   track,
-  ARGV[0] || "input/new.dt2",
+  ARGV[0] || "input/new2.dt2",
   false,
   rescue_exceptions: false
 )
