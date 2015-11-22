@@ -8,6 +8,7 @@ easy_start(
   Preprocessors::Preprocessor,
   track,
   ARGV[0] || "input/new2.dt2",
-  false,
-  rescue_exceptions: false
+  UniMIDI::Input[1],
+  rescue_exceptions: false,
+#  logs: []
 )

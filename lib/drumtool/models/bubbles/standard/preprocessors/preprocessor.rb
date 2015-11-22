@@ -39,6 +39,8 @@ module DrumTool
               to_degrees
               lift!
               drop!
+              name
+              remap
             }
 
             synonymize \

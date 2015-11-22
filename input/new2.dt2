@@ -1,5 +1,5 @@
 bpm 112
-lp  x20                         # Loop every 4 bars.
+lp  x40                         # Loop every 4 bars.
 refresh_interval x10            # Refresh the code every 1 bar.
 
 
@@ -45,20 +45,15 @@ refresh_interval x10            # Refresh the code every 1 bar.
 > inst BD 36
   on %4
 
-
->to_scale C minor
- remap 1 1 1  2 2 2  4 4 4  5 5 5
- > inst SY 45
-  
-  loop x20
-	sh 2
-
-  when %3
-
-  oct 3
-	xform { note(note + 12) if time.to_i%16/4%4==0; note(note + time % 4 + time / 4) }
-
-
+> name SY
+ > xform { vel(vel-32) if time%4 == 0 }
+  >remap 1 1 1  2 2 2  4 4 4  5 5 5
+   oct 3
+   > note 45
+     sh 2
+     loop x20
+     when %2
+     xform { note(note + 12) if time.to_i%16/4%4==0; note(note + time%4 + time/4) }
 #EOF
 
 This is after the #EOF tag so it's just extra content that isn't going to be processed.

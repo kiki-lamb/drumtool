@@ -13,7 +13,7 @@ module DrumTool
           prepend Events::MIDINotes::Filters::Remap  
           prepend Events::MIDINotes::Filters::Scale
           prepend Events::MIDINotes::Filters::MinMax
-          prepend Events::MIDINotes::Filters::Rename       
+          prepend Events::MIDINotes::Filters::Name       
           prepend Events::Triggered
           prepend Events::Muteable
         end

@@ -6,10 +6,19 @@ module DrumTool
           module MIDINotes
             class EnhancedMIDINote < MIDI::Note
               include Traits::MethodResolutionChainedThrough[:parent]
-              include Traits::BubbleAttrs::Attrify[:velocity, as: :vel ]
-              include Traits::BubbleAttrs::Attrify[:channel,  as: :chan ]
-              include Traits::BubbleAttrs::Attrify[:number,   as: :note ]
-              include Traits::BubbleAttrs::Attrify[:number,   as: :num ]
+
+              def vel x = nil
+                self.velocity = x || self.velocity || 100
+              end
+
+              def note x = nil
+                self.number = x || self.number || 0
+              end
+
+              
+              def chan x = nil
+                self.channel = x || self.channel || 1
+              end
 
               attr_accessor :parent
               attr_accessor :action              

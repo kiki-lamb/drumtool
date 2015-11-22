@@ -32,8 +32,7 @@ module DrumTool
                   if transfer_mappings.include? pitch_class
                     o = note.number
                     note.number = floor + transfer_mappings[pitch_class]
-                    puts "#{o} => #{note.number}"
-                  else
+#                    puts "#{o} => #{note.number}"
                   end
                 end
                 
