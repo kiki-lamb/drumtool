@@ -43,6 +43,7 @@ module DrumTool
                   end if p
                   
                   copy.action = nil unless blk
+                  copy
                 end
               end              
             end

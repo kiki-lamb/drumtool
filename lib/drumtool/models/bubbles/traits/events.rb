@@ -14,7 +14,7 @@ module DrumTool
               ch.respond_to? :events
             end.map do |ch|
               ch.events
-            end.flatten(1)
+            end.flatten(1) # .tap { puts "#{self} events at #{time}" }
           end
         end
       end

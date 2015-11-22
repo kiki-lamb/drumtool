@@ -37,7 +37,7 @@ module DrumTool
                 end
 
                 def events
-                  super.tap do |tmp|
+                  super.map(&:dup).tap do |tmp|
                     if @scale_notes
                       if @scales_reject
                         tmp.select! do |evt|

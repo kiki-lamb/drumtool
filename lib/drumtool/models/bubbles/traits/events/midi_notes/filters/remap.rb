@@ -30,14 +30,19 @@ module DrumTool
                   floor = note.number-pitch_class
 
                   if transfer_mappings.include? pitch_class
+                    o = note.number
                     note.number = floor + transfer_mappings[pitch_class]
+                    puts "#{o} => #{note.number}"
+                  else
                   end
                 end
                 
                 def events
-                  super.each do |evt|
+                  return super if transfer_mappings.empty?
+                  
+                  super.map(&:dup).each do |evt|
                     __remap_note__ evt
-                  end
+                  end 
                 end
               end
             end

@@ -13,7 +13,7 @@ module DrumTool
                 def events
                   return super unless rename
                   
-                  super.each do |evt|
+                  super.map(&:dup).each do |evt|
                     evt.name = rename
                   end
                 end

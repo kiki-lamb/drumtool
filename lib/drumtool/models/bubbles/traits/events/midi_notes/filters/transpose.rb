@@ -14,7 +14,7 @@ module DrumTool
                 end
                 
                 def events
-                  super.each do |evt|
+                  super.map(&:dup).each do |evt|
                     evt.number += semitones
                     evt.number += octave * 12
                   end
