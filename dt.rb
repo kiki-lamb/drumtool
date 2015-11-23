@@ -7,8 +7,8 @@ include DrumTool::Models::Bubbles::Standard
 easy_start(
   Preprocessors::Preprocessor,
   track,
-  ARGV[0] || "input/new2.dt2",
+  ARGV[0] || "input/sunday.dt2",
   UniMIDI::Input[1],
-  rescue_exceptions: false,
+  rescue_exceptions: true,
   logs: []
 )
