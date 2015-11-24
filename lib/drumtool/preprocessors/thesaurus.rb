@@ -34,6 +34,7 @@ module DrumTool
         abr = abr.to_s
 
         exclaim = if abr.end_with? "!"
+                    puts "CAPTURE '!'"
                     abr = abr[0..abr.length-2] 
                     true
                   end
@@ -41,13 +42,14 @@ module DrumTool
         if abr.length >= min_length
           candidates = @table.select do |key|           
             key.start_with?(abr) || (lenient_vowels && mumble(key).start_with?(abr))
-          end
+          end.tap { |cs| puts "CS: #{cs.inspect}" }
         
           unless candidates.none?
             if candidates.one?
               word, synonym = *candidates.first
               
               tmp = synonym || word
+              puts "TMP: #{tmp}"
               tmp << "!" if exclaim
               tmp
             else

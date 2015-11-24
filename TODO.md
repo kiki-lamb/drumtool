@@ -1,3 +1,5 @@
+- Move abbreviation into the models/traits, as per sketches/thesaurus_test.rb
+
 - Multiple tranposition maps per pattern, applied in sequence
 
 - Multiple xform actions maps per pattern, applied in sequence
@@ -13,8 +15,6 @@
 - 'Auto-scoping' of t in triggers instead of adding the argument to the proc in the preprocessor
 
 - Move method name abbreviation into the models/traits
-
-- Thesauri should move '!' to the end.
 
 - Maybe some time properties become additive...
 
