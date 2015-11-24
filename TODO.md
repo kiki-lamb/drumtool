@@ -1,3 +1,9 @@
+BUGFIXES:
+
+- Exceptions don't bubble properly in the MultiLoader.
+
+FEATURES/ADDITIONS:
+
 - Move abbreviation into the models/traits, as per sketches/thesaurus_test.rb
 
 - Transpo maps should be able to operate in scale degrees, if the pattern is in_scale
