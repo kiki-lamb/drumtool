@@ -2,6 +2,8 @@
 
 - Multiple xform actions maps per pattern, applied in sequence
 
+- ^ Maybe transpo maps are actually a type of xform action? Not sure yet.
+
 - Transpo maps should be able to operate in scale degrees, if the pattern is in_scale
 
 - Reimplement both in_scale and to_scale as special cases of transpo map
