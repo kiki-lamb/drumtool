@@ -10,7 +10,6 @@ module DrumTool
             end
             
             def method_missing name, *a, &b
-              puts "#{self} MISSING CT: #{name}"
               if next_method_responder_object && next_method_responder_object.respond_to?(name)
                 next_method_responder_object.send name, *a, &b
               else
@@ -19,8 +18,7 @@ module DrumTool
             end
             
             def respond_to? name, all = false
-              puts "#{self} RESPOND CT: #{name}"
- (next_method_responder_object && next_method_responder_object.respond_to?(name, all)) ||super(name, all)
+              super(name, all) || (next_method_responder_object && next_method_responder_object.respond_to?(name, all))
             end                       
           end
         end

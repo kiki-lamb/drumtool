@@ -5,7 +5,7 @@ module DrumTool
         module Events
           module MIDINotes
             class EnhancedMIDINote < MIDI::Note
-              include Traits::MethodResolutionChainedThrough[:parent]
+              include Traits::MethodResolution::ChainedThrough[:parent]
 
               def vel x = nil
                 self.velocity = x || self.velocity || 100
