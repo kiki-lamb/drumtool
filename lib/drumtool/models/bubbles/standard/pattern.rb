@@ -9,11 +9,14 @@ module DrumTool
 
           prepend Events::MIDINotes
           prepend Events::MIDINotes::Filters::Transpose
+
           prepend Events::MIDINotes::Filters::Transform
-          prepend Events::MIDINotes::Filters::Remap  
+          include Events::MIDINotes::Filters::Transform::Remap
+          include Events::MIDINotes::Filters::Transform::Rename
+
           prepend Events::MIDINotes::Filters::Scale
           prepend Events::MIDINotes::Filters::MinMax
-          prepend Events::MIDINotes::Filters::Name       
+
           prepend Events::Triggered
           prepend Events::Muteable
         end

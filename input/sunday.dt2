@@ -1,0 +1,51 @@
+ref x10
+lp  x10
+
+>
+  inst BD 20
+  inst CH 21
+  inst SD 22
+	inst TO 23
+
+	inst P1 24
+	inst P2 25
+  inst SB 28
+	
+>
+  note BD
+  on %4
+
+> note CH
+  on %4
+	sh 2
+	
+
+> note SD
+  on %8
+	sh 4
+
+> lp x10
+  > note SB
+    on 0 3 6 9 12 14
+    lp -x8
+    scale 0
+	
+> note P1
+  on 14
+
+> on 0..x10
+  > note P2 
+    on %5
+	  
+
+> note TO
+  on %3
+	sh 2
+  
+	
+> note P3 29
+  on %7
+	sh 3
+	lp x10
+	scale 1
+  rev
