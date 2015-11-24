@@ -8,7 +8,7 @@ easy_start(
   Preprocessors::Preprocessor,
   track,
   ARGV[0] || "input/sunday.dt2",
-  UniMIDI::Input[1],
-  rescue_exceptions: true,
-  logs: []
+#  UniMIDI::Input[1],
+  rescue_exceptions: true#,
+#  logs: []
 )

@@ -33,6 +33,11 @@ module DrumTool
       def [] abr
         abr = abr.to_s
 
+        exclaim = if abr.end_with? "!"
+                    abr = abr[0..abr.length-2] 
+                    true
+                  end
+        
         if abr.length >= min_length
           candidates = @table.select do |key|           
             key.start_with?(abr) || (lenient_vowels && mumble(key).start_with?(abr))
@@ -42,7 +47,9 @@ module DrumTool
             if candidates.one?
               word, synonym = *candidates.first
               
-              synonym || word
+              tmp = synonym || word
+              tmp << "!" if exclaim
+              tmp
             else
               raise AmbiguousLookup, "`#{abr}' is ambiguous" if strict
             end
