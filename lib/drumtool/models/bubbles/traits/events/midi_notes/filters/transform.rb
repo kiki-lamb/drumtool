@@ -6,22 +6,21 @@ module DrumTool
           module MIDINotes
             module Filters
               module Transform
-                def self.prepended base
-                  base.class_eval do
-                    attr_accessor :transform_action
-                  end
-                end
-                
                 def xform &blk
-                  self.transform_action = blk
+                 __transform_actions__.unshift blk
                 end
 
                 def events
-                  return super unless self.transform_action
+                  return super if __transform_actions__.empty?
                   
                   super.map do |evt|
-                    evt.process! self, &self.transform_action
+                    evt.process! self, __transform_actions__
                   end
+                end
+
+                private
+                def __transform_actions__
+                  @__transform_actions__ ||= []
                 end
               end
             end

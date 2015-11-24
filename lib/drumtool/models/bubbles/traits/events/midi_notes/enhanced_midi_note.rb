@@ -12,7 +12,7 @@ module DrumTool
               end
 
               def note x = nil
-                self.number = x || self.number || 0
+                self.note =  x || self.number || 0 
               end
 
               
@@ -21,11 +21,9 @@ module DrumTool
               end
 
               attr_accessor :parent
-              attr_accessor :action              
 
-              def initialize parent, *a, &b
+              def initialize parent, *a
                 self.parent = parent
-                self.action = b
                 super *a
               end
               
@@ -35,24 +33,23 @@ module DrumTool
               
               def merge! other
                 self.parent = other.parent
-                self.action ||= other.action
                 super
               end
               
-              def process! in_parent = nil, &blk
+              def process! in_parent = nil, actions = []
+                return self if actions.empty?
+                
                 self.dup.tap do |copy|
-                  p = blk || copy.action
                   copy.parent = in_parent if in_parent
                   
-                  case p.arity
-                  when 0
-                    copy.instance_eval &p
-                  else
-                    copy.instance_exec copy, &p
-                  end if p
-                  
-                  copy.action = nil unless blk
-                  copy
+                  actions.each do |p|                    
+                    case p.arity
+                    when 0
+                      copy.instance_eval &p
+                    else
+                      copy.instance_exec copy, &p
+                    end
+                  end
                 end
               end              
             end

@@ -1,7 +1,7 @@
 module DrumTool
   module MIDI
     class Note
-      attr_accessor :name, :channel, :velocity, :action
+      attr_accessor :name, :channel, :velocity
       attr_writer :number
 
       def note= x
