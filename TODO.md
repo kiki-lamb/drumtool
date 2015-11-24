@@ -2,6 +2,8 @@ BUGFIXES:
 
 - Exceptions don't bubble properly in the MultiLoader.
 
+- Everything in EnhancedLooping should probably be gone over with a fine toothed comb.
+
 FEATURES/ADDITIONS:
 
 - Move abbreviation into the models/traits, as per sketches/thesaurus_test.rb
