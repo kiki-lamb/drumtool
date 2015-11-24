@@ -6,6 +6,8 @@ BUGFIXES:
 
 FEATURES/ADDITIONS:
 
+- Rearrange loaders into their own folder/module now that we have two.
+
 - Move abbreviation into the models/traits, as per sketches/thesaurus_test.rb
 
 - Transpo maps should be able to operate in scale degrees, if the pattern is in_scale
