@@ -13,6 +13,8 @@ FEATURES/ADDITIONS:
 - Regroup itemse in Events::MIDINotes::Filters into
   - Events::MIDINotes::Filters: anything that accepts/rejects notes. make a base trait with a method 'filter' for these to special-case from. MinMax goes here.
 
+- Naming conventions: maybe all transform methods should be '!' and all filter methods should be '?' ?
+
 - Events::MIDINotes::Filters::Mutex: should allow certain notes to cancel out certain other notes.
 
 - 1. split up stuff in scale into 
