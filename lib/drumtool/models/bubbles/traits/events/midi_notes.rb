@@ -4,10 +4,10 @@ module DrumTool
       module Traits
         module Events
         module MIDINotes
-          def note name, number = nil, velocity = nil, channel = nil, &b
+          def note name, number = nil, velocity = nil, channel = nil
             name, number = number, name if Fixnum === name
             
-            n = EnhancedMIDINote.new self, name: name, number: number, channel: channel, velocity: velocity, &b
+            n = EnhancedMIDINote.new self, name: name, number: number, channel: channel, velocity: velocity
 
             local_notes[number] = if respond_to?(:register_note)
                                     register_note n 
@@ -17,7 +17,7 @@ module DrumTool
           end
 
           def notes
-            local_notes.values.map &:process!
+            local_notes.values
           end
           
           private       

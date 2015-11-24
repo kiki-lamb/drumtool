@@ -14,7 +14,6 @@ module DrumTool
               def note x = nil
                 self.note =  x || self.number || 0 
               end
-
               
               def chan x = nil
                 self.channel = x || self.channel || 1
@@ -36,18 +35,20 @@ module DrumTool
                 super
               end
               
-              def process! in_parent = nil, actions = []
+              def action! *actions, in_context: nil
                 return self if actions.empty?
+
+                actions = actions.dup
                 
                 self.dup.tap do |copy|
-                  copy.parent = in_parent if in_parent
+                  copy.parent = in_context if in_context
                   
-                  actions.each do |p|                    
-                    case p.arity
+                  while (action = actions.pop)
+                    case action.arity
                     when 0
-                      copy.instance_eval &p
+                      copy.instance_eval &action
                     else
-                      copy.instance_exec copy, &p
+                      copy.instance_exec copy, &action
                     end
                   end
                 end

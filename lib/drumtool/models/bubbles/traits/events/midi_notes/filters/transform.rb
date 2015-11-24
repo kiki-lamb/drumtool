@@ -7,18 +7,17 @@ module DrumTool
             module Filters
               module Transform
                 def xform &blk
-                 __transform_actions__.unshift blk
+                 __transform_actions__.push blk
                 end
 
                 def events
                   return super if __transform_actions__.empty?
                   
                   super.map do |evt|
-                    evt.process! self, __transform_actions__
+                    evt.action! *__transform_actions__, in_context: self
                   end
                 end
 
-                private
                 def __transform_actions__
                   @__transform_actions__ ||= []
                 end
