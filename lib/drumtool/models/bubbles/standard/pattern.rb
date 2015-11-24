@@ -8,11 +8,11 @@ module DrumTool
           prepend Time::Relative::EnhancedLooping
 
           prepend Events::MIDINotes
-          prepend Events::MIDINotes::Filters::Transpose
 
-          prepend Events::MIDINotes::Filters::Transform
-          include Events::MIDINotes::Filters::Transform::Remap
-          include Events::MIDINotes::Filters::Transform::Rename
+          prepend Events::MIDINotes::Transform
+          include Events::MIDINotes::Transform::Remap
+          include Events::MIDINotes::Transform::Rename
+          include Events::MIDINotes::Transform::Transpose
 
           prepend Events::MIDINotes::Filters::Scale
           prepend Events::MIDINotes::Filters::MinMax

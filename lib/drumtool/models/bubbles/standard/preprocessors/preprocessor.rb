@@ -46,7 +46,7 @@ module DrumTool
             synonymize \
               bubble: [:pattern, :part, :scope],
               note: :instrument,
-              semitones: :transpose,
+              semitones: [ :transpose, :semis ],
               drop: [ :wait, :rest ],
               take: [ :duration, :truncate ],
               hard_reverse!: [ :h_reverse!, :hreverse! ],

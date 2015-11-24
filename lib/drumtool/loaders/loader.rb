@@ -1,6 +1,7 @@
 require "digest"
 
 module DrumTool
+  module Loaders
   class Loader
     attr_reader :exception, :exception_lines, :prior
     
@@ -104,5 +105,6 @@ module DrumTool
         @text = text
       end
     end
+  end
   end
 end

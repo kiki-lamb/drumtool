@@ -4,7 +4,6 @@ module DrumTool
       module Traits
         module Events
           module MIDINotes
-            module Filters
               module Transform
               module Remap
                 # Relies upon Transform.
@@ -48,4 +47,4 @@ module DrumTool
     end
   end
 end
-end
+

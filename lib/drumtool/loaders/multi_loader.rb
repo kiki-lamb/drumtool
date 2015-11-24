@@ -1,6 +1,7 @@
 require "digest"
 
 module DrumTool
+  module Loaders
   class MultiLoader
     attr_reader :exception, :exception_lines
     
@@ -49,5 +50,6 @@ module DrumTool
     def clear_exception
       @exception, @exception_lines = nil, []
     end
+  end
   end
 end

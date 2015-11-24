@@ -16,7 +16,7 @@ module DrumTool
       @load_interval = reload_interval
       @last_reload_time = nil
       @last_reload_tick = 0
-      @loader = loader || Loader.new(@filename, @preprocessor, rescue_exceptions: rescue_exceptions, init: init)
+      @loader = loader || Loaders::Loader.new(@filename, @preprocessor, rescue_exceptions: rescue_exceptions, init: init)
       @loader.after do |to, from|
         to.state = from.state
         @clock.tempo = ( to.bpm || 112) if @clock && ! @input_clock

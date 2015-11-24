@@ -4,7 +4,6 @@ module DrumTool
       module Traits
         module Events
           module MIDINotes
-            module Filters
               module Transform
                 module Rename
                   def name name_
@@ -20,4 +19,4 @@ module DrumTool
       end
     end
   end
-end
+

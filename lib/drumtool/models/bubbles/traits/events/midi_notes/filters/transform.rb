@@ -4,7 +4,6 @@ module DrumTool
       module Traits
         module Events
           module MIDINotes
-            module Filters
               module Transform
                 def xform &blk
                  __transform_actions__.push blk
@@ -28,4 +27,3 @@ module DrumTool
       end
     end
   end
-end
