@@ -7,10 +7,6 @@ module DrumTool
             base.include Playbacks::EngineInterface
             base.bubble_attr :refresh_interval, default: nil
             base.bubble_attr :bpm, default: nil
-            base.class_eval do
-              include Events         
-              prepend Events::MIDINotes::Table
-            end
           end
           
           def tick!
