@@ -5,14 +5,18 @@ module DrumTool
         module Events
           module MIDINotes
             module Helpers
-              module ScaleNotes                
-                def scale_notes note_name, type = :minor, mod = 1, *a
-								  root = (Note.new(note_name.to_s)-(@__down__ = NoteInterval.new(60)))
-									
+              module ScaleNotes
+                private
+                def root_note note_name
+                  (Note.new(note_name.to_s)-(@__down__ = NoteInterval.new(60)))
+                end
+                
+                def scale_notes note_name, type = :minor, *a
                   if Fixnum === note_name
-                    [ note_name, type, mod, *a ]
+                    [ note_name, type, *a ]
                   else
-                    root.send("#{type}_scale").note_values.map { |x| x % 12 }
+                    root = root_note note_name
+                    root.send("#{type}_scale").note_values # .map { |x| x % 12 }
                   end
                 end
               end

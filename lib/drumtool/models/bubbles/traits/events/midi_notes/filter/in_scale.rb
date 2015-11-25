@@ -7,8 +7,12 @@ module DrumTool
             module Filter
               module InScale                
                 def in_scale *a
-                  filter do |evt| 
-                    scale_notes(*a).include? evt.number%12
+                  ns = scale_notes(*a).map do |n|
+                    n%12
+                  end
+
+                  filter do |evt|                    
+                    ns.include? evt.number%12
                   end
                 end
               end
