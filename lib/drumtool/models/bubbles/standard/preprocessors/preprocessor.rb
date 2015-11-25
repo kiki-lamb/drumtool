@@ -35,17 +35,18 @@ module DrumTool
                in_scale?
 
               xform
-               name
-               octave
-               remap
-               semitones
-               to_scale
+               name!
+               octave!
+               remap!
+               semitones!
+               to_scale!
+               rescale!
             }
 
             synonymize \
               bubble: [:pattern, :part, :scope],
               note: :instrument,
-              semitones: [ :transpose, :semis ],
+              semitones!: [ :transpose!, :semis! ],
               drop: [ :wait, :rest ],
               take: [ :duration, :truncate ],
               hard_reverse!: [ :h_reverse!, :hreverse! ],

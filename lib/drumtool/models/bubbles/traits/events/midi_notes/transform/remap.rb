@@ -8,7 +8,7 @@ module DrumTool
               module Remap
                 # Relies upon Transform.
                 
-                def remap *a
+                def remap! *a
                   unless [2, 12].include? a.count
                     raise ArgumentError, "Pass 2 or 12 arguments"
                   end
@@ -26,7 +26,7 @@ module DrumTool
 
                   xform do |note|
                     note.number = ( @@cache[[a,note.number]] ||= begin
-                                                                  o = note.number
+                                                                  #o = note.number
                                                                   pitch_class = note.number % 12
                                                                   floor = note.number-pitch_class
                                                                   

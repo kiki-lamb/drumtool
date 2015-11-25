@@ -2,8 +2,9 @@ bpm 48
 lp  x8                          # Loop every 4 bars.
 refresh_interval x10            # Refresh the code every 1 bar.
 
-> to_scale C minor -
-  > xform { note(note+time) }
+> #rescale D
+  > to_scale D
+		xform { note(note+time) }
     > name SQ
 	    lp x10
       note 0
