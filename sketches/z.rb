@@ -2,6 +2,15 @@ require "./lib/drumtool";
 include DrumTool::Models::Bubbles::Traits::Events::MIDINotes::Helpers::ScaleNotes;
 include DrumTool::Models::Bubbles::Traits::Events::MIDINotes::Transform::ToScale;
 
+
+puts scale_notes("C").inspect
+puts scale_notes("D").inspect
+puts scale_notes("E").inspect
+puts scale_notes("F").inspect
+puts scale_notes("G").inspect
+puts scale_notes("A").inspect
+puts scale_notes("B").inspect
+
 puts "C  #{scale_notes("C")} => #{map_for_scale(0, scale_notes("C"), 1).inspect}"
 puts "D  #{scale_notes("D")} => #{map_for_scale(0, scale_notes("D"), 1).inspect}"
 puts "Du #{scale_notes("D")} => #{map_for_scale(2, scale_notes("D"), 1).inspect}"
