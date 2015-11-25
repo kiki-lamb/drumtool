@@ -26,12 +26,14 @@ module DrumTool
 
                   xform do |note|
                     note.number = ( @@cache[[a,note.number]] ||= begin
+                                                                  o = note.number
                                                                   pitch_class = note.number % 12
                                                                   floor = note.number-pitch_class
                                                                   
                                                                   if transfer_mappings.include? pitch_class
                                                                     o = note.number
                                                                     t = floor + transfer_mappings[pitch_class]
+                                                                    #puts "REMAP #{o} => #{t}"
                                                                     t
                                                                   else
                                                                     note.number

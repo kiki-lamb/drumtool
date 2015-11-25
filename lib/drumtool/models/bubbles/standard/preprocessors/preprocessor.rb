@@ -27,8 +27,9 @@ module DrumTool
               take
               trigger
               untrigger
-              min_note
-              max_note
+              min
+              max
+              range
               octave
               semitones
               force!

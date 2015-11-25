@@ -72,7 +72,8 @@ module DrumTool
         end
         
         def active?
-          (force? or (notes.empty? && triggers.empty?)) or begin          
+          # This really shouldn't call notes... move it somewhere?
+          (force? or (local_notes.empty? && triggers.empty?)) or begin          
                                                           fires_now = cache[time] ||= triggers.any? do |t|
                                                             trigger_active? t, time
                                                           end

@@ -16,13 +16,9 @@ module DrumTool
                                   end
           end
 
-          def notes
-            local_notes.values
-          end
-          
           private       
           def events
-            [ *super, *notes ]
+            [ *super, *local_notes.values ]
           end
 
           def local_notes
