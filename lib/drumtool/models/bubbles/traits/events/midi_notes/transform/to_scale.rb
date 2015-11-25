@@ -15,7 +15,11 @@ module DrumTool
                 end
 
                 private
-                def __to_scale__ ordered, note_name, type = :minor, modsym = :-, *a
+                def __to_scale__ *a
+                  remap! *map_for_scale(*a)
+                end
+
+                def map_for_scale from_root, note_name, type = :minor, modsym = :-, *a
                   mod = case modsym
                         when :+
                           1
@@ -23,22 +27,18 @@ module DrumTool
                           -1
                         else
                           raise ArgumentError, "Invalid mod symbol"
-                        end
-
-                  remap! *map_for_scale(scale_notes(note_name, type, *a), (ordered ? root_note(note_name).value : 0), mod)
-                end
-                
-                def map_for_scale scale_notes, root = 0, mod = 1
-                  tmp = (0..11).map do |note|
-                    note += mod until scale_notes.include?(note) || scale_notes.include?(note-12*mod)
+                        end                 
+                  notes = scale_notes(note_name, type, *a)
+                  root  = from_root ? root_note(note_name).value : 0
+                  
+                  map = (0+root..11+root).map do |note|
+                    until notes.include?(note) || notes.include?(note+12) || notes.include?(note-12) 
+                      note += mod
+                    end
                     note
                   end
                   
-                  until tmp.first == root
-                    tmp.push tmp.shift+12
-                  end
-                  
-                  tmp
+                  map
                 end
               end
             end
