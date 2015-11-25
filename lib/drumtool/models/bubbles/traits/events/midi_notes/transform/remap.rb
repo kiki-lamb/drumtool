@@ -7,39 +7,33 @@ module DrumTool
               module Transform
               module Remap
                 # Relies upon Transform.
-                
+
                 def remap! *a
-                  unless [2, 12].include? a.count
-                    raise ArgumentError, "Pass 2 or 12 arguments"
-                  end
+                  __remap__! false, a 
+                end
+                
+                def rremap! *a
+                  __remap__! true, a
+                end
 
-                  @@cache ||= {}
-                  transfer_mappings = {}
+                private 
+                def __remap__! relative, transfer_mappings
+                  raise ArgumentError, "Pass 12 arguments" unless [2, 12].include? transfer_mappings.count
                   
-                  if a.count == 2
-                    transfer_mappings[a.first] = a.last
-                  elsif a.count == 12
-                    a.each_with_index do |out_note, in_note|
-                      transfer_mappings[in_note] = out_note
-                    end
-                  end
-
+                  @@cache ||= {}
+                  
                   xform do |note|
-                    note.number = ( @@cache[[a,note.number]] ||= begin
-                                                                  #o = note.number
-                                                                  pitch_class = note.number % 12
-                                                                  floor = note.number-pitch_class
-                                                                  
-                                                                  if transfer_mappings.include? pitch_class
-                                                                    o = note.number
-                                                                    t = floor + transfer_mappings[pitch_class]
-                                                                    #puts "REMAP #{o} => #{t}"
-                                                                    t
-                                                                  else
-                                                                    note.number
-                                                                  end
-                                                             end )                    
-                  end                  
+                    note.number = ( @@cache[[transfer_mappings,note.number]] ||= __remap_note__!(note, transfer_mappings, relative) )
+                  end
+                end
+
+                def __remap_note__! note, transfer_mappings, relative
+                  pitch_class = note.number % 12
+                  if relative
+                    note.number + transfer_mappings[pitch_class]
+                  else
+                    note.number-pitch_class + transfer_mappings[pitch_class]
+                  end
                 end
               end
             end

@@ -38,6 +38,7 @@ module DrumTool
                name!
                octave!
                remap!
+               rremap!
                semitones!
                to_scale!
                rescale!

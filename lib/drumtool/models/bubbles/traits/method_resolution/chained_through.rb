@@ -17,7 +17,7 @@ module DrumTool
               end
             end
             
-            def respond_to? name, all = false
+            def respond_to? name, all = true
               super(name, all) || (next_method_responder_object && next_method_responder_object.respond_to?(name, all))
             end                       
           end
