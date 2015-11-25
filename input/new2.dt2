@@ -1,58 +1,14 @@
-bpm 112
-lp  x40                         # Loop every 4 bars.
+bpm 48
+lp  x8                          # Loop every 4 bars.
 refresh_interval x10            # Refresh the code every 1 bar.
 
->                               # Instruments in a section only play if the section 
-  inst BD 36                    # has triggers, so this just sets some default note values
-  inst CH 41                    # for certain instruments names (because when inst is called 
-  inst OH 39                    # with no note number, it uses the lasts note number given
-  inst SD 37                    # for that name).
-  inst RS 38
 
-#HEAD
-
-> inst BD                       # Play the 'BD' instrument
-  when %4                       # on notes evenly divisible by 4 (every quarter note)
-
-> inst SD                       # Play the 'SD' instrument
-   when %8                      # on notes evenly divisible by 8 (every 8th note)
-   shift 4                      # shifted back (later in time) by 4/16ths.
-   on 15
-   on 30
-   lp x20
-
-> inst CH                       # Play the 'CH' instrument.
-  when %4                       # on notes evenly divisible by 4 (every quarter note)
-  shift 2                       # shifted back (later in time) by 2/16ths.
-  fl                            # Flip the result (play when it would ordinarily not play and vice versa).
-  
-> inst OH                       # Play the 'SD' instrument
-  when %4                       # on notes evenly divisible by 4 (every quarter note)
-  shift 2                       # shifted back (later in time) by 2/16ths.
-
-> inst RS                       # Play the 'RS' instrument
-  lp x20                        # looped every 2 bars
-  on 1 3 6 10 15 21 28 36       # on ticks landing on some triangular numbers
-  shift 0                       # shifted 1/16th later in time
-  scale 2  
-
-> inst B2 49                    # Play the 'B2' instrument
-  when %6                       # on notes evenly divisible by 4 (every quarter note)
-  lp x10
-  shift 2                       # shifted back (later in time) by 2/16ths.
-
-> inst BD 36
-  on %4
-
-> min velocity 1
-  remap 11 11 11 0 0 0 1 1 1 3 3 3 
-	xform { note(note + time/4) }
-	in_scale C minor
-	> name SQ
-   xform { note(note + 11) if time%16 > 11; note(note+12) if ((time+2)%4) == 0 }
-   > lp x10
-      > note 64
-        when %2
+> to_scale C minor -1
+	> xform { note(note+time) }
+    > name SQ
+	    lp x10
+      note 0
+      when %2
      
 
 #EOF

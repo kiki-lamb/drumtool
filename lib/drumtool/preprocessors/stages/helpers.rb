@@ -11,7 +11,7 @@ module DrumTool
         PatHexExact = /^#{PatHex}$/
         PatFloat = /(?:\d+(?:[\.]\d+)?)/
         PatFloatExact = /^#{PatFloat}$/
-        PatInt = /(?:\d+)/
+        PatInt = /(?:-)?(?:\d+)/
         PatIntExact = /^#{PatInt}$/
         PatIntOrHex = /#{PatHex}|#{PatInt}/
         PatIntOrHexExact = /^#{PatIntOrHex}$/

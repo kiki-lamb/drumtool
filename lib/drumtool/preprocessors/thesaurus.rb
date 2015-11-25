@@ -47,7 +47,7 @@ module DrumTool
             if candidates.one?
               word, synonym = *candidates.first
               
-              tmp = synonym || word
+              tmp = (synonym || word).dup
               tmp << "!" if exclaim
               tmp
             else

@@ -6,8 +6,12 @@ module DrumTool
           module MIDINotes
             module Transform
               module ToScale
-                def to_scale *a
-                  remap *map_for_scale(scale_notes(*a))
+                def to_scale note_name, type = :minor, mod = 1, *a
+                  remap *map_for_scale(scale_notes(note_name, type, *a, ordered: true), mod)
+                end
+
+                def to_scale! note_name, type = :minor, mod = 1, *a
+                  remap *map_for_scale(scale_notes(note_name, type, *a, ordered: false), mod)
                 end
 
                 private
