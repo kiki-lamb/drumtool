@@ -1,9 +1,3 @@
-BUGFIXES:
-
-- Exceptions don't bubble properly in the MultiLoader.
-
-- Everything in EnhancedLooping should probably be gone over with a fine toothed comb.
-
 FEATURES/ADDITIONS:
 
 - REBUILD THE TO/IN DEGREE COMMANDS.
@@ -32,4 +26,10 @@ FEATURES/ADDITIONS:
 	      t + 2
 				8 if t < 8
       vel = 20 + t * 4
-			
+
+
+BUGFIXES:
+
+- Exceptions don't bubble properly in the MultiLoader.
+
+- Everything in EnhancedLooping should probably be gone over with a fine toothed comb.
