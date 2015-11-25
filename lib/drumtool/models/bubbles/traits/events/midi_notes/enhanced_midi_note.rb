@@ -33,25 +33,6 @@ module DrumTool
               def merge! other
                 self.parent = other.parent
                 super
-              end
-              
-              def action! *actions, in_context: nil
-                return self if actions.empty?
-
-                actions = actions.dup
-                
-                self.dup.tap do |copy|
-                  copy.parent = in_context if in_context
-                  
-                  while (action = actions.pop)
-                    case action.arity
-                    when 0
-                      copy.instance_eval &action
-                    else
-                      copy.instance_exec copy, &action
-                    end
-                  end
-                end
               end              
             end
           end
