@@ -76,3 +76,7 @@ module DrumTool
   end
 end
 
+def map_for_scale_remap note, type = :minor, mod = 1
+  scale_notes = lowest(note).send("#{type}_scale").note_values
+  (0..11).to_a.map { |note| note = (note+mod)%12 until scale_notes.include? note; note }
+end
