@@ -6,7 +6,7 @@ module DrumTool
           module MIDINotes
             module Filter
               module MinMax                
-                def range attr_, rng_or_start = nil, end_ = nil
+                def range? attr_, rng_or_start = nil, end_ = nil
                   end_, rng_or_start, attr_ = rng_or_start, attr_, :note unless rng_or_start
                   
                   if end_
@@ -18,7 +18,7 @@ module DrumTool
                   end
                 end
 
-                def min attr_, val = nil
+                def min? attr_, val = nil
                   val, attr_ = attr_, :note unless val
 
                   filter do |evt| 
@@ -26,7 +26,7 @@ module DrumTool
                   end
                 end
 
-                def max attr_, val = nil
+                def max? attr_, val = nil
                   val, attr_ = attr_, :note_ unless val
                   
                   filter do |evt|

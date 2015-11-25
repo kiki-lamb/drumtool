@@ -8,16 +8,16 @@ FEATURES/ADDITIONS:
 
 - ... wow, maybe Triggers and some of the RelativeTime properties actually turn into Events::Time::Filters and Events::Time::Transform traits?
 
-- Naming conventions: maybe all transform methods should be '!' and all filter methods should be '?' ?
-
-- Move abbreviation into the models/traits, as per sketches/thesaurus_test.rb
-
 - Maybe split xform into seperate block functions for different properties (note num, vel, etc) and add ones for time properties?
   Addendum: screw it, xform can be wide open, single property versions can also exist as convenience methods.
 
 - 'Auto-scoping' of t in triggers instead of adding the argument to the proc in the preprocessor
 
+- Move abbreviation into the models/traits, as per sketches/thesaurus_test.rb
+
 - Maybe some time properties become additive?
+
+- Naming conventions: maybe all transform methods should be '!' and all filter methods should be '?' ?
 
 - Maybe this sort of syntax for implicit, 'auto-scoping' block arguments?
 

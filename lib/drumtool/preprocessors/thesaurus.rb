@@ -30,17 +30,15 @@ module DrumTool
         end.flatten(1)]
       end
 
-      def [] abr
-        abr = abr.to_s
+      def [] abbr
+        abbr = abbr.to_s
 
-        exclaim = if abr.end_with? "!"
-                    abr = abr[0..abr.length-2] 
-                    true
-                  end
-        
-        if abr.length >= min_length
+        /(.*?)([?!]?)$/.match abbr;
+        abbr, carried = Regexp.last_match[1], Regexp.last_match[2]          
+ 
+        if abbr.length >= min_length
           candidates = @table.select do |key|           
-            key.start_with?(abr) || (lenient_vowels && mumble(key).start_with?(abr))
+            key.start_with?(abbr) || (lenient_vowels && mumble(key).start_with?(abbr))
           end
         
           unless candidates.none?
@@ -48,10 +46,10 @@ module DrumTool
               word, synonym = *candidates.first
               
               tmp = (synonym || word).dup
-              tmp << "!" if exclaim
+              tmp << carried unless carried.empty? || tmp.end_with?(carried)
               tmp
             else
-              raise AmbiguousLookup, "`#{abr}' is ambiguous" if strict
+              raise AmbiguousLookup, "`#{abbr}' is ambiguous" if strict
             end
           end
         end

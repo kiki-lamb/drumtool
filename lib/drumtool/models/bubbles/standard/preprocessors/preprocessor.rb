@@ -27,21 +27,19 @@ module DrumTool
               take
               trigger
               untrigger
-              min
-              max
-              range
-              octave
-              semitones
-              force!
+
+              filter
+               min?
+               max?
+               range?
+               in_scale?
+
               xform
-              in_scale
-              to_scale
-              in_degrees
-              to_degrees
-              lift!
-              drop!
-              name
-              remap
+               name
+               octave
+               remap
+               semitones
+               to_scale
             }
 
             synonymize \

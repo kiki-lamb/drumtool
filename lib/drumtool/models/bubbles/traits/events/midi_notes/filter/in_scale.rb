@@ -6,7 +6,7 @@ module DrumTool
           module MIDINotes
             module Filter
               module InScale                
-                def in_scale *a
+                def in_scale? *a
                   ns = scale_notes *a
 
                   filter do |evt|                    
