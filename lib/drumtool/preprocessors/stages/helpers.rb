@@ -5,7 +5,7 @@ module DrumTool
         #       PatBlockArgs = /(?:\|.+\|\s*\n$)/
         PatCurlyBlock = /(?:\{.+\}\s*$)/
         PatCurlyBlockExact = /^#{PatCurlyBlock}/
-        PatName = /(?:[a-zA-Z][A-Za-z0-9_]*)/
+        PatName = /(?:[a-zA-Z\-+][A-Za-z0-9_]*)/
         PatNameExact = /^#{PatName}$/
         PatHex = /(?:-?0?[xX][\da-fA_F]+)/
         PatHexExact = /^#{PatHex}$/
