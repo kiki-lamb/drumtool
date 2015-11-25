@@ -6,20 +6,20 @@ module DrumTool
           module MIDINotes
             module Transform
               module ToScale
-                def to_scale! *a
-                  __to_scale__ true, *a
+                def to_scale! note_name, *a
+                  __to_scale__ root_note(note_name).value, note_name, *a
                 end
 
-                def rescale! *a
-                  __to_scale__ false, *a
+                def rescale! note_name, *a
+                  __to_scale__ 0, note_name, *a
                 end
 
                 private
                 def __to_scale__ *a
-                  remap! *map_for_scale(*a)
+                  remap! *__map_for_scale__(*a)
                 end
 
-                def map_for_scale from_root, note_name, type = :minor, modsym = :-, *a
+                def __map_for_scale__ root, note_name, type = :minor, modsym = :-, *a
                   mod = case modsym
                         when :+
                           1
@@ -28,17 +28,15 @@ module DrumTool
                         else
                           raise ArgumentError, "Invalid mod symbol"
                         end                 
+
                   notes = scale_notes(note_name, type, *a)
-                  root  = from_root ? root_note(note_name).value : 0
                   
-                  map = (0+root..11+root).map do |note|
+                  (0+root..11+root).map do |note|
                     until notes.include?(note) || notes.include?(note+12) || notes.include?(note-12) 
                       note += mod
                     end
                     note
-                  end
-                  
-                  map
+                  end                  
                 end
               end
             end
