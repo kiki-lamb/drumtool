@@ -3,7 +3,7 @@ lp  x8                          # Loop every 4 bars.
 refresh_interval x10            # Refresh the code every 1 bar.
 
 > #rescale D
-  > to_scale D
+  > to_scale D minor 
 		xform { note(note+time) }
     > name SQ
 	    lp x10
