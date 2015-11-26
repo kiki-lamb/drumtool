@@ -50,9 +50,9 @@ module DrumTool
       engine.displayed_notes || []
     end
     
-    def events
+    def events *klasses
       #puts "Access engine.events"
-      @last_events = (engine ? engine.events : [])
+      @last_events = (engine ? engine.events(*klasses) : [])
     end
 
     def tick!
@@ -116,17 +116,12 @@ module DrumTool
       close_notes! 
       assert_valid_engine!
 
-      send_control! *(events.select do |e|
-                        Controller === e
-                      end)#.tap { |es| puts "HR #{es.inspect}" })
-      
+      send_control! *(events MIDI::Controller)
       
       if engine.exact?
         log_sep
       
-        open_note! *(events.select do |e|
-                       Note === e
-                     end)#.tap { |es| puts "EX #{es.inspect}" })
+        open_note! *(events MIDI::Note)
                 
         tmp = a_bunch_of_logging_crap.strip
         @last_line_length = tmp.length

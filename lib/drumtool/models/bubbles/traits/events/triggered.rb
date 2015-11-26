@@ -18,9 +18,11 @@ module DrumTool
               end
             end
             
-            def events
-              add_ecache htime, [ *(super if active?) ] unless ecache[htime]
-              ecache[htime]
+            def events *klasses
+              [ *(super(*klasses) if active?) ]
+              add_ecache [htime, *klasses], [ *(super(*klasses) if active?) ] unless ecache[[htime, *klasses]]
+              ecache[[htime, *klasses]]
+
             end
             
             def clear_caches

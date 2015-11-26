@@ -20,8 +20,8 @@ module DrumTool
                 end
               end
               
-              def events
-                super.tap do |s|
+              def events *klasses
+                super(*klasses).tap do |s|
                   s.each do |evt|
                     if DrumTool::MIDI::Note === evt
                       evt.merge! lookup(evt) 
@@ -31,9 +31,7 @@ module DrumTool
               end
               
               def displayed_notes
-                evts = events.select do |evt|
-                  DrumTool::MIDI::Note === evt
-                end
+                evts = events(DrumTool::MIDI::Note)
                 
                 evts_names = evts.map &:name
                 

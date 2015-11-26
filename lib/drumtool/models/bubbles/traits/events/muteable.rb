@@ -8,8 +8,8 @@ module DrumTool
               base.bubble_toggle :mute
             end
             
-            def events
-              [ *(super unless mute?) ]
+            def events(*klasses)
+              [ *(super(*klasses) unless mute?) ]
             end
           end
         end

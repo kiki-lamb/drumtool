@@ -12,10 +12,10 @@ module DrumTool
               @__filter_actions__ ||= []
             end
             
-            def events
-              return super if __filter_actions__.empty?
+            def events *klasses
+              return super(*klasses) if __filter_actions__.empty?
               
-              super.dup.tap do |evts|
+              super(*klasses).dup.tap do |evts|
                 __filter_actions__.each do |action|
                   evts.select! &action
                 end

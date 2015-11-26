@@ -17,8 +17,8 @@ module DrumTool
               end              
               
               private       
-              def events
-                [ *super, *local_controllers.values ]
+              def events *klasses
+                [ *super(*klasses), *local_controllers.values.select { |o| klasses.empty? || klasses.any? { |k| k === o } } ]
               end
               
               def local_controllers

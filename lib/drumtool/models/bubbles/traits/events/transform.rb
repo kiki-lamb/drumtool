@@ -8,10 +8,10 @@ module DrumTool
               __transform_actions__.push blk
             end
             
-            def events
-              return super if __transform_actions__.empty?
+            def events(*klasses)
+              return super(*klasses) if __transform_actions__.empty?
              
-              super.map do |evt|
+              super(*klasses).map do |evt|
                 perform_actions! evt.dup, *__transform_actions__.dup
               end
             end
