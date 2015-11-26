@@ -116,15 +116,12 @@ module DrumTool
       close_notes! 
       assert_valid_engine!
 
-#      puts "HI #{engine.htime} / LO #{engine.lores_time}"
-
       send_control! *(events.select do |e|
                         Controller === e
                       end)
       
       
-      if engine.children.first.children.first.exact?
-        #puts "EXACT ON #{engine.children.first.lores_time}"
+      if engine.exact?
         log_sep
       
         open_note! *(events.select do |e|

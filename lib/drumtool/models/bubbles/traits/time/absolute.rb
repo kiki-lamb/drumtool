@@ -24,6 +24,10 @@ module DrumTool
                 @time
               end
               
+              define_method :exact? do
+                htime % ratio == 0
+              end
+
               define_method :lores_time do
                 time
               end

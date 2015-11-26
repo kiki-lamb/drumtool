@@ -19,6 +19,10 @@ module DrumTool
                 self.channel = x || self.channel || 1
               end
 
+              def n
+                self
+              end
+
               attr_accessor :parent
 
               def initialize parent, *a
@@ -26,9 +30,6 @@ module DrumTool
                 super *a
               end
               
-              def c
-                self
-              end
             end
           end
         end
