@@ -8,8 +8,8 @@ module DrumTool
               module Transform
                 module Rename
                   def name! name_
-                    xform do |note|
-                      note.name = name_
+                    xform do |evt|
+                      evt.name = name_
                     end
                   end
                 end

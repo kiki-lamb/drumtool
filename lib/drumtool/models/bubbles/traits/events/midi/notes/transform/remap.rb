@@ -17,8 +17,8 @@ module DrumTool
                   
                   @@cache ||= {}
                   
-                  xform do |note|
-                    note.number = ( @@cache[[transfer_mappings,note.number]] ||= note.number + transfer_mappings[note.number % 12] )
+                  xform do |evt|
+                    evt.number = ( @@cache[[transfer_mappings,evt.number]] ||= evt.number + transfer_mappings[evt.number % 12] )
                   end
                 end
               end

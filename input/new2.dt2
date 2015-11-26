@@ -1,10 +1,16 @@
-bpm 10
+bpm 20
 lp  x20
 refresh_interval x1
 
-
-> 
+>
   lp x20
-  cc! 10 { 0+htime }
- 
+  cc! 10 { 0+htime*0.25 }
 
+> note BD 36
+  on %4
+
+> name SQ
+  note! { note + time/4 }
+	note 35
+  loop x10
+  on %2

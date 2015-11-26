@@ -16,7 +16,15 @@ module DrumTool
                                         n
                                       end
               end
-              
+
+              %i{ note velocity number channel }.each do |sym|
+                define_method "#{sym}!"do |&blk|
+                  xform do |o|
+                    o.send("#{sym}=", instance_eval(&blk)) if EnhancedNote === o
+                  end
+                end
+              end             
+             
               private       
               def events
                 [ *super, *local_notes.values ]

@@ -11,7 +11,9 @@ module DrumTool
 
               def ctrl! cc, channel = nil, &blk
                 ctrl cc, 0, channel
-                xform { (n.value = instance_eval(&blk)) if DrumTool::MIDI::Controller === self }
+                xform do |ctrl|
+                  (ctrl.value = instance_eval(&blk)) if EnhancedController === self
+                end
               end              
               
               private       

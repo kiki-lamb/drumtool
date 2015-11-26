@@ -118,7 +118,7 @@ module DrumTool
 
       send_control! *(events.select do |e|
                         Controller === e
-                      end)
+                      end)#.tap { |es| puts "HR #{es.inspect}" })
       
       
       if engine.exact?
@@ -126,7 +126,7 @@ module DrumTool
       
         open_note! *(events.select do |e|
                        Note === e
-                     end)
+                     end)#.tap { |es| puts "EX #{es.inspect}" })
                 
         tmp = a_bunch_of_logging_crap.strip
         @last_line_length = tmp.length
