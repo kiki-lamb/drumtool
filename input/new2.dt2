@@ -6,8 +6,7 @@ refresh_interval x10            # Refresh the code every 1 bar.
 > note BD 24
   on %4
 
-
-
+#EOF
 > name SY
   sh 1
   > xform { vel(vel-48) if time%4 == 0 }

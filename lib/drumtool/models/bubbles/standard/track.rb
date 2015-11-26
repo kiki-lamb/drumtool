@@ -10,10 +10,9 @@ module DrumTool
           include MethodResolution::ChainedThrough[ :parent ]
           include BubbleAttrs::ChainedAttrsThrough[ :parent ]
           
-          include Time::Relative[ 1, :hires_ ]
-          include Time::Relative[ 6 ]
+          prepend Time::Relative[ 6 ]
 
-          include Events[ ]
+          include Events
         end
       end
     end
