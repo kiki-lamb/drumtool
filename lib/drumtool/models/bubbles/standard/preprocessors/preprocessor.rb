@@ -28,6 +28,9 @@ module DrumTool
               trigger
               untrigger
 
+              note
+              ctrl
+
               filter
                min?
                max?
@@ -47,6 +50,7 @@ module DrumTool
             synonymize \
               bubble: [:pattern, :part, :scope],
               note: :instrument,
+              ctrl: :cc,
               semitones!: [ :transpose!, :semis! ],
               drop: [ :wait, :rest ],
               take: [ :duration, :truncate ],

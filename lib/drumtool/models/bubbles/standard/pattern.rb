@@ -10,6 +10,8 @@ module DrumTool
           prepend Events::MIDI::Notes
             include Events::MIDI::Notes::Helpers::ScaleNotes
 
+          prepend Events::MIDI::Controllers
+
           prepend Events::Transform
           prepend Events::Transform::WithContextSetVia[:parent=]
             include Events::MIDI::Notes::Transform::Rename

@@ -5,7 +5,7 @@ module DrumTool
         module Events
           module MIDI
             module Controllers
-              def control name, cc = nil, value = nil, channel = nil
+              def ctrl name, cc = nil, value = nil, channel = nil
                 value, cc, name = cc, name, nil if Fixnum === name
                 local_controllers[number] = EnhancedController.new self, name: name, cc: cc, value: value, channel: channel
               end
