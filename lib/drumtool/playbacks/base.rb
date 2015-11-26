@@ -61,6 +61,10 @@ module DrumTool
       
       @last_events = nil
     end
+
+    def time= v
+      engine.time = v if engine
+    end
     
     def time
       #puts "Access engine.time"
@@ -102,7 +106,7 @@ module DrumTool
           c.event.stop do 
             $stdout << "\n#{self.class.name}: Stopped.\n"
             close_notes!
-            self.time = ( time - time%loop ) if loop
+            self.time= ( time - time%loop ) if loop
           end
         end
       end
@@ -112,7 +116,7 @@ module DrumTool
       close_notes! 
       assert_valid_engine!
 
-#      puts "HI #{engine.htime} / LO #{engine.lores_time}"
+      puts "HI #{engine.htime} / LO #{engine.lores_time}"
 
       send_control! *(events.select do |e|
                         Controller === e

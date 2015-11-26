@@ -6,7 +6,11 @@ module DrumTool
           module Relative
             as_trait do |ratio = 1|
               define_method :loop do |x = nil|
-                @loop = x ? x*ratio : nil
+#                puts "LOOP #{x}"
+                @loop ||= nil
+                @loop = x*ratio if x
+                @loop # .tap { |l| puts "LOOP GIVES #{l}" }
+
               end              
               
               define_method :rotate do |x = nil|
@@ -50,12 +54,14 @@ module DrumTool
               end
 
               private
-              def __locate_time__ ratio_, time_, loop_, rotate_, shift_, scale_
+              define_method :__locate_time__ do |ratio_, time_, loop_, rotate_, shift_, scale_|
                 time_   /= ratio_
                 loop_   /= ratio_ if loop_
                 rotate_ /= ratio_
                 shift_  /= ratio_
                 scale_  /= ratio_
+                
+#                puts "R #{ratio_} L #{loop}"
                 
                 e = (time_ * (2**(-scale_))) - rotate_
                 e %= loop_ if loop_

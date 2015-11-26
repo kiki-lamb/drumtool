@@ -12,6 +12,10 @@ module DrumTool
           def tick!
             time!
           end
+
+          def time= v
+            htime= v
+          end
           
           def loop
             if children.first
