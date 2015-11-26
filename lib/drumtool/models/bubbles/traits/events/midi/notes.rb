@@ -5,6 +5,10 @@ module DrumTool
         module Events
           module MIDI
             module Notes
+              def self.prepended base 
+                base.prepend ProvidesEvents[:local_notes_values, EnhancedNote]
+              end
+                
               def note name, number = nil, velocity = nil, channel = nil
                 name, number = number, name if Fixnum === name
                 
@@ -17,18 +21,9 @@ module DrumTool
                                       end
               end
 
-              %i{ note velocity number channel }.each do |sym|
-                define_method "#{sym}!"do |&blk|
-                  xform do |o|
-                    puts "APPLY TO #{o}"
-                    o.send("#{sym}=", instance_eval(&blk)) if EnhancedNote === o
-                  end
-                end
-              end             
-             
               private
-              def events *klasses
-                [ *super(*klasses), *local_notes.values.select { |o| klasses.empty? || klasses.any? { |k| k === o } } ]
+              def local_notes_values
+                local_notes.values
               end
               
               def local_notes
