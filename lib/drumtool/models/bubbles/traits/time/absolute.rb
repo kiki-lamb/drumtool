@@ -28,7 +28,7 @@ module DrumTool
                 htime % ratio == 0
               end
 
-              define_method :lores_time do
+              define_method :ltime do
                 time
               end
             end

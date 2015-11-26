@@ -41,7 +41,7 @@ module DrumTool
                 htime % ratio == 0
               end
               
-              define_method :lores_time do
+              define_method :ltime do
                 __locate_time__ ratio, parent.htime, loop, rotate, shift, scale
               end              
 
@@ -50,7 +50,7 @@ module DrumTool
               end              
 
               define_method :time do
-                lores_time
+                ltime
               end
 
               private
