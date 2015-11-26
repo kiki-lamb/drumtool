@@ -1,21 +1,19 @@
-bpm 48
-lp  x8                          # Loop every 4 bars.
+bpm 112
+lp  x10                          # Loop every 4 bars.
 refresh_interval x10            # Refresh the code every 1 bar.
 
-> rescale D
-  > to_scale D minor 
-		xform { note(note+time) }
-    > name SQ
-	    lp x10
-      note 0
+> name SY
+  > xform { vel(vel-48) if time%4 == 0 }
+    remap 1 1 1  2 2 2  4 4 4  5 5 5
+    > note 81
+      sh 2
+      loop x20
       when %2
-
-
-#BOF
+      xform { note(note + 12) if time.to_i%16/4%4==0; note(note + time%4 + time/4) }
 
 > lp x8
-	xform { c.value = time * 16 }
-	cc 10 50  
+  xform { c.value = time * 12 }
+  cc 10 50  
 
 
 #EOF

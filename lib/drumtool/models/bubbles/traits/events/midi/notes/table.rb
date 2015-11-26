@@ -31,7 +31,10 @@ module DrumTool
               end
               
               def displayed_notes
-                evts = events
+                evts = events.select do |evt|
+                  Note === evt
+                end
+                
                 evts_names = evts.map &:name
                 
                 note_registry.map do |k, v|
