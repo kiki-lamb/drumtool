@@ -5,12 +5,9 @@ module DrumTool
         class Engine
           include Traits          
           include BubbleAttrs
-          
           include TreeOf[ Track ]
-
+          include Time::Absolute[ 6 ]
           prepend EngineInterface
-          prepend Time::Absolute[ 6 ]
-
           include Events
           prepend Events::MIDI::Notes::Table
         end

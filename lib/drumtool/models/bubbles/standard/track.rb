@@ -4,14 +4,11 @@ module DrumTool
       module Standard
         class Track
           include Traits
-          include BubbleAttrs
-          
+          include BubbleAttrs          
           include TreeOf[ Pattern ]
           include MethodResolution::ChainedThrough[ :parent ]
           include BubbleAttrs::ChainedAttrsThrough[ :parent ]
-          
-          prepend Time::Relative[ 6 ]
-
+          include Time::Relative[ 6 ]          
           include Events
         end
       end

@@ -8,7 +8,6 @@ module DrumTool
           prepend Time::Relative::EnhancedLooping
 
           prepend Events::MIDI::Notes
-          prepend Events::MIDI::Notes
             include Events::MIDI::Notes::Helpers::ScaleNotes
 
           prepend Events::Transform
@@ -23,8 +22,8 @@ module DrumTool
             include Events::MIDI::Notes::Filter::MinMax
             include Events::MIDI::Notes::Filter::InScale
             
-            prepend Events::MIDI::Controllers
-            prepend Events::MIDI::Controllers::Transform::Attributes
+          prepend Events::MIDI::Controllers
+          prepend Events::MIDI::Controllers::Transform::Attributes
 
           prepend Events::Triggered
           prepend Events::Muteable
