@@ -14,7 +14,7 @@ module DrumTool
           end
 
           def time= v
-            htime= v
+            self.htime= v
           end
           
           def loop
@@ -26,7 +26,7 @@ module DrumTool
           end
           
           def state
-            { bpm: bpm, refresh_inteval: refresh_interval, time: time }
+            { bpm: bpm, refresh_inteval: refresh_interval, time: htime }
           end
 
           def state= h
