@@ -21,16 +21,16 @@ module DrumTool
               end
             end
           
-            def adding_bubble_attr name, default: 0, accessor: name, &after
-              bubble_attr "local_#{name}", default: default, &after
-              
-              # Adder-Setter
-              define_method accessor do |v = nil|
-                old_v = send("local_#{name}") || default
-                new_v = old_v+v if v
-                send "local_#{name}", new_v             
-              end
-            end
+#            def adding_bubble_attr name, default: 0, accessor: name, &after
+#              bubble_attr "local_#{name}", default: default, &after
+#              
+#              # Adder-Setter
+#              define_method accessor do |v = nil|
+#                old_v = send("local_#{name}") || default
+#                new_v = old_v+v if v
+#                send "local_#{name}", new_v             
+#              end
+#            end
           
             def counter_bubble_attr name, default: 0, return_value: name, before: nil, incrementor: "#{name}!", reversor: "reverse_#{name}!", increment: 1, after: nil
               bubble_attr name, default: default

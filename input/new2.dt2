@@ -1,10 +1,13 @@
-bpm 112
+bpm 28
 lp  x10                          # Loop every 4 bars.
 refresh_interval x10            # Refresh the code every 1 bar.
 
 
 > note BD 24
-  on %4
+  lp x8
+  on %3
+	rot 2
+	sh 1
 
 
 #EOF

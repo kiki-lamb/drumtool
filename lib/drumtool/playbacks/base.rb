@@ -103,7 +103,7 @@ module DrumTool
 
     def clock         
       @clock ||= begin
-        Topaz::Clock.new((@input_clock ? @input_clock : bpm), interval: 16, &Proc.new { tick }).tap do |c|
+        Topaz::Clock.new((@input_clock ? @input_clock : bpm), interval: 96, &Proc.new { tick }).tap do |c|
           c.event.stop do 
             $stdout << "\n#{self.class.name}: Stopped.\n"
             close_notes!

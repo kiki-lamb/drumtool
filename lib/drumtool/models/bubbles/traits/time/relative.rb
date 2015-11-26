@@ -6,9 +6,9 @@ module DrumTool
         module Relative
           def self.included base        
             base.bubble_attr :loop, default: nil
-            base.adding_bubble_attr :rotate
-            base.adding_bubble_attr :shift
-            base.adding_bubble_attr :scale
+            base.bubble_attr :rotate
+            base.bubble_attr :shift
+            base.bubble_attr :scale
           end
           
           def time
