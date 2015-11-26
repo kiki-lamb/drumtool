@@ -18,7 +18,7 @@ module DrumTool
             include Events::MIDI::Controllers::Transform::Attributes
 
           prepend Events::Filter
-            include Events::MIDI::Notes::Filter::MinMax
+            include Events::Filter::MinMax
             include Events::MIDI::Notes::Filter::InScale            
 
           prepend Events::Triggered
