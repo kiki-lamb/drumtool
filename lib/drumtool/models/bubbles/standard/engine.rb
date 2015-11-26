@@ -13,8 +13,6 @@ module DrumTool
 
           include Events
           prepend Events::MIDI::Notes::Table
-
-
         end
       end
     end

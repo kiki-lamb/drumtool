@@ -2,9 +2,12 @@ bpm 112
 lp  x10                          # Loop every 4 bars.
 refresh_interval x10            # Refresh the code every 1 bar.
 
-
 > note BD 24
   on %4
+
+> lp x10
+  xform { c.value = htime }
+  cc 10 50  
 
 #EOF
 > name SY
@@ -17,11 +20,6 @@ refresh_interval x10            # Refresh the code every 1 bar.
       loop x20
       when %2
       xform { note(note + 12) if time.to_i%16/4%4==0; note(note + time%4 + time/4) }
-
-> lp x10
-  xform { c.value = time * 12 }
-  cc 10 50  
-
 
 #EOF
 

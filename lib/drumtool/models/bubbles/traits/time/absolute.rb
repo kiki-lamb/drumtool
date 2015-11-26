@@ -10,7 +10,7 @@ module DrumTool
                 @time += 1
               end              
               
-              define_method :hires_time= do |x|
+              define_method :htime= do |x|
                 @time ||= 0 
                 @time = x
               end
@@ -20,7 +20,7 @@ module DrumTool
                 @time / ratio
               end
               
-              define_method :hires_time do
+              define_method :htime do
                 @time
               end
               

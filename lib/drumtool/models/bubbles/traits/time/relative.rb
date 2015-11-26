@@ -34,15 +34,15 @@ module DrumTool
               end
 
               define_method :exact? do
-                hires_time % ratio == 0
+                htime % ratio == 0
               end
               
               define_method :lores_time do
-                __locate_time__ ratio, parent.hires_time, loop, rotate, shift, scale
+                __locate_time__ ratio, parent.htime, loop, rotate, shift, scale
               end              
 
-              define_method :hires_time do
-                __locate_time__ 1, parent.hires_time, loop, rotate, shift, scale
+              define_method :htime do
+                __locate_time__ 1, parent.htime, loop, rotate, shift, scale
               end              
 
               define_method :time do

@@ -112,7 +112,12 @@ module DrumTool
       close_notes! 
       assert_valid_engine!
 
-#      puts "#{engine.time} / #{engine.lores_time} / #{engine.hires_time}"
+#      puts "HI #{engine.htime} / LO #{engine.lores_time}"
+
+      send_control! *(events.select do |e|
+                        Controller === e
+                      end)
+      
       
       if engine.children.first.children.first.exact?
         #puts "EXACT ON #{engine.children.first.lores_time}"
@@ -121,11 +126,7 @@ module DrumTool
         open_note! *(events.select do |e|
                        Note === e
                      end)
-        
-        send_control! *(events.select do |e|
-                          Controller === e
-                        end)
-        
+                
         tmp = a_bunch_of_logging_crap.strip
         @last_line_length = tmp.length
         log tmp

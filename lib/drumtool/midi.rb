@@ -30,7 +30,6 @@ module DrumTool
       @c_ct ||= 0
       @o_ct += 1
       open_notes.add? note
-      # puts "OPEN  #{note} @ #{velocity} (#{@o_ct-@c_ct})"
       midi_output.puts 0x90, note, velocity      
     end
 
@@ -38,6 +37,7 @@ module DrumTool
       assert_midi_output!
 
       controls.each do |control|
+        puts "CC #{control.cc} = #{control.value}"
         midi_output.puts 0xB0, control.cc, control.value
       end
     end

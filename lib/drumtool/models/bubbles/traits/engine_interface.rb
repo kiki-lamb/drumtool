@@ -28,7 +28,7 @@ module DrumTool
           def state= h
             @bpm ||= h[:bpm]
             @refresh_interval ||= h[:refresh_interval]
-            self.hires_time= h[:time]
+            self.htime= h[:time]
           end
         end
       end
