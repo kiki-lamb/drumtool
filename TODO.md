@@ -1,5 +1,7 @@
 FEATURES/ADDITIONS:
 
+- Filter and transform should take a *klasses argument specifying what they can operate on.
+
 - Probably replace MIDI::Note with classes fromarirusso's midi-message gem.
 
 - REBUILD THE TO/IN_DEGREE COMMANDS.
@@ -14,9 +16,6 @@ FEATURES/ADDITIONS:
 - ... wow, maybe Triggerable and some of the RelativeTime properties actually turn into Events::Time::Filters and Events::Time::Transform traits?
   Addendum: No, Triggerable can't be directly implemented as an Events::Filter because it operates on the entire event set instead of filtering individual events within that set.
 	          Maybe it can share a common ancestor with mutable, though.
-
-- Maybe split xform into seperate block functions for different properties (note num, vel, etc) and add ones for time properties?
-  Addendum: screw it, xform can be wide open, single property versions can also exist as convenience methods.
 
 - 'Auto-scoping' of t in triggers instead of adding the argument to the proc in the preprocessor
 
