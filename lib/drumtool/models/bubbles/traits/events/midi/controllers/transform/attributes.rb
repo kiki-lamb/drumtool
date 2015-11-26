@@ -7,11 +7,11 @@ module DrumTool
             module Controllers
               module Transform
                 module Attributes
+                  include Events::Transform::Helpers::Attribute[EnhancedController, :value, :__value__!]
+                  
                   def ctrl! cc, channel = nil, &blk
                     ctrl cc, 0, channel
-                    xform do |ctrl|
-                      (ctrl.value = instance_eval(&blk)) if EnhancedController === self
-                    end
+                    __value__! &blk
                   end              
                 end             
               end
