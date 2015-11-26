@@ -33,6 +33,14 @@ module DrumTool
       # puts "OPEN  #{note} @ #{velocity} (#{@o_ct-@c_ct})"
       midi_output.puts 0x90, note, velocity      
     end
+
+    def send_control! *controls
+      assert_midi_output!
+
+      controls.each do |control|
+        midi_output.puts 0xB0, control.cc, control.value
+      end
+    end
     
     def open_note! *notes, velocity: 100
       assert_midi_output!

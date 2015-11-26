@@ -116,7 +116,14 @@ module DrumTool
     def tick
       close_notes! 
       assert_valid_engine!
-      open_note! *events
+      
+      open_note! *(events.select do |e|
+                     Note === e
+                   end)
+      
+      send_control! *(events.select do |e|
+                        Controller === e
+                      end)
 
       log_sep
       tmp = a_bunch_of_logging_crap.strip

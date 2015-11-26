@@ -7,7 +7,7 @@ module DrumTool
             class EnhancedController < DrumTool::MIDI::Controller
               include Traits::MethodResolution::ChainedThrough[:parent]
 
-              def cc x = nil
+              def num x = nil
                 self.cc = cc || self.cc || 0
               end
 
