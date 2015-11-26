@@ -11,7 +11,7 @@ refresh_interval x10            # Refresh the code every 1 bar.
       when %2
       xform { note(note + 12) if time.to_i%16/4%4==0; note(note + time%4 + time/4) }
 
-> lp x8
+> lp x10
   xform { c.value = time * 12 }
   cc 10 50  
 

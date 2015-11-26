@@ -32,7 +32,7 @@ module DrumTool
               
               def displayed_notes
                 evts = events.select do |evt|
-                  Note === evt
+                  DrumTool::MIDI::Note === evt
                 end
                 
                 evts_names = evts.map &:name
