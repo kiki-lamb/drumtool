@@ -4,7 +4,7 @@ module DrumTool
       module Traits
         module EngineInterface
           def self.prepended base
-            base.include Playbacks::EngineInterface
+            base.include Playbacks::Engine::Interface
             base.bubble_attr :refresh_interval, default: nil
             base.bubble_attr :bpm, default: nil
           end
