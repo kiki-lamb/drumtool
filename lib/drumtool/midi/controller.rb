@@ -5,11 +5,11 @@ module DrumTool
       attr_reader :cc, :value
 
       def cc= x
-        @cc = [128, x].min
+        @cc = [0, [128, x].min.to_i].max
       end
 
       def value= x
-        @value = [128, x].min
+        @value = [0, [128, x].min.to_i].max
       end
 
       def short_name
