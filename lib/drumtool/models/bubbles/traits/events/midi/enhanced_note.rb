@@ -4,7 +4,7 @@ module DrumTool
       module Traits
         module Events
           module MIDI
-            class EnhancedMIDINote < DrumTool::MIDI::Note
+            class EnhancedNote < DrumTool::MIDI::Note
               include Traits::MethodResolution::ChainedThrough[:parent]
 
               def vel x = nil

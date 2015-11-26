@@ -49,7 +49,7 @@ module DrumTool
               end
               
               def note_registry
-                @__note_registry ||= Hash.new { |h,k| h[k] = MIDI::EnhancedMIDINote.new(nil) }
+                @__note_registry ||= Hash.new { |h,k| h[k] = MIDI::EnhancedNote.new(nil) }
               end
             end
           end
