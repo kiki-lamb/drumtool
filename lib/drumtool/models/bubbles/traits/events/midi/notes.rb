@@ -9,11 +9,11 @@ module DrumTool
                 name, number = number, name if Fixnum === name
                 
                 n = EnhancedNote.new self, name: name, number: number, channel: channel, velocity: velocity
-                
+
                 local_notes[number] = if respond_to?(:register_note)
-                                        register_note n 
+                                        register_note(n).tap { puts "LEFT" }
                                       else
-                                        n
+                                        n.tap { puts "RIGHT" }
                                       end
               end
               

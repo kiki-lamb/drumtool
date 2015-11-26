@@ -2,6 +2,13 @@ bpm 112
 lp  x10                          # Loop every 4 bars.
 refresh_interval x10            # Refresh the code every 1 bar.
 
+
+> note BD 24
+  on %4
+
+
+#EOF
+
 > name SY
   > xform { vel(vel-48) if time%4 == 0 }
     remap 1 1 1  2 2 2  4 4 4  5 5 5
