@@ -3,32 +3,32 @@ module DrumTool
     class Bubbles
       module Traits
         module Time
-        module Absolute
-          as_trait do |ratio = 1|
-            def time!
-              @time ||=0
-              @time += 1
-            end              
-            
-            def time x = nil
-              @time ||= 0
-              @time = x if x
-              @time
-            end
-            
-            def hires_time
-              time
-            end
-
-            def lores_time
-              time / ratio
-            end
-            
-            def reverse!
-              reverse_time!
+          module Absolute
+            as_trait do |ratio = 1|
+              define_method :time! do
+                @time ||=0
+                @time += 1
+              end              
+              
+              define_method :hires_time= do |x|
+                @time ||= 0 
+                @time = x
+              end
+              
+              define_method :time do
+                @time ||= 0
+                @time / ratio
+              end
+              
+              define_method :hires_time do
+                @time
+              end
+              
+              define_method :lores_time do
+                time
+              end
             end
           end
-        end
         end
       end
     end
