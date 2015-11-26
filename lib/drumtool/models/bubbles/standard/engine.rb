@@ -10,7 +10,7 @@ module DrumTool
 
           include Time::Absolute
 
-          prepend Events
+          include Events[]
           prepend Events::MIDI::Notes::Table
 
           prepend EngineInterface
