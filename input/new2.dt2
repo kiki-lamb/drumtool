@@ -7,10 +7,6 @@ refresh_interval x1
   cc! 10 { 0+htime*0.25 }
   mu
 
-
-
-
-
 > note BD 36
   on %4
 
