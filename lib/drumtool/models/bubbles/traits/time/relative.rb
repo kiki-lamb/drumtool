@@ -38,15 +38,15 @@ module DrumTool
               end
               
               define_method :lores_time do
-                __locate_time__ ratio, parent.time, loop, rotate, shift, scale
+                __locate_time__ ratio, parent.hires_time, loop, rotate, shift, scale
               end              
 
               define_method :hires_time do
-                __locate_time__ 1, parent.time, loop, rotate, shift, scale
+                __locate_time__ 1, parent.hires_time, loop, rotate, shift, scale
               end              
 
               define_method :time do
-                hires_time
+                lores_time
               end
 
               private

@@ -8,6 +8,10 @@ module DrumTool
             base.counter_bubble_attr :time, default: 0 # , reversor: :reverse!
           end
 
+          def hires_time
+            time
+          end
+          
           def reverse!
             reverse_time!
           end
