@@ -67,11 +67,6 @@ module DrumTool
       (engine && engine.time) || 0
     end
 
-    def time= v
-      #puts "Access engine.time= v"
-      engine.time = v
-    end
-    
     def loop
       #puts "Access engine.loop"
       engine && engine.loop

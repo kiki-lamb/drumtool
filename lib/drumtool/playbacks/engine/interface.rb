@@ -20,10 +20,6 @@ module DrumTool
           raise NotImplementedError
         end
         
-        def time= v
-          raise NotImplementedError
-        end
-        
         def time
           raise NotImplementedError
         end

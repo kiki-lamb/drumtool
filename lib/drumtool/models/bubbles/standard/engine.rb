@@ -9,7 +9,7 @@ module DrumTool
           include TreeOf[ Track ]
 
           prepend EngineInterface
-          prepend Time::Absolute
+          prepend Time::Absolute[ 6 ]
 
           include Events
           prepend Events::MIDI::Notes::Table
