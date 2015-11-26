@@ -103,10 +103,10 @@ module DrumTool
 
     def clock         
       @clock ||= begin
-        Topaz::Clock.new((@input_clock ? @input_clock : bpm), interval: 16, &Proc.new { tick }).tap do |c|
+        Topaz::Clock.new((@input_clock ? @input_clock : bpm), interval: 128, &Proc.new { tick }).tap do |c|
           c.event.stop do 
             $stdout << "\n#{self.class.name}: Stopped.\n"
-            close_notes!
+#            close_notes!
             self.time = ( time - time%loop ) if loop
           end
         end
@@ -114,21 +114,29 @@ module DrumTool
     end
 
     def tick
-      close_notes! 
+
+      #      close_notes!
       assert_valid_engine!
-      
-      open_note! *(events.select do |e|
-                     Note === e
-                   end)
-      
+
+      log_sep
+
+      engine.rate = 1
       send_control! *(events.select do |e|
                         Controller === e
                       end)
+      
 
-      log_sep
-      tmp = a_bunch_of_logging_crap.strip
-      @last_line_length = tmp.length
-      log tmp
+      engine.rate = 8     
+      if time%1.0 == 0
+        open_note! *(events.select do |e|
+                       Note === e
+                     end)
+        
+        tmp = a_bunch_of_logging_crap.strip 
+        @last_line_length = tmp.length
+        log tmp
+      end
+            
       tick!
     end
 

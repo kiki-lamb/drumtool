@@ -15,6 +15,7 @@ module DrumTool
             e = (parent.time * (2**(-scale))).to_f - rotate
             e %= loop if loop
             e -= shift
+            e #.tap { |t| puts "SEE TIME #{t}" }
           end
         end
       end

@@ -1,18 +1,16 @@
 bpm 112
-lp  x10                          # Loop every 4 bars.
-refresh_interval x10            # Refresh the code every 1 bar.
+lp x40
 
 > name SY
-  > xform { vel(vel-48) if time%4 == 0 }
-    remap 1 1 1  2 2 2  4 4 4  5 5 5
-    > note 81
-      sh 2
-      loop x20
-      when %2
-      xform { note(note + 12) if time.to_i%16/4%4==0; note(note + time%4 + time/4) }
+  when %2
+  note 81
+	to_scale C
+	xform { note(note + time) }
 
-> lp x10
-  xform { c.value = time * 12 }
+
+
+> 
+  xform { c.value = time }
   cc 10 50  
 
 

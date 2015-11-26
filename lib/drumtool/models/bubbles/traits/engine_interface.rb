@@ -10,7 +10,7 @@ module DrumTool
           end
           
           def tick!
-            time!
+              time!
           end
 
           def time= v
