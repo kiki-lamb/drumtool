@@ -117,10 +117,10 @@ module DrumTool
       close_notes! 
       assert_valid_engine!
 
-      puts "#{engine.time} / #{engine.children.first.lores_time} / #{engine.children.first.hires_time}"
+      #puts "#{engine.time} / #{engine.children.first.lores_time} / #{engine.children.first.hires_time}"
       
       if engine.children.first.children.first.exact?
-        puts "EXACT ON #{engine.children.first.lores_time}"
+        #puts "EXACT ON #{engine.children.first.lores_time}"
         log_sep
       
         open_note! *(events.select do |e|

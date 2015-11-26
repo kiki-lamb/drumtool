@@ -4,8 +4,16 @@ module DrumTool
       module Traits
         module Time
         module Absolute
-          def self.included base
-            base.counter_bubble_attr :time, default: 0 # , reversor: :reverse!
+
+          def time!
+            @time ||=0
+            @time += 1
+          end              
+          
+          def time x = nil
+            @time ||= 0
+            @time = x if x
+            @time
           end
 
           def hires_time
