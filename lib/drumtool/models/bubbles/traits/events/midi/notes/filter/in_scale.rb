@@ -6,7 +6,9 @@ module DrumTool
           module MIDI
             module Notes
             module Filter
-              module InScale                
+              module InScale
+                include Events::MIDI::Notes::Helpers::ScaleNotes
+                         
                 def in_scale? *a
                   ns = scale_notes *a
 

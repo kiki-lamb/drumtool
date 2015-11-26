@@ -10,6 +10,7 @@ refresh_interval x1
   on %4
 
 > name SQ
+  to_scale D
   note! { note + time/4 }
   note 35
   loop x10

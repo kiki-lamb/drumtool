@@ -8,6 +8,8 @@ module DrumTool
               module Transform
                 module Remap
                   module ToScale
+                    include Events::MIDI::Notes::Helpers::ScaleNotes
+                    
                     def to_scale! note_name, *a
                       __to_scale__ root_note(note_name).value, note_name, *a
                     end
