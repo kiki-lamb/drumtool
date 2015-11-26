@@ -116,7 +116,7 @@ module DrumTool
       close_notes! 
       assert_valid_engine!
 
-      puts "HI #{engine.htime} / LO #{engine.lores_time}"
+#      puts "HI #{engine.htime} / LO #{engine.lores_time}"
 
       send_control! *(events.select do |e|
                         Controller === e

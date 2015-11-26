@@ -37,7 +37,6 @@ module DrumTool
       assert_midi_output!
 
       controls.each do |control|
-        puts "CC #{control.cc} = #{control.value}"
         midi_output.puts 0xB0, control.cc, control.value
       end
     end

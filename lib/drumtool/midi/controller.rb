@@ -1,7 +1,16 @@
 module DrumTool
   module MIDI
     class Controller
-      attr_accessor :name, :channel, :cc, :value
+      attr_accessor :name, :channel
+      attr_reader :cc, :value
+
+      def cc= x
+        @cc = [128, x].min
+      end
+
+      def value= x
+        @value = [128, x].min
+      end
 
       def short_name
         name[0..1].ljust 2, " "
