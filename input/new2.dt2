@@ -9,7 +9,14 @@ refresh_interval x10            # Refresh the code every 1 bar.
 	    lp x10
       note 0
       when %2
-     
+
+
+#BOF
+
+> lp x8
+	xform { c.value = time * 16 }
+	cc 10 50  
+
 
 #EOF
 

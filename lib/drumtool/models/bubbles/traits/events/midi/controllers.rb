@@ -7,7 +7,7 @@ module DrumTool
             module Controllers
               def ctrl name, cc = nil, value = nil, channel = nil
                 value, cc, name = cc, name, nil if Fixnum === name
-                local_controllers[number] = EnhancedController.new self, name: name, cc: cc, value: value, channel: channel
+                local_controllers[cc] = EnhancedController.new self, name: name, cc: cc, value: value, channel: channel
               end
               
               private       
