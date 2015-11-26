@@ -3,8 +3,8 @@ module DrumTool
     class Bubbles
       module Traits
         module Events
-          module MIDINotes
-            class EnhancedMIDINote < MIDI::Note
+          module MIDI
+            class EnhancedMIDINote < DrumTool::MIDI::Note
               include Traits::MethodResolution::ChainedThrough[:parent]
 
               def vel x = nil

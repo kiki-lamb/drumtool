@@ -1,5 +1,7 @@
 FEATURES/ADDITIONS:
 
+- Probably replace MIDI::Note with classes fromarirusso's midi-message gem.
+
 - REBUILD THE TO/IN_DEGREE COMMANDS.
   Addendum: Transpo maps should be able to operate in scale degrees, if the pattern is in_scale
 	Addendum: This is gonna be interesting since the scale remap methods no longer label the context with

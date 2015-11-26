@@ -11,7 +11,7 @@ module DrumTool
           include Time::Absolute
 
           prepend Events
-          prepend Events::MIDINotes::Table
+          prepend Events::MIDI::Notes::Table
 
           prepend EngineInterface
         end

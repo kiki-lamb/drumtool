@@ -3,7 +3,8 @@ module DrumTool
     class Bubbles
       module Traits
         module Events
-          module MIDINotes
+          module MIDI
+            module Notes
             module Filter
               module MinMax                
                 def range? attr_, rng_or_start = nil, end_ = nil
@@ -41,4 +42,4 @@ module DrumTool
     end
   end
 end
-
+end

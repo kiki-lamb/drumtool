@@ -3,7 +3,8 @@ module DrumTool
     class Bubbles
       module Traits
         module Events
-          module MIDINotes
+          module MIDI
+            module Notes
             module Transform
               module ToScale
                 def to_scale! note_name, *a
@@ -45,4 +46,5 @@ module DrumTool
       end
     end
   end
+end
 end

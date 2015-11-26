@@ -3,7 +3,8 @@ module DrumTool
     class Bubbles
       module Traits
         module Events
-          module MIDINotes
+          module MIDI
+            module Notes
               module Transform
                 module Transpose
                   def semitone! v
@@ -25,4 +26,4 @@ module DrumTool
       end
     end
   end
-
+end

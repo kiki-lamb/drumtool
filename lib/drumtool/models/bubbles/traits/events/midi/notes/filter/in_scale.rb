@@ -3,7 +3,8 @@ module DrumTool
     class Bubbles
       module Traits
         module Events
-          module MIDINotes
+          module MIDI
+            module Notes
             module Filter
               module InScale                
                 def in_scale? *a
@@ -21,4 +22,4 @@ module DrumTool
     end
   end
 end
-
+end

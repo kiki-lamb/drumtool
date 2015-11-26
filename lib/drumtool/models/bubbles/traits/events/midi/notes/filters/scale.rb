@@ -3,7 +3,8 @@ module DrumTool
     class Bubbles
       module Traits
         module Events
-          module MIDINotes
+          module MIDI
+            module Notes
             module Filters
               module Scale
                 def lift!
@@ -62,8 +63,7 @@ module DrumTool
                       end
                     end
                   end
-                end
-                
+                end                
               end
             end
           end
@@ -72,5 +72,4 @@ module DrumTool
     end
   end
 end
-
-
+end
