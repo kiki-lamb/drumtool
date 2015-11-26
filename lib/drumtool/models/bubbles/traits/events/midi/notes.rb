@@ -11,9 +11,9 @@ module DrumTool
                 n = EnhancedNote.new self, name: name, number: number, channel: channel, velocity: velocity
 
                 local_notes[number] = if respond_to?(:register_note)
-                                        register_note(n).tap { puts "LEFT" }
+                                        register_note n
                                       else
-                                        n.tap { puts "RIGHT" }
+                                        n
                                       end
               end
               
