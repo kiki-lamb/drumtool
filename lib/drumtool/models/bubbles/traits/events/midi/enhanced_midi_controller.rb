@@ -4,7 +4,7 @@ module DrumTool
       module Traits
         module Events
           module MIDI
-            class EnhancedController < DrumTool::MIDI::Note
+            class EnhancedMIDIController < DrumTool::MIDI::Controller
               include Traits::MethodResolution::ChainedThrough[:parent]
 
               def cc x = nil

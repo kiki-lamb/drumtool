@@ -7,7 +7,7 @@ module DrumTool
         name[0..1].ljust 2, " "
       end
         
-      def initialize cc, value, name: nil, channel: 1
+      def initialize name: nil, cc: 0, value: 0,  channel: 1
         self.cc = cc
         self.value = value
         self.name = name
